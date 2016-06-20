@@ -20,6 +20,10 @@ class ViewController: UIViewController {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
+  
+  func test(){
+    // just adding soemthing to then remove it to see if the github sync is working
+  }
 
 
 }
