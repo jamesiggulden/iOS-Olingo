@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		424307381D198AA700880BDB /* ResponseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307371D198AA700880BDB /* ResponseViewController.swift */; };
+		4243073A1D198EAF00880BDB /* olingo120.png in Resources */ = {isa = PBXBuildFile; fileRef = 424307391D198EAF00880BDB /* olingo120.png */; };
+		4243073D1D19A14B00880BDB /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243073C1D19A14B00880BDB /* Customer.swift */; };
 		42E62B2F1D0B0E91004B1B6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E62B2E1D0B0E91004B1B6D /* AppDelegate.swift */; };
 		42E62B311D0B0E91004B1B6D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E62B301D0B0E91004B1B6D /* ViewController.swift */; };
 		42E62B341D0B0E91004B1B6D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42E62B321D0B0E91004B1B6D /* Main.storyboard */; };
@@ -34,6 +37,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		424307371D198AA700880BDB /* ResponseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseViewController.swift; sourceTree = "<group>"; };
+		424307391D198EAF00880BDB /* olingo120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = olingo120.png; sourceTree = "<group>"; };
+		4243073C1D19A14B00880BDB /* Customer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		42E62B2B1D0B0E91004B1B6D /* iOS-Olingo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS-Olingo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		42E62B2E1D0B0E91004B1B6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42E62B301D0B0E91004B1B6D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -74,6 +80,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4243073B1D19A11F00880BDB /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				4243073C1D19A14B00880BDB /* Customer.swift */,
+			);
+			name = Entities;
+			sourceTree = "<group>";
+		};
 		42E62B221D0B0E91004B1B6D = {
 			isa = PBXGroup;
 			children = (
@@ -97,12 +111,15 @@
 		42E62B2D1D0B0E91004B1B6D /* iOS-Olingo */ = {
 			isa = PBXGroup;
 			children = (
+				4243073B1D19A11F00880BDB /* Entities */,
 				42E62B2E1D0B0E91004B1B6D /* AppDelegate.swift */,
 				42E62B301D0B0E91004B1B6D /* ViewController.swift */,
 				42E62B321D0B0E91004B1B6D /* Main.storyboard */,
 				42E62B351D0B0E91004B1B6D /* Assets.xcassets */,
 				42E62B371D0B0E91004B1B6D /* LaunchScreen.storyboard */,
 				42E62B3A1D0B0E91004B1B6D /* Info.plist */,
+				424307391D198EAF00880BDB /* olingo120.png */,
+				424307371D198AA700880BDB /* ResponseViewController.swift */,
 			);
 			path = "iOS-Olingo";
 			sourceTree = "<group>";
@@ -233,6 +250,7 @@
 				42E62B391D0B0E91004B1B6D /* LaunchScreen.storyboard in Resources */,
 				42E62B361D0B0E91004B1B6D /* Assets.xcassets in Resources */,
 				42E62B341D0B0E91004B1B6D /* Main.storyboard in Resources */,
+				4243073A1D198EAF00880BDB /* olingo120.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,7 +276,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				42E62B311D0B0E91004B1B6D /* ViewController.swift in Sources */,
+				424307381D198AA700880BDB /* ResponseViewController.swift in Sources */,
 				42E62B2F1D0B0E91004B1B6D /* AppDelegate.swift in Sources */,
+				4243073D1D19A14B00880BDB /* Customer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,6 +513,7 @@
 				42E62B551D0B0E91004B1B6D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		42E62B561D0B0E91004B1B6D /* Build configuration list for PBXNativeTarget "iOS-OlingoTests" */ = {
 			isa = XCConfigurationList;
@@ -501,6 +522,7 @@
 				42E62B581D0B0E91004B1B6D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		42E62B591D0B0E91004B1B6D /* Build configuration list for PBXNativeTarget "iOS-OlingoUITests" */ = {
 			isa = XCConfigurationList;
@@ -509,6 +531,7 @@
 				42E62B5B1D0B0E91004B1B6D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
