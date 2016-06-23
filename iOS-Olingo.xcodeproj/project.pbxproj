@@ -10,6 +10,13 @@
 		424307381D198AA700880BDB /* ResponseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307371D198AA700880BDB /* ResponseViewController.swift */; };
 		4243073A1D198EAF00880BDB /* olingo120.png in Resources */ = {isa = PBXBuildFile; fileRef = 424307391D198EAF00880BDB /* olingo120.png */; };
 		4243073D1D19A14B00880BDB /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243073C1D19A14B00880BDB /* Customer.swift */; };
+		4243077B1D1C2A7C00880BDB /* RetrieveRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307661D1C2A7C00880BDB /* RetrieveRequestFactory.swift */; };
+		424307801D1C2B0600880BDB /* ODataClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243077F1D1C2B0600880BDB /* ODataClient.swift */; };
+		424307821D1C2B3900880BDB /* ODataClientImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307811D1C2B3900880BDB /* ODataClientImp.swift */; };
+		424307851D1C2BAB00880BDB /* PropertyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307841D1C2BAB00880BDB /* PropertyTest.swift */; };
+		424307871D1C2C1D00880BDB /* PropertyTestImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307861D1C2C1D00880BDB /* PropertyTestImp.swift */; };
+		4243078B1D1C2EF600880BDB /* RetrieveRequestFactoryImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243078A1D1C2EF600880BDB /* RetrieveRequestFactoryImp.swift */; };
+		4243078D1D1C3DD700880BDB /* ODataClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243078C1D1C3DD700880BDB /* ODataClientFactory.swift */; };
 		42E62B2F1D0B0E91004B1B6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E62B2E1D0B0E91004B1B6D /* AppDelegate.swift */; };
 		42E62B311D0B0E91004B1B6D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E62B301D0B0E91004B1B6D /* ViewController.swift */; };
 		42E62B341D0B0E91004B1B6D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42E62B321D0B0E91004B1B6D /* Main.storyboard */; };
@@ -40,6 +47,13 @@
 		424307371D198AA700880BDB /* ResponseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseViewController.swift; sourceTree = "<group>"; };
 		424307391D198EAF00880BDB /* olingo120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = olingo120.png; sourceTree = "<group>"; };
 		4243073C1D19A14B00880BDB /* Customer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
+		424307661D1C2A7C00880BDB /* RetrieveRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RetrieveRequestFactory.swift; path = ClientLibrary/api/communication/request/retrieve/RetrieveRequestFactory.swift; sourceTree = "<group>"; };
+		4243077F1D1C2B0600880BDB /* ODataClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ODataClient.swift; path = ClientLibrary/api/ODataClient.swift; sourceTree = "<group>"; };
+		424307811D1C2B3900880BDB /* ODataClientImp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ODataClientImp.swift; path = ClientLibrary/core/ODataClientImp.swift; sourceTree = "<group>"; };
+		424307841D1C2BAB00880BDB /* PropertyTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PropertyTest.swift; path = "Design Trials/PropertyTest.swift"; sourceTree = "<group>"; };
+		424307861D1C2C1D00880BDB /* PropertyTestImp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PropertyTestImp.swift; path = "Design Trials/PropertyTestImp.swift"; sourceTree = "<group>"; };
+		4243078A1D1C2EF600880BDB /* RetrieveRequestFactoryImp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RetrieveRequestFactoryImp.swift; path = ClientLibrary/core/communication/request/retrieve/RetrieveRequestFactoryImp.swift; sourceTree = "<group>"; };
+		4243078C1D1C3DD700880BDB /* ODataClientFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ODataClientFactory.swift; path = ClientLibrary/core/ODataClientFactory.swift; sourceTree = "<group>"; };
 		42E62B2B1D0B0E91004B1B6D /* iOS-Olingo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS-Olingo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		42E62B2E1D0B0E91004B1B6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42E62B301D0B0E91004B1B6D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +102,195 @@
 			name = Entities;
 			sourceTree = "<group>";
 		};
+		4243073E1D1BEAC900880BDB /* ClientLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				424307401D1BEB4800880BDB /* core */,
+				4243073F1D1BEB3E00880BDB /* api */,
+			);
+			name = ClientLibrary;
+			sourceTree = "<group>";
+		};
+		4243073F1D1BEB3E00880BDB /* api */ = {
+			isa = PBXGroup;
+			children = (
+				4243077F1D1C2B0600880BDB /* ODataClient.swift */,
+				4243074F1D1BEC8A00880BDB /* format */,
+				4243074E1D1BEC8400880BDB /* ex */,
+				4243074D1D1BEC7B00880BDB /* edmx */,
+				424307461D1BEBC900880BDB /* uri */,
+				424307451D1BEBB900880BDB /* serialization */,
+				424307441D1BEBAC00880BDB /* edm */,
+				424307431D1BEBA400880BDB /* domain */,
+				424307421D1BEB9D00880BDB /* data */,
+				424307411D1BEB8D00880BDB /* communication */,
+			);
+			name = api;
+			sourceTree = "<group>";
+		};
+		424307401D1BEB4800880BDB /* core */ = {
+			isa = PBXGroup;
+			children = (
+				424307811D1C2B3900880BDB /* ODataClientImp.swift */,
+				4243078C1D1C3DD700880BDB /* ODataClientFactory.swift */,
+				4243074C1D1BEC2A00880BDB /* uri */,
+				4243074B1D1BEC1D00880BDB /* serialization */,
+				4243074A1D1BEC1600880BDB /* edm */,
+				424307491D1BEC1000880BDB /* domain */,
+				424307481D1BEC0900880BDB /* data */,
+				424307471D1BEC0000880BDB /* communication */,
+			);
+			name = core;
+			sourceTree = "<group>";
+		};
+		424307411D1BEB8D00880BDB /* communication */ = {
+			isa = PBXGroup;
+			children = (
+				424307521D1BEEA800880BDB /* request */,
+			);
+			name = communication;
+			sourceTree = "<group>";
+		};
+		424307421D1BEB9D00880BDB /* data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = data;
+			sourceTree = "<group>";
+		};
+		424307431D1BEBA400880BDB /* domain */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = domain;
+			sourceTree = "<group>";
+		};
+		424307441D1BEBAC00880BDB /* edm */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = edm;
+			sourceTree = "<group>";
+		};
+		424307451D1BEBB900880BDB /* serialization */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = serialization;
+			sourceTree = "<group>";
+		};
+		424307461D1BEBC900880BDB /* uri */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = uri;
+			sourceTree = "<group>";
+		};
+		424307471D1BEC0000880BDB /* communication */ = {
+			isa = PBXGroup;
+			children = (
+				4243075B1D1BF4A200880BDB /* request */,
+			);
+			name = communication;
+			sourceTree = "<group>";
+		};
+		424307481D1BEC0900880BDB /* data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = data;
+			sourceTree = "<group>";
+		};
+		424307491D1BEC1000880BDB /* domain */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = domain;
+			sourceTree = "<group>";
+		};
+		4243074A1D1BEC1600880BDB /* edm */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = edm;
+			sourceTree = "<group>";
+		};
+		4243074B1D1BEC1D00880BDB /* serialization */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = serialization;
+			sourceTree = "<group>";
+		};
+		4243074C1D1BEC2A00880BDB /* uri */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = uri;
+			sourceTree = "<group>";
+		};
+		4243074D1D1BEC7B00880BDB /* edmx */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = edmx;
+			sourceTree = "<group>";
+		};
+		4243074E1D1BEC8400880BDB /* ex */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ex;
+			sourceTree = "<group>";
+		};
+		4243074F1D1BEC8A00880BDB /* format */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = format;
+			sourceTree = "<group>";
+		};
+		424307521D1BEEA800880BDB /* request */ = {
+			isa = PBXGroup;
+			children = (
+				424307531D1BEEB200880BDB /* retrieve */,
+			);
+			name = request;
+			sourceTree = "<group>";
+		};
+		424307531D1BEEB200880BDB /* retrieve */ = {
+			isa = PBXGroup;
+			children = (
+				424307661D1C2A7C00880BDB /* RetrieveRequestFactory.swift */,
+			);
+			name = retrieve;
+			sourceTree = "<group>";
+		};
+		4243075B1D1BF4A200880BDB /* request */ = {
+			isa = PBXGroup;
+			children = (
+				4243075C1D1BF4AC00880BDB /* retrieve */,
+			);
+			name = request;
+			sourceTree = "<group>";
+		};
+		4243075C1D1BF4AC00880BDB /* retrieve */ = {
+			isa = PBXGroup;
+			children = (
+				4243078A1D1C2EF600880BDB /* RetrieveRequestFactoryImp.swift */,
+			);
+			name = retrieve;
+			sourceTree = "<group>";
+		};
+		424307831D1C2B4D00880BDB /* Design Trials */ = {
+			isa = PBXGroup;
+			children = (
+				424307841D1C2BAB00880BDB /* PropertyTest.swift */,
+				424307861D1C2C1D00880BDB /* PropertyTestImp.swift */,
+			);
+			name = "Design Trials";
+			sourceTree = "<group>";
+		};
 		42E62B221D0B0E91004B1B6D = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +314,8 @@
 		42E62B2D1D0B0E91004B1B6D /* iOS-Olingo */ = {
 			isa = PBXGroup;
 			children = (
+				424307831D1C2B4D00880BDB /* Design Trials */,
+				4243073E1D1BEAC900880BDB /* ClientLibrary */,
 				4243073B1D19A11F00880BDB /* Entities */,
 				42E62B2E1D0B0E91004B1B6D /* AppDelegate.swift */,
 				42E62B301D0B0E91004B1B6D /* ViewController.swift */,
@@ -277,8 +482,15 @@
 			files = (
 				42E62B311D0B0E91004B1B6D /* ViewController.swift in Sources */,
 				424307381D198AA700880BDB /* ResponseViewController.swift in Sources */,
+				4243078D1D1C3DD700880BDB /* ODataClientFactory.swift in Sources */,
 				42E62B2F1D0B0E91004B1B6D /* AppDelegate.swift in Sources */,
+				424307871D1C2C1D00880BDB /* PropertyTestImp.swift in Sources */,
+				4243077B1D1C2A7C00880BDB /* RetrieveRequestFactory.swift in Sources */,
+				4243078B1D1C2EF600880BDB /* RetrieveRequestFactoryImp.swift in Sources */,
+				424307851D1C2BAB00880BDB /* PropertyTest.swift in Sources */,
+				424307801D1C2B0600880BDB /* ODataClient.swift in Sources */,
 				4243073D1D19A14B00880BDB /* Customer.swift in Sources */,
+				424307821D1C2B3900880BDB /* ODataClientImp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

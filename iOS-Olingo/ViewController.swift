@@ -15,10 +15,41 @@ class ViewController: UIViewController {
   @IBOutlet weak var entitySetField: UITextField!
   
   
+  @IBAction func testProps(sender: AnyObject) {
+    
+    var pt:PropertyTest = PropertyTestImp()
+    NSLog("Test prop1: \(pt.p1)")
+    NSLog("Test prop2: \(pt.p2)")
+    NSLog("Test prop3: \(pt.p3)")
+    NSLog("Test prop4: \(pt.p4)")
+    NSLog("Test prop5: \(pt.p5)")
+    NSLog("Test prop6: \(pt.p6)")
+    pt.p1=11
+    NSLog("Set prop1 to 11")
+    NSLog("Test prop1: \(pt.p1)")
+    //pt.p2=22
+    NSLog("Test prop2: \(pt.p2)")
+    NSLog("Set prop3 to 333")
+    pt.p3=333
+    NSLog("Test prop3: \(pt.p3)")
+    NSLog("Set prop4 to 44")
+    pt.p4=44
+    NSLog("Test prop4: \(pt.p4)")
+    pt.p5=55
+    NSLog("Set prop5 to 55")
+    NSLog("Test prop5: \(pt.p5)")
+    NSLog("Test prop6: \(pt.p6)")
+    
+  }
+  
+  
   @IBAction func submit(sender: AnyObject) {
   }
   
   
+  @IBAction func testClientFactory(sender: AnyObject) {
+    
+  }
   
   
   
