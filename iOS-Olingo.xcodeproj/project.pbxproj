@@ -114,6 +114,7 @@
 		4243073F1D1BEB3E00880BDB /* api */ = {
 			isa = PBXGroup;
 			children = (
+				4243079F1D1D7C5F00880BDB /* http */,
 				4243077F1D1C2B0600880BDB /* ODataClient.swift */,
 				4243074F1D1BEC8A00880BDB /* format */,
 				4243074E1D1BEC8400880BDB /* ex */,
@@ -146,6 +147,8 @@
 		424307411D1BEB8D00880BDB /* communication */ = {
 			isa = PBXGroup;
 			children = (
+				424307A11D1D7C8700880BDB /* header */,
+				424307A01D1D7C7C00880BDB /* response */,
 				424307521D1BEEA800880BDB /* request */,
 			);
 			name = communication;
@@ -168,6 +171,11 @@
 		424307441D1BEBAC00880BDB /* edm */ = {
 			isa = PBXGroup;
 			children = (
+				4243079E1D1D7C4300880BDB /* annotation */,
+				4243079D1D1D7C3700880BDB /* geo */,
+				4243079C1D1D7C2F00880BDB /* xml */,
+				4243079A1D1D7BCD00880BDB /* constants */,
+				424307991D1D7BC300880BDB /* provider */,
 			);
 			name = edm;
 			sourceTree = "<group>";
@@ -189,6 +197,8 @@
 		424307471D1BEC0000880BDB /* communication */ = {
 			isa = PBXGroup;
 			children = (
+				424307911D1D7B3900880BDB /* response */,
+				424307901D1D7B2F00880BDB /* header */,
 				4243075B1D1BF4A200880BDB /* request */,
 			);
 			name = communication;
@@ -211,6 +221,7 @@
 		4243074A1D1BEC1600880BDB /* edm */ = {
 			isa = PBXGroup;
 			children = (
+				424307971D1D7B7C00880BDB /* xml */,
 			);
 			name = edm;
 			sourceTree = "<group>";
@@ -253,6 +264,10 @@
 		424307521D1BEEA800880BDB /* request */ = {
 			isa = PBXGroup;
 			children = (
+				424307A51D1D7CAE00880BDB /* cud */,
+				424307A41D1D7CA100880BDB /* batch */,
+				424307A31D1D7C9900880BDB /* invoke */,
+				424307A21D1D7C9300880BDB /* streamed */,
 				424307531D1BEEB200880BDB /* retrieve */,
 			);
 			name = request;
@@ -269,6 +284,10 @@
 		4243075B1D1BF4A200880BDB /* request */ = {
 			isa = PBXGroup;
 			children = (
+				424307961D1D7B6D00880BDB /* streamed */,
+				424307951D1D7B6200880BDB /* invoke */,
+				424307941D1D7B5B00880BDB /* cud */,
+				424307931D1D7B5400880BDB /* batch */,
 				4243075C1D1BF4AC00880BDB /* retrieve */,
 			);
 			name = request;
@@ -289,6 +308,163 @@
 				424307861D1C2C1D00880BDB /* PropertyTestImp.swift */,
 			);
 			name = "Design Trials";
+			sourceTree = "<group>";
+		};
+		424307901D1D7B2F00880BDB /* header */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = header;
+			sourceTree = "<group>";
+		};
+		424307911D1D7B3900880BDB /* response */ = {
+			isa = PBXGroup;
+			children = (
+				424307921D1D7B4300880BDB /* batch */,
+			);
+			name = response;
+			sourceTree = "<group>";
+		};
+		424307921D1D7B4300880BDB /* batch */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = batch;
+			sourceTree = "<group>";
+		};
+		424307931D1D7B5400880BDB /* batch */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = batch;
+			sourceTree = "<group>";
+		};
+		424307941D1D7B5B00880BDB /* cud */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = cud;
+			sourceTree = "<group>";
+		};
+		424307951D1D7B6200880BDB /* invoke */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = invoke;
+			sourceTree = "<group>";
+		};
+		424307961D1D7B6D00880BDB /* streamed */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = streamed;
+			sourceTree = "<group>";
+		};
+		424307971D1D7B7C00880BDB /* xml */ = {
+			isa = PBXGroup;
+			children = (
+				424307981D1D7B8500880BDB /* annotation */,
+			);
+			name = xml;
+			sourceTree = "<group>";
+		};
+		424307981D1D7B8500880BDB /* annotation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = annotation;
+			sourceTree = "<group>";
+		};
+		424307991D1D7BC300880BDB /* provider */ = {
+			isa = PBXGroup;
+			children = (
+				4243079B1D1D7C1F00880BDB /* annotation */,
+			);
+			name = provider;
+			sourceTree = "<group>";
+		};
+		4243079A1D1D7BCD00880BDB /* constants */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = constants;
+			sourceTree = "<group>";
+		};
+		4243079B1D1D7C1F00880BDB /* annotation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = annotation;
+			sourceTree = "<group>";
+		};
+		4243079C1D1D7C2F00880BDB /* xml */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = xml;
+			sourceTree = "<group>";
+		};
+		4243079D1D1D7C3700880BDB /* geo */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = geo;
+			sourceTree = "<group>";
+		};
+		4243079E1D1D7C4300880BDB /* annotation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = annotation;
+			sourceTree = "<group>";
+		};
+		4243079F1D1D7C5F00880BDB /* http */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = http;
+			sourceTree = "<group>";
+		};
+		424307A01D1D7C7C00880BDB /* response */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = response;
+			sourceTree = "<group>";
+		};
+		424307A11D1D7C8700880BDB /* header */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = header;
+			sourceTree = "<group>";
+		};
+		424307A21D1D7C9300880BDB /* streamed */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = streamed;
+			sourceTree = "<group>";
+		};
+		424307A31D1D7C9900880BDB /* invoke */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = invoke;
+			sourceTree = "<group>";
+		};
+		424307A41D1D7CA100880BDB /* batch */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = batch;
+			sourceTree = "<group>";
+		};
+		424307A51D1D7CAE00880BDB /* cud */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = cud;
 			sourceTree = "<group>";
 		};
 		42E62B221D0B0E91004B1B6D = {

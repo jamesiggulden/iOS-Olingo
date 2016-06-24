@@ -49,6 +49,12 @@ class ViewController: UIViewController {
   
   @IBAction func testClientFactory(sender: AnyObject) {
     
+    //let oDataClientFac:ODataClientFactory = ODataClientFactory()
+    
+    //let client:ODataClient = oDataClientFac.getClient()
+    
+    let client:ODataClient = ODataClientFactory().getClient()
+    
   }
   
   

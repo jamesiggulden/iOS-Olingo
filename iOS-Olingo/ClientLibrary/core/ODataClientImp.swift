@@ -8,9 +8,9 @@
 
 import Foundation
 
-public class ODataClientImpl: ODataClient {
+public class ODataClientImp: ODataClient {
   
-  internal final let retrieveReqFact:RetrieveRequestFactory = RetrieveRequestFactoryImpl();
+  let retrieveReqFact:RetrieveRequestFactory = RetrieveRequestFactoryImpl();
 
   func retrieveRequestFactory() -> RetrieveRequestFactory {
     

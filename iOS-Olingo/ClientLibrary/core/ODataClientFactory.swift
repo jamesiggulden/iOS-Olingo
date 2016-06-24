@@ -10,7 +10,9 @@ import Foundation
 public final class ODataClientFactory {
   
   func getClient() -> ODataClient {
-    return ODataClientImpl;
+    
+    let client:ODataClient = ODataClientImp()
+    return client
   }
   
 }
