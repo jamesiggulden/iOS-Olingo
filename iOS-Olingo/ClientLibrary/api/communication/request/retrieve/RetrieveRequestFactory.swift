@@ -46,7 +46,14 @@ public protocol RetrieveRequestFactory {
   ///   - uri: NSURL object containing a URI
   /// - returns: Odata Entity Request
   /// - throws: No error conditions are expected
-  func entitySetRequest(uri:NSURL) // -> ODataEntityRequestImpl
+  func entitySetRequest(uri:NSURL) -> ODataEntitySetRequest
+  
+  /// Gets a uri request returning a single Odata entity
+  /// - parameters:
+  ///   - uri: NSURL object containing a URI
+  /// - returns: Odata Entity Request
+  /// - throws: No error conditions are expected
+  func entityRequest(uri:NSURL) -> ODataEntityRequest
 }
 
 

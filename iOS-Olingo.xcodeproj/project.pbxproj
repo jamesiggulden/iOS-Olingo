@@ -91,6 +91,11 @@
 		426025881D304A7500D4A4E1 /* HttpSessionFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260252F1D2BB96600D4A4E1 /* HttpSessionFactoryImpl.swift */; };
 		426025891D304ACC00D4A4E1 /* HttpSessionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025311D2BBADE00D4A4E1 /* HttpSessionFactory.swift */; };
 		4260258A1D304AE200D4A4E1 /* TypeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426057061D2574DE00EB202B /* TypeUtil.swift */; };
+		4260258C1D3393B500D4A4E1 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260258B1D3393B500D4A4E1 /* Logger.swift */; };
+		4260258E1D339A2F00D4A4E1 /* ODataEntityRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260258D1D339A2F00D4A4E1 /* ODataEntityRequest.swift */; };
+		426025901D33A8EC00D4A4E1 /* ODataEntitySetRequestImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260258F1D33A8EC00D4A4E1 /* ODataEntitySetRequestImpl.swift */; };
+		426025921D33B08900D4A4E1 /* ODataEntitySetRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025911D33B08900D4A4E1 /* ODataEntitySetRequest.swift */; };
+		426025941D33BE5D00D4A4E1 /* ODataEntitySetResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025931D33BE5D00D4A4E1 /* ODataEntitySetResponse.swift */; };
 		426057051D254BB100EB202B /* ErrorTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426057041D254BB100EB202B /* ErrorTypes.swift */; };
 		426057071D2574DE00EB202B /* TypeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426057061D2574DE00EB202B /* TypeUtil.swift */; };
 		42E62B2F1D0B0E91004B1B6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E62B2E1D0B0E91004B1B6D /* AppDelegate.swift */; };
@@ -194,6 +199,11 @@
 		426025801D2FAFAB00D4A4E1 /* AbstractPrimitiveType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbstractPrimitiveType.swift; path = ClientLibrary/core/edm/AbstractPrimitiveType.swift; sourceTree = "<group>"; };
 		426025821D2FCC5900D4A4E1 /* JsonEntityDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JsonEntityDeserializer.swift; path = ClientLibrary/core/serialization/JsonEntityDeserializer.swift; sourceTree = "<group>"; };
 		426025841D2FD1D300D4A4E1 /* JsonEntitySetDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JsonEntitySetDeserializer.swift; path = ClientLibrary/core/serialization/JsonEntitySetDeserializer.swift; sourceTree = "<group>"; };
+		4260258B1D3393B500D4A4E1 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		4260258D1D339A2F00D4A4E1 /* ODataEntityRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ODataEntityRequest.swift; path = ClientLibrary/api/communication/request/retrieve/ODataEntityRequest.swift; sourceTree = "<group>"; };
+		4260258F1D33A8EC00D4A4E1 /* ODataEntitySetRequestImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ODataEntitySetRequestImpl.swift; path = ClientLibrary/core/communication/request/retrieve/ODataEntitySetRequestImpl.swift; sourceTree = "<group>"; };
+		426025911D33B08900D4A4E1 /* ODataEntitySetRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ODataEntitySetRequest.swift; sourceTree = "<group>"; };
+		426025931D33BE5D00D4A4E1 /* ODataEntitySetResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ODataEntitySetResponse.swift; path = ClientLibrary/core/communication/request/retrieve/ODataEntitySetResponse.swift; sourceTree = "<group>"; };
 		426057041D254BB100EB202B /* ErrorTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrorTypes.swift; path = ClientLibrary/utils/ErrorTypes.swift; sourceTree = "<group>"; };
 		426057061D2574DE00EB202B /* TypeUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TypeUtil.swift; path = ClientLibrary/api/format/TypeUtil.swift; sourceTree = "<group>"; };
 		42E62B2B1D0B0E91004B1B6D /* iOS-Olingo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS-Olingo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -458,6 +468,8 @@
 		424307531D1BEEB200880BDB /* retrieve */ = {
 			isa = PBXGroup;
 			children = (
+				426025911D33B08900D4A4E1 /* ODataEntitySetRequest.swift */,
+				4260258D1D339A2F00D4A4E1 /* ODataEntityRequest.swift */,
 				424307661D1C2A7C00880BDB /* RetrieveRequestFactory.swift */,
 			);
 			name = retrieve;
@@ -484,7 +496,9 @@
 		4243075C1D1BF4AC00880BDB /* retrieve */ = {
 			isa = PBXGroup;
 			children = (
+				426025931D33BE5D00D4A4E1 /* ODataEntitySetResponse.swift */,
 				426025441D2D4F5D00D4A4E1 /* ODataEntityRequestImpl.swift */,
+				4260258F1D33A8EC00D4A4E1 /* ODataEntitySetRequestImpl.swift */,
 				4260253C1D2D124800D4A4E1 /* ODataRetrieveRequest.swift */,
 				4260253E1D2D186400D4A4E1 /* ODataRetrieveResponse.swift */,
 				4243078A1D1C2EF600880BDB /* RetrieveRequestFactoryImp.swift */,
@@ -692,6 +706,7 @@
 		426056FF1D253FEF00EB202B /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				4260258B1D3393B500D4A4E1 /* Logger.swift */,
 				426057041D254BB100EB202B /* ErrorTypes.swift */,
 				426025381D2CF56000D4A4E1 /* Extensions.swift */,
 			);
@@ -904,12 +919,16 @@
 				424307381D198AA700880BDB /* ResponseViewController.swift in Sources */,
 				4243078D1D1C3DD700880BDB /* ODataClientFactory.swift in Sources */,
 				4260254B1D2D6AF800D4A4E1 /* ResWrap.swift in Sources */,
+				4260258E1D339A2F00D4A4E1 /* ODataEntityRequest.swift in Sources */,
 				4260254F1D2D74AE00D4A4E1 /* ClientODataDeserializerImpl.swift in Sources */,
 				426025711D2E882A00D4A4E1 /* AtomDeserializer.swift in Sources */,
 				426025591D2DAA2B00D4A4E1 /* Valuable.swift in Sources */,
+				4260258C1D3393B500D4A4E1 /* Logger.swift in Sources */,
+				426025901D33A8EC00D4A4E1 /* ODataEntitySetRequestImpl.swift in Sources */,
 				4260252E1D2AA09200D4A4E1 /* HttpMethod.swift in Sources */,
 				42E62B2F1D0B0E91004B1B6D /* AppDelegate.swift in Sources */,
 				424307871D1C2C1D00880BDB /* PropertyTestImp.swift in Sources */,
+				426025921D33B08900D4A4E1 /* ODataEntitySetRequest.swift in Sources */,
 				426025651D2E6AD500D4A4E1 /* Constants.swift in Sources */,
 				4260253D1D2D124800D4A4E1 /* ODataRetrieveRequest.swift in Sources */,
 				4260257D1D2EB2AA00D4A4E1 /* FullQualifiedName.swift in Sources */,
@@ -940,6 +959,7 @@
 				426025301D2BB96600D4A4E1 /* HttpSessionFactoryImpl.swift in Sources */,
 				4260253F1D2D186400D4A4E1 /* ODataRetrieveResponse.swift in Sources */,
 				424307BE1D23223E00880BDB /* ContentType.swift in Sources */,
+				426025941D33BE5D00D4A4E1 /* ODataEntitySetResponse.swift in Sources */,
 				424307AD1D2288C600880BDB /* ODataHeadersImpl.swift in Sources */,
 				426025751D2E913100D4A4E1 /* ODataErrorDetail.swift in Sources */,
 				426025251D2A628D00D4A4E1 /* ConfigurationProperty.swift in Sources */,

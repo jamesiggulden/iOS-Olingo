@@ -44,10 +44,10 @@ public class AbstractODataResponse: ODataResponse {
   //let httpClient:HttpClient
   
   /// HTTP response.
-  let res:HttpResponseContent
+  public let res:HttpResponseContent
   
   /// Response headers.
-  var headers:[String:String] = [:]
+  public var headers:[String:String] = [:]
   
   /// Response code.
   public var statusCode:Int = -1
@@ -95,7 +95,7 @@ public class AbstractODataResponse: ODataResponse {
     self.statusCode = res.response.statusCode
     self.statusMessage = res.response.statusCode.description
     for header in res.response.allHeaderFields {
-      self.headers.updateValue(header.0 as! String, forKey: header.1 as! String)
+      self.headers.updateValue(header.1 as! String, forKey: header.0 as! String)
     }
     self.hasBeenInitialized=true
     //initFromHttpResponse(res)

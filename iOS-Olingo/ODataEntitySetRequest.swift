@@ -19,25 +19,23 @@
 
 
 //
-//  AbstractODataRetrieveResponse.swift
+//  ODataEntitySetRequest.swift
 //  iOS-Olingo
 //
-//  Created by Greg Napier on 06/07/2016.
+//  Created by Greg Napier on 11/07/2016.
 //  Copyright © 2016 EnergySys. All rights reserved.
 //
 
 import Foundation
 
 
-// MARK: - Protocol
+ // Protocol to describe an OData EntitySet query request.
 
-/// Response abstract class about an ODataRetrieveRequest.
-public protocol ODataRetrieveResponse : ODataResponse{
-  // MARK: - Protocol Properties
-  
-  // MARK: - Protocol Methods
-  func getBody()
-  //func getBody<T>() -> T
+public protocol ODataEntitySetRequest: ODataRetrieveRequest {
+  //No additional methods needed for now
 }
 
+//public interface ODataEntitySetRequest<ES extends ClientEntitySet> extends ODataRetrieveRequest<ES> {
+//  //No additional methods needed for now.
+//}
 

@@ -51,6 +51,15 @@ public protocol ODataResponse {
   /// Gets status message.
   var statusMessage:String {get}
   
+  
+  /// HTTP response.
+  var res:HttpResponseContent {get}
+  
+  /// Response headers.
+  var headers:[String:String] {get}
+  
+  
+  
 // MARK: - Protocol Methods
 
 /// Gets header value of the given header.

@@ -61,7 +61,17 @@ public class RetrieveRequestFactoryImpl: RetrieveRequestFactory {
   ///   - uri: NSURL object containing a URI
   /// - returns: No return value (void) TODO
   /// - throws: No error conditions are expected
-  public func entitySetRequest(uri:NSURL) { //-> ODataEntityRequestImpl {
-    //return ODataEntityRequestImpl(odataClient: client, query: uri)
+  public func entitySetRequest(uri:NSURL) -> ODataEntitySetRequest {
+    return ODataEntitySetRequestImpl(odataClient: client, query: uri)
   }
+  
+  /// Gets a uri request returning a single OData entity
+  /// - parameters:
+  ///   - uri: NSURL object containing a URI
+  /// - returns: No return value (void) TODO
+  /// - throws: No error conditions are expected
+  public func entityRequest(uri:NSURL) -> ODataEntityRequest {
+    return ODataEntityRequestImpl(odataClient: client, query: uri)
+  }
+
 }

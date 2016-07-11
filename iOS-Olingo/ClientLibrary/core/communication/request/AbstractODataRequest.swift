@@ -238,15 +238,20 @@ public class AbstractODataRequest: Request {
       request.addValue(value, forHTTPHeaderField: name)
     }
     
-    // TODO:  Add logging capability
-    // Add logging capability
-    //    if (LOG.isDebugEnabled()) {
-    //      for (Header header : request.getAllHeaders()) {
-    //        LOG.debug("HTTP header being sent: " + header);
-    //      }
-    //    }
+    if log.logMode == Log.LogMode.DEBUG {
+      if let headers = request.allHTTPHeaderFields{
+        for (key,value) in headers {
+          log.debug("HTTP header being sent: Key: \(key) Value: \(value)")
+        }
+      }
+      else{
+        log.debug("HTTP header being sent: None")
+        
+      }
+    }
+
     
-    // build the closure to submit the request and receive response
+    // build the closure to submit the request and handle response
     httpSession.sendSynchronousRequest(request) {
       (let data, let response, let error) in
       
@@ -256,29 +261,37 @@ public class AbstractODataRequest: Request {
       }
       let dataString = NSString(data:data!,encoding: NSUTF8StringEncoding)
       let httpResponse = response as? NSHTTPURLResponse
-      print (dataString)
-      print ("Status Code: \(httpResponse!.statusCode)")
-      let dataDictionary = self.parseHttpData(data)
-      var i = 1
-      for item in dataDictionary {
-        
-        print ("data key \(i): \(item.0) ")
-        i += 1
-      }
       
-      for item in dataDictionary {
-        print ("data \(i): \(item.0) : \(item.1) ")
-        i += 1
+      log.debug(String(dataString))
+      log.debug(String(httpResponse!.statusCode))
+      
+      
+      if log.logMode == Log.LogMode.DEBUG {
+        if let dataDictionary = self.parseHttpData(data) {
+          var i = 1
+          for item in dataDictionary {
+            log.debug("data key \(i): \(item.0) ")
+            i += 1
+          }
+          i=1
+          for item in dataDictionary {
+            log.debug("data \(i): \(item.0) : \(item.1) ")
+            i += 1
+          }
+        }
+        else {
+          log.debug ("No data returned")
+        }
+        
+        
+        
+
       }
       self.httpResponseContent = HttpResponseContent(data: data!,response: httpResponse!)
-      
-//      dispatch_async(dispatch_get_main_queue(),{
-//        self.httpResponseContent = HttpResponseContent(data: data!,response: httpResponse!) //,error: error!) //,dataDictionary: dataDictionary!)
-//        print ("Completed")
-//      })
+
     }
       
-    print ("Success Code: \(self.httpResponseContent.response.statusCode)")
+    log.debug("Status Code: \(self.httpResponseContent.response.statusCode)")
     
     return httpResponseContent
     
@@ -318,11 +331,6 @@ public class AbstractODataRequest: Request {
       //self.responseStatusLabel.text = "Error parsing results: \(error.localizedDescription)"
     }
     return nil
-    
-    //dispatch_async(dispatch_get_main_queue()) {
-     // self.responseStatusLabel.text = "Success"
-      //      self.tableView.reloadData()
-      //      self.tableView.setContentOffset(CGPointZero, animated: false)
     }
   }
   

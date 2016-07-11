@@ -34,7 +34,7 @@ import Foundation
  /// Currently inherits from AbstractODataRequest with protocoal+extensions for 
  /// AbstractODataRetrieveRequest,AbstractODataBasicRequest
 
-public class ODataEntityRequestImpl:AbstractODataRequest,ODataRetrieveRequest,ODataBasicRequest { //extends AbstractODataRetrieveRequest<E> implements ODataEntityRequest<E> {
+public class ODataEntityRequestImpl:AbstractODataRequest,ODataRetrieveRequest,ODataBasicRequest,ODataEntityRequest { //extends AbstractODataRetrieveRequest<E> implements ODataEntityRequest<E> {
   
   
   // MARK: - Stored Properties
@@ -51,11 +51,22 @@ public class ODataEntityRequestImpl:AbstractODataRequest,ODataRetrieveRequest,OD
   
   
   // MARK: - Methods
-
+ 
+  /// get the default format defined for the OData client
+  /// - parameters:
+  ///   - none
+  /// - returns: default format as content type object
+  /// - throws: No error conditions are expected
   public override func getDefaultFormat() -> ContentType {
     return odataClient.configuration.defaultPubFormat
   }
   
+   
+  /// Execute a synchronise request, wait, receive and return the received response
+  /// - parameters:
+  ///   - none
+  /// - returns: response
+  /// - throws: No error conditions are expected
   public func execute() -> ODataRetrieveResponse! {
     
     do {
@@ -74,22 +85,30 @@ public class ODataEntityRequestImpl:AbstractODataRequest,ODataRetrieveRequest,OD
     
   }
   
-  /**
-   * Response class about an ODataEntityRequest.
-   */
+  /// Response class about an ODataEntityRequest.
   public class ODataEntityResponse: AbstractODataResponse, ODataRetrieveResponse {
     
+    // MARK: - Stored Properties
+
     private var entity:AnyObject? // ??? is this a gerneic type?
     
-    
+    // MARK: - Computed Properties
+
+    // MARK: - Init
+
     override init (odataClient:ODataClient,res: HttpResponseContent) {
     // MARK:  REDUNDANT:? init (odataClient:ODataClient, httpClient:HttpClient,res: HttpResponseContent) {
-      
       super.init(odataClient: odataClient,res: res)
       // MARK: REDUNDANT:? super.init(odataClient: odataClient, httpclient: httpClient, res: res)
-      
     }
     
+    // MARK: - Methods
+ 
+    /// Get the body of the returned response
+    /// - parameters:
+    ///   - none
+    /// - returns: Entity
+    /// - throws: No error conditions are expected
     public func getBody() {
       
     }
