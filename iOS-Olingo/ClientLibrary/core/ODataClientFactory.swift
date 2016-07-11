@@ -7,8 +7,16 @@
 //
 
 import Foundation
+
+/// Implementation of a factory to create an OData Client
 public final class ODataClientFactory {
   
+  
+  /// create a new instance of an Odata client
+/// - parameters:
+///   - none
+/// - returns: OData client
+/// - throws: No error conditions are expected
   func getClient() -> ODataClient {
     
     let client:ODataClient = ODataClientImp()

@@ -17,6 +17,82 @@
 		424307871D1C2C1D00880BDB /* PropertyTestImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307861D1C2C1D00880BDB /* PropertyTestImp.swift */; };
 		4243078B1D1C2EF600880BDB /* RetrieveRequestFactoryImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243078A1D1C2EF600880BDB /* RetrieveRequestFactoryImp.swift */; };
 		4243078D1D1C3DD700880BDB /* ODataClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243078C1D1C3DD700880BDB /* ODataClientFactory.swift */; };
+		424307A71D22720D00880BDB /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307A61D22720D00880BDB /* Request.swift */; };
+		424307A91D227AD800880BDB /* ODataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307A81D227AD800880BDB /* ODataRequest.swift */; };
+		424307AB1D22848700880BDB /* ODataHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307AA1D22848700880BDB /* ODataHeaders.swift */; };
+		424307AD1D2288C600880BDB /* ODataHeadersImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307AC1D2288C600880BDB /* ODataHeadersImpl.swift */; };
+		424307B01D229BE300880BDB /* ODataHeadersTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307AF1D229BE300880BDB /* ODataHeadersTest.swift */; };
+		424307B21D22BE4800880BDB /* AbstractODataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307B11D22BE4800880BDB /* AbstractODataRequest.swift */; };
+		424307B41D22C3B400880BDB /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307B31D22C3B400880BDB /* HttpClient.swift */; };
+		424307B81D22C53200880BDB /* HttpUriRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307B71D22C53200880BDB /* HttpUriRequest.swift */; };
+		424307BA1D22D73500880BDB /* HttpHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307B91D22D73500880BDB /* HttpHeader.swift */; };
+		424307BC1D22E4B100880BDB /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307BB1D22E4B100880BDB /* File.swift */; };
+		424307BE1D23223E00880BDB /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307BD1D23223E00880BDB /* ContentType.swift */; };
+		426025151D26B12C00D4A4E1 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025141D26B12C00D4A4E1 /* Configuration.swift */; };
+		426025171D26B3D500D4A4E1 /* HttpClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025161D26B3D500D4A4E1 /* HttpClientFactory.swift */; };
+		426025191D26B4AD00D4A4E1 /* HttpUriRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025181D26B4AD00D4A4E1 /* HttpUriRequestFactory.swift */; };
+		4260251C1D26B67500D4A4E1 /* AbstractHttpClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260251B1D26B67500D4A4E1 /* AbstractHttpClientFactory.swift */; };
+		4260251D1D26B67500D4A4E1 /* AbstractHttpClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260251B1D26B67500D4A4E1 /* AbstractHttpClientFactory.swift */; };
+		4260251F1D26BA7C00D4A4E1 /* DefaultHttpClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260251E1D26BA7C00D4A4E1 /* DefaultHttpClientFactory.swift */; };
+		426025201D26BA7C00D4A4E1 /* DefaultHttpClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260251E1D26BA7C00D4A4E1 /* DefaultHttpClientFactory.swift */; };
+		426025221D26BD9500D4A4E1 /* ConfigurationImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025211D26BD9500D4A4E1 /* ConfigurationImpl.swift */; };
+		426025231D26BD9500D4A4E1 /* ConfigurationImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025211D26BD9500D4A4E1 /* ConfigurationImpl.swift */; };
+		426025251D2A628D00D4A4E1 /* ConfigurationProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025241D2A628D00D4A4E1 /* ConfigurationProperty.swift */; };
+		426025261D2A628D00D4A4E1 /* ConfigurationProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025241D2A628D00D4A4E1 /* ConfigurationProperty.swift */; };
+		426025281D2A859400D4A4E1 /* ODataPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025271D2A859400D4A4E1 /* ODataPreferences.swift */; };
+		4260252A1D2A896200D4A4E1 /* PreferenceName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025291D2A896200D4A4E1 /* PreferenceName.swift */; };
+		4260252E1D2AA09200D4A4E1 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260252D1D2AA09200D4A4E1 /* HttpMethod.swift */; };
+		426025301D2BB96600D4A4E1 /* HttpSessionFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260252F1D2BB96600D4A4E1 /* HttpSessionFactoryImpl.swift */; };
+		426025321D2BBADE00D4A4E1 /* HttpSessionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025311D2BBADE00D4A4E1 /* HttpSessionFactory.swift */; };
+		426025341D2BC67500D4A4E1 /* AbstractODataRequestTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025331D2BC67500D4A4E1 /* AbstractODataRequestTest.swift */; };
+		426025351D2BCCA100D4A4E1 /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307BD1D23223E00880BDB /* ContentType.swift */; };
+		426025371D2BFA3D00D4A4E1 /* HttpResponseContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025361D2BFA3D00D4A4E1 /* HttpResponseContent.swift */; };
+		426025391D2CF56000D4A4E1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025381D2CF56000D4A4E1 /* Extensions.swift */; };
+		4260253B1D2D054200D4A4E1 /* ODataBasicRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260253A1D2D054200D4A4E1 /* ODataBasicRequest.swift */; };
+		4260253D1D2D124800D4A4E1 /* ODataRetrieveRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260253C1D2D124800D4A4E1 /* ODataRetrieveRequest.swift */; };
+		4260253F1D2D186400D4A4E1 /* ODataRetrieveResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260253E1D2D186400D4A4E1 /* ODataRetrieveResponse.swift */; };
+		426025411D2D1AAB00D4A4E1 /* AbstractODataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025401D2D1AAB00D4A4E1 /* AbstractODataResponse.swift */; };
+		426025431D2D21AD00D4A4E1 /* ODataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025421D2D21AD00D4A4E1 /* ODataResponse.swift */; };
+		426025451D2D4F5D00D4A4E1 /* ODataEntityRequestImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025441D2D4F5D00D4A4E1 /* ODataEntityRequestImpl.swift */; };
+		426025471D2D622F00D4A4E1 /* ClientODataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025461D2D622F00D4A4E1 /* ClientODataDeserializer.swift */; };
+		426025491D2D634800D4A4E1 /* ODataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025481D2D634800D4A4E1 /* ODataDeserializer.swift */; };
+		4260254B1D2D6AF800D4A4E1 /* ResWrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260254A1D2D6AF800D4A4E1 /* ResWrap.swift */; };
+		4260254D1D2D6CD000D4A4E1 /* ResWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260254C1D2D6CD000D4A4E1 /* ResWrapper.swift */; };
+		4260254F1D2D74AE00D4A4E1 /* ClientODataDeserializerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260254E1D2D74AE00D4A4E1 /* ClientODataDeserializerImpl.swift */; };
+		426025511D2D79E000D4A4E1 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025501D2D79E000D4A4E1 /* Entity.swift */; };
+		426025531D2D824800D4A4E1 /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025521D2D824800D4A4E1 /* Link.swift */; };
+		426025551D2D9F2700D4A4E1 /* EntityCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025541D2D9F2700D4A4E1 /* EntityCollection.swift */; };
+		426025571D2DA34200D4A4E1 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025561D2DA34200D4A4E1 /* Property.swift */; };
+		426025591D2DAA2B00D4A4E1 /* Valuable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025581D2DAA2B00D4A4E1 /* Valuable.swift */; };
+		4260255B1D2DB45400D4A4E1 /* ValueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260255A1D2DB45400D4A4E1 /* ValueType.swift */; };
+		4260255D1D2DB8CE00D4A4E1 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260255C1D2DB8CE00D4A4E1 /* Operation.swift */; };
+		4260255F1D2E434500D4A4E1 /* protocol template.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260255E1D2E434500D4A4E1 /* protocol template.swift */; };
+		426025611D2E61B000D4A4E1 /* ServiceDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025601D2E61B000D4A4E1 /* ServiceDocument.swift */; };
+		426025631D2E631300D4A4E1 /* ServiceDocumentImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025621D2E631300D4A4E1 /* ServiceDocumentImpl.swift */; };
+		426025651D2E6AD500D4A4E1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025641D2E6AD500D4A4E1 /* Constants.swift */; };
+		426025671D2E74F800D4A4E1 /* ServiceDocumentItemImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025661D2E74F800D4A4E1 /* ServiceDocumentItemImpl.swift */; };
+		426025691D2E76E800D4A4E1 /* ServiceDocumentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025681D2E76E800D4A4E1 /* ServiceDocumentItem.swift */; };
+		4260256B1D2E827000D4A4E1 /* Delta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260256A1D2E827000D4A4E1 /* Delta.swift */; };
+		4260256D1D2E848A00D4A4E1 /* Deltalink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260256C1D2E848A00D4A4E1 /* Deltalink.swift */; };
+		4260256F1D2E85EE00D4A4E1 /* DeletedEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260256E1D2E85EE00D4A4E1 /* DeletedEntity.swift */; };
+		426025711D2E882A00D4A4E1 /* AtomDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025701D2E882A00D4A4E1 /* AtomDeserializer.swift */; };
+		426025731D2E8AE900D4A4E1 /* ODataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025721D2E8AE900D4A4E1 /* ODataError.swift */; };
+		426025751D2E913100D4A4E1 /* ODataErrorDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025741D2E913100D4A4E1 /* ODataErrorDetail.swift */; };
+		426025771D2E974200D4A4E1 /* JsonDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025761D2E974200D4A4E1 /* JsonDeserializer.swift */; };
+		426025791D2EAA2900D4A4E1 /* PropertyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025781D2EAA2900D4A4E1 /* PropertyType.swift */; };
+		4260257B1D2EABDF00D4A4E1 /* EdmPrimitiveTypeKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260257A1D2EABDF00D4A4E1 /* EdmPrimitiveTypeKind.swift */; };
+		4260257D1D2EB2AA00D4A4E1 /* FullQualifiedName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260257C1D2EB2AA00D4A4E1 /* FullQualifiedName.swift */; };
+		4260257F1D2FAC8800D4A4E1 /* EdmPrimitiveType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260257E1D2FAC8800D4A4E1 /* EdmPrimitiveType.swift */; };
+		426025811D2FAFAB00D4A4E1 /* AbstractPrimitiveType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025801D2FAFAB00D4A4E1 /* AbstractPrimitiveType.swift */; };
+		426025831D2FCC5900D4A4E1 /* JsonEntityDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025821D2FCC5900D4A4E1 /* JsonEntityDeserializer.swift */; };
+		426025851D2FD1D300D4A4E1 /* JsonEntitySetDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025841D2FD1D300D4A4E1 /* JsonEntitySetDeserializer.swift */; };
+		426025861D304A1C00D4A4E1 /* ErrorTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426057041D254BB100EB202B /* ErrorTypes.swift */; };
+		426025871D304A4C00D4A4E1 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025141D26B12C00D4A4E1 /* Configuration.swift */; };
+		426025881D304A7500D4A4E1 /* HttpSessionFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260252F1D2BB96600D4A4E1 /* HttpSessionFactoryImpl.swift */; };
+		426025891D304ACC00D4A4E1 /* HttpSessionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025311D2BBADE00D4A4E1 /* HttpSessionFactory.swift */; };
+		4260258A1D304AE200D4A4E1 /* TypeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426057061D2574DE00EB202B /* TypeUtil.swift */; };
+		426057051D254BB100EB202B /* ErrorTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426057041D254BB100EB202B /* ErrorTypes.swift */; };
+		426057071D2574DE00EB202B /* TypeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426057061D2574DE00EB202B /* TypeUtil.swift */; };
 		42E62B2F1D0B0E91004B1B6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E62B2E1D0B0E91004B1B6D /* AppDelegate.swift */; };
 		42E62B311D0B0E91004B1B6D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E62B301D0B0E91004B1B6D /* ViewController.swift */; };
 		42E62B341D0B0E91004B1B6D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42E62B321D0B0E91004B1B6D /* Main.storyboard */; };
@@ -54,6 +130,72 @@
 		424307861D1C2C1D00880BDB /* PropertyTestImp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PropertyTestImp.swift; path = "Design Trials/PropertyTestImp.swift"; sourceTree = "<group>"; };
 		4243078A1D1C2EF600880BDB /* RetrieveRequestFactoryImp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RetrieveRequestFactoryImp.swift; path = ClientLibrary/core/communication/request/retrieve/RetrieveRequestFactoryImp.swift; sourceTree = "<group>"; };
 		4243078C1D1C3DD700880BDB /* ODataClientFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ODataClientFactory.swift; path = ClientLibrary/core/ODataClientFactory.swift; sourceTree = "<group>"; };
+		424307A61D22720D00880BDB /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Request.swift; path = ClientLibrary/core/communication/request/Request.swift; sourceTree = "<group>"; };
+		424307A81D227AD800880BDB /* ODataRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ODataRequest.swift; path = ClientLibrary/core/communication/request/ODataRequest.swift; sourceTree = "<group>"; };
+		424307AA1D22848700880BDB /* ODataHeaders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ODataHeaders.swift; path = ClientLibrary/api/communication/header/ODataHeaders.swift; sourceTree = "<group>"; };
+		424307AC1D2288C600880BDB /* ODataHeadersImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ODataHeadersImpl.swift; path = ClientLibrary/core/communication/header/ODataHeadersImpl.swift; sourceTree = "<group>"; };
+		424307AF1D229BE300880BDB /* ODataHeadersTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ODataHeadersTest.swift; sourceTree = "<group>"; };
+		424307B11D22BE4800880BDB /* AbstractODataRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbstractODataRequest.swift; path = ClientLibrary/core/communication/request/AbstractODataRequest.swift; sourceTree = "<group>"; };
+		424307B31D22C3B400880BDB /* HttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpClient.swift; path = ClientLibrary/core/communication/request/HttpClient.swift; sourceTree = "<group>"; };
+		424307B71D22C53200880BDB /* HttpUriRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpUriRequest.swift; path = ClientLibrary/core/communication/request/HttpUriRequest.swift; sourceTree = "<group>"; };
+		424307B91D22D73500880BDB /* HttpHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpHeader.swift; path = ClientLibrary/api/http/HttpHeader.swift; sourceTree = "<group>"; };
+		424307BB1D22E4B100880BDB /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = File.swift; path = ClientLibrary/api/edm/constants/File.swift; sourceTree = "<group>"; };
+		424307BD1D23223E00880BDB /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentType.swift; path = ClientLibrary/api/format/ContentType.swift; sourceTree = "<group>"; };
+		426025141D26B12C00D4A4E1 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Configuration.swift; path = ClientLibrary/api/Configuration.swift; sourceTree = "<group>"; };
+		426025161D26B3D500D4A4E1 /* HttpClientFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpClientFactory.swift; path = ClientLibrary/api/http/HttpClientFactory.swift; sourceTree = "<group>"; };
+		426025181D26B4AD00D4A4E1 /* HttpUriRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpUriRequestFactory.swift; path = ClientLibrary/api/http/HttpUriRequestFactory.swift; sourceTree = "<group>"; };
+		4260251B1D26B67500D4A4E1 /* AbstractHttpClientFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractHttpClientFactory.swift; sourceTree = "<group>"; };
+		4260251E1D26BA7C00D4A4E1 /* DefaultHttpClientFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultHttpClientFactory.swift; path = ClientLibrary/core/http/DefaultHttpClientFactory.swift; sourceTree = "<group>"; };
+		426025211D26BD9500D4A4E1 /* ConfigurationImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigurationImpl.swift; path = ClientLibrary/core/ConfigurationImpl.swift; sourceTree = "<group>"; };
+		426025241D2A628D00D4A4E1 /* ConfigurationProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigurationProperty.swift; path = ClientLibrary/core/ConfigurationProperty.swift; sourceTree = "<group>"; };
+		426025271D2A859400D4A4E1 /* ODataPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ODataPreferences.swift; path = ClientLibrary/api/communication/header/ODataPreferences.swift; sourceTree = "<group>"; };
+		426025291D2A896200D4A4E1 /* PreferenceName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreferenceName.swift; path = ClientLibrary/api/format/PreferenceName.swift; sourceTree = "<group>"; };
+		4260252D1D2AA09200D4A4E1 /* HttpMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpMethod.swift; path = ClientLibrary/api/http/HttpMethod.swift; sourceTree = "<group>"; };
+		4260252F1D2BB96600D4A4E1 /* HttpSessionFactoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpSessionFactoryImpl.swift; path = ClientLibrary/core/http/HttpSessionFactoryImpl.swift; sourceTree = "<group>"; };
+		426025311D2BBADE00D4A4E1 /* HttpSessionFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpSessionFactory.swift; path = ClientLibrary/core/http/HttpSessionFactory.swift; sourceTree = "<group>"; };
+		426025331D2BC67500D4A4E1 /* AbstractODataRequestTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractODataRequestTest.swift; sourceTree = "<group>"; };
+		426025361D2BFA3D00D4A4E1 /* HttpResponseContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpResponseContent.swift; path = ClientLibrary/core/http/HttpResponseContent.swift; sourceTree = "<group>"; };
+		426025381D2CF56000D4A4E1 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = ClientLibrary/utils/Extensions.swift; sourceTree = "<group>"; };
+		4260253A1D2D054200D4A4E1 /* ODataBasicRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ODataBasicRequest.swift; path = ClientLibrary/core/communication/request/ODataBasicRequest.swift; sourceTree = "<group>"; };
+		4260253C1D2D124800D4A4E1 /* ODataRetrieveRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ODataRetrieveRequest.swift; path = ClientLibrary/core/communication/request/retrieve/ODataRetrieveRequest.swift; sourceTree = "<group>"; };
+		4260253E1D2D186400D4A4E1 /* ODataRetrieveResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ODataRetrieveResponse.swift; path = ClientLibrary/core/communication/request/retrieve/ODataRetrieveResponse.swift; sourceTree = "<group>"; };
+		426025401D2D1AAB00D4A4E1 /* AbstractODataResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbstractODataResponse.swift; path = ClientLibrary/core/communication/response/AbstractODataResponse.swift; sourceTree = "<group>"; };
+		426025421D2D21AD00D4A4E1 /* ODataResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ODataResponse.swift; path = ClientLibrary/core/communication/response/ODataResponse.swift; sourceTree = "<group>"; };
+		426025441D2D4F5D00D4A4E1 /* ODataEntityRequestImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ODataEntityRequestImpl.swift; path = ClientLibrary/core/communication/request/retrieve/ODataEntityRequestImpl.swift; sourceTree = "<group>"; };
+		426025461D2D622F00D4A4E1 /* ClientODataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ClientODataDeserializer.swift; path = ClientLibrary/api/serialization/ClientODataDeserializer.swift; sourceTree = "<group>"; };
+		426025481D2D634800D4A4E1 /* ODataDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ODataDeserializer.swift; path = ClientLibrary/api/serialization/ODataDeserializer.swift; sourceTree = "<group>"; };
+		4260254A1D2D6AF800D4A4E1 /* ResWrap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResWrap.swift; path = ClientLibrary/api/data/ResWrap.swift; sourceTree = "<group>"; };
+		4260254C1D2D6CD000D4A4E1 /* ResWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResWrapper.swift; path = ClientLibrary/api/data/ResWrapper.swift; sourceTree = "<group>"; };
+		4260254E1D2D74AE00D4A4E1 /* ClientODataDeserializerImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ClientODataDeserializerImpl.swift; path = ClientLibrary/core/serialization/ClientODataDeserializerImpl.swift; sourceTree = "<group>"; };
+		426025501D2D79E000D4A4E1 /* Entity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Entity.swift; path = ClientLibrary/api/data/Entity.swift; sourceTree = "<group>"; };
+		426025521D2D824800D4A4E1 /* Link.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Link.swift; path = ClientLibrary/api/data/Link.swift; sourceTree = "<group>"; };
+		426025541D2D9F2700D4A4E1 /* EntityCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EntityCollection.swift; path = ClientLibrary/api/data/EntityCollection.swift; sourceTree = "<group>"; };
+		426025561D2DA34200D4A4E1 /* Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Property.swift; path = ClientLibrary/api/data/Property.swift; sourceTree = "<group>"; };
+		426025581D2DAA2B00D4A4E1 /* Valuable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Valuable.swift; path = ClientLibrary/api/data/Valuable.swift; sourceTree = "<group>"; };
+		4260255A1D2DB45400D4A4E1 /* ValueType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValueType.swift; path = ClientLibrary/api/data/ValueType.swift; sourceTree = "<group>"; };
+		4260255C1D2DB8CE00D4A4E1 /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Operation.swift; path = ClientLibrary/api/data/Operation.swift; sourceTree = "<group>"; };
+		4260255E1D2E434500D4A4E1 /* protocol template.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "protocol template.swift"; sourceTree = "<group>"; };
+		426025601D2E61B000D4A4E1 /* ServiceDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceDocument.swift; path = ClientLibrary/api/data/ServiceDocument.swift; sourceTree = "<group>"; };
+		426025621D2E631300D4A4E1 /* ServiceDocumentImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceDocumentImpl.swift; path = ClientLibrary/core/data/ServiceDocumentImpl.swift; sourceTree = "<group>"; };
+		426025641D2E6AD500D4A4E1 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = ClientLibrary/api/Constants.swift; sourceTree = "<group>"; };
+		426025661D2E74F800D4A4E1 /* ServiceDocumentItemImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceDocumentItemImpl.swift; path = ClientLibrary/core/data/ServiceDocumentItemImpl.swift; sourceTree = "<group>"; };
+		426025681D2E76E800D4A4E1 /* ServiceDocumentItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceDocumentItem.swift; path = ClientLibrary/api/data/ServiceDocumentItem.swift; sourceTree = "<group>"; };
+		4260256A1D2E827000D4A4E1 /* Delta.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Delta.swift; path = ClientLibrary/api/data/Delta.swift; sourceTree = "<group>"; };
+		4260256C1D2E848A00D4A4E1 /* Deltalink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Deltalink.swift; path = ClientLibrary/api/data/Deltalink.swift; sourceTree = "<group>"; };
+		4260256E1D2E85EE00D4A4E1 /* DeletedEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeletedEntity.swift; path = ClientLibrary/api/data/DeletedEntity.swift; sourceTree = "<group>"; };
+		426025701D2E882A00D4A4E1 /* AtomDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AtomDeserializer.swift; path = ClientLibrary/core/serialization/AtomDeserializer.swift; sourceTree = "<group>"; };
+		426025721D2E8AE900D4A4E1 /* ODataError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ODataError.swift; path = ClientLibrary/api/ex/ODataError.swift; sourceTree = "<group>"; };
+		426025741D2E913100D4A4E1 /* ODataErrorDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ODataErrorDetail.swift; path = ClientLibrary/api/ex/ODataErrorDetail.swift; sourceTree = "<group>"; };
+		426025761D2E974200D4A4E1 /* JsonDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JsonDeserializer.swift; path = ClientLibrary/core/serialization/JsonDeserializer.swift; sourceTree = "<group>"; };
+		426025781D2EAA2900D4A4E1 /* PropertyType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PropertyType.swift; path = ClientLibrary/api/data/PropertyType.swift; sourceTree = "<group>"; };
+		4260257A1D2EABDF00D4A4E1 /* EdmPrimitiveTypeKind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EdmPrimitiveTypeKind.swift; path = ClientLibrary/api/edm/EdmPrimitiveTypeKind.swift; sourceTree = "<group>"; };
+		4260257C1D2EB2AA00D4A4E1 /* FullQualifiedName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FullQualifiedName.swift; path = ClientLibrary/api/edm/FullQualifiedName.swift; sourceTree = "<group>"; };
+		4260257E1D2FAC8800D4A4E1 /* EdmPrimitiveType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EdmPrimitiveType.swift; path = ClientLibrary/api/edm/EdmPrimitiveType.swift; sourceTree = "<group>"; };
+		426025801D2FAFAB00D4A4E1 /* AbstractPrimitiveType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbstractPrimitiveType.swift; path = ClientLibrary/core/edm/AbstractPrimitiveType.swift; sourceTree = "<group>"; };
+		426025821D2FCC5900D4A4E1 /* JsonEntityDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JsonEntityDeserializer.swift; path = ClientLibrary/core/serialization/JsonEntityDeserializer.swift; sourceTree = "<group>"; };
+		426025841D2FD1D300D4A4E1 /* JsonEntitySetDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JsonEntitySetDeserializer.swift; path = ClientLibrary/core/serialization/JsonEntitySetDeserializer.swift; sourceTree = "<group>"; };
+		426057041D254BB100EB202B /* ErrorTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrorTypes.swift; path = ClientLibrary/utils/ErrorTypes.swift; sourceTree = "<group>"; };
+		426057061D2574DE00EB202B /* TypeUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TypeUtil.swift; path = ClientLibrary/api/format/TypeUtil.swift; sourceTree = "<group>"; };
 		42E62B2B1D0B0E91004B1B6D /* iOS-Olingo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS-Olingo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		42E62B2E1D0B0E91004B1B6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42E62B301D0B0E91004B1B6D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +247,7 @@
 		4243073E1D1BEAC900880BDB /* ClientLibrary */ = {
 			isa = PBXGroup;
 			children = (
+				426056FF1D253FEF00EB202B /* utils */,
 				424307401D1BEB4800880BDB /* core */,
 				4243073F1D1BEB3E00880BDB /* api */,
 			);
@@ -114,12 +257,13 @@
 		4243073F1D1BEB3E00880BDB /* api */ = {
 			isa = PBXGroup;
 			children = (
+				426025641D2E6AD500D4A4E1 /* Constants.swift */,
+				426025141D26B12C00D4A4E1 /* Configuration.swift */,
 				4243079F1D1D7C5F00880BDB /* http */,
 				4243077F1D1C2B0600880BDB /* ODataClient.swift */,
 				4243074F1D1BEC8A00880BDB /* format */,
 				4243074E1D1BEC8400880BDB /* ex */,
 				4243074D1D1BEC7B00880BDB /* edmx */,
-				424307461D1BEBC900880BDB /* uri */,
 				424307451D1BEBB900880BDB /* serialization */,
 				424307441D1BEBAC00880BDB /* edm */,
 				424307431D1BEBA400880BDB /* domain */,
@@ -132,6 +276,9 @@
 		424307401D1BEB4800880BDB /* core */ = {
 			isa = PBXGroup;
 			children = (
+				426025211D26BD9500D4A4E1 /* ConfigurationImpl.swift */,
+				426025241D2A628D00D4A4E1 /* ConfigurationProperty.swift */,
+				4260251A1D26B63E00D4A4E1 /* http */,
 				424307811D1C2B3900880BDB /* ODataClientImp.swift */,
 				4243078C1D1C3DD700880BDB /* ODataClientFactory.swift */,
 				4243074C1D1BEC2A00880BDB /* uri */,
@@ -157,6 +304,22 @@
 		424307421D1BEB9D00880BDB /* data */ = {
 			isa = PBXGroup;
 			children = (
+				426025781D2EAA2900D4A4E1 /* PropertyType.swift */,
+				4260256A1D2E827000D4A4E1 /* Delta.swift */,
+				4260256C1D2E848A00D4A4E1 /* Deltalink.swift */,
+				4260256E1D2E85EE00D4A4E1 /* DeletedEntity.swift */,
+				426025681D2E76E800D4A4E1 /* ServiceDocumentItem.swift */,
+				426025601D2E61B000D4A4E1 /* ServiceDocument.swift */,
+				426025521D2D824800D4A4E1 /* Link.swift */,
+				426025541D2D9F2700D4A4E1 /* EntityCollection.swift */,
+				426025561D2DA34200D4A4E1 /* Property.swift */,
+				426025581D2DAA2B00D4A4E1 /* Valuable.swift */,
+				4260255A1D2DB45400D4A4E1 /* ValueType.swift */,
+				4260255C1D2DB8CE00D4A4E1 /* Operation.swift */,
+				4260255E1D2E434500D4A4E1 /* protocol template.swift */,
+				426025501D2D79E000D4A4E1 /* Entity.swift */,
+				4260254A1D2D6AF800D4A4E1 /* ResWrap.swift */,
+				4260254C1D2D6CD000D4A4E1 /* ResWrapper.swift */,
 			);
 			name = data;
 			sourceTree = "<group>";
@@ -171,6 +334,9 @@
 		424307441D1BEBAC00880BDB /* edm */ = {
 			isa = PBXGroup;
 			children = (
+				4260257A1D2EABDF00D4A4E1 /* EdmPrimitiveTypeKind.swift */,
+				4260257E1D2FAC8800D4A4E1 /* EdmPrimitiveType.swift */,
+				4260257C1D2EB2AA00D4A4E1 /* FullQualifiedName.swift */,
 				4243079E1D1D7C4300880BDB /* annotation */,
 				4243079D1D1D7C3700880BDB /* geo */,
 				4243079C1D1D7C2F00880BDB /* xml */,
@@ -183,6 +349,8 @@
 		424307451D1BEBB900880BDB /* serialization */ = {
 			isa = PBXGroup;
 			children = (
+				426025461D2D622F00D4A4E1 /* ClientODataDeserializer.swift */,
+				426025481D2D634800D4A4E1 /* ODataDeserializer.swift */,
 			);
 			name = serialization;
 			sourceTree = "<group>";
@@ -207,6 +375,8 @@
 		424307481D1BEC0900880BDB /* data */ = {
 			isa = PBXGroup;
 			children = (
+				426025661D2E74F800D4A4E1 /* ServiceDocumentItemImpl.swift */,
+				426025621D2E631300D4A4E1 /* ServiceDocumentImpl.swift */,
 			);
 			name = data;
 			sourceTree = "<group>";
@@ -221,6 +391,7 @@
 		4243074A1D1BEC1600880BDB /* edm */ = {
 			isa = PBXGroup;
 			children = (
+				426025801D2FAFAB00D4A4E1 /* AbstractPrimitiveType.swift */,
 				424307971D1D7B7C00880BDB /* xml */,
 			);
 			name = edm;
@@ -229,6 +400,11 @@
 		4243074B1D1BEC1D00880BDB /* serialization */ = {
 			isa = PBXGroup;
 			children = (
+				426025821D2FCC5900D4A4E1 /* JsonEntityDeserializer.swift */,
+				426025841D2FD1D300D4A4E1 /* JsonEntitySetDeserializer.swift */,
+				426025761D2E974200D4A4E1 /* JsonDeserializer.swift */,
+				426025701D2E882A00D4A4E1 /* AtomDeserializer.swift */,
+				4260254E1D2D74AE00D4A4E1 /* ClientODataDeserializerImpl.swift */,
 			);
 			name = serialization;
 			sourceTree = "<group>";
@@ -250,6 +426,8 @@
 		4243074E1D1BEC8400880BDB /* ex */ = {
 			isa = PBXGroup;
 			children = (
+				426025721D2E8AE900D4A4E1 /* ODataError.swift */,
+				426025741D2E913100D4A4E1 /* ODataErrorDetail.swift */,
 			);
 			name = ex;
 			sourceTree = "<group>";
@@ -257,6 +435,10 @@
 		4243074F1D1BEC8A00880BDB /* format */ = {
 			isa = PBXGroup;
 			children = (
+				424307461D1BEBC900880BDB /* uri */,
+				426025291D2A896200D4A4E1 /* PreferenceName.swift */,
+				426057061D2574DE00EB202B /* TypeUtil.swift */,
+				424307BD1D23223E00880BDB /* ContentType.swift */,
 			);
 			name = format;
 			sourceTree = "<group>";
@@ -284,6 +466,12 @@
 		4243075B1D1BF4A200880BDB /* request */ = {
 			isa = PBXGroup;
 			children = (
+				424307B11D22BE4800880BDB /* AbstractODataRequest.swift */,
+				4260253A1D2D054200D4A4E1 /* ODataBasicRequest.swift */,
+				424307B71D22C53200880BDB /* HttpUriRequest.swift */,
+				424307B31D22C3B400880BDB /* HttpClient.swift */,
+				424307A61D22720D00880BDB /* Request.swift */,
+				424307A81D227AD800880BDB /* ODataRequest.swift */,
 				424307961D1D7B6D00880BDB /* streamed */,
 				424307951D1D7B6200880BDB /* invoke */,
 				424307941D1D7B5B00880BDB /* cud */,
@@ -296,6 +484,9 @@
 		4243075C1D1BF4AC00880BDB /* retrieve */ = {
 			isa = PBXGroup;
 			children = (
+				426025441D2D4F5D00D4A4E1 /* ODataEntityRequestImpl.swift */,
+				4260253C1D2D124800D4A4E1 /* ODataRetrieveRequest.swift */,
+				4260253E1D2D186400D4A4E1 /* ODataRetrieveResponse.swift */,
 				4243078A1D1C2EF600880BDB /* RetrieveRequestFactoryImp.swift */,
 			);
 			name = retrieve;
@@ -313,6 +504,7 @@
 		424307901D1D7B2F00880BDB /* header */ = {
 			isa = PBXGroup;
 			children = (
+				424307AC1D2288C600880BDB /* ODataHeadersImpl.swift */,
 			);
 			name = header;
 			sourceTree = "<group>";
@@ -320,6 +512,8 @@
 		424307911D1D7B3900880BDB /* response */ = {
 			isa = PBXGroup;
 			children = (
+				426025401D2D1AAB00D4A4E1 /* AbstractODataResponse.swift */,
+				426025421D2D21AD00D4A4E1 /* ODataResponse.swift */,
 				424307921D1D7B4300880BDB /* batch */,
 			);
 			name = response;
@@ -386,6 +580,7 @@
 		4243079A1D1D7BCD00880BDB /* constants */ = {
 			isa = PBXGroup;
 			children = (
+				424307BB1D22E4B100880BDB /* File.swift */,
 			);
 			name = constants;
 			sourceTree = "<group>";
@@ -421,6 +616,10 @@
 		4243079F1D1D7C5F00880BDB /* http */ = {
 			isa = PBXGroup;
 			children = (
+				4260252D1D2AA09200D4A4E1 /* HttpMethod.swift */,
+				426025161D26B3D500D4A4E1 /* HttpClientFactory.swift */,
+				426025181D26B4AD00D4A4E1 /* HttpUriRequestFactory.swift */,
+				424307B91D22D73500880BDB /* HttpHeader.swift */,
 			);
 			name = http;
 			sourceTree = "<group>";
@@ -435,6 +634,8 @@
 		424307A11D1D7C8700880BDB /* header */ = {
 			isa = PBXGroup;
 			children = (
+				426025271D2A859400D4A4E1 /* ODataPreferences.swift */,
+				424307AA1D22848700880BDB /* ODataHeaders.swift */,
 			);
 			name = header;
 			sourceTree = "<group>";
@@ -465,6 +666,36 @@
 			children = (
 			);
 			name = cud;
+			sourceTree = "<group>";
+		};
+		424307AE1D229BA900880BDB /* Client Library */ = {
+			isa = PBXGroup;
+			children = (
+				424307AF1D229BE300880BDB /* ODataHeadersTest.swift */,
+				426025331D2BC67500D4A4E1 /* AbstractODataRequestTest.swift */,
+			);
+			name = "Client Library";
+			sourceTree = "<group>";
+		};
+		4260251A1D26B63E00D4A4E1 /* http */ = {
+			isa = PBXGroup;
+			children = (
+				426025361D2BFA3D00D4A4E1 /* HttpResponseContent.swift */,
+				4260251B1D26B67500D4A4E1 /* AbstractHttpClientFactory.swift */,
+				4260251E1D26BA7C00D4A4E1 /* DefaultHttpClientFactory.swift */,
+				4260252F1D2BB96600D4A4E1 /* HttpSessionFactoryImpl.swift */,
+				426025311D2BBADE00D4A4E1 /* HttpSessionFactory.swift */,
+			);
+			name = http;
+			sourceTree = "<group>";
+		};
+		426056FF1D253FEF00EB202B /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				426057041D254BB100EB202B /* ErrorTypes.swift */,
+				426025381D2CF56000D4A4E1 /* Extensions.swift */,
+			);
+			name = utils;
 			sourceTree = "<group>";
 		};
 		42E62B221D0B0E91004B1B6D = {
@@ -508,6 +739,7 @@
 		42E62B421D0B0E91004B1B6D /* iOS-OlingoTests */ = {
 			isa = PBXGroup;
 			children = (
+				424307AE1D229BA900880BDB /* Client Library */,
 				42E62B431D0B0E91004B1B6D /* iOS_OlingoTests.swift */,
 				42E62B451D0B0E91004B1B6D /* Info.plist */,
 			);
@@ -656,17 +888,81 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				426025491D2D634800D4A4E1 /* ODataDeserializer.swift in Sources */,
+				426025321D2BBADE00D4A4E1 /* HttpSessionFactory.swift in Sources */,
 				42E62B311D0B0E91004B1B6D /* ViewController.swift in Sources */,
+				4260255B1D2DB45400D4A4E1 /* ValueType.swift in Sources */,
+				426025691D2E76E800D4A4E1 /* ServiceDocumentItem.swift in Sources */,
+				4260251C1D26B67500D4A4E1 /* AbstractHttpClientFactory.swift in Sources */,
+				426057071D2574DE00EB202B /* TypeUtil.swift in Sources */,
+				424307A71D22720D00880BDB /* Request.swift in Sources */,
+				426025571D2DA34200D4A4E1 /* Property.swift in Sources */,
+				424307AB1D22848700880BDB /* ODataHeaders.swift in Sources */,
+				426025671D2E74F800D4A4E1 /* ServiceDocumentItemImpl.swift in Sources */,
+				426025811D2FAFAB00D4A4E1 /* AbstractPrimitiveType.swift in Sources */,
+				426025371D2BFA3D00D4A4E1 /* HttpResponseContent.swift in Sources */,
 				424307381D198AA700880BDB /* ResponseViewController.swift in Sources */,
 				4243078D1D1C3DD700880BDB /* ODataClientFactory.swift in Sources */,
+				4260254B1D2D6AF800D4A4E1 /* ResWrap.swift in Sources */,
+				4260254F1D2D74AE00D4A4E1 /* ClientODataDeserializerImpl.swift in Sources */,
+				426025711D2E882A00D4A4E1 /* AtomDeserializer.swift in Sources */,
+				426025591D2DAA2B00D4A4E1 /* Valuable.swift in Sources */,
+				4260252E1D2AA09200D4A4E1 /* HttpMethod.swift in Sources */,
 				42E62B2F1D0B0E91004B1B6D /* AppDelegate.swift in Sources */,
 				424307871D1C2C1D00880BDB /* PropertyTestImp.swift in Sources */,
+				426025651D2E6AD500D4A4E1 /* Constants.swift in Sources */,
+				4260253D1D2D124800D4A4E1 /* ODataRetrieveRequest.swift in Sources */,
+				4260257D1D2EB2AA00D4A4E1 /* FullQualifiedName.swift in Sources */,
+				426025791D2EAA2900D4A4E1 /* PropertyType.swift in Sources */,
 				4243077B1D1C2A7C00880BDB /* RetrieveRequestFactory.swift in Sources */,
+				424307A91D227AD800880BDB /* ODataRequest.swift in Sources */,
+				426025611D2E61B000D4A4E1 /* ServiceDocument.swift in Sources */,
+				426025471D2D622F00D4A4E1 /* ClientODataDeserializer.swift in Sources */,
+				4260254D1D2D6CD000D4A4E1 /* ResWrapper.swift in Sources */,
+				426025391D2CF56000D4A4E1 /* Extensions.swift in Sources */,
+				426025431D2D21AD00D4A4E1 /* ODataResponse.swift in Sources */,
+				426025411D2D1AAB00D4A4E1 /* AbstractODataResponse.swift in Sources */,
+				426025281D2A859400D4A4E1 /* ODataPreferences.swift in Sources */,
+				426025451D2D4F5D00D4A4E1 /* ODataEntityRequestImpl.swift in Sources */,
+				426025151D26B12C00D4A4E1 /* Configuration.swift in Sources */,
 				4243078B1D1C2EF600880BDB /* RetrieveRequestFactoryImp.swift in Sources */,
+				4260256F1D2E85EE00D4A4E1 /* DeletedEntity.swift in Sources */,
+				426025191D26B4AD00D4A4E1 /* HttpUriRequestFactory.swift in Sources */,
 				424307851D1C2BAB00880BDB /* PropertyTest.swift in Sources */,
+				4260255F1D2E434500D4A4E1 /* protocol template.swift in Sources */,
+				4260257B1D2EABDF00D4A4E1 /* EdmPrimitiveTypeKind.swift in Sources */,
+				4260257F1D2FAC8800D4A4E1 /* EdmPrimitiveType.swift in Sources */,
+				426025531D2D824800D4A4E1 /* Link.swift in Sources */,
+				426025851D2FD1D300D4A4E1 /* JsonEntitySetDeserializer.swift in Sources */,
+				4260255D1D2DB8CE00D4A4E1 /* Operation.swift in Sources */,
+				4260252A1D2A896200D4A4E1 /* PreferenceName.swift in Sources */,
+				424307B21D22BE4800880BDB /* AbstractODataRequest.swift in Sources */,
+				426025301D2BB96600D4A4E1 /* HttpSessionFactoryImpl.swift in Sources */,
+				4260253F1D2D186400D4A4E1 /* ODataRetrieveResponse.swift in Sources */,
+				424307BE1D23223E00880BDB /* ContentType.swift in Sources */,
+				424307AD1D2288C600880BDB /* ODataHeadersImpl.swift in Sources */,
+				426025751D2E913100D4A4E1 /* ODataErrorDetail.swift in Sources */,
+				426025251D2A628D00D4A4E1 /* ConfigurationProperty.swift in Sources */,
+				4260256B1D2E827000D4A4E1 /* Delta.swift in Sources */,
 				424307801D1C2B0600880BDB /* ODataClient.swift in Sources */,
+				424307B41D22C3B400880BDB /* HttpClient.swift in Sources */,
+				424307BC1D22E4B100880BDB /* File.swift in Sources */,
+				426025631D2E631300D4A4E1 /* ServiceDocumentImpl.swift in Sources */,
+				426025551D2D9F2700D4A4E1 /* EntityCollection.swift in Sources */,
+				426025731D2E8AE900D4A4E1 /* ODataError.swift in Sources */,
+				426025221D26BD9500D4A4E1 /* ConfigurationImpl.swift in Sources */,
+				424307BA1D22D73500880BDB /* HttpHeader.swift in Sources */,
+				426025831D2FCC5900D4A4E1 /* JsonEntityDeserializer.swift in Sources */,
 				4243073D1D19A14B00880BDB /* Customer.swift in Sources */,
 				424307821D1C2B3900880BDB /* ODataClientImp.swift in Sources */,
+				4260251F1D26BA7C00D4A4E1 /* DefaultHttpClientFactory.swift in Sources */,
+				426025511D2D79E000D4A4E1 /* Entity.swift in Sources */,
+				4260256D1D2E848A00D4A4E1 /* Deltalink.swift in Sources */,
+				426025171D26B3D500D4A4E1 /* HttpClientFactory.swift in Sources */,
+				426057051D254BB100EB202B /* ErrorTypes.swift in Sources */,
+				4260253B1D2D054200D4A4E1 /* ODataBasicRequest.swift in Sources */,
+				426025771D2E974200D4A4E1 /* JsonDeserializer.swift in Sources */,
+				424307B81D22C53200880BDB /* HttpUriRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -674,7 +970,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				424307B01D229BE300880BDB /* ODataHeadersTest.swift in Sources */,
+				426025351D2BCCA100D4A4E1 /* ContentType.swift in Sources */,
+				426025201D26BA7C00D4A4E1 /* DefaultHttpClientFactory.swift in Sources */,
+				426025891D304ACC00D4A4E1 /* HttpSessionFactory.swift in Sources */,
+				426025231D26BD9500D4A4E1 /* ConfigurationImpl.swift in Sources */,
+				426025861D304A1C00D4A4E1 /* ErrorTypes.swift in Sources */,
+				4260258A1D304AE200D4A4E1 /* TypeUtil.swift in Sources */,
+				426025261D2A628D00D4A4E1 /* ConfigurationProperty.swift in Sources */,
+				426025871D304A4C00D4A4E1 /* Configuration.swift in Sources */,
 				42E62B441D0B0E91004B1B6D /* iOS_OlingoTests.swift in Sources */,
+				4260251D1D26B67500D4A4E1 /* AbstractHttpClientFactory.swift in Sources */,
+				426025881D304A7500D4A4E1 /* HttpSessionFactoryImpl.swift in Sources */,
+				426025341D2BC67500D4A4E1 /* AbstractODataRequestTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

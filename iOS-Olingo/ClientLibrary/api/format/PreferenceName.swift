@@ -18,35 +18,26 @@
  */
 
 //
-//  RetrieveRequestFactory.swift
+//  PreferenceNameE.swift
 //  iOS-Olingo
 //
-//  Created by Greg Napier on 23/06/2016.
+//  Created by Greg Napier on 04/07/2016.
 //  Copyright © 2016 EnergySys. All rights reserved.
 //
 
-
-
 import Foundation
 
-/// Protocol for a factory to create the various types of OData request entities
-
-public protocol RetrieveRequestFactory {
-  
-  /// Gets a uri request returning a set of one or more sets of OData entities
-  /// - parameters:
-  ///   - uri: NSURL object containing a URI
-  /// - returns: No return value (void) TODO
-  /// - throws: No error conditions are expected
-  
-  func entitySetIteratorRequest(uri:NSURL)
-  
-  /// Gets a uri request returning a set of one or more OData entities
-  /// - parameters:
-  ///   - uri: NSURL object containing a URI
-  /// - returns: Odata Entity Request
-  /// - throws: No error conditions are expected
-  func entitySetRequest(uri:NSURL) // -> ODataEntityRequestImpl
+enum PreferenceName:String {
+  case ALLOW_ENTITY_REFERENCES = "odata.allow-entityreferences"
+  case CALLBACK = "odata.callback"
+  case CONTINUE_ON_ERROR = "odata.continue-on-error"
+  case INCLUDE_ANNOTATIONS = "odata.include-annotations"
+  case MAX_PAGE_SIZE = "odata.maxpagesize"
+  case TRACK_CHANGES = "odata.track-changes"
+  case RETURN = "return"
+  case RESPOND_ASYNC = "respond-async"
+  case WAIT = "wait"
+  case RETURN_CONTENT = "return-content"
+  case RETURN_NO_CONTENT = "return-no-content"
+  case KEY_AS_SEGMENT = "KeyAsSegment"
 }
-
-

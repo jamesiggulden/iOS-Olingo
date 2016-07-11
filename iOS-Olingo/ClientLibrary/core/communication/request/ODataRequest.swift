@@ -18,35 +18,21 @@
  */
 
 //
-//  RetrieveRequestFactory.swift
+//  ODataRequest.swift
 //  iOS-Olingo
 //
-//  Created by Greg Napier on 23/06/2016.
+//  Created by Greg Napier on 28/06/2016.
 //  Copyright © 2016 EnergySys. All rights reserved.
 //
 
-
-
 import Foundation
 
-/// Protocol for a factory to create the various types of OData request entities
-
-public protocol RetrieveRequestFactory {
-  
-  /// Gets a uri request returning a set of one or more sets of OData entities
-  /// - parameters:
-  ///   - uri: NSURL object containing a URI
-  /// - returns: No return value (void) TODO
-  /// - throws: No error conditions are expected
-  
-  func entitySetIteratorRequest(uri:NSURL)
-  
-  /// Gets a uri request returning a set of one or more OData entities
-  /// - parameters:
-  ///   - uri: NSURL object containing a URI
-  /// - returns: Odata Entity Request
-  /// - throws: No error conditions are expected
-  func entitySetRequest(uri:NSURL) // -> ODataEntityRequestImpl
+protocol ODataRequest {
+  var uri:NSURL {get set}
+  var headers: ODataHeaders {get}
 }
 
 
+extension ODataRequest{
+  
+}

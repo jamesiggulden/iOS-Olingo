@@ -49,11 +49,36 @@ class ViewController: UIViewController {
   
   @IBAction func testClientFactory(sender: AnyObject) {
     
-    //let oDataClientFac:ODataClientFactory = ODataClientFactory()
-    
-    //let client:ODataClient = oDataClientFac.getClient()
+
     
     let client:ODataClient = ODataClientFactory().getClient()
+    
+    guard let uri:NSURL = NSURL(string:"http://services.odata.org/V4/Northwind/Northwind.svc/Orders")! else {
+      return
+    }
+    
+    let odataRequest = AbstractODataRequest(odataClient: client,method: HttpMethod.GET,uri: uri)
+    
+    do {
+      //try odataRequest.doExecute()
+      let odataResult = try odataRequest.doExecute()
+      print (odataResult.data.length)
+
+    }
+    catch {
+      
+    }
+    
+    let retriveRequestFactory = client.retrieveRequestFactory
+    let entitySetRequest = retriveRequestFactory.entitySetRequest(uri)
+    //let response = entitySetRequest.execute()
+//    
+//    let body = response.getBody()
+//
+//    let response = client.retrieveRequestFactory.getEntityRequest(uri).execute()
+//    let body = response.getBody()
+//    
+
     
   }
   
