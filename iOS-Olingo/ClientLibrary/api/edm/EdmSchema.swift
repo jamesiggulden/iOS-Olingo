@@ -81,8 +81,8 @@ public protocol EdmSchema { // TODO ->  extends EdmAnnotatable {
   
   
    /// get all {@link EdmAnnotations} for this schema.
-   
-  func getAnnotationGroups() -> [EdmAnnotations]
+  // TODO: Annotations
+  //func getAnnotationGroups() -> [EdmAnnotations]
   
   
    /// get the entity container for this schema. May be null.

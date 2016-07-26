@@ -41,6 +41,12 @@ public struct Log {
   
   public var logMode = LogMode(rawValue: 2)
   
+  public var isDebug:Bool {
+    get {
+      return logMode == LogMode.DEBUG
+    }
+  }
+  
   func info (logMsg:String) {
     if logMode?.rawValue <= LogMode.INFO.rawValue {
       let msg = "INFO: \(logMsg)"

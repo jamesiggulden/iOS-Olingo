@@ -43,13 +43,13 @@ public class ResWrap<T>:ResWrapper {
   /// the request URL.
   ///
   /// For details on how the context URL is used to describe a payload, see the relevant sections in the particular format.
-  public let contextURL:NSURL
+  public let contextURL:NSURL?
   
   /// An ETag header MAY also be returned on a metadata document request or service document request to allow the client
   /// subsequently to make a conditional request for the metadata or service document. Clients can also compare the value
   /// of the ETag header returned from a metadata document request to the metadata ETag returned in a response in order
   /// to verify the version of the metadata used to generate that response.
-  public let metadataETag:String
+  public let metadataETag:String?
   
   /// Gets contained object.
   //public let payload: NSData  // Fix teh type to start with and will generise later

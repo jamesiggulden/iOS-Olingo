@@ -30,51 +30,27 @@
 import Foundation
 
 /// Defines the type of a value (see Valuable).
-public enum ValueType {
-  
-   /// Primitive value
-  case PRIMITIVE
-   /// Geospatial value
-  case GEOSPATIAL
-   /// Enum type
-  case ENUM
-   /// Complex value
-  case COMPLEX
-   /// Entity value
-  case ENTITY
+public enum ValueType:Int {
+  /// Primitive value
+  case PRIMITIVE = 1
+  /// Geospatial value
+  case GEOSPATIAL = 2
+  /// Enum type
+  case ENUM = 3
+  /// Complex value
+  case COMPLEX = 4
+  /// Entity value
+  case ENTITY = 5
   /// Collection of primitive values
-  case COLLECTION_PRIMITIVE
+  case COLLECTION_PRIMITIVE = 11
   /// Collection of geospatial values
-  case COLLECTION_GEOSPATIAL
+  case COLLECTION_GEOSPATIAL = 12
   /// Collection of enum values
-  case COLLECTION_ENUM
+  case COLLECTION_ENUM = 13
   /// Collection of complex values
-  case COLLECTION_COMPLEX
+  case COLLECTION_COMPLEX = 14
   /// Collection of entities
-  case COLLECTION_ENTITY
-//   /// Collection of primitive values
-//  case COLLECTION_PRIMITIVE(PRIMITIVE)
-//   /// Collection of geospatial values
-//  case COLLECTION_GEOSPATIAL(GEOSPATIAL)
-//   /// Collection of enum values
-//  case COLLECTION_ENUM(ENUM)
-//   /// Collection of complex values
-//  case COLLECTION_COMPLEX(COMPLEX)
-//   /// Collection of entities
-//  case COLLECTION_ENTITY(ENTITY)
-  
-//  private final ValueType baseType
-//  
-//  ValueType() {
-//  baseType = this
-//  }
-//  
-//  ValueType(final ValueType baseType) {
-//  this.baseType = baseType
-//  }
-//
-//   
-//  public ValueType getBaseType() {
-//  return baseType
-//  }
+  case COLLECTION_ENTITY = 15
+
 }
+

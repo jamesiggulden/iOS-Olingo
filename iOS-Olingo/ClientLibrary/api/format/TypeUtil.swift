@@ -38,7 +38,7 @@ public final class TypeUtil {
   static let PARAMETER_Q:String = "q"
   static let WHITESPACE:String = " "
   static let WHITESPACE_CHAR:Character = " "
-  static let PARAMETER_SEPARATOR:String = ""
+  static let PARAMETER_SEPARATOR:String = ";"
   static let PARAMETER_KEY_VALUE_SEPARATOR:String = "="
   static let TYPE_SUBTYPE_SEPARATOR:String = "/"
   static let TYPE_SUBTYPE_WILDCARD:String = "*"

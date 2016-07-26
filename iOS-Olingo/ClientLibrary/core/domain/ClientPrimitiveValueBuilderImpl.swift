@@ -28,42 +28,52 @@
 
 import Foundation
 
-public class BuilderImpl: Builder {
+public class ClientPrimitiveValueBuilderImpl: ClientPrimitiveValueBuilder {
     
-    var instance:ClientPrimitiveValueImpl
+    public var instance:ClientPrimitiveValueImpl
     
     init() {
-      instance =  ClientPrimitiveValueImpl()
+      instance = ClientPrimitiveValueImpl()
     }
   
     
-    public func setType(type: EdmType ) throws -> BuilderImpl {
+    public func setType(type: EdmType ) throws -> ClientPrimitiveValueBuilderImpl? {
       let  primitiveTypeKind: EdmPrimitiveTypeKind?
-      if (type.getKind() != EdmTypeKind.PRIMITIVE) {
-        throw IllegalArgumentException(String.format("Provided type %s is not primitive", type))
+      if (type.kind != EdmTypeKind.PRIMITIVE) {
+        throw IllegalArgumentException.InvalidFormat // (String.format("Provided type %s is not primitive", type))
       }
-      primitiveTypeKind = EdmPrimitiveTypeKind.valueOf(type.getName())
-      
-      return setType(primitiveTypeKind)
+      primitiveTypeKind = EdmPrimitiveTypeKind(rawValue: type.name)
+      if primitiveTypeKind != nil {
+        return try setType(primitiveTypeKind!)
+      }
+      else {
+        throw IllegalArgumentException.InvalidFormat // (String.format("Provided type %s is not primitive", type))
+      }
     }
     
-    
-    public func setType(type: EdmPrimitiveTypeKind) throws -> BuilderImpl{
-      if (type == EdmPrimitiveTypeKind.Stream) {
-        throw IllegalArgumentException.InvalidFormat //(String.format("Cannot build a primitive value for %s", EdmPrimitiveTypeKind.Stream.toString()))
+  
+    public func setType(type: EdmPrimitiveTypeKind?) throws -> ClientPrimitiveValueBuilderImpl {
+      if (type == EdmPrimitiveTypeKind.STREAM) {
+        throw IllegalArgumentException.InvalidFormat //(String.format("Cannot build a primitive value for %s", EdmPrimitiveTypeKind.STREAM.toString()))
       }
-      if (type == EdmPrimitiveTypeKind.Geography || type == EdmPrimitiveTypeKind.Geometry) {
+      if (type == EdmPrimitiveTypeKind.GEOGRAPHY || type == EdmPrimitiveTypeKind.GEOMETRY) {
         throw IllegalArgumentException.InvalidFormat  //("\(type) is not an instantiable type. An entity can declare a property to be of type Geometry. An instance of an entity MUST NOT have a value of type Geometry. Each value MUST be of some subtype.")
       }
+      if type == nil {
+        instance.typeKind = EdmPrimitiveTypeKind.STRING
+      }
+      else {
+        instance.typeKind = type
+      }
       
-      instance.typeKind = type == nil ? EdmPrimitiveTypeKind.String : type
-      instance.type = EdmPrimitiveTypeFactory.getInstance(instance.typeKind)
+      // TODO: EdmPrimitiveTypeFactory.getInstance(instance.typeKind)
+      //instance.type = EdmPrimitiveTypeFactory.getInstance(instance.typeKind)
       
       return self
     }
     
     
-    public func setValue(value:AnyObject) -> BuilderImpl {
+    public func setValue(value:Any) -> ClientPrimitiveValueBuilderImpl {
       instance.value = value
       return self
     }
@@ -72,7 +82,7 @@ public class BuilderImpl: Builder {
     public func build() throws -> ClientPrimitiveValue {
       if (instance.type == nil) {
         do {
-          try setType(EdmPrimitiveTypeKind.String)
+          try setType(EdmPrimitiveTypeKind.STRING)
         }
         
       }
@@ -80,79 +90,79 @@ public class BuilderImpl: Builder {
     }
     
     
-    public func buildBoolean(Boolean value:Bool) throws -> ClientPrimitiveValue {
+    public func buildBoolean(value:Bool) throws -> ClientPrimitiveValue {
+      
+      return try setType(EdmPrimitiveTypeKind.BOOLEAN).setValue(value).build()
+      
+    }
+    
+    
+    public func buildInt16(value:Int16) throws ->ClientPrimitiveValue {
       do {
-      return try setType(EdmPrimitiveTypeKind.Boolean).setValue(value).build()
+        return try setType(EdmPrimitiveTypeKind.INT16).setValue(value).build()
       }
     }
     
     
-    public func buildInt16(value:Int) throws ->ClientPrimitiveValue {
+    public func buildInt32(value: Int32) throws -> ClientPrimitiveValue {
       do {
-        return try setType(EdmPrimitiveTypeKind.Int16).setValue(value).build()
-      }
-    }
-    
-    
-    public func buildInt32(value: Int) throws -> ClientPrimitiveValue {
-      do {
-        return try setType(EdmPrimitiveTypeKind.Int32).setValue(value).build()
+        return try setType(EdmPrimitiveTypeKind.INT32).setValue(value).build()
       }
     }
     
     
     public func buildInt64(value:Int64) throws -> ClientPrimitiveValue { // long
       do {
-        return try setType(EdmPrimitiveTypeKind.Int64).setValue(value).build()
+        return try setType(EdmPrimitiveTypeKind.INT64).setValue(value).build()
       }
     }
     
     
     public func buildSingle(value:Float) throws -> ClientPrimitiveValue {
       do {
-        return try setType(EdmPrimitiveTypeKind.Single).setValue(value).build()
+        return try setType(EdmPrimitiveTypeKind.SINGLE).setValue(value).build()
       }
     }
     
     
     public func buildDouble(value:Double) throws -> ClientPrimitiveValue {
       do {
-        return try setType(EdmPrimitiveTypeKind.Double).setValue(value).build()
+        return try setType(EdmPrimitiveTypeKind.DOUBLE).setValue(value).build()
       }
     }
     
     
     public func buildString(value:String) throws -> ClientPrimitiveValue {
       do {
-        return try setType(EdmPrimitiveTypeKind.String).setValue(value).build()
+        return try setType(EdmPrimitiveTypeKind.STRING).setValue(value).build()
       }
     }
     
     
     public func buildGuid(value:NSUUID) throws -> ClientPrimitiveValue {
       do {
-        return try setType(EdmPrimitiveTypeKind.Guid).setValue(value).build()
+        return try setType(EdmPrimitiveTypeKind.GUID).setValue(value).build()
       }
     }
     
     
     public func buildBinary(value:[UInt8]) throws -> ClientPrimitiveValue { //byte[]
       do {
-        return try setType(EdmPrimitiveTypeKind.Binary).setValue(value).build()
+        return try setType(EdmPrimitiveTypeKind.BINARY).setValue(value).build()
       }
     }
     
     
-  public func buildDecimal(value:NSDecimal) throws -> ClientPrimitiveValue{
+  public func buildDecimal(value:NSDecimalNumber) throws -> ClientPrimitiveValue{
     do {
-      return try setType(EdmPrimitiveTypeKind.Decimal).setValue(value).build()
+      return try setType(EdmPrimitiveTypeKind.DECIMAL).setValue(value).build()
       }
     }
     
     
-  public func buildDuration(BigDecimal value:NSDecimal) throws -> ClientPrimitiveValue{
+  public func buildDuration(value:NSDecimalNumber) throws -> ClientPrimitiveValue {
     do {
-      return try setType(EdmPrimitiveTypeKind.Duration).setValue(value).build()
+      return try setType(EdmPrimitiveTypeKind.DURATION).setValue(value).build()
     }
   }
     

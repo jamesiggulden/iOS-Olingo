@@ -31,13 +31,13 @@ import Foundation
 public protocol ClientPrimitiveValue :ClientValue {
   
   /// Type kind
-  var typeKind:EdmPrimitiveTypeKind {get}
+  var typeKind:EdmPrimitiveTypeKind? {get}
   
   /// Type
-  var type:EdmPrimitiveType  {get}
+  var type:EdmPrimitiveType? {get}
   
   /// Actual value
-  var value:AnyObject  {get}
+  var value:Any?  {get}
   
   
   // TODO: as per implmnentation

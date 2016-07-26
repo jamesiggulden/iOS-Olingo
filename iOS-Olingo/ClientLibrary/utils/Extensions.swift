@@ -49,3 +49,37 @@ extension NSURLSession {
     return task
   }
 }
+
+extension String {
+  func substringBetweenStrings (start:String, end:String) -> String?{
+    guard var idx = self.rangeOfString(start) else {
+      return nil
+    }
+    guard let endIdx = self.rangeOfString(end, options: .BackwardsSearch)?.startIndex else {
+      return nil
+    }
+    idx.startIndex = idx.startIndex.advancedBy(start.characters.count)
+    idx.endIndex = endIdx
+    return self.substringWithRange(idx)
+  }
+  
+  func startsWith(checkFor:String) -> Bool {
+    let idx = self.rangeOfString(checkFor)?.startIndex
+    if idx == self.startIndex {
+      return true
+    }
+    else {
+      return false
+    }
+  }
+  
+  func endsWith(checkFor:String) -> Bool {
+    let idx = self.rangeOfString(checkFor, options: .BackwardsSearch)?.endIndex
+    if idx == self.endIndex {
+      return true
+    }
+    else {
+      return false
+    }
+  }
+}

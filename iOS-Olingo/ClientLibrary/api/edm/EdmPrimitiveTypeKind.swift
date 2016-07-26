@@ -33,43 +33,97 @@ import Foundation
 /// Enumeration of all primitive type kinds.
 public enum EdmPrimitiveTypeKind : String {
   
-  case Binary = "Binary"
-  case Boolean = "Boolean"
-  case Byte = "Byte"
-  case SByte = "SByte"
-  case Date = "Date"
-  case DateTimeOffset = "DateTimeOffset"
-  case TimeOfDay = "TimeOfDay"
-  case Duration = "Duration"
-  case Decimal = "Decimal"
-  case Single = "Single"
-  case Double = "Double"
-  case Guid = "Guid"
-  case Int16 = "Int16"
-  case Int32 = "Int32"
-  case Int64 = "Int64"
-  case String = "String"
-  case Stream = "Stream"
-  case Geography = "Geography"
-  case GeographyPoint = "GeographyPoint"
-  case GeographyLineString = "GeographyLineString"
-  case GeographyPolygon = "GeographyPolygon"
-  case GeographyMultiPoint = "GeographyMultiPoint"
-  case GeographyMultiLineString = "GeographyMultiLineString"
-  case GeographyMultiPolygon = "GeographyMultiPolygon"
-  case GeographyCollection = "GeographyCollection"
-  case Geometry = "Geometry"
-  case GeometryPoint = "GeometryPoint"
-  case GeometryLineString = "GeometryLineString"
-  case GeometryPolygon = "GeometryPolygon"
-  case GeometryMultiPoint = "GeometryMultiPoint"
-  case GeometryMultiLineString = "GeometryMultiLineString"
-  case GeometryMultiPolygon = "GeometryMultiPolygon"
-  case GeometryCollection = "GeometryCollection"
+  case BINARY = "Binary"
+  case BOOLEAN = "Boolean"
+  case BYTE = "Byte"
+  case SBYTE = "SByte"
+  case DATE = "Date"
+  case DATETIMEOFFSET = "DateTimeOffset"
+  case TIMEOFDAY = "TimeOfDay"
+  case DURATION = "Duration"
+  case DECIMAL = "Decimal"
+  case SINGLE = "Single"
+  case DOUBLE = "Double"
+  case GUID = "Guid"
+  case INT16 = "Int16"
+  case INT32 = "Int32"
+  case INT64 = "Int64"
+  case STRING = "String"
+  case STREAM = "Stream"
+  case GEOGRAPHY = "Geography"
+  case GEOGRAPHYPOINT = "GeographyPoint"
+  case GEOGRAPHYLINESTRING = "GeographyLineString"
+  case GEOGRAPHYPOLYGON = "GeographyPolygon"
+  case GEOGRAPHYMULTIPOINT = "GeographyMultiPoint"
+  case GEOGRAPHYMULTILINESTRING = "GeographyMultiLineString"
+  case GEOGRAPHYMULTIPOLYGON = "GeographyMultiPolygon"
+  case GEOGRAPHYCOLLECTION = "GeographyCollection"
+  case GEOMETRY = "Geometry"
+  case GEOMETRYPOINT = "GeometryPoint"
+  case GEOMETRYLINESTRING = "GeometryLineString"
+  case GEOMETRYPOLYGON = "GeometryPolygon"
+  case GEOMETRYMULTIPOINT = "GeometryMultiPoint"
+  case GEOMETRYMULTILINESTRING = "GeometryMultiLineString"
+  case GEOMETRYMULTIPOLYGON = "GeometryMultiPolygon"
+  case GEOMETRYCOLLECTION = "GeometryCollection"
+
+
+  // MARK: - Methods
+
+  /// Returns the FullQualifiedName for this type kind
+  /// - parameters:
+  ///   - none:
+  /// - returns: FullQualifiedName
+  /// - throws: No error conditions are expected
+  public func  getFullQualifiedName() -> FullQualifiedName {
+
+    return FullQualifiedName(namespace: EDM_NAMESPACE, name: self.rawValue)
+
+  }
+
   
+// TODO: public func toString() -> String
   
-  //TODO: Methods
-  /*
+  /// Returns string representation of enum value
+  /// - parameters:
+  ///   - none:
+  /// - returns: String of enum value
+  /// - throws: No error conditions are expected
+   public func toString() -> String{
+    return self.rawValue
+  }
+ 
+ 
+  /// Gets the EdmPrimitiveTypeKind from a full-qualified type name.
+  /// - parameters:
+  ///   - fqn: full-qualified type name
+  /// - returns: EdmPrimitiveTypeKind object
+  /// - throws: No error conditions are expected
+  public func valueOfFQN(fqn:FullQualifiedName) throws -> EdmPrimitiveTypeKind? {
+    if EDM_NAMESPACE == fqn.namespace {
+      return EdmPrimitiveTypeKind(rawValue:fqn.name)
+    }
+    else {
+      throw IllegalArgumentException.InvalidFormat  //IllegalArgumentException(fqn + " does not look like an EDM primitive type.")
+    }
+  }
+
+
+  /// Gets the EdmPrimitiveTypeKind from a full type expression (like `Edm.Int32`)
+  /// - parameters:
+  ///   - fqn: String containing a full-qualified type name
+  /// - returns: EdmPrimitiveTypeKind object
+  /// - throws: No error conditions are expected
+  public static func valueOfFQN(fqn:String) throws ->  EdmPrimitiveTypeKind? {
+
+    if (!fqn.startsWith(EDM_NAMESPACE + ".")) {
+      throw IllegalArgumentException.InvalidFormat
+    }
+    
+    let fqnSubString = fqn.substringFromIndex(fqn.startIndex.advancedBy(4))
+    return EdmPrimitiveTypeKind(rawValue:fqnSubString)
+  }
+  
   
   /// Checks if is a geospatial type
   /// - parameters:
@@ -77,46 +131,9 @@ public enum EdmPrimitiveTypeKind : String {
   /// - returns: `true` if is geospatial type; `false` otherwise
   /// - throws: No error conditions are expected
   public func isGeospatial() -> Bool {
-    return rawValue.containsString("Geo")
-      // name().startsWith("Geo");
+    return rawValue.startsWith("Geo")
   }
-  
-   
-  /// Returns the FullQualifiedName for this type kin
-  /// - parameters:
-  ///   - none:
-  /// - returns: FullQualifiedName
-  /// - throws: No error conditions are expected
-  public func  getFullQualifiedName() -> FullQualifiedName {
-    return FullQualifiedName(EdmPrimitiveType.EDM_NAMESPACE, toString())
-  }
-  
-  /**
-   * Gets the {@link EdmPrimitiveTypeKind} from a full-qualified type name.
-   * @param fqn full-qualified type name
-   * @return {@link EdmPrimitiveTypeKind} object
-   */
-  public static func valueOfFQN(fqn:FullQualifiedName) throws -> EdmPrimitiveTypeKind {
-    if (EdmPrimitiveType.EDM_NAMESPACE.equals(fqn.getNamespace())) {
-      return valueOf(fqn.getName())
-    }
-    else {
-      throw IllegalArgumentException.InvalidFormat  //IllegalArgumentException(fqn + " does not look like an EDM primitive type.")
-    }
-  }
-  
-  /**
-   * Gets the {@link EdmPrimitiveTypeKind} from a full type expression (like <code>Edm.Int32</code>).
-   * @param fqn String containing a full-qualified type name
-   * @return {@link EdmPrimitiveTypeKind} object
-   */
-  public static func valueOfFQN(fqn:String) throws ->  EdmPrimitiveTypeKind {
-    if (!fqn.startsWith(EdmPrimitiveType.EDM_NAMESPACE + ".")) {
-        throw IllegalArgumentException.InvalidFormat
-    }
-  
-    return valueOf(fqn.substring(4))
-  }
- */
+ 
   
 }
+

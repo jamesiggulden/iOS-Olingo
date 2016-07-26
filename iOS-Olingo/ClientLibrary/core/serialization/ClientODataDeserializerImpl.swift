@@ -29,7 +29,7 @@
 
 import Foundation
 
-public class ClientODataDeserializerImpl  { //: ClientODataDeserializer {
+public class ClientODataDeserializerImpl: ClientODataDeserializer {
   
   // MARK: - Stored Properties
 
@@ -58,14 +58,17 @@ public class ClientODataDeserializerImpl  { //: ClientODataDeserializer {
   // MARK: - Methods
 
   
-  public func toEntitySet(input:NSData) throws -> ResWrap<EntityCollection> {
+  public func toEntitySet(input:NSData) throws -> ResWrap<EntityCollection>? {
     do {
       return try deserializer.toEntitySet(input)!
+    }
+    catch {
+      throw GetODataException.OdataEntitySetFailed
     }
   }
   
   
-  public func toEntity(input:NSData) throws -> ResWrap<Entity> {
+  public func toEntity(input:NSData) throws -> ResWrap<Entity>? {
     do{
       return try deserializer.toEntity(input)!
     }

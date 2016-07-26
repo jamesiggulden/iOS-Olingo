@@ -126,7 +126,10 @@ class ViewController: UIViewController {
         let entitySetRequest = retriveRequestFactory.entitySetRequest(uri)
         AppendToConsole("Execute Built Request")
         log.debug("Execute Built Request")
-        let response = entitySetRequest.execute()
+        guard let response = entitySetRequest.execute() else {
+          AppendToConsole("Nil returned from execute request")
+          return
+        }
         AppendToConsole("Response Status Code: \(response.statusCode)")
         log.info ("Response Status Code: \(response.statusCode)")
         Status.text = "Response Status Code: \(response.statusCode)"
@@ -156,7 +159,45 @@ class ViewController: UIViewController {
           log.warn("No data returned")
         }
         
-        let body = response.getBody()
+        do {
+          guard let entitySet = try response.getBody() else {
+            AppendToConsole("No data in body")
+            return
+          }
+          AppendToConsole("")
+          AppendToConsole("Body Content")
+          AppendToConsole("Number of Entiites returned (info from service): \(entitySet.count)")
+          AppendToConsole("Next URL: \(entitySet.next.debugDescription)")
+          AppendToConsole("Number of Entiites returned (calculated): \(entitySet.entities.count)")
+          
+          let entityList = entitySet.entities
+          for entity in entityList {
+            let name = entity.id?.absoluteString
+            AppendToConsole("\(name)")
+            for property in entity.properties {
+
+              if let propertyValue = property.value.asPrimitive {
+
+                if let propertyValueValue = propertyValue.value as? String {
+                  if let tk = propertyValue.typeKind?.rawValue {
+                    AppendToConsole("  \(property.name) : \(propertyValueValue)  : (\(tk))")
+                  }
+                  else {
+                    AppendToConsole("  \(property.name) : \(propertyValueValue)  : (nil) ")
+                  }
+                  
+                }
+              }
+            }
+            
+          }
+          
+          
+        }
+        catch {
+          AppendToConsole("No content returned")
+        }
+        
         
       }
     }
@@ -169,6 +210,7 @@ class ViewController: UIViewController {
   
   func AppendToConsole(msg: String) {
       Console.text = Console.text + "\n" + msg
+      Console.scrollRangeToVisible(NSRange(location: Console.text.characters.count,length: 1))
   }
   func ResetConsole(msg:String) {
     Console.text = msg

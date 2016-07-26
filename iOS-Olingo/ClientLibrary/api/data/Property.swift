@@ -43,6 +43,9 @@ public class Property : Valuable {
 
 // MARK: - Init
 
+  override init() {
+    super.init()
+  }
   
   /// Creates a new property
   /// - parameters:
@@ -54,9 +57,11 @@ public class Property : Valuable {
     super.init()
     self.name = name
     super.type = type
+    
+
   }
    
-  /// reates a new property
+  /// creates a new property
   /// - parameters:
   ///   - type: String representation of type (can be nil)
   ///   - name: Name of the property
@@ -67,7 +72,7 @@ public class Property : Valuable {
   init(type:String, name:String, valueType:ValueType, value:AnyObject) {
     super.init()
     self.name = name
-    self.type = type
+    super.type = type
     setValue(valueType, value: value)
   }
   
@@ -102,7 +107,7 @@ public class Property : Valuable {
   ///   - none
   /// - returns: String in format `name = value`
   /// - throws: No error conditions are expected
-  public func toString() -> String {
+  public override func toString() -> String {
     var val = "nil"
     var nam = "nil"
     if let value = self.value {

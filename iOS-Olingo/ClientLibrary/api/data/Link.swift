@@ -40,8 +40,8 @@ public class Link {  //extends Annotatable {
   public var href:String = "" //GS
   public var type:String = ""  //GS
   public var mediaETag:String = "" //GS
-  public var entity:Entity  //GS
-  public var entitySet:EntityCollection  //GS
+  public lazy var entity:Entity = Entity()  //GS
+  public lazy var entitySet:EntityCollection = EntityCollection() //GS
   
   /// If this is a "toOne" relationship this method delivers the binding link or ""(isEmpty) if not set
   public var bindingLink:String = ""
@@ -73,8 +73,8 @@ public class Link {  //extends Annotatable {
   // MARK: - Init
   
   init() {
-    self.entity = Entity()
-    self.entitySet = EntityCollection()
+    //self.entity = Entity()
+  //  self.entitySet = EntityCollection()
   }
 
   // MARK: - Methods

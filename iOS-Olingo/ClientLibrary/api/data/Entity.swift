@@ -31,7 +31,8 @@ import Foundation
 /**
  * Data representation for a single entity.
  */
-public class Entity {
+// TODO: Add linked abstract
+public class Entity:AbstractODataObject { //:Linked and then AbstractODataObject
   
   // MARK: - Stored Properties
   
@@ -41,7 +42,7 @@ public class Entity {
   
   public var readLink:Link = Link()  // GS
   
-  public var editLink:Link = Link()  // GS
+  public var editLink:Link? // = Link()  // GS
   
   public let mediaEditLinks:[Link] = [Link]() //G
   
@@ -57,16 +58,20 @@ public class Entity {
   
   // MARK: - Computed Properties
   
-  public var selfLink:Link {
+  public var selfLink:Link? {
     get{
       return readLink
     }
     set(selfLink) {
-      readLink = selfLink
+      readLink = selfLink!
     }
   }
 
   // MARK: - Init
+  
+  override init() {
+    super.init()
+  }
 
   // MARK: - Methods
    
@@ -76,6 +81,7 @@ public class Entity {
   /// - returns: this Entity for fluid/flow adding
   /// - throws: No error conditions are expected
   public func addProperty(property:Property) -> Entity {
+    
     properties.append(property)
     return self
   }
@@ -87,7 +93,7 @@ public class Entity {
   /// - returns: property with given name if found, nil otherwise
   /// - throws: No error conditions are expected
   
-  public func getProperty(name:String) -> Property!{
+  public func getProperty(name:String) -> Property?{
     var result:Property?
     
     for property in properties {
@@ -116,7 +122,7 @@ public class Entity {
   }
   
   // TODO: func equals(o:AnyObject) -> Bool
-  public func equals(o:AnyObject) -> Bool {
+  public override func equals(o:AnyObject) -> Bool {
       return true
 //    return super.equals(o)
 //      && (eTag == null ? ((Entity) o).eTag == null : eTag.equals(((Entity) o).eTag))

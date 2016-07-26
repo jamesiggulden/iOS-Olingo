@@ -215,17 +215,19 @@ public class AbstractODataRequest: Request {
     
     // TODO:  Enable the building of headers when we have confirmed how it works
     // Set Content-Type and Accept headers with default values, if not yet set
-//    if odataHeaders.getHeader(HttpHeader.CONTENT_TYPE.rawValue).isEmpty {
-//      setContentType(getContentType())
-//    }
-//    if odataHeaders.getHeader(HttpHeader.ACCEPT.rawValue).isEmpty {
-//      setAccept(getAccept())
-//    }
-//    
-//    // Add header for KeyAsSegment management
-//    if (odataClient.configuration.keyAsSegment) {
-//      addCustomHeader("DataServiceUrlConventions", value: odataClient.newPreferences().keyAsSegment);
-//    }
+    
+    if odataHeaders.getHeader(HttpHeader.CONTENT_TYPE.rawValue)?.isEmpty ?? true {
+      setContentType(getContentType())
+    }
+    
+    if odataHeaders.getHeader(HttpHeader.ACCEPT.rawValue)?.isEmpty ?? true {
+      setAccept(getAccept())
+    }
+    
+    // Add header for KeyAsSegment management
+    if odataClient.configuration.keyAsSegment {
+      addCustomHeader("DataServiceUrlConventions", value: odataClient.newPreferences().keyAsSegment)
+    }
     
     // build the request
     let request = NSMutableURLRequest(URL: uri)

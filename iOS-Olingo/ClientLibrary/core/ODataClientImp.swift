@@ -21,6 +21,10 @@ public class ODataClientImp: ODataClient {
     /// an instance of a retrieve request factory (read only)
   //TODO: Design notes - use of lazy
   public lazy var retrieveRequestFactory:RetrieveRequestFactory = RetrieveRequestFactoryImpl(client: self)
+  
+  public let objectFactory:ClientObjectFactory = ClientObjectFactoryImpl()
+  public lazy var binder:ODataBinder = ODataBinderImpl(client: self)
+  
   public let configuration:Configuration = ConfigurationImpl()
   public let httpSession:NSURLSession
   

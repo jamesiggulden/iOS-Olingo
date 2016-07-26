@@ -1,3 +1,23 @@
+
+/*
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License") you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+ 
+    http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+ */
+
 //
 //  ClientComplexValueImpl.swift
 //  iOS-Olingo
@@ -7,3 +27,280 @@
 //
 
 import Foundation
+
+public class ClientComplexValueImpl: AbstractClientValue, ClientComplexValue {
+  // MARK: - Stored Properties
+
+  // TODO: Navigation and annotations
+  
+  /**
+   * Navigation links (might contain in-line entities or entity sets).
+   */
+  /*
+  public let navigationLinks:[ClientLink] = []  //G
+  
+  /**
+   * Association links.
+   */
+  public let associationLinks:[ClientLink] = [] //G
+  
+  public let annotations:[ClientAnnotation] = [] //G
+  */
+  
+  /**
+   * Complex type fields.
+   */
+  private var fields:[String : ClientProperty] = [:]
+  
+  // MARK: - Computed Properties
+  
+  public var isEnum:Bool {
+    get {
+      return false
+    }
+  }
+  
+  
+  public var asEnum:ClientEnumValue?{
+    get {
+      return nil
+    }
+  }
+  
+  
+  public override var isComplex:Bool {
+    get {
+      return true
+    }
+  }
+
+
+  // MARK: - Init
+
+  init(typeName:String) {
+    super.init(typeName: typeName)
+  }
+  
+  // MARK: - Methods
+
+  
+  
+  // TODO: func addLink( ink: ClientLink) -> Bool
+  /*
+  public func addLink( ink: ClientLink) -> Bool {
+    var result:Bool = false
+    
+    switch (link.getType()) {
+    case ASSOCIATION:
+      result = associationLinks.contains(link) ? false : associationLinks.add(link)
+      break
+      
+    case ENTITY_NAVIGATION:
+    case ENTITY_SET_NAVIGATION:
+      result = navigationLinks.contains(link) ? false : navigationLinks.add(link)
+      break
+      
+    case MEDIA_EDIT:
+      throw  IllegalArgumentException("Complex values cannot have media links!")
+      
+    default:
+    }
+    
+    return result
+  }
+ */
+  
+  // TODO: func removeLink(link:ClientLink )->Bool
+  /*
+  public func removeLink(link:ClientLink )->Bool {
+    return associationLinks.remove(link) || navigationLinks.remove(link)
+  }
+ */
+  // TODO: func getLink(links:[ClientLink], name:String) -> ClientLink
+  /*
+  private func getLink(links:[ClientLink], name:String) -> ClientLink {
+    ClientLink result = Nil
+    for (ClientLink link : links) {
+      if (name.equals(link.getName())) {
+        result = link
+        break
+      }
+    }
+    
+    return result
+  }
+ */
+  
+  //TODO: func getNavigationLink(name:String ) -> ClientLink
+  /*
+  public func getNavigationLink(name:String ) -> ClientLink {
+    return getLink(navigationLinks, name)
+  }
+  */
+  
+  // TODO: func getAssociationLink(name:String) -> ClientLink
+  /*
+  public func getAssociationLink(name:String) -> ClientLink {
+    return getLink(associationLinks, name)
+  }
+ */
+  
+ 
+  /// Builds a dictionary of fields and the swift types asscoiated with each field
+  /// - parameters:
+  ///   - none
+  /// - returns: Dictionary of types
+  /// - throws: No error conditions are expected
+  public func asSwiftMap() -> [String: Any]  {
+    var result:[String:AnyObject] = [:]
+    for (name, property) in fields {
+      var value:Any
+      if property.hasPrimitiveValue {
+        value = property.primitiveValue!.value
+      }
+      else if property.hasComplexValue {
+        value = property.complexValue!.asSwiftMap()
+      }
+      else if property.hasCollectionValue {
+        value = property.collectionValue!.asSwiftCollection()
+      }
+      else if property.hasEnumValue {
+        value = property.enumValue!.toString()
+      }
+      result[name] = property as! AnyObject
+    }
+    return result
+  }
+  // Replaces:
+  /*
+  public Map<String, Object> asJavaMap() {
+    final Map<String, Object> result = new LinkedHashMap<String, Object>()
+    for (Map.Entry<String, ClientProperty> entry : fields.entrySet()) {
+      Object value = Nil
+      if (entry.getValue().hasPrimitiveValue()) {
+        value = entry.getValue().getPrimitiveValue().toValue()
+      } else if (entry.getValue().hasComplexValue()) {
+        value = entry.getValue().getComplexValue().asJavaMap()
+      } else if (entry.getValue().hasCollectionValue()) {
+        value = entry.getValue().getCollectionValue().asJavaCollection()
+      } else if (entry.getValue().hasEnumValue()) {
+        value = entry.getValue().getEnumValue().toString()
+      }
+      
+      result.put(entry.getKey(), value)
+    }
+    
+    return result
+  }
+ */
+  
+  
+  /**
+   * Adds field to the complex type.
+   *
+   * @param field field to be added.
+   */
+  
+  public func add(field: ClientProperty) -> ClientComplexValue {
+    fields[field.name] = field
+    return self
+  }
+  
+  /**
+   * Gets field.
+   *
+   * @param name name of the field to be retrieved.
+   * @return requested field.
+   */
+  
+  public func get(name:String) -> ClientProperty? {
+    return fields[name]
+  }
+  
+  /**
+   * Complex property fields iterator.
+   *
+   * @return fields iterator.
+   */
+  
+  
+  /**
+   * Gets number of fields.
+   *
+   * @return number of fields.
+   */
+  
+  public func size() -> Int {
+    return fields.count
+  }
+  
+  // TODO: func hashCode() -> Int
+  /*
+  public func hashCode() -> Int {
+    final int prime = 31
+    int result = super.hashCode()
+    result = prime * result + ((annotations == Nil) ? 0 : annotations.hashCode())
+    result = prime * result + ((associationLinks == Nil) ? 0 : associationLinks.hashCode())
+    result = prime * result + ((fields == Nil) ? 0 : fields.hashCode())
+    result = prime * result + ((navigationLinks == Nil) ? 0 : navigationLinks.hashCode())
+    return result
+  }
+ */
+  
+  
+  public override func equals(obj:AnyObject) -> Bool {
+    if (self === obj) {
+      return true
+    }
+    else{
+      return false
+      // TODO: checks to see if objects are the same
+      /*
+      if (!super.equals(obj)) {
+        return false
+      }
+      if (!(obj instanceof ClientComplexValueImpl)) {
+        return false
+      }
+      ClientComplexValueImpl other = (ClientComplexValueImpl) obj
+      if (annotations == Nil) {
+        if (other.annotations != Nil) {
+          return false
+        }
+      } else if (!annotations.equals(other.annotations)) {
+        return false
+      }
+      if (associationLinks == Nil) {
+        if (other.associationLinks != Nil) {
+          return false
+        }
+      } else if (!associationLinks.equals(other.associationLinks)) {
+        return false
+      }
+      if (fields == Nil) {
+        if (other.fields != Nil) {
+          return false
+        }
+      } else if (!fields.equals(other.fields)) {
+        return false
+      }
+      if (navigationLinks == Nil) {
+        if (other.navigationLinks != Nil) {
+          return false
+        }
+      } else if (!navigationLinks.equals(other.navigationLinks)) {
+        return false
+      }
+      return true
+       */
+    }
+    
+  }
+  
+  
+  public override func toString() -> String {
+    //TODO : Expand to include links and annotations when implmented
+    return "ClientComplexValueImpl [navigationLinks='', associationLinks='', annotations='', fields=\(fields) super[\(super.toString())]]"
+    //return "ClientComplexValueImpl [navigationLinks=\(navigationLinks), associationLinks=\(associationLinks), annotations=\(annotations), fields=\(fields) super[\(super.toString())]]"
+  }
+}

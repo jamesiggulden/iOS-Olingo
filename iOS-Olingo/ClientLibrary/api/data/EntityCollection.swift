@@ -32,22 +32,22 @@ import Foundation
 
  /// Data representation for a collection of single entities.
 
-public class EntityCollection {  // extends AbstractEntityCollection {
+public class EntityCollection : AbstractODataObject,IEntityCollection {
   
   // MARK: - Stored Properties
 
 
   
-  public let entities:[Entity] = [Entity]()
+  public var entities:[Entity] = [Entity]() //GS
   public var count:Int = 0  //GS
-  public var next: NSURL //GS
-  public var deltaLink: NSURL  //GS
+  public var next: NSURL? //GS
+  public var deltaLink: NSURL?  //GS
   
   // MARK: - Computed Properties
 
 
   // MARK: - Init
-  init () {
+  override init () {
     next = NSURL()
     deltaLink = NSURL()
   }
@@ -56,30 +56,32 @@ public class EntityCollection {  // extends AbstractEntityCollection {
   
 
   
-
-//  public Iterator<Entity> iterator() {
-//    return this.entities.iterator()
-//  }
-  
-  // TODO: func equals(o:Object) -> Bool
-//  public func equals(o:Object) -> Bool {
-//    if (!super.equals(o)) {
-//      return false
-//    }
-//    let  other = o as! EntityCollection
-//    return entities.equals(other.entities)
-//      && (count == null ? other.count == null : count.equals(other.count))
-//      && (next == null ? other.next == null : next.equals(other.next))
-//      && (deltaLink == null ? other.deltaLink == null : deltaLink.equals(other.deltaLink))
-//  }
+ 
+  public override func equals(o:AnyObject) -> Bool {
+    if (!super.equals(o)) {
+      return false
+    }
+    else {
+      return true
+      //TODO: Add additional checks
+      /*
+      let  other = o as! EntityCollection
+      return entities == other.entities
+        && (count == nil ? other.count == nil : count.equals(other.count))
+        && (next == nil ? other.next == nil : next.equals(other.next))
+        && (deltaLink == nil ? othe.deltaLink == nil : deltaLink.equals(other.deltaLink))
+      */
+    }
+    
+  }
   
   // TODO: func hashCode() -> Int
 //  public func hashCode() -> Int {
 //    int result = super.hashCode()
 //    result = 31 * result + entities.hashCode()
-//    result = 31 * result + (count == null ? 0 : count.hashCode())
-//    result = 31 * result + (next == null ? 0 : next.hashCode())
-//    result = 31 * result + (deltaLink == null ? 0 : deltaLink.hashCode())
+//    result = 31 * result + (count == nil ? 0 : count.hashCode())
+//    result = 31 * result + (next == nil ? 0 : next.hashCode())
+//    result = 31 * result + (deltaLink == nil ? 0 : deltaLink.hashCode())
 //    return result
 //  }
 }

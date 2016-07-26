@@ -79,11 +79,12 @@ import Foundation
  /// `Decimal`, `Duration`, and `TimeOfDay` can have a `Precision` facet.
  /// Additionally, `Decimal` can have the facet `Scale`.
 
-public protocol EdmPrimitiveType { //: EdmType {
+public protocol EdmPrimitiveType: EdmType {
   
   // TODO: EDM_NAMESPACE property how to handle
+  // Have moved to global constants as this seems a better solution than addign an extension with a compued property
   // String EDM_NAMESPACE = "Edm"
-  
+
   /**
    * Checks type compatibility.
    *
@@ -91,15 +92,15 @@ public protocol EdmPrimitiveType { //: EdmType {
    * @return `true` if the provided type is compatible to this type
    */
   func isCompatible(EprimitiveType:EdmPrimitiveType ) -> Bool
-  
+
   /**
    * Returns the default Java type for this EDM primitive type as described in the documentation of
    * {@link EdmPrimitiveType}.
    *
    * @return the default Java type
    */
-  func getDefaultType() -> AnyClass
-  
+  var defaultType: Any {get}
+
   /**
    * Validates literal value.
    *
@@ -127,7 +128,7 @@ public protocol EdmPrimitiveType { //: EdmType {
    * @throws EdmPrimitiveTypeException
    * @return the value as an instance of the class the parameter `returnType` indicates
    */
-  func valueOfString <T> (value:String?,isnilable:Bool,maxLength:Int,precision:Int,scale:Int,isUnicode:Bool,returnType: T) throws -> T?
+  func valueOfString <T> (value:String?,isnilable:Bool,maxLength:Int?,precision:Int,scale:Int,isUnicode:Bool,returnType: T) throws -> T?
   
   /**
    * Converts system data type to literal representation of value.

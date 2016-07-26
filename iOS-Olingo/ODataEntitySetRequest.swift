@@ -33,6 +33,9 @@ import Foundation
 
 public protocol ODataEntitySetRequest: ODataRetrieveRequest {
   //No additional methods needed for now
+  
+  func execute() -> ODataEntitySetRetrieveResponse?
+  
 }
 
 //public interface ODataEntitySetRequest<ES extends ClientEntitySet> extends ODataRetrieveRequest<ES> {

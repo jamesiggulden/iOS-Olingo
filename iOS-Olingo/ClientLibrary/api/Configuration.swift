@@ -52,14 +52,18 @@ public protocol Configuration {
   ///  the configured OData format. This value depends on what is returned from `getDefaultPubFormat()`
   var defaultFormat: ContentType {get}
   
+  
   /// HTTP method to be used.  `PUT`, `MERGE`, `PATCH` or `DELETE`
   var useXHTTPMethod: Bool  {get set}
   
   /// HTTP Gzip compression enabled setting
   var gzipCompression: Bool {get set}
+   
+   
   
   /// chunk HTTP encoding setting
-  var useChuncked: Bool {get set}
+  var useChunked: Bool {get set}
+  
   
   /// URIs contains entity key between parentheses (standard) or 
   /// instead as additional segment(non-standard)
@@ -84,6 +88,7 @@ public protocol Configuration {
   //var httpClientFactory: HttpClientFactory {get}
   
   var httpSessionFactory: HttpSessionFactoryImpl {get}
+  
   
 //  
 //  /**

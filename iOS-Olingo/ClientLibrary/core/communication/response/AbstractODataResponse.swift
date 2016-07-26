@@ -90,7 +90,7 @@ public class AbstractODataResponse: ODataResponse {
     //self.httpClient = httpclient
     self.res = res
     
-    //TO: set default values until we can resolve the issue around calling a func from init
+    //TODO: set default values until we can resolve the issue around calling a func from init
     self.payload = res.data
     self.statusCode = res.response.statusCode
     self.statusMessage = res.response.statusCode.description

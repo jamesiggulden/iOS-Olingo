@@ -73,12 +73,12 @@ public final class FullQualifiedName { //implements Serializable {
     // Find the last instance of "." in the string
     guard let dotIdx = namespaceAndName.rangeOfString(".", options: .BackwardsSearch)?.startIndex else {
       throw IllegalArgumentException.InvalidFormat // "Malformed " + FullQualifiedName.class.getSimpleName() + ": " + namespaceAndName)
-      return nil
+      //return nil
     }
     // check if "." is the first or last char in the string
     if dotIdx == namespaceAndName.startIndex || dotIdx == namespaceAndName.endIndex.advancedBy(-1) {
       throw IllegalArgumentException.InvalidFormat // "Malformed " + FullQualifiedName.class.getSimpleName() + ": " + namespaceAndName)
-      return nil
+      //return nil
     }
     self.fqn = namespaceAndName
     self.namespace = namespaceAndName.substringToIndex(dotIdx)
@@ -88,18 +88,23 @@ public final class FullQualifiedName { //implements Serializable {
   // MARK: - Methods
 
   // TODO: func equals(Object o) -> Bool
-//  public func equals(Object o) -> Bool {
-//    if (self == o) {
-//      return true
-//    }
-//    if (o == null || getClass() != o.getClass()) {
-//      return false
-//    }
-//    
-//    final FullQualifiedName that = (FullQualifiedName) o
-//    return (namespace == null ? that.namespace == null : namespace.equals(that.namespace))
-//      && (name == null ? that.name == null : name.equals(that.name))
-//  }
+  public func equals(Object o:AnyObject) -> Bool {
+    if (self === o) {
+      return true
+    }
+    if self.dynamicType != o.dynamicType {
+      return false
+    }
+    
+    let that =  o as! FullQualifiedName
+    if self.name == that.name && self.namespace == that.namespace {
+      return true
+    }
+    else {
+      return false
+    }
+    //return (namespace == nil ? that.namespace == nil : namespace.equals(that.namespace)) && (name == nil ? that.name == nil : name.equals(that.name))
+  }
   
   // TODO: func hashCode() -> Int
 //  public func hashCode() -> Int {

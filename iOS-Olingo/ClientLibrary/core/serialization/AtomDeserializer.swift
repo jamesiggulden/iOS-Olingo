@@ -280,7 +280,7 @@ public class AtomDeserializer extends AbstractAtomDealer implements ODataDeseria
       case PRIMITIVE:
         // No type specified? Defaults to Edm.String
         if (typeInfo == null) {
-          valuable.setType(EdmPrimitiveTypeKind.String.getFullQualifiedName().toString());
+          valuable.setType(EdmPrimitiveTypeKind.STRING.getFullQualifiedName().toString());
         }
         final Object value = fromPrimitive(reader, start, typeInfo);
         valuable.setValue(value instanceof Geospatial ? ValueType.GEOSPATIAL : ValueType.PRIMITIVE, value);

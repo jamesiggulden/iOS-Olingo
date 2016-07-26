@@ -31,7 +31,7 @@ import Foundation
 
 /// Constant values related to the OData protocol.
 
-
+  let EDM_NAMESPACE = "Edm"
   
   // Other stuff
   let UTF8:String = "UTF-8"

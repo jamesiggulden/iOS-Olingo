@@ -37,7 +37,7 @@ public protocol ODataRetrieveRequest {
 
   // MARK: - Protocol Methods
 
-  func execute() -> ODataRetrieveResponse!
+  //func execute() -> ODataRetrieveResponse!
 }
 
 // MARK: - Extension

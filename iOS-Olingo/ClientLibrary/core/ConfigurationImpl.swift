@@ -110,7 +110,7 @@ public class ConfigurationImpl :Configuration {
     }
   }
   
-  public var useChuncked: Bool {
+  public var useChunked: Bool {
     get {
       return getProperty(String: ConfigurationProperty.CHUNKING.rawValue, defaultValue: true) as! Bool
     }

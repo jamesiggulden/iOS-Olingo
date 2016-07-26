@@ -44,13 +44,13 @@ public protocol ResWrapper {
   /// the request URL.
   ///
   /// For details on how the context URL is used to describe a payload, see the relevant sections in the particular format.
-  var contextURL:NSURL {get}
+  var contextURL:NSURL? {get}
   
   /// An ETag header MAY also be returned on a metadata document request or service document request to allow the client
   /// subsequently to make a conditional request for the metadata or service document. Clients can also compare the value
   /// of the ETag header returned from a metadata document request to the metadata ETag returned in a response in order
   /// to verify the version of the metadata used to generate that response.
-  var metadataETag:String {get}
+  var metadataETag:String? {get}
   
   /// Gets contained object.
   //var payload:NSData {get}

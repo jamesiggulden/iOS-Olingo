@@ -38,7 +38,7 @@ public protocol ODataDeserializer {
    * @param input stream to be de-serialized.
    * @return {@link EntityCollection} instance.
    */
-   func toEntitySet(input: NSData) -> ResWrap<EntityCollection>
+   func toEntitySet(input: NSData) throws -> ResWrap<EntityCollection>?
   
   /**
    * Gets an entity object from the given InputStream.
@@ -46,7 +46,7 @@ public protocol ODataDeserializer {
    * @param input stream to be de-serialized.
    * @return {@link Entity} instance.
    */
-  func toEntity(input: NSData) -> ResWrap<Entity>
+  func toEntity(input: NSData) throws -> ResWrap<Entity>?
   
   /**
    * Gets a property object from the given InputStream.
@@ -54,7 +54,9 @@ public protocol ODataDeserializer {
    * @param input stream to be de-serialized.
    * @return Property instance.
    */
-  func toProperty(input: NSData) ->  ResWrap<Property>
+  
+  //TODO: Include when impl functionality added
+  // func toProperty(input: NSData) ->  ResWrap<Property>
   
   /**
    * Gets the ODataError object represented by the given InputStream.
@@ -62,6 +64,7 @@ public protocol ODataDeserializer {
    * @param input stream to be parsed and de-serialized.
    * @return parsed ODataError object represented by the given InputStream
    */
-   func toError(input: NSData) -> ODataError
+    //TODO: Include when impl functionality added
+   // func toError(input: NSData) -> ODataError
 }
 

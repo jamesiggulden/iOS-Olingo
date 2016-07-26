@@ -28,36 +28,48 @@
 
 import Foundation
 
-protocol Builder {
+public protocol ClientPrimitiveValueBuilder {
   
-  func setType(type:EdmType ) -> Builder
+  func setType(type:EdmType ) throws -> ClientPrimitiveValueBuilderImpl?
+  //func setType(type:EdmType ) throws -> ClientPrimitiveValueBuilder?
   
-  func setType(type:EdmPrimitiveTypeKind ) -> Builder
   
-  func setValue(value:AnyObject) -> Builder
+  func setType(type:EdmPrimitiveTypeKind?) throws  -> ClientPrimitiveValueBuilderImpl
+  //func setType(type:EdmPrimitiveTypeKind ) throws  -> ClientPrimitiveValueBuilder
   
-  func build() -> ClientPrimitiveValue
+  func setValue(value:Any) -> ClientPrimitiveValueBuilderImpl
+  //func setValue(value:Any) -> ClientPrimitiveValueBuilder
   
-  func buildBoolean(Boolean value:Bool)  -> ClientPrimitiveValue
   
-  func buildInt16(value:Int16)  -> ClientPrimitiveValue
   
-  func buildInt32(value:Int16)  -> ClientPrimitiveValue
+  func build() throws -> ClientPrimitiveValue
   
-  func buildInt64(value:Int64)  -> ClientPrimitiveValue
   
-  func buildSingle(value:Float32)  -> ClientPrimitiveValue
+ 
+  func buildBoolean(value:Bool) throws -> ClientPrimitiveValue
   
-  func buildDouble(value:Float64)  -> ClientPrimitiveValue
+  func buildInt16(value:Int16) throws -> ClientPrimitiveValue
   
-  func buildString(value:String)  -> ClientPrimitiveValue
+  func buildInt32(value:Int32) throws -> ClientPrimitiveValue
   
-  func buildGuid(value:NSUUID) -> ClientPrimitiveValue
+  func buildInt64(value:Int64) throws -> ClientPrimitiveValue
   
-  func buildBinary(value:[UInt8]) -> ClientPrimitiveValue
+  func buildSingle(value:Float32) throws -> ClientPrimitiveValue
   
-  func buildDecimal(value:NSDecimalNumber) -> ClientPrimitiveValue
+  func buildDouble(value:Float64) throws -> ClientPrimitiveValue
   
-  func buildDuration(value:NSDecimalNumber) -> ClientPrimitiveValue
+  
+  func buildString(value:String) throws -> ClientPrimitiveValue
+  
+  func buildGuid(value:NSUUID) throws -> ClientPrimitiveValue
+  
+  func buildBinary(value:[UInt8]) throws -> ClientPrimitiveValue
+ 
+  
+  func buildDecimal(value:NSDecimalNumber) throws -> ClientPrimitiveValue
+  
+  func buildDuration(value:NSDecimalNumber) throws -> ClientPrimitiveValue
+ 
+ 
 }
 

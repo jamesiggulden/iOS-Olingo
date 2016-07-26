@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -186,36 +187,36 @@
                                 <exclude reference="Huq-Td-bnR"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="0ci-r9-unb"/>
-                                <exclude reference="1x2-io-aO8"/>
-                                <exclude reference="9Jc-uV-sES"/>
+                                <exclude reference="0GD-7H-LgG"/>
                                 <exclude reference="AKN-ea-XKT"/>
                                 <exclude reference="FBg-Vv-TqC"/>
                                 <exclude reference="LLY-Ug-gCK"/>
                                 <exclude reference="M33-Mk-SYW"/>
                                 <exclude reference="zXG-rg-URV"/>
-                                <exclude reference="E4f-1I-VHr"/>
-                                <exclude reference="kE7-8t-Bx7"/>
-                                <exclude reference="eRc-Wy-wev"/>
-                                <exclude reference="wxc-kG-vfh"/>
-                                <exclude reference="Ja4-PA-UUa"/>
-                                <exclude reference="gO6-Y9-pkw"/>
                                 <exclude reference="AA4-VV-S6X"/>
                                 <exclude reference="BqN-Tb-wFp"/>
+                                <exclude reference="OzM-IE-RRf"/>
+                                <exclude reference="UDE-h9-JwA"/>
                                 <exclude reference="NpZ-SZ-n4X"/>
                                 <exclude reference="S0I-Wg-MNT"/>
+                                <exclude reference="PkW-jB-8BC"/>
                                 <exclude reference="Ji8-YI-r3U"/>
                                 <exclude reference="TeQ-4a-YUi"/>
-                                <exclude reference="PkW-jB-8BC"/>
+                                <exclude reference="Ja4-PA-UUa"/>
+                                <exclude reference="gO6-Y9-pkw"/>
+                                <exclude reference="E4f-1I-VHr"/>
+                                <exclude reference="kE7-8t-Bx7"/>
+                                <exclude reference="0ci-r9-unb"/>
+                                <exclude reference="1x2-io-aO8"/>
+                                <exclude reference="9Jc-uV-sES"/>
+                                <exclude reference="eRc-Wy-wev"/>
+                                <exclude reference="wxc-kG-vfh"/>
                                 <exclude reference="ITU-dG-ul8"/>
                                 <exclude reference="d81-bV-9sw"/>
                                 <exclude reference="rCC-1a-W1c"/>
                                 <exclude reference="5sM-Pw-1TS"/>
                                 <exclude reference="bWk-xH-sWA"/>
                                 <exclude reference="dvh-dj-lKM"/>
-                                <exclude reference="OzM-IE-RRf"/>
-                                <exclude reference="UDE-h9-JwA"/>
-                                <exclude reference="0GD-7H-LgG"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -234,36 +235,36 @@
                                 <include reference="Huq-Td-bnR"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="0ci-r9-unb"/>
-                                <include reference="1x2-io-aO8"/>
-                                <include reference="9Jc-uV-sES"/>
+                                <include reference="0GD-7H-LgG"/>
                                 <include reference="AKN-ea-XKT"/>
                                 <include reference="FBg-Vv-TqC"/>
                                 <include reference="LLY-Ug-gCK"/>
                                 <include reference="M33-Mk-SYW"/>
                                 <include reference="zXG-rg-URV"/>
-                                <include reference="E4f-1I-VHr"/>
-                                <include reference="kE7-8t-Bx7"/>
-                                <include reference="eRc-Wy-wev"/>
-                                <include reference="wxc-kG-vfh"/>
-                                <include reference="Ja4-PA-UUa"/>
-                                <include reference="gO6-Y9-pkw"/>
                                 <include reference="AA4-VV-S6X"/>
                                 <include reference="BqN-Tb-wFp"/>
+                                <include reference="OzM-IE-RRf"/>
+                                <include reference="UDE-h9-JwA"/>
                                 <include reference="NpZ-SZ-n4X"/>
                                 <include reference="S0I-Wg-MNT"/>
+                                <include reference="PkW-jB-8BC"/>
                                 <include reference="Ji8-YI-r3U"/>
                                 <include reference="TeQ-4a-YUi"/>
-                                <include reference="PkW-jB-8BC"/>
+                                <include reference="Ja4-PA-UUa"/>
+                                <include reference="gO6-Y9-pkw"/>
+                                <include reference="E4f-1I-VHr"/>
+                                <include reference="kE7-8t-Bx7"/>
+                                <include reference="0ci-r9-unb"/>
+                                <include reference="1x2-io-aO8"/>
+                                <include reference="9Jc-uV-sES"/>
+                                <include reference="eRc-Wy-wev"/>
+                                <include reference="wxc-kG-vfh"/>
                                 <include reference="ITU-dG-ul8"/>
                                 <include reference="d81-bV-9sw"/>
                                 <include reference="rCC-1a-W1c"/>
                                 <include reference="5sM-Pw-1TS"/>
                                 <include reference="bWk-xH-sWA"/>
                                 <include reference="dvh-dj-lKM"/>
-                                <include reference="OzM-IE-RRf"/>
-                                <include reference="UDE-h9-JwA"/>
-                                <include reference="0GD-7H-LgG"/>
                             </mask>
                         </variation>
                     </view>

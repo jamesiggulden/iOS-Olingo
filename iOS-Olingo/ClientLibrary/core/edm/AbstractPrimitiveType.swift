@@ -33,27 +33,52 @@ import Foundation
 
 public class AbstractPrimitiveType : EdmPrimitiveType {
   
+  // MARK: - Stored Properties
+
   var uriPrefix:String = ""
   
   var uriSuffix:String = ""
+  
+  public var name:String = ""
+  
+  public var namespace: String = ""
+  
+  //public var kind: EdmTypeKind = EdmTypeKind()
+
+  // MARK: - Computed Properties
+  
+  public var defaultType:Any {
+    return ("" as? Any)!
+  }
+  
+  public var kind:EdmTypeKind? {
+    return nil
+  }
+  
+  public var fullQualifiedName: FullQualifiedName {
+    return FullQualifiedName(namespace: namespace, name: name)
+  }
+  
+  // MARK: - Init
+
+  
+  // MARK: - Methods
 
   // TODO: Stubbed to get past methods defined to be called from subclasses
-  func getNamespace() -> String {
-    return ""
+  /*
+  public func getNamespace() -> String {
+    fatalError("Must be implmented in subclass")
   }
   
-  func getName() -> String {
-    return ""
+  public func getName() -> String {
+    fatalError("Must be implmented in subclass")
   }
   
-  public func getDefaultType() -> AnyClass {
-    return ("" as? AnyClass)!
+  public func getKind() -> EdmTypeKind {
+    fatalError("Must override")
   }
 
-  
-  public func getFullQualifiedName() -> FullQualifiedName {
-    return FullQualifiedName(namespace: getNamespace(), name: getName())
-  }
+  */
   
 
   public func isCompatible(primitiveType:EdmPrimitiveType) -> Bool {
@@ -67,7 +92,7 @@ public class AbstractPrimitiveType : EdmPrimitiveType {
   public func validate(value:String?,isnilable:Bool,maxLength:Int,precision:Int,scale:Int,isUnicode:Bool) -> Bool {
     
     do {
-      try valueOfString(value, isnilable: isnilable, maxLength: maxLength, precision: precision, scale: scale, isUnicode: isUnicode, returnType: getDefaultType())
+      try valueOfString(value, isnilable: isnilable, maxLength: maxLength, precision: precision, scale: scale, isUnicode: isUnicode, returnType: defaultType)
       return true
     }
     catch {
@@ -76,7 +101,7 @@ public class AbstractPrimitiveType : EdmPrimitiveType {
   }
   
 
-  public final func valueOfString <T> (value:String?,isnilable:Bool,maxLength:Int,precision:Int,scale:Int,isUnicode:Bool,  returnType:T) throws  -> T? {
+  public final func valueOfString <T> (value:String?,isnilable:Bool,maxLength:Int?,precision:Int,scale:Int,isUnicode:Bool,  returnType:T) throws  -> T? {
     
     guard let value = value else {
       if (!isnilable) {
@@ -85,12 +110,14 @@ public class AbstractPrimitiveType : EdmPrimitiveType {
       return nil
     }
     do {
-          return try internalValueOfString(value, isnilable: isnilable, maxLength: maxLength, precision: precision, scale: scale, isUnicode: isUnicode, returnType: returnType)
+      // TODO: How do you call teh child version rather than the abstartc parent?
+      return value as! T
+      //return try internalValueOfString(value, isnilable: isnilable, maxLength: maxLength, precision: precision, scale: scale, isUnicode: isUnicode, returnType: returnType)
     }
 
   }
   
-  func internalValueOfString <T> (value:String,isnilable:Bool,maxLength:Int,precision:Int,scale:Int,isUnicode:Bool,returnType: T)throws -> T  {
+  func internalValueOfString <T> (value:String,isnilable:Bool,maxLength:Int?,precision:Int,scale:Int,isUnicode:Bool,returnType: T)throws -> T  {
     fatalError("Must override")
   }
   
@@ -145,6 +172,6 @@ public class AbstractPrimitiveType : EdmPrimitiveType {
   
 
   public func toString() -> String {
-    return getFullQualifiedName().fqn
+    return fullQualifiedName.fqn
   }
 }

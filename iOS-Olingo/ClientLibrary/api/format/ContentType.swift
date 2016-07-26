@@ -294,20 +294,37 @@ public final class ContentType {
   
   private static func parseFormat(format:String) throws -> TypeSubTypeParams {
     
+    var types:String = ""
+    var params:String = ""
+    
     // split string into 2 parts, type & subtypes + parameters
-    let typesAndParameters:[String] = format.componentsSeparatedByString(TypeUtil.PARAMETER_SEPARATOR)
-    let types:String = typesAndParameters[0]
+    //let typesAndParameters:[String] = format.componentsSeparatedByString(TypeUtil.PARAMETER_SEPARATOR)
     
-    var typeSubTypeParams = TypeSubTypeParams(typeSubType: [],parameters: [:])
-    
-    let params:String
-    if typesAndParameters.count>1 {
-      params = typesAndParameters[1]
+    if let idx = format.rangeOfString(TypeUtil.PARAMETER_SEPARATOR)?.startIndex {
+      types = format.substringToIndex(idx)
+      params = format.substringFromIndex(idx.advancedBy(1))
     }
     else
     {
-      params = ""
+      types = format
     }
+  
+     //let types = format.substringToIndex(idx)
+    
+    
+    //let types:String = typesAndParameters[0]
+    
+    var typeSubTypeParams = TypeSubTypeParams(typeSubType: [],parameters: [:])
+    
+    //let params:String
+    //if typesAndParameters.count>1 {
+      
+    //  params = typesAndParameters[1]
+    //}
+    //else
+    //{
+    //  params = ""
+    // }
     
     if (types.rangeOfString(TypeUtil.TYPE_SUBTYPE_SEPARATOR) != nil) {
       let tokens:[String] = types.componentsSeparatedByString(TypeUtil.TYPE_SUBTYPE_SEPARATOR)
@@ -547,7 +564,9 @@ public final class ContentType {
     
     contentTypeAsString = self.type + TypeUtil.TYPE_SUBTYPE_SEPARATOR + subtype
     for (name,value) in parameters {
-      contentTypeAsString += TypeUtil.PARAMETER_SEPARATOR + name + TypeUtil.PARAMETER_KEY_VALUE_SEPARATOR + value
+      if !name.isEmpty {
+        contentTypeAsString += TypeUtil.PARAMETER_SEPARATOR + name + TypeUtil.PARAMETER_KEY_VALUE_SEPARATOR + value
+      }
     }
     return contentTypeAsString
   }

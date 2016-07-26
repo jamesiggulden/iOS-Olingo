@@ -41,7 +41,7 @@ public class ODataEntitySetRequestImpl: AbstractODataRequest,ODataRetrieveReques
   
   // MARK: - Stored Properties
 
-  private var entitySet: AnyObject?
+  public lazy var entitySet: ClientEntitySet? = nil
   //private ES entitySet = nil
   
   // MARK: - Computed Properties
@@ -69,7 +69,8 @@ public class ODataEntitySetRequestImpl: AbstractODataRequest,ODataRetrieveReques
   ///   - none
   /// - returns: response
   /// - throws: No error conditions are expected
-  public func execute() -> ODataRetrieveResponse! {
+  public func execute() -> ODataEntitySetRetrieveResponse? {
+    //public func execute() -> ODataRetrieveResponse! {
     
     do {
       let result = try doExecute()
@@ -85,48 +86,57 @@ public class ODataEntitySetRequestImpl: AbstractODataRequest,ODataRetrieveReques
   }
   
   
-//  /// Response class about an ODataEntitySetRequest
-//  public class ODataEntitySetResponse : AbstractODataResponse, ODataRetrieveResponse  {
-//
-//    // MARK: - Stored Properties
-//
-//     public let test = "hello"
-//    // MARK: - Computed Properties
-//
-//    // MARK: - Init
-//
-//    private override init (odataClient: ODataClient,
-//                  res: HttpResponseContent ) {
-//      
-//      super.init(odataClient: odataClient, res: res)
-//    }
-//    
-//    // MARK: - Methods
-//
-//    /// Get the body of the returned response
-//    /// - parameters:
-//    ///   - none
-//    /// - returns: Entity
-//    /// - throws: No error conditions are expected
+  /// Response class about an ODataEntitySetRequest
+  public class ODataEntitySetResponse : AbstractODataResponse, ODataEntitySetRetrieveResponse  {
+    //public class ODataEntitySetResponse : AbstractODataResponse, ODataRetrieveResponse {
+
+    // MARK: - Stored Properties
+    private var entitySet:ClientEntitySet?
+    
+    // MARK: - Computed Properties
+
+    // MARK: - Init
+
+    private override init(odataClient: ODataClient,res: HttpResponseContent ) {
+      
+      super.init(odataClient: odataClient, res: res)
+    }
+    
+    // MARK: - Methods
+
+    /// Get the body of the returned response
+    /// - parameters:
+    ///   - none
+    /// - returns: Entity
+    /// - throws: No error conditions are expected
 //    public func getBody() {
 //      
 //    }
-//
-////    public ES getBody() {
-////      if (entitySet == nil) {
-////        try {
-////          final ResWrap<EntityCollection> resource =
-////            odataClient.getDeserializer(ContentType.parse(getContentType())).
-////          toEntitySet(getRawResponse())
-////          
-////          entitySet = (ES) odataClient.getBinder().getODataEntitySet(resource)
-////        } catch (final ODataDeserializerException e) {
-////          throw new IllegalArgumentException(e)
-////        } finally {
-////          this.close()
-////        }
-////      }
-////      return entitySet
-////    }
-//  }
+
+    public func getBody() throws -> ClientEntitySet? {
+    //public ES getBody() {
+      
+      //typealias bodyReturn = ClientEntitySet
+      if entitySet == nil {
+        do {
+          
+          log.debug("Parse Client entity Set")
+          let contentType = ContentType.parse(self.contentType)!
+          log.debug("To entity set")
+          let  x = odataClient.getDeserializer(contentType)
+          let resource:ResWrap<EntityCollection> = try x.toEntitySet(payload)!
+          //let resource:ResWrap<EntityCollection> = try x.toEntitySet(self.res.data)!
+          // let resource:ResWrap<EntityCollection> = odataClient.getDeserializer(ContentType.parse(self.contentType)).toEntitySet(self.getRawResponse())
+          log.debug("Bind entity Set")
+          entitySet = odataClient.binder.getODataEntitySet(resource) as ClientEntitySet
+        } catch  {
+          throw IllegalArgumentException.InvalidFormat
+        }
+        defer {
+          self.close()
+        }
+      }
+      return entitySet
+    }
+  }
 }

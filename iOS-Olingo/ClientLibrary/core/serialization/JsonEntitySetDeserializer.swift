@@ -31,8 +31,8 @@ import Foundation
 
 
   /// Reads JSON string into an entity set.
-  ///
-  /// If metadata information is available, the corresponding entity fields and content will be populated.
+  /// If metadata information is available, the corresponding entity fields and content will be populated. 
+
 public class JsonEntitySetDeserializer:JsonDeserializer {
   
   // MARK: - Stored Properties
@@ -49,82 +49,179 @@ public class JsonEntitySetDeserializer:JsonDeserializer {
   
 // MARK: - Methods
 
-  //TODO: func doDeserialize(inputData:NSData) throws -> ResWrap<EntityCollection>?
+  /// Deserialize the data into an EntityCollection object.
+  /// - parameters:
+  ///   - inputData: NSDATA object containing the JSON data
+  /// - returns: EntityCollection in a ResWrap object
+  /// - throws: No error conditions are expected
   func doDeserialize(inputData:NSData) throws -> ResWrap<EntityCollection>? {
-  // func doDeserialize( parser:final JsonParser) throws -> ResWrap<EntityCollection>? {
-  /*
     
-    final ObjectNode tree = (ObjectNode) parser.getCodec().readTree(parser)
-    
-    if (!tree.has(VALUE)) {
+    guard var data = parseHttpData(inputData) else {
       return nil
     }
     
-    final EntityCollection entitySet = new EntityCollection()
+    let entitySet = EntityCollection()
     
-    URI contextURL
-    if (tree.hasNonnil(JSON_CONTEXT)) {
-      contextURL = URI.create(tree.get(JSON_CONTEXT).textValue())
-      tree.remove(JSON_CONTEXT)
-    } else if (tree.hasNonnil(JSON_METADATA)) {
-      contextURL = URI.create(tree.get(JSON_METADATA).textValue())
-      tree.remove(JSON_METADATA)
+    var contextURL:NSURL?
+    var metadataETag:String = ""
+    
+    if data[JSON_CONTEXT] != nil {
+      contextURL = NSURL(string: (data[JSON_CONTEXT]?.description)!)!
+      data[JSON_CONTEXT] = nil
+    }
+    else if data[JSON_METADATA] != nil {
+      contextURL = NSURL(string: (data[JSON_METADATA]?.description)!)!
+      data[JSON_METADATA] = nil
+    }
+    
+    if let contextURL = contextURL {
+      let idx = contextURL.absoluteString.rangeOfString(METADATA)?.startIndex
+      if let idx = idx {
+        entitySet.baseURI = NSURL(string: contextURL.absoluteString.substringToIndex(idx))
+      }
+      else {
+        entitySet.baseURI = NSURL(string: contextURL.absoluteString)
+      }
+    }
+    else {
+      log.info("context URL not defined")
+      throw GetODataException.OdataEntitySetFailed
+    }
+    
+    
+    
+    
+    if data[JSON_METADATA_ETAG] != nil {
+      metadataETag = data[JSON_METADATA_ETAG]!.description
+      data[JSON_METADATA_ETAG] = nil
     } else {
-      contextURL = nil
-    }
-    if (contextURL != nil) {
-      entitySet.setBaseURI(URI.create(StringUtils.substringBefore(contextURL.toASCIIString(), METADATA)))
+      metadataETag = ""
     }
     
-    final String metadataETag
-    if (tree.hasNonnil(JSON_METADATA_ETAG)) {
-      metadataETag = tree.get(JSON_METADATA_ETAG).textValue()
-      tree.remove(JSON_METADATA_ETAG)
-    } else {
-      metadataETag = nil
+    if data[JSON_COUNT] != nil {
+      entitySet.count = Int(data[JSON_COUNT]!.description)!
+      data[JSON_COUNT] = nil
+    }
+    if data[JSON_NEXT_LINK] != nil {
+      entitySet.next = NSURL(string: (data[JSON_NEXT_LINK]?.description)!)
+      data[JSON_NEXT_LINK] = nil
+    }
+    if data[JSON_DELTA_LINK] != nil {
+      entitySet.deltaLink = NSURL(string: (data[JSON_DELTA_LINK]?.description)!)
+      data[JSON_DELTA_LINK] = nil
     }
     
-    if (tree.hasNonnil(JSON_COUNT)) {
-      entitySet.setCount(tree.get(JSON_COUNT).asInt())
-      tree.remove(JSON_COUNT)
-    }
-    if (tree.hasNonnil(JSON_NEXT_LINK)) {
-      entitySet.setNext(URI.create(tree.get(JSON_NEXT_LINK).textValue()))
-      tree.remove(JSON_NEXT_LINK)
-    }
-    if (tree.hasNonnil(JSON_DELTA_LINK)) {
-      entitySet.setDeltaLink(URI.create(tree.get(JSON_DELTA_LINK).textValue()))
-      tree.remove(JSON_DELTA_LINK)
-    }
-    
-    if (tree.hasNonnil(VALUE)) {
-      final JsonEntityDeserializer entityDeserializer = new JsonEntityDeserializer(serverMode)
-      for (JsonNode jsonNode : tree.get(VALUE)) {
+    if data[VALUE] != nil {
+      let entityDeserializer:JsonEntityDeserializer = JsonEntityDeserializer(serverMode: serverMode)
+      let valueData = data[VALUE]
+      
+      for entitySetData in valueData as! [AnyObject]
+      {
+        log.debug(entitySetData.debugDescription)
+        do {
+          if let entity = try entityDeserializer.doDeserialize(entitySetData) {
+            entitySet.entities.append(entity)
+            log.debug("Number of entities: \(entitySet.entities.count)")
+          }
+          
+          //let x = try entityDeserializer.doDeserialize(nsdataStr)
+          //let x = try entityDeserializer.doDeserialize(entitySetData as! NSData)
+          //entitySet.entities.append((x?.payload)!)
+          
+        }
+        catch  let err{
+          print (err)
+        }
+        
+      }
+      //nedd to parse teh value content
+      /*
+      for jsonNode in data[VALUE] {
         entitySet.getEntities().add(
           entityDeserializer.doDeserialize(jsonNode.traverse(parser.getCodec())).getPayload())
       }
-      tree.remove(VALUE)
+ */
+      data[VALUE] = nil
     }
     
+    // TODO: Annotations
+    /*
     // any remaining entry is supposed to be an annotation or is ignored
-    for (final Iterator<Map.Entry<String, JsonNode>> itor = tree.fields() itor.hasNext()) {
-      final Map.Entry<String, JsonNode> field = itor.next()
-      if (field.getKey().charAt(0) == '@') {
-        final Annotation annotation = new Annotation()
-        annotation.setTerm(field.getKey().substring(1))
-        
-        try {
-          value(annotation, field.getValue(), parser.getCodec())
-        } catch (final EdmPrimitiveTypeException e) {
-          throw new IOException(e)
-        }
-        entitySet.getAnnotations().add(annotation)
+    for (key,value) in data {
+      if key.characters[0] == "@" {
+        let annotation = Annotation()
+        annotation.term = value.description
+        entitySet.annotations.append(annotation)
       }
     }
     
-    return new ResWrap<EntityCollection>(contextURL, metadataETag, entitySet)
-  }
+//    for (final Iterator<Map.Entry<String, JsonNode>> itor = tree.fields() itor.hasNext()) {
+//      final Map.Entry<String, JsonNode> field = itor.next()
+//      if (field.getKey().charAt(0) == '@') {
+//        final Annotation annotation = new Annotation()
+//        annotation.setTerm(field.getKey().substring(1))
+//
+//        try {
+//          value(annotation, field.getValue(), parser.getCodec())
+//        } catch (final EdmPrimitiveTypeException e) {
+//          throw new IOException(e)
+//        }
+//        entitySet.getAnnotations().add(annotation)
+//      }
+//    }
  */
+    
+    return ResWrap<EntityCollection>(contextURL: contextURL!, metadataETag: metadataETag, payload: entitySet)
+  }
+  
+  // This helper method helps parse response JSON NSData into an array of customer objects.
+  private func parseHttpData(data: NSData?) -> [String:AnyObject]! {
+    do {
+      //if let data = data, response = try NSJSONSerialization.JSONObjectWithData(data,options:NSJSONReadingOptions(rawValue:0) as? [String: AnyObject] {
+      if let data = data, response = try NSJSONSerialization.JSONObjectWithData(data, options:NSJSONReadingOptions(rawValue:0)) as? [String: AnyObject] {
+        return response
+        // Get the results array
+        /*
+        if let array: AnyObject = response["value"]
+        {
+          
+          for entitySetDictonary in array as! [AnyObject]
+          {
+            if let entitySetDictonary = entitySetDictonary as? [String: AnyObject]{
+              return entitySetDictonary
+            }
+            else
+            {
+              print("Not a dictionary")
+              return nil
+            }
+          }
+        } else {
+          print("Value key not found in dictionary")
+          //self.responseStatusLabel.text = "Value key not found in dictionary"
+        }
+      */
+      } else {
+        print("JSON Error")
+        //self.responseStatusLabel.text = "JSON Error"
+      }
+    } catch let error as NSError {
+      print("Error parsing results: \(error.localizedDescription)")
+      //self.responseStatusLabel.text = "Error parsing results: \(error.localizedDescription)"
+    }
     return nil
   }
+  
+  
+//  private func nsdataToJSON (data:NSData) -> AnyObject? {
+//    do {
+//      return try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers)
+//    }
+//    catch let myJSONError{
+//      print (myJSONError)
+//    }
+//    return nil
+//  }
 }
+
+
