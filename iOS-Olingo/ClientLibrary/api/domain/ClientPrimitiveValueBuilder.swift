@@ -37,7 +37,7 @@ public protocol ClientPrimitiveValueBuilder {
   func setType(type:EdmPrimitiveTypeKind?) throws  -> ClientPrimitiveValueBuilderImpl
   //func setType(type:EdmPrimitiveTypeKind ) throws  -> ClientPrimitiveValueBuilder
   
-  func setValue(value:Any) -> ClientPrimitiveValueBuilderImpl
+  func setValue(value:Any?) -> ClientPrimitiveValueBuilderImpl
   //func setValue(value:Any) -> ClientPrimitiveValueBuilder
   
   

@@ -263,15 +263,18 @@ public class JsonDeserializer: ODataDeserializer {
         valuable.type = typeInfo!.fullQualifiedName.toString()
       }
       do {
-        let primitiveValue:AnyObject = try fromPrimitive(value, typeInfo: typeInfo)!
-        valuable.setValue(primitiveValue is Geospatial ? ValueType.GEOSPATIAL : ValueType.PRIMITIVE, value: primitiveValue)
-      }
-      catch {
+        if let primitiveValue = try fromPrimitive(value, typeInfo: typeInfo) {
+          valuable.setValue(primitiveValue is Geospatial ? ValueType.GEOSPATIAL : ValueType.PRIMITIVE, value: primitiveValue)
+        }
+        else {
+          valuable.setValue(ValueType.PRIMITIVE, value: "")
+        }
         break
       }
-
-      break
-      
+      catch {
+        valuable.setValue(ValueType.PRIMITIVE, value: "")
+        break
+      }
     case PropertyType.EMPTY:
       valuable.setValue(ValueType.PRIMITIVE, value: "")
       break
@@ -382,43 +385,53 @@ public class JsonDeserializer: ODataDeserializer {
   
   // TODO: func fromPrimitive(node:JsonNode,typeInfo:EdmTypeInfo) throws -> AnyObject
     private func fromPrimitive(node:AnyObject?,typeInfo:EdmTypeInfo?) throws -> AnyObject? {
-      if node == nil {
+      guard let node = node else {
         return nil
       }
-      else {
-        guard let typeInfo = typeInfo else {
-          return String(node)
-        }
-        // TODO : geo
-        /*
-        if typeInfo!.primitiveTypeKind.isGeospatial {
-          return getGeoDeserializer().deserialize(node, typeInfo)
+      
+      guard let typeInfo = typeInfo else {
+        return String(node)
+      }
+      // TODO : geo
+      /*
+       if typeInfo!.primitiveTypeKind.isGeospatial {
+       return getGeoDeserializer().deserialize(node, typeInfo)
+       }
+       */
+      do {
+        //let pType = typeInfo.type as! EdmString
+        //let pClass = pType.dynamicType
+        
+        let primType = typeInfo.type as! EdmPrimitiveType
+        let swiftType = primType.defaultType
+        //let primClass = primType.dynamicType
+        log.debug(" value: \(String(node)) of type \(node.dynamicType)")
+        if let swiftValue = try primType.valueOfString(String(node), isnilable: true, maxLength: nil,precision: DEFAULT_PRECISION, scale: DEFAULT_SCALE, isUnicode: true,returnType: swiftType) {
+          log.debug(" value: \(String(swiftValue)) of type \(swiftValue.dynamicType)")
+          return swiftValue as? AnyObject
         }
         else {
-        */
-        do {
-        let primType = typeInfo.type as! EdmPrimitiveType
-          
+          return nil
+        }
+        
+        
+        
         // TODO: need to come back to cast to specific primitive type
-          if let node = node {
-            let nd = String(node)
-            return String(node)
-          }
-          
         
-          let edmPrimType = try primType.valueOfString(String(node), isnilable: true, maxLength: nil,precision: DEFAULT_PRECISION, scale: DEFAULT_SCALE, isUnicode: true,returnType: typeInfo.type as! EdmPrimitiveType)
+          let nd = String(node)
+          return String(node)
         
-        return edmPrimType!.defaultType as! AnyObject
-
-          //return typeInfo!.type.valueOfString(String(value), true, nil,DEFAULT_PRECISION, DEFAULT_SCALE, true,typeInfo.type as EdmPrimitiveType).getDefaultType() as EdmPrimitiveType
-        }
-        catch {
-            // TODO:
-        }
-          //}
+        
+        //return typeInfo!.type.valueOfString(String(value), true, nil,DEFAULT_PRECISION, DEFAULT_SCALE, true,typeInfo.type as EdmPrimitiveType).getDefaultType() as EdmPrimitiveType
       }
+      catch {
+        // TODO:
+      }
+      //}
+      
       return nil
       //return node.isnil() ? nil: typeInfo == nil ? node.asText(): typeInfo.getPrimitiveTypeKind().isGeospatial()? getGeoDeserializer().deserialize(node, typeInfo): ((EdmPrimitiveType) typeInfo.getType()).valueOfString(node.asText(), true, nil,Constants.DEFAULT_PRECISION, Constants.DEFAULT_SCALE, true,((EdmPrimitiveType) typeInfo.getType()).getDefaultType())
+
     }
 
   

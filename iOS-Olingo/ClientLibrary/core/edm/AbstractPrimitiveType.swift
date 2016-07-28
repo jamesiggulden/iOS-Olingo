@@ -39,9 +39,9 @@ public class AbstractPrimitiveType : EdmPrimitiveType {
   
   var uriSuffix:String = ""
   
-  public var name:String = ""
+  private var _name:String = ""
   
-  public var namespace: String = ""
+  private var _namespace: String = ""
   
   //public var kind: EdmTypeKind = EdmTypeKind()
 
@@ -53,6 +53,14 @@ public class AbstractPrimitiveType : EdmPrimitiveType {
   
   public var kind:EdmTypeKind? {
     return nil
+  }
+  
+  public var name:String {
+    return _name
+  }
+  
+  public var namespace:String {
+    return _namespace
   }
   
   public var fullQualifiedName: FullQualifiedName {
@@ -104,23 +112,26 @@ public class AbstractPrimitiveType : EdmPrimitiveType {
   public final func valueOfString <T> (value:String?,isnilable:Bool,maxLength:Int?,precision:Int,scale:Int,isUnicode:Bool,  returnType:T) throws  -> T? {
     
     guard let value = value else {
-      if (!isnilable) {
+      if isnilable != true {
         throw EdmPrimitiveTypeException.LiteralNilNotAllowed
       }
       return nil
     }
     do {
-      // TODO: How do you call teh child version rather than the abstartc parent?
-      return value as! T
-      //return try internalValueOfString(value, isnilable: isnilable, maxLength: maxLength, precision: precision, scale: scale, isUnicode: isUnicode, returnType: returnType)
+      return try self.internalValueOfString(value, isnilable: isnilable, maxLength: maxLength, precision: precision, scale: scale, isUnicode: isUnicode, returnType: returnType)
     }
-
   }
   
   func internalValueOfString <T> (value:String,isnilable:Bool,maxLength:Int?,precision:Int,scale:Int,isUnicode:Bool,returnType: T)throws -> T  {
     fatalError("Must override")
   }
   
+  func internalValueToString <T> (value: T,isnilable:Bool, maxLength:Int, precision:Int, scale:Int,isUnicode:Bool) throws -> String {
+    fatalError("Must override")
+  }
+  
+
+
 
   public final func valueToString(value:AnyObject?,isnilable:Bool,maxLength:Int,precision:Int,scale:Int,isUnicode:Bool) throws -> String? {
     guard value != nil else {
@@ -130,10 +141,6 @@ public class AbstractPrimitiveType : EdmPrimitiveType {
       return nil
     }
     return try internalValueToString(value, isnilable: isnilable, maxLength: maxLength, precision: precision, scale: scale, isUnicode: isUnicode)
-  }
-  
-  func internalValueToString <T> (value: T,isnilable:Bool, maxLength:Int, precision:Int, scale:Int,isUnicode:Bool) throws -> String {
-    fatalError("Must override")
   }
   
 

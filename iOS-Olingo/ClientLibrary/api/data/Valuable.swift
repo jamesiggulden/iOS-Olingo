@@ -156,7 +156,7 @@ public class Valuable {  //: Annotatable {
   /// - throws: No error conditions are expected
   public func setValue(valueType:ValueType, value: Any) {
     self.valueType = valueType
-    self.value = String(value)
+    self.value = value
   }
 
 

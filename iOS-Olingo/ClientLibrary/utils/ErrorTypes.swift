@@ -53,6 +53,8 @@ public enum ODataDeserializerException:ErrorType {
 public enum EdmPrimitiveTypeException:ErrorType{
   case LiteralNilNotAllowed
   case LiteralHasIllegalContent
+  case LiteralCannotBeConvertedToValueType
+  case ValueTypeNotSupported
 }
 
 public enum EdmException:ErrorType{

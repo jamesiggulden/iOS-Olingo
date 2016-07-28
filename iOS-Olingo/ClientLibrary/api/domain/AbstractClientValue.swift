@@ -40,7 +40,7 @@ public class AbstractClientValue: ClientValue {
   
   public var isPrimitive: Bool {
     get {
-      return (self is ClientPrimitiveValue)
+      return self is ClientPrimitiveValue
     }
   }
   

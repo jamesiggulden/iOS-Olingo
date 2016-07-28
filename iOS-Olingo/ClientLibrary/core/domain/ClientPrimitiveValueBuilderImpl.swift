@@ -73,8 +73,10 @@ public class ClientPrimitiveValueBuilderImpl: ClientPrimitiveValueBuilder {
     }
     
     
-    public func setValue(value:Any) -> ClientPrimitiveValueBuilderImpl {
-      instance.value = value
+    public func setValue(value:Any?) -> ClientPrimitiveValueBuilderImpl {
+      if let value = value {
+        instance.value = value
+      }
       return self
     }
     

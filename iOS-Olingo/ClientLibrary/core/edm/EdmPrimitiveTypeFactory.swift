@@ -30,89 +30,103 @@ import Foundation
 
 public final class EdmPrimitiveTypeFactory {
   
-  /// Returns an instance for the provided EdmPrimitiveTypeKind in the form of {@link EdmPrimitiveType}.
+  // MARK: - Stored Properties
+
+  // MARK: - Computed Properties
+
+  // MARK: - Init
+
+  // MARK: - Methods
+
+  /// Returns an instance for the provided EdmPrimitiveTypeKind in the form of EdmPrimitiveType
   /// - parameters:
   ///   - kind: EdmPrimitiveTypeKind
   /// - returns: EdmPrimitiveType instance
   /// - throws: No error conditions are expected
   public static func getInstance(kind:EdmPrimitiveTypeKind ) throws ->  EdmPrimitiveType  {
     
-    return EdmString.getInstance()
+    //return EdmString.getInstance()
     
-    /*
+    
     switch (kind) {
-    case EdmPrimitiveTypeKind.Binary:
-      return EdmBinary.getInstance()
-    case EdmPrimitiveTypeKind.Boolean:
-      return EdmBoolean.getInstance()
-    case EdmPrimitiveTypeKind.Byte:
-      return EdmByte.getInstance()
-    case EdmPrimitiveTypeKind.SByte:
-      return EdmSByte.getInstance()
-    case EdmPrimitiveTypeKind.Date:
-      return EdmDate.getInstance()
-    case EdmPrimitiveTypeKind.DateTimeOffset:
-      return EdmDateTimeOffset.getInstance()
-    case EdmPrimitiveTypeKind.TimeOfDay:
-      return EdmTimeOfDay.getInstance()
-    case EdmPrimitiveTypeKind.Duration:
-      return EdmDuration.getInstance()
-    case EdmPrimitiveTypeKind.Decimal:
+    case EdmPrimitiveTypeKind.STRING:
+      return EdmString.instance
+    case EdmPrimitiveTypeKind.INT32:
+      return EdmInt32.instance
+    case EdmPrimitiveTypeKind.INT64:
+      return EdmInt64.instance
+    case EdmPrimitiveTypeKind.DECIMAL:
       return EdmDecimal.getInstance()
-    case EdmPrimitiveTypeKind.Single:
+    case EdmPrimitiveTypeKind.DATETIMEOFFSET:
+      return EdmDateTimeOffset.getInstance()
+     /*
+    case EdmPrimitiveTypeKind.BINARY:
+      return EdmBinary.getInstance()
+    case EdmPrimitiveTypeKind.BOOLEAN:
+      return EdmBoolean.getInstance()
+    case EdmPrimitiveTypeKind.BYTE:
+      return EdmByte.getInstance()
+    case EdmPrimitiveTypeKind.SBYTE:
+      return EdmSByte.getInstance()
+    case EdmPrimitiveTypeKind.DATE:
+      return EdmDate.getInstance()
+
+    case EdmPrimitiveTypeKind.TIMEOFDAY:
+      return EdmTimeOfDay.getInstance()
+    case EdmPrimitiveTypeKind.DURATION:
+      return EdmDuration.getInstance()
+
+    case EdmPrimitiveTypeKind.SINGLE:
       return EdmSingle.getInstance()
-    case EdmPrimitiveTypeKind.Double:
+    case EdmPrimitiveTypeKind.DOUBLE:
       return EdmDouble.getInstance()
-    case EdmPrimitiveTypeKind.Guid:
+    case EdmPrimitiveTypeKind.GUID:
       return EdmGuid.getInstance()
-    case EdmPrimitiveTypeKind.Int16:
+    case EdmPrimitiveTypeKind.INT16:
       return EdmInt16.getInstance()
-    case EdmPrimitiveTypeKind.Int32:
-      return EdmInt32.getInstance()
-    case EdmPrimitiveTypeKind.Int64:
-      return EdmInt64.getInstance()
-    case EdmPrimitiveTypeKind.String:
-      return EdmString.getInstance()
-    case EdmPrimitiveTypeKind.Stream:
+
+
+    case EdmPrimitiveTypeKind.STREAM:
       return EdmStream.getInstance()
   
-    case EdmPrimitiveTypeKind.Geography:
+    case EdmPrimitiveTypeKind.GEOGRAPHY:
       return EdmGeography.getInstance()
-    case EdmPrimitiveTypeKind.GeographyPoint:
+    case EdmPrimitiveTypeKind.GEOGRAPHYPOINT:
       return EdmGeographyPoint.getInstance()
-    case EdmPrimitiveTypeKind.GeographyLineString:
+    case EdmPrimitiveTypeKind.GEOGRAPHYLINESTRING:
       return EdmGeographyLineString.getInstance()
-    case EdmPrimitiveTypeKind.GeographyPolygon:
+    case EdmPrimitiveTypeKind.GEOGRAPHYPOLYGON:
       return EdmGeographyPolygon.getInstance()
-    case EdmPrimitiveTypeKind.GeographyMultiPoint:
+    case EdmPrimitiveTypeKind.GEOGRAPHYMULTIPOINT:
       return EdmGeographyMultiPoint.getInstance()
-    case EdmPrimitiveTypeKind.GeographyMultiLineString:
+    case EdmPrimitiveTypeKind.GEOGRAPHYMULTILINESTRING:
       return EdmGeographyMultiLineString.getInstance()
-    case EdmPrimitiveTypeKind.GeographyMultiPolygon:
+    case EdmPrimitiveTypeKind.GEOGRAPHYMULTIPOLYGON:
       return EdmGeographyMultiPolygon.getInstance()
-    case EdmPrimitiveTypeKind.GeographyCollection:
+    case EdmPrimitiveTypeKind.GEOGRAPHYCOLLECTION:
       return EdmGeographyCollection.getInstance()
-    case EdmPrimitiveTypeKind.Geometry:
+    case EdmPrimitiveTypeKind.GEOMETRY:
       return EdmGeometry.getInstance()
-    case EdmPrimitiveTypeKind.GeometryPoint:
+    case EdmPrimitiveTypeKind.GEOMETRYPOINT:
       return EdmGeometryPoint.getInstance()
-    case EdmPrimitiveTypeKind.GeometryLineString:
+    case EdmPrimitiveTypeKind.GEOMETRYLINESTRING:
       return EdmGeometryLineString.getInstance()
-    case EdmPrimitiveTypeKind.GeometryPolygon:
+    case EdmPrimitiveTypeKind.GEOMETRYPOLYGON:
       return EdmGeometryPolygon.getInstance()
-    case EdmPrimitiveTypeKind.GeometryMultiPoint:
+    case EdmPrimitiveTypeKind.GEOMETRYMULTIPOINT:
       return EdmGeometryMultiPoint.getInstance()
-    case EdmPrimitiveTypeKind.GeometryMultiLineString:
+    case EdmPrimitiveTypeKind.GEOMETRYMULTILINESTRING:
       return EdmGeometryMultiLineString.getInstance()
-    case EdmPrimitiveTypeKind.GeometryMultiPolygon:
+    case EdmPrimitiveTypeKind.GEOMETRYMULTIPOLYGON:
       return EdmGeometryMultiPolygon.getInstance()
-    case EdmPrimitiveTypeKind.GeometryCollection:
+    case EdmPrimitiveTypeKind.GEOMETRYCOLLECTION:
       return EdmGeometryCollection.getInstance()
-  
+    */
     default:
+      return EdmString.instance
       throw IllegalArgumentException.InvalidFormat //("Wrong type: " + kind)
     }
-     */
+    
   }
   // TODO:
   /*

@@ -31,7 +31,31 @@ import Foundation
 /// Abstract singleton implementation of the EDM primitive-type interface.
 public class SingletonPrimitiveType: AbstractPrimitiveType {
   
+  // MARK: - Stored Properties
   
+  
+  // MARK: - Computed Properties
+  
+  public override var kind:EdmTypeKind {
+    return EdmTypeKind.PRIMITIVE
+  }
+  
+  public override var namespace:String {
+    return EDM_NAMESPACE
+  }
+  
+  
+  public override var name: String {
+    
+    let className = String(self.self)
+    return className.substringFromIndex(className.startIndex.advancedBy(3))
+    //return getClass().getSimpleName().substring(3)
+  }
+
+  // MARK: - Init
+
+  // MARK: - Methods
+
   public func equals(obj:AnyObject) -> Bool {
     return self === obj // TODO: || obj != nil && getClass() == obj.getClass()
   }
@@ -43,18 +67,9 @@ public class SingletonPrimitiveType: AbstractPrimitiveType {
   }
   
   
-  public var namespace:String {
-    return EDM_NAMESPACE
-  }
-  
-  
-  public func getName() -> String {
-    return getClass().getSimpleName().substring(3)
-  }
+
  */
   
   
-  public func getKind() -> EdmTypeKind {
-    return EdmTypeKind.PRIMITIVE
-  }
+
 }

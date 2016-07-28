@@ -17,6 +17,7 @@
   under the License.
  */
 
+ 
 
 
 //
@@ -125,11 +126,11 @@ public class ODataBinderImpl: ODataBinder {
       entitySet.next = next
     }
     //TODO : OData Entity
-    /*
+    
     for odataEntity in odataEntitySet.entities {
       entitySet.entities.append(getEntity(odataEntity))
     }
- */
+ 
     //TODO: Add deltas and annotations
     /*
      entitySet.setDeltaLink(odataEntitySet.getDeltaLink())
@@ -203,7 +204,7 @@ public class ODataBinderImpl: ODataBinder {
 
   
   // TODO: public func getEntity(odataEntity: ClientEntity) -> Entity {
-  /*
+  
   public func getEntity(odataEntity: ClientEntity) -> Entity {
     let entity = Entity()
  
@@ -270,7 +271,7 @@ public class ODataBinderImpl: ODataBinder {
     //annotations(odataEntity, entity)
     return entity
   }
- */
+ 
   
 
   
@@ -419,7 +420,7 @@ public class ODataBinderImpl: ODataBinder {
   }
   
   // TODO: func getProperty(property:ClientProperty ) -> Property
-  /*
+  
   public func getProperty(property:ClientProperty ) -> Property {
     
     let propertyResource = Property(type: "", name: property.name)
@@ -429,9 +430,8 @@ public class ODataBinderImpl: ODataBinder {
     // annotations(property, propertyResource)
     return propertyResource
   }
- */
  
-  
+ 
 
   /// Build an Odata property from the suppled resource
   /// - parameters:
@@ -569,31 +569,24 @@ public class ODataBinderImpl: ODataBinder {
       */
       if (valuable.isPrimitive || valuable.valueType == nil) {
         // fixes non-string values treated as string when no type information is available at de-serialization level
-        // TODO:
-        /*
-        if fullQualName != nil  {
-          if EdmPrimitiveTypeKind.STRING.getFullQualifiedName() != type{
-            if EDM_NAMESPACE == fullQualName!.namespace {
-              if valuable.asPrimitive is String {
-                // do soemthing
-              }
-            }
-          }
-        }
-        */
         
-       
         //if (type != null && !EdmPrimitiveTypeKind.String.getFullQualifiedName().equals(type) && EdmPrimitiveType.EDM_NAMESPACE.equals(type.getNamespace()) && valuable.asPrimitive() instanceof String) {
         if (!EdmPrimitiveTypeKind.STRING.getFullQualifiedName().equals(Object: fullQualName!) && EDM_NAMESPACE == fullQualName!.namespace && valuable.asPrimitive is String) {
           do {
+            
             let  primitiveType = try EdmPrimitiveTypeFactory.getInstance(EdmPrimitiveTypeKind(rawValue:fullQualName!.name)!)
           
             // TODO: date & time formats
             // let returnType = primitiveType.defaultType.isAssignableFrom(Calendar.class) ? Timestamp.class : primitiveType.defaultType
             // temp:
             let returnType = primitiveType.defaultType
-          
-            let primval = String(valuable.asPrimitive) //.toString()
+            guard let pVal = valuable.asPrimitive else {
+              throw IllegalArgumentException.InvalidFormat
+              
+            }
+            //log.debug(String(pVal.self))
+            let primval = String(pVal)
+            //let primval = String(valuable.asPrimitive) //.toString()
             let val = try primitiveType.valueOfString(primval,isnilable: false, maxLength: nil, precision: DEFAULT_PRECISION, scale: DEFAULT_SCALE, isUnicode: false,returnType: returnType)
             
             valuable.setValue(valuable.valueType!,value: val)
@@ -614,7 +607,16 @@ public class ODataBinderImpl: ODataBinder {
               
             }
           }
-          value = try client.objectFactory.newPrimitiveValueBuilder().setValue(valuable.asPrimitive).setType(type).build()
+          if let valuableAsPrimitive = valuable.asPrimitive {
+            log.debug (String(valuableAsPrimitive))
+            let x = valuableAsPrimitive.dynamicType
+              log.debug(String(x))
+            
+            value = try client.objectFactory.newPrimitiveValueBuilder().setValue(valuableAsPrimitive).setType(type).build()
+          }
+          else {
+            throw IllegalArgumentException.NilOrEmptyString
+          }
         }
       }
         
@@ -860,12 +862,13 @@ public class ODataBinderImpl: ODataBinder {
   */
   
   // TODO: func updateValuable(propertyResource: Valuable , odataValuable:ClientValuable )
-  /*
+  
   private func updateValuable(propertyResource: Valuable , odataValuable:ClientValuable ) {
 
     let propertyValue = odataValuable.value
     
     if odataValuable.hasPrimitiveValue {
+      
       propertyResource.type = odataValuable.primitiveValue!.typeName!
       if propertyValue is Geospatial {
         propertyResource.setValue(ValueType.GEOSPATIAL,value: propertyValue)
@@ -874,42 +877,60 @@ public class ODataBinderImpl: ODataBinder {
         propertyResource.setValue(ValueType.PRIMITIVE,value: propertyValue)
       }
       //propertyResource.setValue(propertyValue is Geospatial ? ValueType.GEOSPATIAL : ValueType.PRIMITIVE,propertyValue)
+ 
     }
     else if odataValuable.hasEnumValue {
+      
       propertyResource.type = odataValuable.enumValue!.typeName!
       propertyResource.setValue(ValueType.ENUM, value: propertyValue)
+ 
     }
     else if odataValuable.hasComplexValue {
+      
       propertyResource.type = odataValuable.complexValue!.typeName!
       propertyResource.setValue(ValueType.COMPLEX, value: propertyValue)
+ 
     }
     else if odataValuable.hasCollectionValue {
+      
+
       let collectionValue = odataValuable.collectionValue
       propertyResource.type = collectionValue!.typeName!
       
       let value:ClientValue
       var valueType = ValueType.COLLECTION_PRIMITIVE
+      
       if collectionValue!.size() > 0 {
-        value = collectionValue?.asSwiftCollection()[0]
-        if value.isPrimitive {
-          if value.asPrimitive!.value is Geospatial {
-            valueType = ValueType.COLLECTION_GEOSPATIAL
+        if let valueCollection = collectionValue?.asSwiftCollection() {
+          value = valueCollection[0] as! ClientValue
+          
+          
+          //        value = collectionValue?.asSwiftCollection()[0]
+          if value.isPrimitive {
+            if value.asPrimitive!.value is Geospatial {
+              valueType = ValueType.COLLECTION_GEOSPATIAL
+            }
+            else {
+              valueType = ValueType.COLLECTION_PRIMITIVE
+            }
           }
-          else {
-            valueType = ValueType.COLLECTION_PRIMITIVE
+          else if (value.isEnum()) {
+            valueType = ValueType.COLLECTION_ENUM
           }
-        }
-        else if (value.isEnum()) {
-          valueType = ValueType.COLLECTION_ENUM
-        }
-        else if value.isComplex {
-          valueType = ValueType.COLLECTION_COMPLEX
+          else if value.isComplex {
+            valueType = ValueType.COLLECTION_COMPLEX
+          }
         }
       }
       propertyResource.setValue(valueType, value: propertyValue)
+
     }
+     
   }
-  */
+  
+  
+  
+  
   // TODO: func annotations(odataAnnotatable: ClientAnnotatable , annotatable:Annotatable )
   /*
   private func annotations(odataAnnotatable: ClientAnnotatable , annotatable:Annotatable ) {

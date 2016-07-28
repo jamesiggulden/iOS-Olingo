@@ -16,13 +16,16 @@ class ViewController: UIViewController {
   
   @IBOutlet weak var Northwind: UILabel!
   
+  
   @IBOutlet weak var TripPin: UILabel!
   
   @IBOutlet weak var Status: UILabel!
   
   @IBOutlet weak var Console: UITextView!
   
+  @IBOutlet weak var StatusConsole: UITextView!
   
+  @IBOutlet weak var RawConsole: UITextView!
   @IBAction func ClearConsole(sender: AnyObject) {
     Console.text = ""
   }
@@ -109,28 +112,50 @@ class ViewController: UIViewController {
     log.logMode = Log.LogMode.DEBUG
   
     var urlString = root
+    var startTime:NSDate
+    var endTime:NSDate
+    var duration:Double
+    var consoleOutput:String = ""
   
     if let entitySet = entitySetField.text{
+      if entitySet.isEmpty || entitySet == "entity set" {
+        // request service document
+        ResetStatusConsole("No request provided")
+        AppendToStatusConsole("Stub for service document request")
+        ResetConsole("")
+        ResetRawConsole("")
+        return
+      }
       urlString += "/"+entitySet
       let uri:NSURL = NSURL(string:urlString)!
       if entitySet.containsString("$metadata"){
         // request metadata
+        ResetStatusConsole("No request provided")
+        AppendToStatusConsole("Stub for metadata request")
+        ResetConsole("")
+        ResetRawConsole("")
       }
       else {
         // request entity set (at present) will expand as functionality increases (option picker?)
-        ResetConsole("Retrieve Request Factory")
+        ResetStatusConsole("Retrieve Request Factory")
         log.debug("Retrieve Request Factory")
         let retriveRequestFactory = client.retrieveRequestFactory
-        AppendToConsole("Build Entity Set Request")
+        AppendToStatusConsole("Build Entity Set Request")
         log.debug("Build Entity Set Request")
+        startTime = NSDate()
         let entitySetRequest = retriveRequestFactory.entitySetRequest(uri)
-        AppendToConsole("Execute Built Request")
+        AppendToStatusConsole("Execute Built Request")
+
         log.debug("Execute Built Request")
         guard let response = entitySetRequest.execute() else {
           AppendToConsole("Nil returned from execute request")
           return
         }
-        AppendToConsole("Response Status Code: \(response.statusCode)")
+        endTime = NSDate()
+        duration = endTime.timeIntervalSinceDate(startTime)
+        AppendToStatusConsole("Time to execute build request: \(round(duration*100)/100) secs")
+        
+        AppendToStatusConsole("Response Status Code: \(response.statusCode)")
         log.info ("Response Status Code: \(response.statusCode)")
         Status.text = "Response Status Code: \(response.statusCode)"
         
@@ -151,54 +176,69 @@ class ViewController: UIViewController {
         
         if let dataString = NSString(data:response.res.data!,encoding: NSUTF8StringEncoding) {
           log.debug(String(dataString))
-          AppendToConsole("Data:")
-          AppendToConsole(String(dataString))
+          AppendToRawConsole("Data:")
+          AppendToRawConsole(String(dataString))
         }
         else {
           AppendToConsole("No data returned")
           log.warn("No data returned")
         }
-        
+        startTime = NSDate()
         do {
+          AppendToStatusConsole("Get Body")
           guard let entitySet = try response.getBody() else {
             AppendToConsole("No data in body")
             return
           }
+          endTime = NSDate()
+          duration = endTime.timeIntervalSinceDate(startTime)
+          AppendToStatusConsole("Time to extract returned response: \(round(duration*100)/100) secs")
+          
           AppendToConsole("")
           AppendToConsole("Body Content")
           AppendToConsole("Number of Entiites returned (info from service): \(entitySet.count)")
           AppendToConsole("Next URL: \(entitySet.next.debugDescription)")
-          AppendToConsole("Number of Entiites returned (calculated): \(entitySet.entities.count)")
+          AppendToStatusConsole("Number of Entiites returned (calculated): \(entitySet.entities.count)")
           
           let entityList = entitySet.entities
+          startTime = NSDate()
           for entity in entityList {
-            let name = entity.id?.absoluteString
-            AppendToConsole("\(name)")
+            if let name = entity.id?.absoluteString {
+              consoleOutput += "\n"
+              consoleOutput += "\n \(name)"
+            }
             for property in entity.properties {
-
+              var name:String = ""
+              var val:String = ""
+              var type:String = ""
+              
               if let propertyValue = property.value.asPrimitive {
-
-                if let propertyValueValue = propertyValue.value as? String {
-                  if let tk = propertyValue.typeKind?.rawValue {
-                    AppendToConsole("  \(property.name) : \(propertyValueValue)  : (\(tk))")
+                
+                if let propertyValueValue = propertyValue.value {
+                  name = String(property.name)
+                  val = String(propertyValueValue)
+                  switch (propertyValueValue){
+                  case is String:
+                    type = "String"
+                  case is Int:
+                    type = "Int"
+                  default:
+                    type = "?"
                   }
-                  else {
-                    AppendToConsole("  \(property.name) : \(propertyValueValue)  : (nil) ")
-                  }
-                  
                 }
+                consoleOutput += "\n    \(name) : \(val)  : (\(type))"
               }
             }
             
           }
-          
-          
+          AppendToConsole(consoleOutput)
+          endTime = NSDate()
+          duration = endTime.timeIntervalSinceDate(startTime)
+          AppendToStatusConsole("Time to extract returned response: \(round(duration*100)/100) secs")
         }
         catch {
           AppendToConsole("No content returned")
         }
-        
-        
       }
     }
     else {
@@ -212,8 +252,28 @@ class ViewController: UIViewController {
       Console.text = Console.text + "\n" + msg
       Console.scrollRangeToVisible(NSRange(location: Console.text.characters.count,length: 1))
   }
+  
+  func AppendToRawConsole(msg: String) {
+    RawConsole.text = RawConsole.text + "\n" + msg
+    RawConsole.scrollRangeToVisible(NSRange(location: RawConsole.text.characters.count,length: 1))
+  }
+  
+  func AppendToStatusConsole(msg: String) {
+    StatusConsole.text = StatusConsole.text + "\n" + msg
+    StatusConsole.scrollRangeToVisible(NSRange(location: StatusConsole.text.characters.count,length: 1))
+  }
+  
+  
   func ResetConsole(msg:String) {
     Console.text = msg
+  }
+  
+  func ResetRawConsole(msg:String) {
+    RawConsole.text = msg
+  }
+  
+  func ResetStatusConsole(msg:String) {
+    StatusConsole.text = msg
   }
   
   override func viewDidLoad() {

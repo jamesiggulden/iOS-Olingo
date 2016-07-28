@@ -31,7 +31,7 @@ import Foundation
 
 
  /// EdmPrimitiveType is a primitive type as defined in the Entity Data Model (EDM).
- /// <br/>
+ ///
  /// There are methods to convert EDM primitive types from and to Java objects, respectively. The following Java types are
  /// supported:
  /// <table frame="hsides" rules="groups">
@@ -82,94 +82,77 @@ import Foundation
 public protocol EdmPrimitiveType: EdmType {
   
   // TODO: EDM_NAMESPACE property how to handle
-  // Have moved to global constants as this seems a better solution than addign an extension with a compued property
+  // Have moved to global constants as this seems a better solution than adding an extension with a compued property
   // String EDM_NAMESPACE = "Edm"
-
-  /**
-   * Checks type compatibility.
-   *
-   * @param primitiveType the {@link EdmPrimitiveType} to be tested for compatibility
-   * @return `true` if the provided type is compatible to this type
-   */
-  func isCompatible(EprimitiveType:EdmPrimitiveType ) -> Bool
-
-  /**
-   * Returns the default Java type for this EDM primitive type as described in the documentation of
-   * {@link EdmPrimitiveType}.
-   *
-   * @return the default Java type
-   */
+  
+  
+  /// Returns the default Swift type for this EDM primitive type 
   var defaultType: Any {get}
 
-  /**
-   * Validates literal value.
-   *
-   * @param value the literal value
-   * @param isnilable whether the `nil` value is allowed
-   * @param maxLength the maximum length
-   * @param precision the precision
-   * @param scale the scale
-   * @param isUnicode whether non-ASCII characters are allowed (relevant only for Edm.String)
-   * @return `true` if the validation is successful
-   */
+  /// Checks type compatibility.
+  /// - parameters:
+  ///   - primitiveType: the `EdmPrimitiveType` to be tested for compatibility
+  /// - returns: `true` if the provided type is compatible to this type
+  /// - throws: No error conditions are expected
+  func isCompatible(EprimitiveType:EdmPrimitiveType ) -> Bool
+
+
+  /// Validates literal value.
+  /// - parameters:
+  ///   - value: the literal representation of value
+  ///   - isnilable: whether the `nil` value is allowed
+  ///   - maxLength: the maximum length
+  ///   - precision: the precision
+  ///   - scale: the scale
+  ///   - isUnicode: whether non-ASCII characters are allowed (relevant only for Edm.String)
+  /// - returns: `true` if the validation is successful
+  /// - throws: No error conditions are expected
   func validate(value:String?,isnilable:Bool,maxLength:Int,precision:Int,scale:Int,isUnicode:Bool) -> Bool
 
-  /**
-   * Converts literal representation of value to system data type.
-   *
-   * @param value the literal representation of value
-   * @param isnilable whether the `nil` value is allowed
-   * @param maxLength the maximum length
-   * @param precision the precision
-   * @param scale the scale
-   * @param isUnicode whether non-ASCII characters are allowed (relevant only for Edm.String)
-   * @param returnType the class of the returned value it must be one of the list in the documentation of
-   * {@link EdmPrimitiveType}
-   * @throws EdmPrimitiveTypeException
-   * @return the value as an instance of the class the parameter `returnType` indicates
-   */
+
+  /// Converts literal representation of value to system data type.
+  /// - parameters:
+  ///   - value: the literal representation of value
+  ///   - isnilable: whether the `nil` value is allowed
+  ///   - maxLength: the maximum length
+  ///   - precision: the precision
+  ///   - scale: the scale
+  ///   - isUnicode: whether non-ASCII characters are allowed (relevant only for Edm.String)
+  ///   - returnType the class of the returned value it must be one of EdmPrimitiveType
+  /// - returns: the value as an instance of the class the parameter `returnType` indicates
+  /// - throws: EdmPrimitiveTypeException
   func valueOfString <T> (value:String?,isnilable:Bool,maxLength:Int?,precision:Int,scale:Int,isUnicode:Bool,returnType: T) throws -> T?
   
-  /**
-   * Converts system data type to literal representation of value.
-   * <p>
-   * Returns `nil` if value is `nil` and `nil` is an allowed value.
-   * </p>
-   *
-   * @param value the Java value as Object its type must be one of the list in the documentation of
-   * {@link EdmPrimitiveType}
-   * @param isnilable whether the `nil` value is allowed
-   * @param maxLength the maximum length
-   * @param precision the precision
-   * @param scale the scale
-   * @param isUnicode whether non-ASCII characters are allowed (relevant only for Edm.String)
-   * @throws EdmPrimitiveTypeException
-   * @return literal representation as String
-   */
+
+  /// Converts system data type to literal representation of value.
+  /// Returns `nil` if value is `nil` and `nil` is an allowed value.
+  /// - parameters:
+  ///   - value: the Swift value as Object its type must be one of EdmPrimitiveType
+  ///   - isnilable: whether the `nil` value is allowed
+  ///   - maxLength: the maximum length
+  ///   - precision: the precision
+  ///   - scale: the scale
+  ///   - isUnicode: whether non-ASCII characters are allowed (relevant only for Edm.String)
+  /// - returns: literal representation as String
+  /// - throws: EdmPrimitiveTypeException
   func valueToString(value:AnyObject?,isnilable:Bool,maxLength:Int,precision:Int,scale:Int,isUnicode:Bool) throws -> String?
 
-  /**
-   * Converts default literal representation to URI literal representation.
-   * <p>
-   * Returns `nil` if the literal is `nil`. Does not perform any validation.
-   * </p>
-   *
-   * @param literal the literal in default representation
-   * @return URI literal representation as String
-   */
+
+  /// Converts default literal representation to URI literal representation.
+  /// Returns `nil` if the literal is `nil`. Does not perform any validation.
+  /// - parameters:
+  ///   - literal: the literal in default representation
+  /// - returns: URI literal representation as String
+  /// - throws: No error conditions are expected
   func toUriLiteral(literal:String?) -> String?
 
-  /**
-   * Converts URI literal representation to default literal representation.
-   * <p>
-   * Returns `nil` if the literal is `nil`. Checks the presence of a required prefix and of
-   * required surrounding quotation marks but does not perform any further validation.
-   * </p>
-   *
-   * @param literal the literal in URI representation
-   * @return default literal representation as String
-   * @throws EdmPrimitiveTypeException if a required prefix or required surrounding quotation marks are missing
-   */
+
+  /// Converts URI literal representation to default literal representation.
+  /// Returns `nil` if the literal is `nil`. Checks the presence of a required prefix and of required surrounding quotation marks but does not perform any further validation.
+  /// - parameters:
+  ///   - literal: the literal in URI representation
+  /// - returns: default literal representation as String
+  /// - throws: EdmPrimitiveTypeException if a required prefix or required surrounding quotation marks are missing
   func fromUriLiteral(literal:String?) throws -> String?
 
 }

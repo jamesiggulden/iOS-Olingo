@@ -33,23 +33,57 @@ import Foundation
  */
 public final class EdmString:SingletonPrimitiveType {
   
+  // MARK: - Stored Properties
+
   // TODO:
   //private static final Pattern PATTERN_ASCII = Pattern.compile("\\p{ASCII}*")
   
   private static let INSTANCE:EdmString = EdmString()
   
-  //internal let uriPrefix = "'"
-  //internal let uriSuffix = "'"
   
-  public static func getInstance() -> EdmString {
+  // MARK: - Computed Properties
+  public static var instance: EdmString {
     return INSTANCE
   }
   
-  func internalValueOfString<T>(value:String,isnilable:Bool,maxLength:Int,precision:Int,scale:Int,isUnicode:Bool,returnType:T)  -> T {
+  
+  public override var defaultType: Any { //Class<?> {
+   return String.self
+  }
+ 
+  
+  
+  // MARK: - Init
+  override init() {
+    super.init()
+    self.uriPrefix = "'"
+    self.uriSuffix = "'"
+  }
+
+// MARK: - Methods
+  
+  override func internalValueOfString<T>(value:String,isnilable:Bool,maxLength:Int?,precision:Int,scale:Int,isUnicode:Bool,returnType:T) -> T {
   //func internalValueOfString<T>(value:String,isnilable:Bool,maxLength:Int,precision:Int,scale:Int,isUnicode:Bool,returnType:Class<T>) throws -> T {
     
-   // TODO:
-   /*
+    let val = value
+    let retType = returnType
+    
+    let valType = String(value.self)
+    let retTypeType = String(retType.self)
+    /*
+   // TODO: pattern matching
+   
+    if (!isUnicode /*&& !PATTERN_ASCII.matcher(value).matches()*/ || maxLength != nil && maxLength < value.characters.count) {
+      throw EdmPrimitiveTypeException.LiteralHasIllegalContent //("The literal '" + value + "' does not match the facets' constraints.")
+    }
+    
+    if (returnType.isAssignableFrom(String.self)) {
+      return value as String //returnType
+    } else {
+      throw EdmPrimitiveTypeException.LiteralHasIllegalContent //("The value type " + returnType + " is not supported.")
+    }
+    
+    /*
     if (isUnicode != nil && !isUnicode && !PATTERN_ASCII.matcher(value).matches() || maxLength != nil && maxLength < value.length()) {
       throw EdmPrimitiveTypeException.LiteralHasIllegalContent //("The literal '" + value + "' does not match the facets' constraints.")
     }
@@ -58,33 +92,22 @@ public final class EdmString:SingletonPrimitiveType {
       return returnType.cast(value)
     } else {
       throw EdmPrimitiveTypeException.LiteralHasIllegalContent //("The value type " + returnType + " is not supported.")
-    }
+    */
  */
+    
+   // let retVal = value as EdmString
     return value as! T
   }
 
   
   //TODO:
-  /*func internalValueOfString<T>(value:String,isnilable:Bool,maxLength:Int,precision:Int,scale:Int,isUnicode:Bool,returnType:Class<T>) throws -> T {
-  public func getDefaultType() -> Class<?> {
-    return String.class
-  }
+
   
   
-  func internalValueOfString<T>(value:String,isnilable:Bool,maxLength:Int,precision:Int,scale:Int,isUnicode:Bool,returnType:Class<T>) throws -> T {
-    
-    if (isUnicode != nil && !isUnicode && !PATTERN_ASCII.matcher(value).matches() || maxLength != nil && maxLength < value.length()) {
-      throw EdmPrimitiveTypeException.LiteralHasIllegalContent //("The literal '" + value + "' does not match the facets' constraints.")
-    }
-    
-    if (returnType.isAssignableFrom(String.class)) {
-      return returnType.cast(value)
-    } else {
-      throw EdmPrimitiveTypeException.LiteralHasIllegalContent //("The value type " + returnType + " is not supported.")
-    }
-  }
+
   
-  
+  // TODO: internalValueToString
+  /*
   protected <T> String internalValueToString(final T value,
   final Boolean isnilable, final Integer maxLength, final Integer precision,
   final Integer scale, final Boolean isUnicode) throws EdmPrimitiveTypeException {
@@ -98,8 +121,10 @@ public final class EdmString:SingletonPrimitiveType {
     
     return result
   }
+   */
   
-  
+  // TODO: toUriLiteral
+  /*
   public func toUriLiteral(literal:String) -> String {
     if literal.isEmpty {
       return ""
@@ -111,7 +136,7 @@ public final class EdmString:SingletonPrimitiveType {
     uriLiteral += uriPrefix
     for (int i = 0 i < length i++) {
       final char c = literal.charAt(i)
-      if (c == '\'') {
+      if (c == "'") {
         uriLiteral.append(c)
       }
       uriLiteral.append(c)
@@ -119,10 +144,21 @@ public final class EdmString:SingletonPrimitiveType {
     uriLiteral += uriSuffix
     return uriLiteral
   }
-  
-  
-  public func fromUriLiteral(literal:String) throws -> String {
-    return literal == nil ? nil : super.fromUriLiteral(literal).replace("''", "'")
-  }
  */
+  
+  
+  
+  public func fromUriLiteral(literal:String) throws -> String? {
+    if literal.isEmpty {
+      return ""
+    }
+    else {
+      do {
+        return try super.fromUriLiteral(literal)?.stringByReplacingOccurrencesOfString("''", withString: "'")
+      }
+    }
+    
+  }
+ 
+ 
 }
