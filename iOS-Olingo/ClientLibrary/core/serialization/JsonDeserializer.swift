@@ -101,8 +101,17 @@ public class JsonDeserializer: ODataDeserializer {
       var type:String = ""
       // TODO: Annotations
       //var annotation:Annotation = nil
+    
+    // swift dictionary is unsorted so need to get teh data into a sorted order to esnure 
+    // that the value type key value pair if it exists is before the actual value
+
+    let sortedDataKeys = Array(data.keys).sort(>)
       
-      for (key,value) in data {
+    for key in sortedDataKeys {
+      
+      guard let value = data[key] else {
+        throw IllegalArgumentException.NilOrEmptyString
+      }
         
         // TODO: Annotations
         /*
