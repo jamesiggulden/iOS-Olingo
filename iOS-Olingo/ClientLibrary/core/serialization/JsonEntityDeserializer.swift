@@ -52,15 +52,27 @@ public class JsonEntityDeserializer : JsonDeserializer {
   /// - parameters:
   ///   - inputData: NSDATA object containing the preparsed JSON data
   /// - returns: Entity
-  /// - throws: No error conditions are expected
+  /// - throws: Error thrown from deserializeEntity function
   func doDeserialize(inputData: AnyObject) throws -> Entity?  {
     
-    guard var data = inputData as? [String: AnyObject] else {
+    guard let data = inputData as? [String: AnyObject] else {
       log.error("Not a dictionary")
       return nil
     }
     log.debug(data.debugDescription)
+    let entityData = try deserializeEntity(data)
+    return entityData.payload
+  }
+  
+  
+  /// Deserialize the data dictionary into an Entity object.
+  /// - parameters:
+  ///   - inputData: dictionary containing the preparsed JSON data
+  /// - returns: Entity
+  /// - throws: Error thrown from deserializeEntity function
+  private func deserializeEntity(inputData:[String:AnyObject]) throws -> (contextURL: NSURL!, metadataETag: String, payload: Entity!) {
     
+    var data = inputData
     let entity:Entity = Entity()
     var contextURL:NSURL? = nil
     var metadataETag:String = ""
@@ -235,18 +247,12 @@ public class JsonEntityDeserializer : JsonDeserializer {
      */
     
     do {
-     try populate(&entity.properties, data: data)
-      
-     log.debug("Number of properties: \(entity.properties.count)")
-      //try populate(entity, entity.properties, tree, parser.getCodec())
+      try populate(&entity.properties, data: data)
+      log.debug("Number of properties: \(entity.properties.count)")
     } catch  {
-      // throw new IOException(e)
+      // bubble up error to calling function
     }
-    
-   // log.debug("Entity Property 3: \(entity.properties[3].name) : \(String(entity.properties[3].value as! String))")
-    return entity
-    //return  ResWrap<Entity>(contextURL: contextURL!, metadataETag: metadataETag, payload: entity)
-    
+    return (contextURL: contextURL, metadataETag: metadataETag, payload: entity)
   }
 
   
@@ -259,9 +265,27 @@ public class JsonEntityDeserializer : JsonDeserializer {
   func doDeserialize(inputData: NSData) throws -> ResWrap<Entity>?  {
     
     
-    guard var data = parseHttpData(inputData) else {
+    guard let data = parseHttpData(inputData) else {
       return nil
     }
+    do {
+      let entityData = try deserializeEntity(data)
+      if entityData.contextURL == nil {
+        return nil
+      }
+      return  ResWrap<Entity>(contextURL: entityData.contextURL!, metadataETag: entityData.metadataETag, payload: entityData.payload)
+
+    }
+    catch {
+      throw GetODataException.ODataEntityFailed
+    }
+    
+    // ==============================================================
+    // REDUNDENT?
+    /*
+    
+    
+    //return try deserializeEntity(data)
     
     let entity:Entity = Entity()
     var contextURL:NSURL? = nil
@@ -443,8 +467,9 @@ public class JsonEntityDeserializer : JsonDeserializer {
     }
     
     return  ResWrap<Entity>(contextURL: contextURL!, metadataETag: metadataETag, payload: entity)
-  
+     */
   }
+  
   
   /// parse response JSON NSData into an array of customer objects
   /// - parameters:
@@ -463,5 +488,6 @@ public class JsonEntityDeserializer : JsonDeserializer {
     }
     return nil
   }
+ 
 
 }

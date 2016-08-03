@@ -81,7 +81,7 @@ public class ClientODataDeserializerImpl: ClientODataDeserializer {
   /// - throws: GetODataException
   public func toEntity(input:NSData) throws -> ResWrap<Entity>? {
     do{
-      return try deserializer.toEntity(input)!
+      return try deserializer.toEntity(input)
     }
     catch {
       throw GetODataException.ODataEntityFailed

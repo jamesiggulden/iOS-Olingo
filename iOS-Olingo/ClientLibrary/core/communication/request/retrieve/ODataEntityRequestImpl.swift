@@ -35,7 +35,7 @@ import Foundation
  /// AbstractODataRetrieveRequest,AbstractODataBasicRequest
 
 public class ODataEntityRequestImpl:AbstractODataRequest,ODataRetrieveRequest,ODataBasicRequest,ODataEntityRequest { //extends AbstractODataRetrieveRequest<E> implements ODataEntityRequest<E> {
-  
+
   
   // MARK: - Stored Properties
 
@@ -67,7 +67,7 @@ public class ODataEntityRequestImpl:AbstractODataRequest,ODataRetrieveRequest,OD
   ///   - none
   /// - returns: response
   /// - throws: No error conditions are expected
-  public func execute() -> ODataRetrieveResponse! {
+  public func execute() -> ODataEntityRetrieveResponse? {
     
     do {
       let result = try doExecute()
@@ -86,11 +86,13 @@ public class ODataEntityRequestImpl:AbstractODataRequest,ODataRetrieveRequest,OD
   }
   
   /// Response class about an ODataEntityRequest.
-  public class ODataEntityResponse: AbstractODataResponse, ODataRetrieveResponse {
+  public class ODataEntityResponse: AbstractODataResponse, ODataEntityRetrieveResponse {
     
     // MARK: - Stored Properties
 
-    private var entity:AnyObject? // ??? is this a gerneic type?
+    private var entity:ClientEntity?
+    // make this type specific at present
+    //private var entity:AnyObject? // ??? is this a gerneic type?
     
     // MARK: - Computed Properties
 
@@ -109,8 +111,27 @@ public class ODataEntityRequestImpl:AbstractODataRequest,ODataRetrieveRequest,OD
     ///   - none
     /// - returns: Entity
     /// - throws: No error conditions are expected
-    public func getBody() {
-      
+    public func getBody() throws -> ClientEntity? {
+      if entity == nil {
+        do {
+          
+          log.debug("Parse Client entity")
+          let contentType = ContentType.parse(self.contentType)!
+          log.debug("To entity")
+          let  oDataDeserializer = odataClient.getDeserializer(contentType)
+          guard let resource:ResWrap<Entity> = try oDataDeserializer.toEntity(payload) else {
+            throw GetODataException.ODataEntityFailed
+          }
+          log.debug("Bind entity")
+          entity = try odataClient.binder.getODataEntity(resource) as ClientEntity
+        } catch  {
+          throw GetODataException.ODataEntityFailed
+        }
+        defer {
+          self.close()
+        }
+      }
+      return entity
     }
     
     //TODO: Come back to this once we are happy we are getting something through to here

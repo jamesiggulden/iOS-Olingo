@@ -112,12 +112,9 @@ class ViewController: UIViewController {
     log.logMode = Log.LogMode.DEBUG
   
     var urlString = root
-    var startTime:NSDate
-    var endTime:NSDate
-    var duration:Double
-    var consoleOutput:String = ""
+
   
-    if let entitySet = entitySetField.text{
+    if var entitySet = entitySetField.text{
       if entitySet.isEmpty || entitySet == "entity set" {
         // request service document
         ResetStatusConsole("No request provided")
@@ -126,8 +123,13 @@ class ViewController: UIViewController {
         ResetRawConsole("")
         return
       }
+      if entitySet.containsString("\"") {
+        entitySet = entitySet.stringByReplacingOccurrencesOfString("\"", withString: "'")
+      }
       urlString += "/"+entitySet
-      let uri:NSURL = NSURL(string:urlString)!
+      guard let uri:NSURL = NSURL(string:urlString)! else {
+        AppendToStatusConsole("Invalid URL format")
+      }
       if entitySet.containsString("$metadata"){
         // request metadata
         ResetStatusConsole("No request provided")
@@ -140,98 +142,12 @@ class ViewController: UIViewController {
         ResetStatusConsole("Retrieve Request Factory")
         log.debug("Retrieve Request Factory")
         let retriveRequestFactory = client.retrieveRequestFactory
-        AppendToStatusConsole("Build Entity Set Request")
-        log.debug("Build Entity Set Request")
-        startTime = NSDate()
-        let entitySetRequest = retriveRequestFactory.entitySetRequest(uri)
-        AppendToStatusConsole("Execute Built Request")
-
-        log.debug("Execute Built Request")
-        guard let response = entitySetRequest.execute() else {
-          AppendToConsole("Nil returned from execute request")
-          return
-        }
-        endTime = NSDate()
-        duration = endTime.timeIntervalSinceDate(startTime)
-        AppendToStatusConsole("Time to execute build request: \(round(duration*100)/100) secs")
         
-        AppendToStatusConsole("Response Status Code: \(response.statusCode)")
-        log.info ("Response Status Code: \(response.statusCode)")
-        Status.text = "Response Status Code: \(response.statusCode)"
-        
-        let headerNames = response.headerNames
-        let headers = response.headers
-        AppendToConsole("Headers :")
-        for (name,value) in headers {
-          log.debug ("Header Name: \(name) : Value: \(value)")
-          // AppendToConsole("Header Name: \(name) : Value: \(value)")
-          AppendToConsole("Name: \(name) : Value: \(value)")
-        }
-        
-        AppendToConsole("Header Names :")
-        for name in headerNames {
-          AppendToConsole(name)
-          log.debug ("Header Name: \(name)")
-        }
-        
-        if let dataString = NSString(data:response.res.data!,encoding: NSUTF8StringEncoding) {
-          log.debug(String(dataString))
-          AppendToRawConsole("Data:")
-          AppendToRawConsole(String(dataString))
+        if entitySet.containsString("(") {
+          processEntity(retriveRequestFactory,uri: uri)
         }
         else {
-          AppendToConsole("No data returned")
-          log.warn("No data returned")
-        }
-        startTime = NSDate()
-        do {
-          AppendToStatusConsole("Get Body")
-          guard let entitySet = try response.getBody() else {
-            AppendToConsole("No data in body")
-            return
-          }
-          endTime = NSDate()
-          duration = endTime.timeIntervalSinceDate(startTime)
-          AppendToStatusConsole("Time to extract returned response: \(round(duration*100)/100) secs")
-          
-          AppendToConsole("")
-          AppendToConsole("Body Content")
-          AppendToConsole("Number of Entiites returned (info from service): \(entitySet.count)")
-          AppendToConsole("Next URL: \(entitySet.next.debugDescription)")
-          AppendToStatusConsole("Number of Entiites returned (calculated): \(entitySet.entities.count)")
-          
-          let entityList = entitySet.entities
-          startTime = NSDate()
-          for entity in entityList {
-            if let name = entity.id?.absoluteString {
-              consoleOutput += "\n"
-              consoleOutput += "\n \(name)"
-            }
-            for property in entity.properties {
-              var name:String = ""
-              var val:String = ""
-              var typeKind:String = ""
-              
-              if let propertyValue = property.value.asPrimitive {
-                if let propertyValueValue = propertyValue.value {
-                  name = String(property.name)
-                  val = String(propertyValueValue)
-                  if let tk = propertyValue.typeKind?.toString() {
-                    typeKind = tk
-                  }
-                }
-                consoleOutput += "\n    \(name) : \(val)  : (\(typeKind))"
-              }
-            }
-            
-          }
-          AppendToConsole(consoleOutput)
-          endTime = NSDate()
-          duration = endTime.timeIntervalSinceDate(startTime)
-          AppendToStatusConsole("Time to extract returned response: \(round(duration*100)/100) secs")
-        }
-        catch {
-          AppendToConsole("No content returned")
+          processEntitySet(retriveRequestFactory,uri: uri)
         }
       }
     }
@@ -241,6 +157,209 @@ class ViewController: UIViewController {
     }
 
   }
+  
+  func processEntitySet(retriveRequestFactory:RetrieveRequestFactory,uri:NSURL) {
+    
+    var startTime:NSDate
+    var endTime:NSDate
+    var duration:Double
+    var consoleOutput:String = ""
+    
+    AppendToStatusConsole("Build Entity Set Request")
+    log.debug("Build Entity Set Request")
+    startTime = NSDate()
+    let entitySetRequest = retriveRequestFactory.entitySetRequest(uri)
+    AppendToStatusConsole("Execute Built Request")
+    
+    log.debug("Execute Built Request")
+    guard let response = entitySetRequest.execute() else {
+      AppendToConsole("Nil returned from execute request")
+      return
+    }
+    endTime = NSDate()
+    duration = endTime.timeIntervalSinceDate(startTime)
+    AppendToStatusConsole("Time to execute build request: \(round(duration*100)/100) secs")
+    
+    AppendToStatusConsole("Response Status Code: \(response.statusCode)")
+    log.info ("Response Status Code: \(response.statusCode)")
+    Status.text = "Response Status Code: \(response.statusCode)"
+    
+    let headerNames = response.headerNames
+    let headers = response.headers
+    AppendToConsole("Headers :")
+    for (name,value) in headers {
+      log.debug ("Header Name: \(name) : Value: \(value)")
+      // AppendToConsole("Header Name: \(name) : Value: \(value)")
+      AppendToConsole("Name: \(name) : Value: \(value)")
+    }
+    
+    AppendToConsole("Header Names :")
+    for name in headerNames {
+      AppendToConsole(name)
+      log.debug ("Header Name: \(name)")
+    }
+    
+    if let dataString = NSString(data:response.res.data!,encoding: NSUTF8StringEncoding) {
+      log.debug(String(dataString))
+      AppendToRawConsole("Data:")
+      AppendToRawConsole(String(dataString))
+    }
+    else {
+      AppendToConsole("No data returned")
+      log.warn("No data returned")
+    }
+    startTime = NSDate()
+    do {
+      AppendToStatusConsole("Get Body")
+      guard let entitySet = try response.getBody() else {
+        AppendToConsole("No data in body")
+        return
+      }
+      endTime = NSDate()
+      duration = endTime.timeIntervalSinceDate(startTime)
+      AppendToStatusConsole("Time to extract returned response: \(round(duration*100)/100) secs")
+      
+      AppendToConsole("")
+      AppendToConsole("Body Content")
+      AppendToConsole("Number of Entiites returned (info from service): \(entitySet.count)")
+      AppendToConsole("Next URL: \(entitySet.next.debugDescription)")
+      AppendToStatusConsole("Number of Entiites returned (calculated): \(entitySet.entities.count)")
+      
+      let entityList = entitySet.entities
+      startTime = NSDate()
+      for entity in entityList {
+        if let name = entity.id?.absoluteString {
+          consoleOutput += "\n"
+          consoleOutput += "\n \(name)"
+        }
+        for property in entity.properties {
+          var name:String = ""
+          var val:String = ""
+          var typeKind:String = ""
+          
+          if let propertyValue = property.value.asPrimitive {
+            if let propertyValueValue = propertyValue.value {
+              name = String(property.name)
+              val = String(propertyValueValue)
+              if let tk = propertyValue.typeKind?.toString() {
+                typeKind = tk
+              }
+            }
+            consoleOutput += "\n    \(name) : \(val)  : (\(typeKind))"
+          }
+        }
+        
+      }
+      AppendToConsole(consoleOutput)
+      endTime = NSDate()
+      duration = endTime.timeIntervalSinceDate(startTime)
+      AppendToStatusConsole("Time to extract returned response: \(round(duration*100)/100) secs")
+    }
+    catch {
+      AppendToConsole("No content returned")
+    }
+  }
+  
+  func processEntity(retriveRequestFactory:RetrieveRequestFactory,uri:NSURL) {
+    
+    var startTime:NSDate
+    var endTime:NSDate
+    var duration:Double
+    var consoleOutput:String = ""
+    
+    AppendToStatusConsole("Build Entity Set Request")
+    log.debug("Build Entity Set Request")
+    startTime = NSDate()
+    let entityRequest = retriveRequestFactory.entityRequest(uri)
+    AppendToStatusConsole("Execute Built Request")
+    
+    log.debug("Execute Built Request")
+    guard let response = entityRequest.execute() else {
+      AppendToConsole("Nil returned from execute request")
+      return
+    }
+    endTime = NSDate()
+    duration = endTime.timeIntervalSinceDate(startTime)
+    AppendToStatusConsole("Time to execute build request: \(round(duration*100)/100) secs")
+    
+    AppendToStatusConsole("Response Status Code: \(response.statusCode)")
+    log.info ("Response Status Code: \(response.statusCode)")
+    Status.text = "Response Status Code: \(response.statusCode)"
+    
+    let headerNames = response.headerNames
+    let headers = response.headers
+    AppendToConsole("Headers :")
+    for (name,value) in headers {
+      log.debug ("Header Name: \(name) : Value: \(value)")
+      // AppendToConsole("Header Name: \(name) : Value: \(value)")
+      AppendToConsole("Name: \(name) : Value: \(value)")
+    }
+    
+    AppendToConsole("Header Names :")
+    for name in headerNames {
+      AppendToConsole(name)
+      log.debug ("Header Name: \(name)")
+    }
+    
+    if let dataString = NSString(data:response.res.data!,encoding: NSUTF8StringEncoding) {
+      log.debug(String(dataString))
+      AppendToRawConsole("Data:")
+      AppendToRawConsole(String(dataString))
+    }
+    else {
+      AppendToConsole("No data returned")
+      log.warn("No data returned")
+    }
+    startTime = NSDate()
+    do {
+      AppendToStatusConsole("Get Body")
+      guard let entity = try response.getBody() else {
+        AppendToConsole("No data in body")
+        AppendToStatusConsole("No data in body")
+        
+        return
+      }
+      endTime = NSDate()
+      duration = endTime.timeIntervalSinceDate(startTime)
+      AppendToStatusConsole("Time to extract returned response: \(round(duration*100)/100) secs")
+      
+      AppendToConsole("Body Content")
+
+      startTime = NSDate()
+      
+      if let name = entity.id?.absoluteString {
+        consoleOutput += "\n"
+        consoleOutput += "\n \(name)"
+      }
+      for property in entity.properties {
+        var name:String = ""
+        var val:String = ""
+        var typeKind:String = ""
+        
+        if let propertyValue = property.value.asPrimitive {
+          if let propertyValueValue = propertyValue.value {
+            name = String(property.name)
+            val = String(propertyValueValue)
+            if let tk = propertyValue.typeKind?.toString() {
+              typeKind = tk
+            }
+          }
+          consoleOutput += "\n  \(name) : \(val)  : (\(typeKind))"
+        }
+      }
+      
+      
+      AppendToConsole(consoleOutput)
+      endTime = NSDate()
+      duration = endTime.timeIntervalSinceDate(startTime)
+      AppendToStatusConsole("Time to extract returned response: \(round(duration*100)/100) secs")
+    }
+    catch {
+      AppendToConsole("No content returned")
+      AppendToStatusConsole("No content returned")
+    }
+  }
+
   
   func AppendToConsole(msg: String) {
       Console.text = Console.text + "\n" + msg

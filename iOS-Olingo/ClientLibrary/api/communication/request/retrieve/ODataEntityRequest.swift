@@ -12,6 +12,8 @@ import Foundation
  /// Describes an OData retrieve query request returning a single entity.
 
 public protocol ODataEntityRequest :ODataRetrieveRequest {
+  
+  func execute() -> ODataEntityRetrieveResponse?
   //No additional methods needed for now.
 }
 

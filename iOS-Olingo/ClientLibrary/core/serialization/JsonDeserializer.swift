@@ -76,7 +76,7 @@ public class JsonDeserializer: ODataDeserializer {
   public func toEntity(input:NSData) throws -> ResWrap<Entity>? {
     do {
       // we will just pass the json content directly and handle the json deserialization inside the class
-      return try JsonEntityDeserializer(serverMode: serverMode).doDeserialize(input)!
+      return try JsonEntityDeserializer(serverMode: serverMode).doDeserialize(input)
 
     }
     catch {
