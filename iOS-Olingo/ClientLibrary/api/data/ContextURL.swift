@@ -94,18 +94,13 @@ public struct ContextURL {
   }
 
   // MARK: - Init
-  /*
-  init () {
-  
-  }
-*/
+
   
   // MARK: - Methods
-  
-  
-   /// Start building a ContextURL instance.
-   /// @return builder for building a ContextURL instance
-   
+    
+  /// Start building a ContextURL instance
+  /// - returns: builder for building a ContextURL instance
+  /// - throws: No error conditions are expected
   public static func with() -> Builder {
     return Builder()
   }
@@ -117,130 +112,132 @@ public struct ContextURL {
     
     private var contextURL = ContextURL()
     
-    
-     /// Set the OData path.
-     /// @param oDataPath the OData path
-     /// @return Builder
-     
+    /// Set the OData path
+    /// - parameters:
+    ///   - oDataPath: the OData path
+    /// - returns: Builder
+    /// - throws: No error conditions are expectedeturn Builder
     public mutating func oDataPath(String oDataPath:String) -> Builder  {
       contextURL.odataPath = oDataPath
       return self
     }
     
-    
-     /// Set the service root.
-     /// @param serviceRoot the service root
-     /// @return Builder
-     
+    /// Set the service root
+    /// - parameters:
+    ///   - serviceRoot: the service root
+    /// - returns: Builder
+    /// - throws: No error conditions are expected
     public mutating func serviceRoot(serviceRoot:NSURL) -> Builder {
       contextURL.serviceRoot = serviceRoot
       return self
     }
     
-    
-     /// Set the edm entity set.
-     /// @param entitySet the edm entity set
-     /// @return Builder
-     
+    /// Set the edm entity set
+    /// - parameters:
+    ///   - entitySet: the edm entity set
+    /// - returns: Builder
+    /// - throws: No error conditions are expected
     public mutating func entitySet(entitySet:EdmEntitySet ) -> Builder {
       contextURL.entitySetOrSingletonOrType = entitySet.name
       return self
     }
-    
-    
-     /// Set the key path.
-     /// @param keyPath the key path
-     /// @return Builder
-     
+
+    /// Set the key path
+    /// - parameters:
+    ///   - keyPath: the key path
+    /// - returns: Builder
+    /// - throws: No error conditions are expected
     public mutating func keyPath(keyPath:String) -> Builder {
       contextURL.keyPath = keyPath
       return self
     }
     
-    
-     /// Set the entity set / singleton / type name.
-     /// @param entitySetOrSingletonOrType the entity set / singleton / type name
-     /// @return Builder
-     
+    /// Set the entity set / singleton / type name
+    /// - parameters:
+    ///   - entitySetOrSingletonOrType: the entity set / singleton / type name
+    /// - returns: Builder
+    /// - throws: No error conditions are expected
     public mutating func entitySetOrSingletonOrType(entitySetOrSingletonOrType:String) -> Builder {
       contextURL.entitySetOrSingletonOrType = entitySetOrSingletonOrType
       return self
     }
-    
-    
-     /// Set the edm entity type.
-     /// @param type the edm entity type
-     /// @return Builder
-     
+
+    /// Set the edm entity type
+    /// - parameters:
+    ///   - type: the edm entity type
+    /// - returns: Builder
+    /// - throws: No error conditions are expected
     public mutating func type(type:EdmType) -> Builder {
       contextURL.entitySetOrSingletonOrType = type.fullQualifiedName.toString()
       return self
     }
-    
-    
-     /// Define the result as a collection.
-     /// @return Builder
-     
+
+    /// Define the result as a collection
+    /// - parameters:
+    ///   - none
+    /// - returns: Builder
+    /// - throws: No error conditions are expected
     public mutating func asCollection() -> Builder {
       contextURL.isCollection = true
       return self
     }
-    
-    
-     /// Set the derived edm entity type.
-     /// @param derivedType the derived edm entity type
-     /// @return Builder
-     
+
+    /// Set the derived edm entity type
+    /// - parameters:
+    ///   - derivedType: the derived edm entity type
+    /// - returns: Builder
+    /// - throws: No error conditions are expected
     public mutating func derived(derivedType:EdmEntityType ) -> Builder {
       // TODO: derived
-      // contextURL.derivedEntity = derivedType.fullQualifiedName.fullQualifiedNameAsString()
+      contextURL.derivedEntity = derivedType.fullQualifiedName.fqn
       return self
     }
     
-    
-     /// Set the derived entity name.
-     /// @param derivedEntity the derived entity name
-     /// @return Builder
-     
+    /// Set the derived entity name
+    /// - parameters:
+    ///   - derivedEntity: the derived entity name
+    /// - returns: Builder
+    /// - throws: No error conditions are expected
     public mutating func derivedEntity(derivedEntity:String) -> Builder {
       contextURL.derivedEntity = derivedEntity
       return self
     }
     
-    
-     /// Set the navigation or property path.
-     /// @param navOrPropertyPath the navigation or property path
-     /// @return Builder
-     
+    /// Set the navigation or property path
+    /// - parameters:
+    ///   - navOrPropertyPath: the navigation or property path
+    /// - returns: Builder
+    /// - throws: No error conditions are expected
     public mutating func navOrPropertyPath(navOrPropertyPath:String) -> Builder {
       contextURL.navOrPropertyPath = navOrPropertyPath
       return self
     }
-    
-    
-     /// Set the select list.
-     /// @param selectList the select list
-     /// @return Builder
-     
+
+    /// Set the select list
+    /// - parameters:
+    ///   - selectList: the select list
+    /// - returns: Builder
+    /// - throws: No error conditions are expected
     public mutating func selectList(selectList:String) -> Builder {
       contextURL.selectList = selectList
       return self
     }
-    
-    
-     /// Set the suffix.
-     /// @param suffix the suffix
-     /// @return Builder
-     
+
+    /// Set the suffix
+    /// - parameters:
+    ///   - suffix: the suffix
+    /// - returns: Builder
+    /// - throws: No error conditions are expected
     public mutating func suffix(suffix:Suffix) -> Builder {
       contextURL.suffix = suffix
       return self
     }
     
-    
-     /// Create the ContextURL instance based on set values.
-     /// @return the according ContextURL
-     
+    /// Create the ContextURL instance based on set values
+    /// - parameters:
+    ///   - none
+    /// - returns: the  ContextURL
+    /// - throws: No error conditions are expected
     public func build() -> ContextURL {
       return contextURL
     }
@@ -251,27 +248,21 @@ public struct ContextURL {
   public enum Suffix:String {
     
     /// Suffix for Entities
-    
     case ENTITY = "$entity"
     
     /// Suffix for References
-    
     case REFERENCE = "$ref"
     
     /// Suffix for deltas (changes)
-    
     case DELTA = "$delta"
     
     /// Suffix for deleted entities in deltas
-    
     case DELTA_DELETED_ENTITY = "$deletedEntity"
     
     /// New links in deltas
-    
     case DELTA_LINK = "$link"
     
     /// Deleted links in deltas
-    
     case DELTA_DELETED_LINK = "$deletedLink"
     
     /*

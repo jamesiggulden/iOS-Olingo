@@ -56,9 +56,9 @@ public final class EdmPrimitiveTypeFactory {
     case EdmPrimitiveTypeKind.INT64:
       return EdmInt64.instance
     case EdmPrimitiveTypeKind.DECIMAL:
-      return EdmDecimal.getInstance()
+      return EdmDecimal.instance
     case EdmPrimitiveTypeKind.DATETIMEOFFSET:
-      return EdmDateTimeOffset.getInstance()
+      return EdmDateTimeOffset.instance
      /*
     case EdmPrimitiveTypeKind.BINARY:
       return EdmBinary.getInstance()

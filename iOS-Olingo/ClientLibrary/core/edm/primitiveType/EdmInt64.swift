@@ -40,7 +40,7 @@ public final class EdmInt64:SingletonPrimitiveType {
     return INSTANCE
   }
   
-  public var getDefaultType:Any{
+  public override var defaultType:Any{
     // swift does not provide a specific long int will be 64bit where allowed
     return Int.self
   }
@@ -95,6 +95,7 @@ public final class EdmInt64:SingletonPrimitiveType {
     if String(returnType.self) == "Int" {
       return  Int(value) as! T
     }
+        
     // TODO: BigInt, Byte & Short
     /*
       else if (returnType.isAssignableFrom(BigInteger.class)) {
@@ -127,7 +128,11 @@ public final class EdmInt64:SingletonPrimitiveType {
     else if returnType is EdmInt32 {
       return  Int(value) as! T
     }
+    else if returnType is EdmInt64 {
+      return Int(value) as! T
+    }
     else {
+      log.debug("Convert Number unknown type: \(String(returnType.self))")
       throw EdmPrimitiveTypeException.ValueTypeNotSupported
       // throw new ClassCastException("unsupported return type " + returnType.getSimpleName())
     }

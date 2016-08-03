@@ -91,6 +91,7 @@ public class ODataEntitySetRequestImpl: AbstractODataRequest,ODataRetrieveReques
     //public class ODataEntitySetResponse : AbstractODataResponse, ODataRetrieveResponse {
 
     // MARK: - Stored Properties
+    
     private var entitySet:ClientEntitySet?
     
     // MARK: - Computed Properties
@@ -109,24 +110,16 @@ public class ODataEntitySetRequestImpl: AbstractODataRequest,ODataRetrieveReques
     ///   - none
     /// - returns: Entity
     /// - throws: No error conditions are expected
-//    public func getBody() {
-//      
-//    }
-
     public func getBody() throws -> ClientEntitySet? {
-    //public ES getBody() {
       
-      //typealias bodyReturn = ClientEntitySet
       if entitySet == nil {
         do {
           
           log.debug("Parse Client entity Set")
           let contentType = ContentType.parse(self.contentType)!
           log.debug("To entity set")
-          let  x = odataClient.getDeserializer(contentType)
-          let resource:ResWrap<EntityCollection> = try x.toEntitySet(payload)!
-          //let resource:ResWrap<EntityCollection> = try x.toEntitySet(self.res.data)!
-          // let resource:ResWrap<EntityCollection> = odataClient.getDeserializer(ContentType.parse(self.contentType)).toEntitySet(self.getRawResponse())
+          let  oDataDeserializer = odataClient.getDeserializer(contentType)
+          let resource:ResWrap<EntityCollection> = try oDataDeserializer.toEntitySet(payload)!
           log.debug("Bind entity Set")
           entitySet = odataClient.binder.getODataEntitySet(resource) as ClientEntitySet
         } catch  {

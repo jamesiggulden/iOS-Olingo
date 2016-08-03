@@ -210,23 +210,17 @@ class ViewController: UIViewController {
             for property in entity.properties {
               var name:String = ""
               var val:String = ""
-              var type:String = ""
+              var typeKind:String = ""
               
               if let propertyValue = property.value.asPrimitive {
-                
                 if let propertyValueValue = propertyValue.value {
                   name = String(property.name)
                   val = String(propertyValueValue)
-                  switch (propertyValueValue){
-                  case is String:
-                    type = "String"
-                  case is Int:
-                    type = "Int"
-                  default:
-                    type = "?"
+                  if let tk = propertyValue.typeKind?.toString() {
+                    typeKind = tk
                   }
                 }
-                consoleOutput += "\n    \(name) : \(val)  : (\(type))"
+                consoleOutput += "\n    \(name) : \(val)  : (\(typeKind))"
               }
             }
             

@@ -45,40 +45,43 @@ public class JsonDeserializer: ODataDeserializer {
   // MARK: - Computed Properties
 
   // MARK: - Init
+  
   init(serverMode:Bool) {
     self.serverMode = serverMode
   }
 
   // MARK: - Methods
 
-  
+  /// Take data from input and build entity set to return
+  /// - parameters:
+  ///   - input: raw JSON data from service
+  /// - returns: Resource wrapper containing an entity collection
+  /// - throws: GetODataException
   public func toEntitySet(input:NSData) throws  -> ResWrap<EntityCollection>? {
     do {
-      // we will just pass the json content directly and see if we can handle the json deserializer inside the class
+      // we will just pass the json content directly and handle the json deserialization inside the class
       return try JsonEntitySetDeserializer(serverMode: serverMode).doDeserialize(input)!
       
-      //parser = try JsonFactory(ObjectMapper()).createParser(input)
-      //return try JsonEntitySetDeserializer(serverMode).doDeserialize(parser)
     }
     catch {
-      throw GetODataException.OdataEntitySetFailed
+      throw GetODataException.ODataEntitySetFailed
     }
-    return nil
   }
   
-  
+  /// Take data from input and build entity to return
+  /// - parameters:
+  ///   - input: raw JSON data from service
+  /// - returns: Resource wrapper containing an entity
+  /// - throws: GetODataException
   public func toEntity(input:NSData) throws -> ResWrap<Entity>? {
     do {
-      // we will just pass the json content directly and see if we can handle the json deserializer inside the class
+      // we will just pass the json content directly and handle the json deserialization inside the class
       return try JsonEntityDeserializer(serverMode: serverMode).doDeserialize(input)!
-      
-      //parser = try JsonFactory(ObjectMapper()).createParser(input)
-      //return try JsonEntityDeserializer(serverMode: serverMode).doDeserialize(parser)
+
     }
     catch {
-      
+      throw GetODataException.ODataEntityFailed
     }
-    return nil
   }
 
  
@@ -94,25 +97,28 @@ public class JsonDeserializer: ODataDeserializer {
     return string
   }
   
-  // TODO: Annotatable
+   
+  /// Populate an array of properties from the JSON data dictionary
+  /// - parameters:
+  ///   - properties: array of properties (Inout parameter)
+  ///   - data:key value pairs dictionary extracted from JSON
+  /// - returns: No return value (void)
+  /// - throws: No error conditions are expected
   func populate(inout properties:[Property],data:[String:AnyObject]) throws {
-  //func populate(annotatable:Annotatable,properties:[Property],tree:ObjectNode,codec:ObjectCodec) throws {
   
-      var type:String = ""
+    var type:String = ""
       // TODO: Annotations
       //var annotation:Annotation = nil
     
-    // swift dictionary is unsorted so need to get teh data into a sorted order to esnure 
+    // swift dictionary is unsorted so need to get the data into a sorted order to esnure
     // that the value type key value pair if it exists is before the actual value
 
     let sortedDataKeys = Array(data.keys).sort(>)
       
     for key in sortedDataKeys {
-      
       guard let value = data[key] else {
         throw IllegalArgumentException.NilOrEmptyString
       }
-        
         // TODO: Annotations
         /*
         let customAnnotation:Matcher  = CUSTOM_ANNOTATION.matcher(key)
@@ -129,16 +135,15 @@ public class JsonDeserializer: ODataDeserializer {
          else if (type.isEmpty && key.endsWith(getJSONAnnotation(JSON_TYPE))) {
          */
         
-        if (type.isEmpty && key.endsWith(getJSONAnnotation(JSON_TYPE))) {
-          type = String(value)
-        }
-        else if key.endsWith(getJSONAnnotation(JSON_COUNT)) {
-          let property = Property()
-          property.name = key
-          property.setValue(ValueType.PRIMITIVE, value: Int(value as! NSNumber) as AnyObject)
-
-          properties.append(property)
-        }
+      if (type.isEmpty && key.endsWith(getJSONAnnotation(JSON_TYPE))) {
+      type = String(value)
+      }
+      else if key.endsWith(getJSONAnnotation(JSON_COUNT)) {
+        let property = Property()
+        property.name = key
+        property.setValue(ValueType.PRIMITIVE, value: Int(value as! NSNumber) as AnyObject)
+        properties.append(property)
+      }
         // TODO: Annotations
         /*
         else if (annotation == nil && customAnnotation.matches() && !"odata".equals(customAnnotation.group(2))) {
@@ -147,33 +152,32 @@ public class JsonDeserializer: ODataDeserializer {
           value(annotation, value)
         }
         */
+      else {
+        let property = Property()
+        property.name = key
+        if type.isEmpty {
+          property.type = ""
+        }
         else {
-          let property = Property()
-          property.name = key
-          if type.isEmpty {
-            property.type = ""
-          }
-          else {
-            property.type = EdmTypeInfo.Builder().setTypeExpression(type).build()!.internalToString()
-          }
-          
-          type = ""
-          do {
-            try calcValue(property, value: value)
-          }
-          catch {
-            
-          }
-          //value(property, field.getValue(), codec)
-          if let pval = property.value {
-            log.debug("Property name: \(property.name)  Value: \(pval)")
-          }
-          else {
-            log.debug("Property name: \(property.name)  Value: nil")
-          }
-          
-          properties.append(property)
-          log.debug( "Number of properties: \(properties.count)")
+          property.type = EdmTypeInfo.Builder().setTypeExpression(type).build()!.internalToString()
+        }
+        
+      type = ""
+      do {
+        try calcValue(property, value: value)
+      }
+      catch {
+        
+      }
+      if let pval = property.value {
+        log.debug("Property name: \(property.name)  Value: \(pval)")
+      }
+      else {
+        log.debug("Property name: \(property.name)  Value: nil")
+      }
+        
+      properties.append(property)
+      log.debug( "Number of properties: \(properties.count)")
           // TODO: Annotations
           /*
           if (annotation != nil) {
@@ -181,15 +185,20 @@ public class JsonDeserializer: ODataDeserializer {
             annotation = nil
           }
            */
-        }
       }
     }
+  }
   
-  
+   
+  /// Calculate the value of a property
+  /// - parameters:
+  ///   - valuable: property value to be updated
+  ///   - value: value obtained from JSON feed
+  /// - returns: No return value (void)
+  /// - throws: No error conditions are expected
   func calcValue(valuable:Valuable , value:AnyObject ) throws {
     
-    // func value(valuable:Valuable , node:JsonNode ,codec: ObjectCodec ) throws {
-    var  typeInfo:EdmTypeInfo?
+    var typeInfo:EdmTypeInfo?
     let guessed = guessPropertyType(value)
     var keyGuess:PropertyType? = nil
     var valueGuess:EdmTypeInfo? = nil
@@ -233,17 +242,6 @@ public class JsonDeserializer: ODataDeserializer {
         propType = PropertyType.PRIMITIVE
       }
     }
-      
-     /*
-    if (typeInfo == nil) {
-      
-      
-    }
-    else {
-      
-    }
- */
-    
     
     switch (propType) {
     case PropertyType.COLLECTION:
@@ -293,90 +291,99 @@ public class JsonDeserializer: ODataDeserializer {
     
   }
   
-    private func guessPropertyType(node:AnyObject) -> [PropertyType: EdmTypeInfo] {
-      let type: PropertyType
-      
-      var typeInfo:EdmTypeInfo? = nil
-      var typeExpression:String = ""
-      var entry:[PropertyType:EdmTypeInfo] = [:]
-      // TODO:
-      // use this as a default to start with till we get it working properly
-      type = PropertyType.PRIMITIVE
-      typeExpression = guessPrimitiveTypeKind(node).getFullQualifiedName().toString()
-      /*
-      if (node.isValueNode || node == nil) {
-        type = PropertyType.PRIMITIVE
-        typeExpression = guessPrimitiveTypeKind(value).fullQualifiedName.toString()
+  
+   
+  /// Guess teh property value type based on its contents
+  /// - parameters:
+  ///   - node: a value of a property from a JSON feed
+  /// - returns: A dictionaory key value pair entry
+  /// - throws: No error conditions are expected
+  private func guessPropertyType(node:AnyObject) -> [PropertyType: EdmTypeInfo] {
+    let type: PropertyType
+    
+    var typeInfo:EdmTypeInfo? = nil
+    var typeExpression:String = ""
+    var entry:[PropertyType:EdmTypeInfo] = [:]
+    // TODO:
+    // use this as a default to start with till we get it working properly
+    type = PropertyType.PRIMITIVE
+    typeExpression = guessPrimitiveTypeKind(node).getFullQualifiedName().toString()
+    // TODO: ascertian node categories in a way similar to Java Jackson library
+    /*
+     if (node.isValueNode || node == nil) {
+     type = PropertyType.PRIMITIVE
+     typeExpression = guessPrimitiveTypeKind(value).fullQualifiedName.toString()
+     }
+     else if (node.isArray) {
+     type = PropertyType.COLLECTION
+     if (node.has(0) && node.get(0).isValueNode()) {
+     typeExpression = "Collection(" + guessPrimitiveTypeKind(value) + ")"
+     }
+     }
+     else if (node.isObject()) {
+     if (node.has(ATTR_TYPE)) {
+     type = PropertyType.PRIMITIVE
+     typeExpression = "Edm.Geography" + node.get(ATTR_TYPE).asText()
+     } else {
+     type = PropertyType.COMPLEX
+     }
+     }
+     
+     else {
+     type = PropertyType.EMPTY
+     }
+     */
+    
+    if !typeExpression.isEmpty {
+      typeInfo = EdmTypeInfo.Builder().setTypeExpression(typeExpression).build()
+      if typeInfo == nil {
+        log.warn("typeInfo value nil")
       }
-      else if (node.isArray) {
-        type = PropertyType.COLLECTION
-        if (node.has(0) && node.get(0).isValueNode()) {
-          typeExpression = "Collection(" + guessPrimitiveTypeKind(value) + ")"
-        }
-      }
-      else if (node.isObject()) {
-        if (node.has(ATTR_TYPE)) {
-          type = PropertyType.PRIMITIVE
-          typeExpression = "Edm.Geography" + node.get(ATTR_TYPE).asText()
-        } else {
-          type = PropertyType.COMPLEX
-        }
-      }
- 
-      else {
-        type = PropertyType.EMPTY
-      }
- */
-      if !typeExpression.isEmpty {
-        typeInfo = EdmTypeInfo.Builder().setTypeExpression(typeExpression).build()
-        if typeInfo == nil {
-          log.warn("typeInfo value nil")
-        }
-      }
-      // if typeinfo is nil then no entry is added to the dictionary (or the entry for the key will be removed)
-      entry[type] = typeInfo
-        
-      return entry
     }
-
-    private func guessPrimitiveTypeKind(value:AnyObject) -> EdmPrimitiveTypeKind {
-      
-      let valueStr = String(value)
-      if !valueStr.isEmpty {
-        if valueStr.caseInsensitiveCompare("true") == NSComparisonResult.OrderedSame || valueStr.caseInsensitiveCompare("false") == NSComparisonResult.OrderedSame {
-          return EdmPrimitiveTypeKind.BOOLEAN
-        }
-        
-        let nf = NSNumberFormatter()
-        guard let nsNum = nf.numberFromString(valueStr) else {
-          return EdmPrimitiveTypeKind.STRING
-        }
-        let idx = valueStr.rangeOfString(".")?.startIndex
-        if idx != nil {
-          // its a float or a double
-          let flt:Float = nsNum.floatValue
-          if flt.isInfinite {
-            return EdmPrimitiveTypeKind.DOUBLE
-          }
-          else {
-            return EdmPrimitiveTypeKind.SINGLE
-          }
-        }
-        else {
-          if nsNum.integerValue == -9223372036854775808 {
-            return EdmPrimitiveTypeKind.DECIMAL
-          }
-          else {
-            if nsNum.intValue > Int32.max {
-              return EdmPrimitiveTypeKind.INT64
-            }
-            return EdmPrimitiveTypeKind.INT32
-          }
-        }
+    // if typeinfo is nil then no entry is added to the dictionary (or the entry for the key will be removed)
+    entry[type] = typeInfo
+    
+    return entry
+  }
+ 
+  /// Guess the type of the provided value
+  /// - parameters:
+  ///   - value: the value to try and establish the type from
+  /// - returns: The guessed EdmPrimitiveTypeKind
+  /// - throws: No error conditions are expected
+  private func guessPrimitiveTypeKind(value:AnyObject) -> EdmPrimitiveTypeKind {
+    
+    let valueStr = String(value)
+    if !valueStr.isEmpty {
+      if valueStr.caseInsensitiveCompare("true") == NSComparisonResult.OrderedSame || valueStr.caseInsensitiveCompare("false") == NSComparisonResult.OrderedSame {
+        return EdmPrimitiveTypeKind.BOOLEAN
       }
-      else {
+      
+      let nf = NSNumberFormatter()
+      guard let nsNum = nf.numberFromString(valueStr) else {
         return EdmPrimitiveTypeKind.STRING
       }
+
+      let nsInt = nsNum.integerValue
+      if nsInt == nsNum {
+        return EdmPrimitiveTypeKind.INT64
+      }
+      
+      let nsFloat = nsNum.floatValue
+      if nsFloat == nsNum {
+        return EdmPrimitiveTypeKind.SINGLE
+      }
+      let nsDbl = nsNum.doubleValue
+      if nsDbl == nsNum {
+        return EdmPrimitiveTypeKind.SINGLE
+      }
+      else {
+        return EdmPrimitiveTypeKind.DECIMAL
+      }
+    }
+    else {
+      return EdmPrimitiveTypeKind.STRING
+    }
 
       // original olingo using jackson library for JSON
       //  private func guessPrimitiveTypeKind(node:JsonNode) -> EdmPrimitiveTypeKind {
@@ -390,58 +397,48 @@ public class JsonDeserializer: ODataDeserializer {
       //      EdmPrimitiveTypeKind.String
       //  }
 
+  }
+
+   
+  /// Return value from node as defined type of typeInfo
+  /// - parameters:
+  ///   - node: value to be modified and cast
+  ///   - typeInfo: type to be cast as
+  /// - returns: No return value (void)
+  /// - throws: EdmPrimitiveTypeException
+  private func fromPrimitive(node:AnyObject?,typeInfo:EdmTypeInfo?) throws -> AnyObject? {
+    guard let node = node else {
+      return nil
     }
-  
-  // TODO: func fromPrimitive(node:JsonNode,typeInfo:EdmTypeInfo) throws -> AnyObject
-    private func fromPrimitive(node:AnyObject?,typeInfo:EdmTypeInfo?) throws -> AnyObject? {
-      guard let node = node else {
+    
+    guard let typeInfo = typeInfo else {
+      return String(node)
+    }
+    // TODO : geo
+    /*
+     if typeInfo!.primitiveTypeKind.isGeospatial {
+     return getGeoDeserializer().deserialize(node, typeInfo)
+     }
+     */
+    do {
+      
+      let primType = typeInfo.type as! EdmPrimitiveType
+      let swiftType = primType.defaultType
+      
+      if let swiftValue = try primType.valueOfString(String(node), isnilable: true, maxLength: nil,precision: DEFAULT_PRECISION, scale: DEFAULT_SCALE, isUnicode: true,returnType: swiftType) {
+        log.debug(" value: \(String(swiftValue)) of type \(swiftValue.dynamicType)")
+        return swiftValue as? AnyObject
+      }
+      else {
         return nil
       }
-      
-      guard let typeInfo = typeInfo else {
-        return String(node)
-      }
-      // TODO : geo
-      /*
-       if typeInfo!.primitiveTypeKind.isGeospatial {
-       return getGeoDeserializer().deserialize(node, typeInfo)
-       }
-       */
-      do {
-        //let pType = typeInfo.type as! EdmString
-        //let pClass = pType.dynamicType
-        
-        let primType = typeInfo.type as! EdmPrimitiveType
-        let swiftType = primType.defaultType
-        //let primClass = primType.dynamicType
-        log.debug(" value: \(String(node)) of type \(node.dynamicType)")
-        if let swiftValue = try primType.valueOfString(String(node), isnilable: true, maxLength: nil,precision: DEFAULT_PRECISION, scale: DEFAULT_SCALE, isUnicode: true,returnType: swiftType) {
-          log.debug(" value: \(String(swiftValue)) of type \(swiftValue.dynamicType)")
-          return swiftValue as? AnyObject
-        }
-        else {
-          return nil
-        }
-        
-        
-        
-        // TODO: need to come back to cast to specific primitive type
-        
-          let nd = String(node)
-          return String(node)
-        
-        
-        //return typeInfo!.type.valueOfString(String(value), true, nil,DEFAULT_PRECISION, DEFAULT_SCALE, true,typeInfo.type as EdmPrimitiveType).getDefaultType() as EdmPrimitiveType
-      }
-      catch {
-        // TODO:
-      }
-      //}
-      
-      return nil
-      //return node.isnil() ? nil: typeInfo == nil ? node.asText(): typeInfo.getPrimitiveTypeKind().isGeospatial()? getGeoDeserializer().deserialize(node, typeInfo): ((EdmPrimitiveType) typeInfo.getType()).valueOfString(node.asText(), true, nil,Constants.DEFAULT_PRECISION, Constants.DEFAULT_SCALE, true,((EdmPrimitiveType) typeInfo.getType()).getDefaultType())
-
     }
+    catch {
+      log.error("Error from primitive: ")
+      throw EdmPrimitiveTypeException.LiteralHasIllegalContent
+    }
+    return nil
+  }
 
   
   

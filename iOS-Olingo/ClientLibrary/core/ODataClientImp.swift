@@ -11,18 +11,14 @@ import Foundation
 /// Implmentation of an OData Client
 public class ODataClientImp: ODataClient {
   
-//  let retrieveReqFact:RetrieveRequestFactory = RetrieveRequestFactoryImpl();
-//
-//  func retrieveRequestFactory() -> RetrieveRequestFactory {
-//    
-//     return retrieveReqFact;
-//  }
   
-    /// an instance of a retrieve request factory (read only)
-  //TODO: Design notes - use of lazy
+  /// an instance of a retrieve request factory (read only)
+  // declared lazy in order to allow instantiation of ODataClientImp to then pass self to RetrieveRequestFactoryImpl
   public lazy var retrieveRequestFactory:RetrieveRequestFactory = RetrieveRequestFactoryImpl(client: self)
   
   public let objectFactory:ClientObjectFactory = ClientObjectFactoryImpl()
+  
+  // declared lazy in order to allow instantiation of ODataClientImp to then pass self to OdataBinderImpl
   public lazy var binder:ODataBinder = ODataBinderImpl(client: self)
   
   public let configuration:Configuration = ConfigurationImpl()
@@ -31,7 +27,6 @@ public class ODataClientImp: ODataClient {
   
   public init() {
     httpSession = configuration.httpSessionFactory.create()
-    //retrieveRequestFactory = RetrieveRequestFactoryImpl(client: self)
   }
   
    
@@ -40,7 +35,6 @@ public class ODataClientImp: ODataClient {
   ///   - none
   /// - returns: Odata headers
   /// - throws: No error conditions are expected
-  
   public func newVersionHeaders() -> ODataHeadersImpl {
     let odataHeaders = ODataHeadersImpl()
     odataHeaders.setHeader(HttpHeader.ODATA_MAX_VERSION.rawValue, value: ODataServiceVersion.V40.rawValue)

@@ -41,19 +41,13 @@ public struct ContextURLParser {
   
   // MARK: - Methods
  
-  /// Parse teh provided URI
+  /// Parse the provided URI
   /// - parameters:
   ///   - contextURL: TBC
-  ///   - param2: add or remove params from list as required
-  /// - returns: No return value (void)
+  /// - returns: Context URL
   /// - throws: No error conditions are expected
   public static func parse(contextURL:NSURL) -> ContextURL? {
-    /*
-    if (contextURL == nil) {
-      return nil
-    }
- */
-  
+    
     var contextUrl = ContextURL.with()
   
     //let contextURLasString = contextURL.toASCIIString()
@@ -92,8 +86,6 @@ public struct ContextURLParser {
       
     contextUrl.serviceRoot(NSURL(string: contextURLasString.substringToIndex(metaDataIdx.startIndex))!)
     let rest = contextURLasString.substringFromIndex(metaDataIdx.endIndex.advancedBy(1))
-      //let rest = StringUtils.substringAfter(contextURLasString, METADATA + "#")
-    
     var firstToken:String = ""
     var entitySetOrSingletonOrType:String = ""
     if rest.hasSuffix("Collection(") {
@@ -125,13 +117,11 @@ public struct ContextURLParser {
       
         for split in firstToken.componentsSeparatedByString("\\)/") {
           parts.append(split.stringByReplacingOccurrencesOfString("\\(.*", withString: ""))
-          //parts.append(split.replaceAll("\\(.*", ""))
         }
         entitySetOrSingletonOrType = parts.joinWithSeparator("/")
         let commaIdx = firstToken.rangeOfString(",")?.startIndex
         if (commaIdx != nil) {
           contextUrl.selectList(firstToken.substringFromIndex(openParIdx!))
-          //contextUrl.selectList(firstToken.substring(openParIdx + 1, firstToken.length() - 1))
         }
       }
     }

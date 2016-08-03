@@ -46,31 +46,45 @@ public class ClientODataDeserializerImpl: ClientODataDeserializer {
     deserializer = JsonDeserializer(serverMode: serverMode)
     
     // TODO: add in capacity to switch to ATOM
-//    if (contentType.isCompatible(ContentType.APPLICATION_ATOM_SVC!)
-//      || contentType.isCompatible(ContentType.APPLICATION_ATOM_XML!)
-//      || contentType.isCompatible(ContentType.APPLICATION_XML!)) {
-//      deserializer =  AtomDeserializer()
-//    } else {
-//      deserializer = JsonDeserializer(serverMode)
-//    }
+    /*
+    if (contentType.isCompatible(ContentType.APPLICATION_ATOM_SVC!)
+      || contentType.isCompatible(ContentType.APPLICATION_ATOM_XML!)
+      || contentType.isCompatible(ContentType.APPLICATION_XML!)) {
+      deserializer =  AtomDeserializer()
+    } else {
+      deserializer = JsonDeserializer(serverMode)
+    }
+     */
   }
   
   // MARK: - Methods
 
-  
+   
+  /// Take data from input and build entity set to return
+  /// - parameters:
+  ///   - input: raw data from service (JSON or Atom)
+  /// - returns: Resource wrapper containing an entity collection
+  /// - throws: GetODataException
   public func toEntitySet(input:NSData) throws -> ResWrap<EntityCollection>? {
     do {
       return try deserializer.toEntitySet(input)!
     }
     catch {
-      throw GetODataException.OdataEntitySetFailed
+      throw GetODataException.ODataEntitySetFailed
     }
   }
   
-  
+  /// Take data from input and build entity set to return
+  /// - parameters:
+  ///   - input: raw data from service (JSON or Atom)
+  /// - returns: Resource wrarpper containing an entity
+  /// - throws: GetODataException
   public func toEntity(input:NSData) throws -> ResWrap<Entity>? {
     do{
       return try deserializer.toEntity(input)!
+    }
+    catch {
+      throw GetODataException.ODataEntityFailed
     }
   }
   

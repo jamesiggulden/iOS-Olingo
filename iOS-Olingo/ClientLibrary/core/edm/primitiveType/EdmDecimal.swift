@@ -40,17 +40,171 @@ public final class EdmDecimal:SingletonPrimitiveType {
   
   private static let INSTANCE:EdmDecimal  = EdmDecimal()
   
-
   
   // MARK: - Computed Properties
+  
+  // Get the static instance
+  public static var instance: EdmDecimal {
+    return INSTANCE
+  }
+  
+  // get the default class
+  public override var defaultType: Any { // Class<?> {
+    return NSDecimalNumber.self
+  }
 
   // MARK: - Init
   
   // MARK: - Methods
+  
+   /// Convert the value provided as a string into the actual value of the specified type
+   /// - parameters:
+   ///   - value: value as string to be converted
+   ///   - isnilable: is the value allowed to be nil
+   ///   - maxlength: max length of value string
+   ///   - precision: precision value
+   ///   - scale: scale value
+   ///   - isUnicode: is the value in unicode format
+   ///   - returnType: returnType expected
+   
+   /// - returns: NSDate with values obtained from value string
+   /// - throws: EDMPrimtiveType Error
+  override func internalValueOfString<T>(value:String,isnilable:Bool,maxLength:Int?,precision:Int,scale:Int,isUnicode:Bool,returnType:T) throws -> T {
 
-  public static func getInstance() -> EdmDecimal {
-    return INSTANCE
+    
+    let dec = NSDecimalNumber(string: value)
+    if dec == NSDecimalNumber.notANumber() {
+      throw EdmPrimitiveTypeException.LiteralHasIllegalContent
+    }
+    
+    if !validatePrecisionAndScale(value, precision:precision, scale:scale) {
+      throw EdmPrimitiveTypeException.DoesNotMatchFacetsConstraints // ("The literal '" + value + "' does not match the facets' constraints.")
+    }
+    
+    let convertedDecimal = try convertDecimal(dec,returnType: returnType)
+    return convertedDecimal
+    //return dec as! T
+    /*
+
+   
+   
+   try {
+   return convertDecimal(new BigDecimal(value), returnType)
+    
+    
+   } catch (final IllegalArgumentException e) {
+   throw new EdmPrimitiveTypeException("The literal '" + value
+   + "' cannot be converted to value type " + returnType + ".", e)
+   } catch (final ClassCastException e) {
+   throw new EdmPrimitiveTypeException("The value type " + returnType + " is not supported.", e)
+   } */
   }
+
+  
+  private func validatePrecisionAndScale(value:String, precision:Int, scale:Int) -> Bool {
+    
+    let wholeNumSize:Int
+    let decSize:Int
+    
+    if value.containsString(".") {
+      let splitVals = value.componentsSeparatedByString(".")
+      if splitVals[0].startsWith("+") || splitVals[0].startsWith("-") {
+        wholeNumSize = splitVals[0].characters.count - 1
+      }
+      else {
+        wholeNumSize = splitVals[0].characters.count
+      }
+      decSize = splitVals[1].characters.count
+      
+    }
+    else {
+      if value.startsWith("+") || value.startsWith("-") {
+        wholeNumSize = value.characters.count - 1
+      }
+      else {
+        wholeNumSize = value.characters.count
+      }
+      decSize = 0
+    }
+    if (wholeNumSize + decSize <= precision) && decSize <= scale {
+      return true
+    }
+    else {
+      return false
+    }
+    
+    // Obsolete from java olingo
+    /*
+     final Matcher matcher = PATTERN.matcher(value)
+     matcher.matches()
+     final int significantIntegerDigits = matcher.group(1).equals("0") ? 0 : matcher.group(1).length()
+     final int decimals = matcher.group(2) == null ? 0 : matcher.group(2).length()
+     return (precision == null || precision >= significantIntegerDigits + decimals)
+     && (decimals <= (scale == null ? 0 : scale))
+     */
+
+
+  }
+ 
+
+   /**
+   * Converts a {@link BigDecimal} value into the requested return type if possible.
+   *
+   * @param value the value
+   * @param returnType the class of the returned value it must be one of {@link BigDecimal}, {@link Double},
+   * {@link Float}, {@link BigInteger}, {@link Long}, {@link Integer}, {@link Short}, or {@link Byte}
+   * @return the converted value
+   * @throws IllegalArgumentException if the conversion is not possible or would lead to loss of data
+   * @throws ClassCastException if the return type is not allowed
+   */
+  func convertDecimal<T>(value:NSDecimalNumber,returnType:T) throws -> T {
+  
+    log.debug("ConvertDecimal: \(returnType.dynamicType)")
+    if returnType is NSDecimalNumber.Type {
+      return  value as! T //returnType.cast(value)
+    }
+    else if returnType is Double.Type  {
+      let doubleValue = value.doubleValue
+      if value.isEqual(doubleValue) {
+        return value as! T //returnType.cast(doubleValue)
+      }
+      else {
+        throw EdmPrimitiveTypeException.LiteralHasIllegalContent
+      }
+    }
+    else if returnType is Float.Type {
+      let floatValue = value.floatValue
+      if value.isEqual(floatValue) {
+        return value as! T //returnType.cast(doubleValue)
+      }
+      else {
+        throw EdmPrimitiveTypeException.LiteralHasIllegalContent
+      }
+    }
+    else {
+
+      if returnType is Int.Type {
+        return returnType as T //.cast(value.toBigIntegerExact())
+      }
+      /*
+      else if returnType.isAssignableFrom(Long.class)) {
+         return returnType.cast(value.longValueExact())
+      } else if (returnType.isAssignableFrom(Integer.class)) {
+         return returnType.cast(value.intValueExact())
+      } else if (returnType.isAssignableFrom(Short.class)) {
+         return returnType.cast(value.shortValueExact())
+      } else if (returnType.isAssignableFrom(Byte.class)) {
+         return returnType.cast(value.byteValueExact())
+      }
+ */
+      else {
+        throw EdmPrimitiveTypeException.ValueTypeNotSupported   //("unsupported return type " + returnType.getSimpleName())
+      }
+    }
+  }
+  
+
+  
   
   //TODO: isCompatible
   /*
@@ -66,12 +220,7 @@ public final class EdmDecimal:SingletonPrimitiveType {
   }
   */
   
-  // TODO: getDefaultType()
-  /*
-  public Class<?> getDefaultType() {
-    return BigDecimal.class
-  }
- */
+  
   
   //TODO: validate
   /*
@@ -92,98 +241,11 @@ public final class EdmDecimal:SingletonPrimitiveType {
   }
  */
   
-  // TODO: validatePrecisionAndScale
-  /*
-  private static boolean validatePrecisionAndScale(final String value, final Integer precision,
-  final Integer scale) {
-    
-    final Matcher matcher = PATTERN.matcher(value)
-    matcher.matches()
-    final int significantIntegerDigits = matcher.group(1).equals("0") ? 0 : matcher.group(1).length()
-    final int decimals = matcher.group(2) == null ? 0 : matcher.group(2).length()
-    return (precision == null || precision >= significantIntegerDigits + decimals)
-      && (decimals <= (scale == null ? 0 : scale))
-  }
- */
   
   
-  // TODO: internalValueOfString
-  /*
-  protected <T> T internalValueOfString(final String value,
-  final Boolean isNullable, final Integer maxLength, final Integer precision,
-  final Integer scale, final Boolean isUnicode, final Class<T> returnType) throws EdmPrimitiveTypeException {
-    
-    if (!validateLiteral(value)) {
-      throw new EdmPrimitiveTypeException("The literal '" + value + "' has illegal content.")
-    }
-    if (!validatePrecisionAndScale(value, precision, scale)) {
-      throw new EdmPrimitiveTypeException("The literal '" + value + "' does not match the facets' constraints.")
-    }
-    
-    try {
-      return convertDecimal(new BigDecimal(value), returnType)
-    } catch (final IllegalArgumentException e) {
-      throw new EdmPrimitiveTypeException("The literal '" + value
-        + "' cannot be converted to value type " + returnType + ".", e)
-    } catch (final ClassCastException e) {
-      throw new EdmPrimitiveTypeException("The value type " + returnType + " is not supported.", e)
-    }
-  }
- */
   
   
-  //TODO: convertDecimal
-  /*
-  /**
-   * Converts a {@link BigDecimal} value into the requested return type if possible.
-   *
-   * @param value the value
-   * @param returnType the class of the returned value it must be one of {@link BigDecimal}, {@link Double},
-   * {@link Float}, {@link BigInteger}, {@link Long}, {@link Integer}, {@link Short}, or {@link Byte}
-   * @return the converted value
-   * @throws IllegalArgumentException if the conversion is not possible or would lead to loss of data
-   * @throws ClassCastException if the return type is not allowed
-   */
-  protected static <T> T convertDecimal(final BigDecimal value, final Class<T> returnType)
-  throws IllegalArgumentException, ClassCastException {
-    
-    if (returnType.isAssignableFrom(BigDecimal.class)) {
-      return returnType.cast(value)
-    } else if (returnType.isAssignableFrom(Double.class)) {
-      final double doubleValue = value.doubleValue()
-      if (BigDecimal.valueOf(doubleValue).compareTo(value) == 0) {
-        return returnType.cast(doubleValue)
-      } else {
-        throw new IllegalArgumentException()
-      }
-    } else if (returnType.isAssignableFrom(Float.class)) {
-      final Float floatValue = value.floatValue()
-      if (BigDecimal.valueOf(floatValue).compareTo(value) == 0) {
-        return returnType.cast(floatValue)
-      } else {
-        throw new IllegalArgumentException()
-      }
-    } else {
-      try {
-        if (returnType.isAssignableFrom(BigInteger.class)) {
-          return returnType.cast(value.toBigIntegerExact())
-        } else if (returnType.isAssignableFrom(Long.class)) {
-          return returnType.cast(value.longValueExact())
-        } else if (returnType.isAssignableFrom(Integer.class)) {
-          return returnType.cast(value.intValueExact())
-        } else if (returnType.isAssignableFrom(Short.class)) {
-          return returnType.cast(value.shortValueExact())
-        } else if (returnType.isAssignableFrom(Byte.class)) {
-          return returnType.cast(value.byteValueExact())
-        } else {
-          throw new ClassCastException("unsupported return type " + returnType.getSimpleName())
-        }
-      } catch (final ArithmeticException e) {
-        throw new IllegalArgumentException(e)
-      }
-    }
-  }
- */
+  
   
   
   // TODO: internalValueToString

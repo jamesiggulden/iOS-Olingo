@@ -148,16 +148,6 @@ public class ODataBinderImpl: ODataBinder {
   /// - throws: No error conditions are expected
   public func getODataEntitySet(resource:ResWrap<EntityCollection>) -> ClientEntitySet {
     
-   
-    if log.isDebug  {
-      // TODO: Debug output
-//      if let dataString = NSString(data:resource.payload,encoding: NSUTF8StringEncoding) {
-//        log.debug(String(dataString))
-//      }
-//      else {
-//        log.debug ("No data")
-//      }
-    }
     if resource.contextURL == nil {
       base = resource.payload.baseURI
     }
@@ -166,26 +156,21 @@ public class ODataBinderImpl: ODataBinder {
     }
     
     let next = resource.payload.next
-    
     if next == nil {
       entitySet = client.objectFactory.newEntitySet()
     }
     else {
       entitySet = client.objectFactory.newEntitySet(NSURL(string:(next!.absoluteString),relativeToURL:base)!)
     }
-    
-    
     if (resource.payload.count > 0) {
       entitySet!.count = resource.payload.count
     }
-    // TODO: Odata Entity
-    
     for entityResource in resource.payload.entities {
       do {
         try add(entitySet!, entity: getODataEntity(ResWrap<Entity>(contextURL: resource.contextURL!, metadataETag: resource.metadataETag!, payload: entityResource)))
       }
       catch {
-        // catch the error and then keep going for teh rest of teh entities
+        // catch the error and then keep going for the rest of the entities
         log.warn("Adding entity to entity set failed")
       }
     }
@@ -198,13 +183,13 @@ public class ODataBinderImpl: ODataBinder {
     odataAnnotations(resource.payload, entitySet)
     */
     return entitySet!
- 
-   
   }
-
-  
-  // TODO: public func getEntity(odataEntity: ClientEntity) -> Entity {
-  
+   
+  /// Return entity from OData Entity
+  /// - parameters:
+  ///   - odataEntity: Client entity
+  /// - returns: Entity
+  /// - throws: No error conditions are expected
   public func getEntity(odataEntity: ClientEntity) -> Entity {
     let entity = Entity()
  
@@ -212,18 +197,13 @@ public class ODataBinderImpl: ODataBinder {
     
     // TODO: Links
     /*
-    // -------------------------------------------------------------
     // Add edit and self link
-    // -------------------------------------------------------------
     if let odataEditLink = odataEntity.editLink {
       var editLink = Link()
       editLink.title = entity.type
       editLink.rel = EDIT_LINK_REL
       editLink.href = odataEditLink.absoluteString
       entity.editLink = editLink
-      // editLink.setTitle(entity.getType())
-      // editLink.setRel(EDIT_LINK_REL)
-      // entity.setEditLink(editLink)
     }
     
     if odataEntity.isReadOnly {
@@ -233,26 +213,18 @@ public class ODataBinderImpl: ODataBinder {
       selfLink.rel = SELF_LINK_REL
       selfLink.href = odataEntity.link.absoluteString
       entity.selfLink = selfLink
-      
-      //      selfLink.setTitle(entity.getType())
-      //      selfLink.setRel(Constants.SELF_LINK_REL)
-      //      entity.setSelfLink(selfLink)
     }
-    // -------------------------------------------------------------
     
     links(odataEntity, entity)
     */
     
     // TODDO: media links
     /*
-    // -------------------------------------------------------------
     // Append edit-media links
-    // -------------------------------------------------------------
     for link in odataEntity.mediaEditLinks {
       log.debug("Append edit-media link\n\(link)")
       entity.mediaEditLinks.append(getLink(link))
     }
-    // -------------------------------------------------------------
     
     if odataEntity.isMediaEntity {
       entity.mediaContentSource = odataEntity.mediaContentSource
@@ -272,8 +244,6 @@ public class ODataBinderImpl: ODataBinder {
     return entity
   }
  
-  
-
   
   /// Build an Odata entity from the supplied resource
   /// - parameters:
@@ -302,11 +272,9 @@ public class ODataBinderImpl: ODataBinder {
         typeName =  try FullQualifiedName(namespaceAndName: resource.payload.type)
       }
       catch {
-        //TODO: error handling
+        throw GetODataException.ODataEntityFailed
       }
-      
     }
-    
     if typeName == nil  {
        throw GetODataException.ODataEntityFailed
     }
@@ -359,7 +327,6 @@ public class ODataBinderImpl: ODataBinder {
     
     // used by navigation
     let CountDic:[String:Int] = [:]
-    
     
     for property in resource.payload.properties {
       var propertyType: EdmType? = nil
@@ -419,19 +386,21 @@ public class ODataBinderImpl: ODataBinder {
     return entity
   }
   
-  // TODO: func getProperty(property:ClientProperty ) -> Property
   
+  /// Get property from client property
+  /// - parameters:
+  ///   - property: Client Property
+  /// - returns: Property
+  /// - throws: No error conditions are expected
   public func getProperty(property:ClientProperty ) -> Property {
     
     let propertyResource = Property(type: "", name: property.name)
-    
     updateValuable(propertyResource, odataValuable: property)
     // TODO: Annotations
     // annotations(property, propertyResource)
     return propertyResource
   }
- 
- 
+  
 
   /// Build an Odata property from the suppled resource
   /// - parameters:
@@ -463,10 +432,7 @@ public class ODataBinderImpl: ODataBinder {
         }
         else {
           throw GetODataException.ODataValueFailed
-          
-          
         }
-        
       }
     }
     catch {
@@ -491,7 +457,7 @@ public class ODataBinderImpl: ODataBinder {
   func getODataValue(fullQualName:FullQualifiedName?,valuable:Valuable,contextURL:NSURL?,metadataETag:String?) throws -> ClientValue? {
     
     // fixes enum values treated as primitive when no type information is available
-    /*
+    
     if fullQualName == nil {
       throw IllegalArgumentException.NilOrEmptyString
     }
@@ -499,7 +465,6 @@ public class ODataBinderImpl: ODataBinder {
     guard let fullQualName = fullQualName else {
       throw IllegalArgumentException.NilOrEmptyString
     }
- */
     
       // TODO: EDM Enabled Client
       /*
@@ -514,7 +479,6 @@ public class ODataBinderImpl: ODataBinder {
     log.debug("getOdataValue: \(valuable.value)")
     
     var value:ClientValue? = nil
-    
     
         // TODO: Collections
     if valuable.isCollection {
@@ -570,25 +534,23 @@ public class ODataBinderImpl: ODataBinder {
       if (valuable.isPrimitive || valuable.valueType == nil) {
         // fixes non-string values treated as string when no type information is available at de-serialization level
         
-        //if (type != null && !EdmPrimitiveTypeKind.String.getFullQualifiedName().equals(type) && EdmPrimitiveType.EDM_NAMESPACE.equals(type.getNamespace()) && valuable.asPrimitive() instanceof String) {
-        if (!EdmPrimitiveTypeKind.STRING.getFullQualifiedName().equals(Object: fullQualName!) && EDM_NAMESPACE == fullQualName!.namespace && valuable.asPrimitive is String) {
+        if (!EdmPrimitiveTypeKind.STRING.getFullQualifiedName().equals(Object: fullQualName) && EDM_NAMESPACE == fullQualName.namespace && valuable.asPrimitive is String) {
           do {
             
-            let  primitiveType = try EdmPrimitiveTypeFactory.getInstance(EdmPrimitiveTypeKind(rawValue:fullQualName!.name)!)
+            let  primitiveType = try EdmPrimitiveTypeFactory.getInstance(EdmPrimitiveTypeKind(rawValue:fullQualName.name)!)
           
             // TODO: date & time formats
             // let returnType = primitiveType.defaultType.isAssignableFrom(Calendar.class) ? Timestamp.class : primitiveType.defaultType
             // temp:
+
             let returnType = primitiveType.defaultType
             guard let pVal = valuable.asPrimitive else {
               throw IllegalArgumentException.InvalidFormat
-              
             }
             //log.debug(String(pVal.self))
             let primval = String(pVal)
             //let primval = String(valuable.asPrimitive) //.toString()
             let val = try primitiveType.valueOfString(primval,isnilable: false, maxLength: nil, precision: DEFAULT_PRECISION, scale: DEFAULT_SCALE, isUnicode: false,returnType: returnType)
-            
             valuable.setValue(valuable.valueType!,value: val)
           }
           catch {
@@ -598,26 +560,25 @@ public class ODataBinderImpl: ODataBinder {
         
         var type:EdmPrimitiveTypeKind? = nil
         
-        if let fullQualName = fullQualName {
+       // if let fullQualName = fullQualName {
           if fullQualName.namespace == EDM_NAMESPACE {
             do {
               type = try EdmPrimitiveTypeKind.valueOfFQN(fullQualName.toString())
             }
             catch {
-              
+              throw IllegalArgumentException.InvalidFormat
             }
           }
           if let valuableAsPrimitive = valuable.asPrimitive {
             log.debug (String(valuableAsPrimitive))
             let x = valuableAsPrimitive.dynamicType
-              log.debug(String(x))
-            
+            log.debug(String(x))
             value = try client.objectFactory.newPrimitiveValueBuilder().setValue(valuableAsPrimitive).setType(type).build()
           }
           else {
             throw IllegalArgumentException.NilOrEmptyString
           }
-        }
+       // }
       }
         
       else if valuable.isComplex
@@ -695,11 +656,6 @@ public class ODataBinderImpl: ODataBinder {
     else {
       throw GetODataException.ODataPropertyFailed
     }
-    
-    
-    
-    
-    
   }
 
  
@@ -780,7 +736,6 @@ public class ODataBinderImpl: ODataBinder {
       if let propertyType = propertyType {
         typeInfo = EdmTypeInfo.Builder().setTypeExpression(propertyType).build()
       }
-      
     }
     return typeInfo
   }
@@ -795,9 +750,11 @@ public class ODataBinderImpl: ODataBinder {
   /// - throws: No error conditions are expected
 
     private func findType(candidateTypeName: String , contextURL:ContextURL? ,metadataETag:String?) -> EdmType? {
+      
       var type:EdmType? = nil
       
       // TODO: EDMEnabledClient
+      // This is only required for an EDMEnabledClient
       /*
       if (client is EdmEnabledODataClient) {
         let edm = ((EdmEnabledODataClient) client).getEdm(metadataETag)
@@ -836,39 +793,20 @@ public class ODataBinderImpl: ODataBinder {
     }
 
   
-  // TODO: func getODataServiceDocument(resource: ServiceDocument ) -> ClientServiceDocument
-  /*
-  public func getODataServiceDocument(resource: ServiceDocument ) -> ClientServiceDocument {
-    let serviceDocument = ClientServiceDocument()
-    for (ServiceDocumentItem entitySet : resource.getEntitySets()) {
-      serviceDocument.getEntitySets().
-      put(entitySet.getName(), URIUtils.getURI(resource.getBaseURI(), entitySet.getUrl()))    }
-    
-    for (ServiceDocumentItem functionImport : resource.getFunctionImports()) {
-      serviceDocument.getFunctionImports().put(
-        functionImport.getName() == nil ? functionImport.getUrl() : functionImport.getName(),
-        URIUtils.getURI(resource.getBaseURI(), functionImport.getUrl()))    }
-    
-    for (ServiceDocumentItem singleton : resource.getSingletons()) {
-      serviceDocument.getSingletons().put(
-        singleton.getName() == nil ? singleton.getUrl() : singleton.getName(),
-        URIUtils.getURI(resource.getBaseURI(), singleton.getUrl()))    }
-    for (ServiceDocumentItem sdoc : resource.getRelatedServiceDocuments()) {
-      serviceDocument.getRelatedServiceDocuments().put(
-        sdoc.getName() == nil ? sdoc.getUrl() : sdoc.getName(),
-        URIUtils.getURI(resource.getBaseURI(), sdoc.getUrl()))    }
-    
-    return serviceDocument  }
-  */
   
   // TODO: func updateValuable(propertyResource: Valuable , odataValuable:ClientValuable )
-  
+   
+  /// Update property resource value with odataValue
+  /// - parameters:
+  ///   - propertyResource: property to be updated
+  ///   - odataValuable: odata value
+  /// - returns: No return value (void)
+  /// - throws: No error conditions are expected
   private func updateValuable(propertyResource: Valuable , odataValuable:ClientValuable ) {
 
     let propertyValue = odataValuable.value
     
     if odataValuable.hasPrimitiveValue {
-      
       propertyResource.type = odataValuable.primitiveValue!.typeName!
       if propertyValue is Geospatial {
         propertyResource.setValue(ValueType.GEOSPATIAL,value: propertyValue)
@@ -876,36 +814,23 @@ public class ODataBinderImpl: ODataBinder {
       else {
         propertyResource.setValue(ValueType.PRIMITIVE,value: propertyValue)
       }
-      //propertyResource.setValue(propertyValue is Geospatial ? ValueType.GEOSPATIAL : ValueType.PRIMITIVE,propertyValue)
- 
     }
     else if odataValuable.hasEnumValue {
-      
       propertyResource.type = odataValuable.enumValue!.typeName!
       propertyResource.setValue(ValueType.ENUM, value: propertyValue)
- 
     }
     else if odataValuable.hasComplexValue {
-      
       propertyResource.type = odataValuable.complexValue!.typeName!
       propertyResource.setValue(ValueType.COMPLEX, value: propertyValue)
- 
     }
     else if odataValuable.hasCollectionValue {
-      
-
       let collectionValue = odataValuable.collectionValue
       propertyResource.type = collectionValue!.typeName!
-      
       let value:ClientValue
       var valueType = ValueType.COLLECTION_PRIMITIVE
-      
       if collectionValue!.size() > 0 {
         if let valueCollection = collectionValue?.asSwiftCollection() {
           value = valueCollection[0] as! ClientValue
-          
-          
-          //        value = collectionValue?.asSwiftCollection()[0]
           if value.isPrimitive {
             if value.asPrimitive!.value is Geospatial {
               valueType = ValueType.COLLECTION_GEOSPATIAL
@@ -925,11 +850,32 @@ public class ODataBinderImpl: ODataBinder {
       propertyResource.setValue(valueType, value: propertyValue)
 
     }
-     
   }
   
-  
-  
+  // TODO: func getODataServiceDocument(resource: ServiceDocument ) -> ClientServiceDocument
+  /*
+   public func getODataServiceDocument(resource: ServiceDocument ) -> ClientServiceDocument {
+   let serviceDocument = ClientServiceDocument()
+   for (ServiceDocumentItem entitySet : resource.getEntitySets()) {
+   serviceDocument.getEntitySets().
+   put(entitySet.getName(), URIUtils.getURI(resource.getBaseURI(), entitySet.getUrl()))    }
+   
+   for (ServiceDocumentItem functionImport : resource.getFunctionImports()) {
+   serviceDocument.getFunctionImports().put(
+   functionImport.getName() == nil ? functionImport.getUrl() : functionImport.getName(),
+   URIUtils.getURI(resource.getBaseURI(), functionImport.getUrl()))    }
+   
+   for (ServiceDocumentItem singleton : resource.getSingletons()) {
+   serviceDocument.getSingletons().put(
+   singleton.getName() == nil ? singleton.getUrl() : singleton.getName(),
+   URIUtils.getURI(resource.getBaseURI(), singleton.getUrl()))    }
+   for (ServiceDocumentItem sdoc : resource.getRelatedServiceDocuments()) {
+   serviceDocument.getRelatedServiceDocuments().put(
+   sdoc.getName() == nil ? sdoc.getUrl() : sdoc.getName(),
+   URIUtils.getURI(resource.getBaseURI(), sdoc.getUrl()))    }
+   
+   return serviceDocument  }
+   */
   
   // TODO: func annotations(odataAnnotatable: ClientAnnotatable , annotatable:Annotatable )
   /*
@@ -946,9 +892,6 @@ public class ODataBinderImpl: ODataBinder {
   }
  */
 
-  
-  
-  
   
   // TODO: func links(odataLinked: ClientLinked ,linked:Linked )
   /*
@@ -1075,210 +1018,221 @@ public class ODataBinderImpl: ODataBinder {
   }
  */
   
-  
-  
  
   //TODO: func odataNavigationLinks(edmType: EdmType ,linked:Linked ,odataLinked:ClientLinked ,metadataETag:String ,base:NSURL)
-//  func odataNavigationLinks(edmType: EdmType ,linked:Linked ,odataLinked:ClientLinked ,metadataETag:String ,base:NSURL) {
-//    for link in linked.getNavigationLinks() {
-//      final let href = link.href
-//      final let title = link.title
-//      final let inlineEntity = link.getInlineEntity()
-//      final let inlineEntitySet = link.getInlineEntitySet()
-//      if (inlineEntity == nil && inlineEntitySet == nil) {
-//        let linkType = nil
-//        if (edmType is EdmStructuredType) {
-//          final let navProp = edmType.getNavigationProperty(title) as EdmStructuredType
-//          if (navProp != nil) {
-//            linkType = navProp.isCollection() ? ClientLinkType.ENTITY_SET_NAVIGATION : ClientLinkType.ENTITY_NAVIGATION
-//          }
-//        }
-//        if (linkType == nil) {
-//          linkType = link.getType() == nil ? ClientLinkType.ENTITY_NAVIGATION :ClientLinkType.fromString(link.getRel(), link.getType())
-//        }
-//        odataLinked.addLink(linkType == ClientLinkType.ENTITY_NAVIGATION ? client.getObjectFactory().newEntityNavigationLink(title, URIUtils.getURI(base, href)) : client.getObjectFactory().newEntitySetNavigationLink(title, URIUtils.getURI(base, href)))
-//      }
-//      else if (inlineEntity != nil) {
-//        odataLinked.addLink(createODataInlineEntity(inlineEntity,URIUtils.getURI(base, href), title, metadataETag))
-//      }
-//      else {
-//        if let href = href {
-//          odataLinked.addLink(createODataInlineEntitySet(inlineEntitySet,URIUtils.getURI(base, href), title, metadataETag))
-//        }
-//        else {
-//          odataLinked.addLink(createODataInlineEntitySet(inlineEntitySet, nil, title, metadataETag))
-//        }
-//      }
-//    }
-//                                        
-//    for link in odataLinked.getNavigationLinks() {
-//      if (!(link is ClientInlineEntity) && !(link is ClientInlineEntitySet)) {
-//        odataAnnotations(linked.getNavigationLink(link.getName()), link)
-//      }
-//    }
-//  }
+  /*
+  func odataNavigationLinks(edmType: EdmType ,linked:Linked ,odataLinked:ClientLinked ,metadataETag:String ,base:NSURL) {
+    for link in linked.getNavigationLinks() {
+      final let href = link.href
+      final let title = link.title
+      final let inlineEntity = link.getInlineEntity()
+      final let inlineEntitySet = link.getInlineEntitySet()
+      if (inlineEntity == nil && inlineEntitySet == nil) {
+        let linkType = nil
+        if (edmType is EdmStructuredType) {
+          final let navProp = edmType.getNavigationProperty(title) as EdmStructuredType
+          if (navProp != nil) {
+            linkType = navProp.isCollection() ? ClientLinkType.ENTITY_SET_NAVIGATION : ClientLinkType.ENTITY_NAVIGATION
+          }
+        }
+        if (linkType == nil) {
+          linkType = link.getType() == nil ? ClientLinkType.ENTITY_NAVIGATION :ClientLinkType.fromString(link.getRel(), link.getType())
+        }
+        odataLinked.addLink(linkType == ClientLinkType.ENTITY_NAVIGATION ? client.getObjectFactory().newEntityNavigationLink(title, URIUtils.getURI(base, href)) : client.getObjectFactory().newEntitySetNavigationLink(title, URIUtils.getURI(base, href)))
+      }
+      else if (inlineEntity != nil) {
+        odataLinked.addLink(createODataInlineEntity(inlineEntity,URIUtils.getURI(base, href), title, metadataETag))
+      }
+      else {
+        if let href = href {
+          odataLinked.addLink(createODataInlineEntitySet(inlineEntitySet,URIUtils.getURI(base, href), title, metadataETag))
+        }
+        else {
+          odataLinked.addLink(createODataInlineEntitySet(inlineEntitySet, nil, title, metadataETag))
+        }
+      }
+    }
+                                        
+    for link in odataLinked.getNavigationLinks() {
+      if (!(link is ClientInlineEntity) && !(link is ClientInlineEntitySet)) {
+        odataAnnotations(linked.getNavigationLink(link.getName()), link)
+      }
+    }
+  }
+  */
 
 
   // TODO: func createODataInlineEntity(inlineEntity: Entity ,uri:NSURL,title:String,metadataETag:String) -> ClientInlineEntity
-//  private func createODataInlineEntity(inlineEntity: Entity ,uri:NSURL,title:String,metadataETag:String) -> ClientInlineEntity {
-//    var res:ResWrap<Entity>?
-//    if let baseURI = inlineEntity.getBaseURI() {
-//      res = ResWrap<Entity>(baseURI, metadataETag,inlineEntity)
-//    }
-//    return ClientInlineEntity(uri, ClientLinkType.ENTITY_NAVIGATION, title,getODataEntity(res))
-//  }
+  /*
+  private func createODataInlineEntity(inlineEntity: Entity ,uri:NSURL,title:String,metadataETag:String) -> ClientInlineEntity {
+    var res:ResWrap<Entity>?
+    if let baseURI = inlineEntity.getBaseURI() {
+      res = ResWrap<Entity>(baseURI, metadataETag,inlineEntity)
+    }
+    return ClientInlineEntity(uri, ClientLinkType.ENTITY_NAVIGATION, title,getODataEntity(res))
+  }
+  */
   
   // TODO: func createODataInlineEntitySet(inlineEntitySet: final EntityCollection ,uri: NSURL,title:String,metadataETag:String) -> ClientInlineEntitySet
-//  private func createODataInlineEntitySet(inlineEntitySet: final EntityCollection ,uri: NSURL,title:String,metadataETag:String) -> ClientInlineEntitySet  {
-//    var res:ResWrap<EntityCollection>?
-//    if let baseURI = inlineEntity.getBaseURI() {
-//      res = ResWrap<EntityCollection>(baseURI, metadataETag,inlineEntity)
-//    }
-//    return ClientInlineEntity(uri, ClientLinkType.ENTITY_SET_NAVIGATION, title,getODataEntitySet(res))
-//  }
+  /*
+  private func createODataInlineEntitySet(inlineEntitySet: final EntityCollection ,uri: NSURL,title:String,metadataETag:String) -> ClientInlineEntitySet  {
+    var res:ResWrap<EntityCollection>?
+    if let baseURI = inlineEntity.getBaseURI() {
+      res = ResWrap<EntityCollection>(baseURI, metadataETag,inlineEntity)
+    }
+    return ClientInlineEntity(uri, ClientLinkType.ENTITY_SET_NAVIGATION, title,getODataEntitySet(res))
+  }
+  */
   
   
   // TODO: func findEntityType(entitySetOrSingletonOrType:String,container:EdmEntityContainer) -> EdmEntityType
-//  private func findEntityType(entitySetOrSingletonOrType:String,container:EdmEntityContainer) -> EdmEntityType {
-//    
-//    let type:EdmEntityType?
-//    let firstToken = StringUtils.substringBefore(entitySetOrSingletonOrType, "/")
-//    let bindingTarget = container.getEntitySet(firstToken)
-//    if (bindingTarget == nil) {
-//      bindingTarget = container.getSingleton(firstToken)
-//    }
-//    if (bindingTarget != nil) {
-//      type = bindingTarget.getEntityType()
-//    }
-//    
-//    if (entitySetOrSingletonOrType.containsString("/")) {
-//      let splitted = entitySetOrSingletonOrType.split("/")
-//      if (splitted.length > 1) {
-//        for i in 1...splitted.length {
-//          if type != nil {
-//            let navProp = type.getNavigationProperty(splitted[i-1])
-//            if (navProp == nil) {
-//              type = nil
-//            }
-//            else {
-//              type = navProp.getType()
-//            }
-//          }
-//        }
-//      }
-//    }
-//    return type
-//  }
+  /*
+  private func findEntityType(entitySetOrSingletonOrType:String,container:EdmEntityContainer) -> EdmEntityType {
+    
+    let type:EdmEntityType?
+    let firstToken = StringUtils.substringBefore(entitySetOrSingletonOrType, "/")
+    let bindingTarget = container.getEntitySet(firstToken)
+    if (bindingTarget == nil) {
+      bindingTarget = container.getSingleton(firstToken)
+    }
+    if (bindingTarget != nil) {
+      type = bindingTarget.getEntityType()
+    }
+    
+    if (entitySetOrSingletonOrType.containsString("/")) {
+      let splitted = entitySetOrSingletonOrType.split("/")
+      if (splitted.length > 1) {
+        for i in 1...splitted.length {
+          if type != nil {
+            let navProp = type.getNavigationProperty(splitted[i-1])
+            if (navProp == nil) {
+              type = nil
+            }
+            else {
+              type = navProp.getType()
+            }
+          }
+        }
+      }
+    }
+    return type
+  }
+  */
   
   
   //TODO: func createLinkFromNavigationProperty(property:Property,propertyTypeName:String,count:Int) -> ClientLink
-//  private func createLinkFromNavigationProperty(property:Property,propertyTypeName:String,count:Int) -> ClientLink  {
-//    if (property.isCollection()) {
-//      let inlineEntitySet = EntityCollection()
-//      for inlined in property.asCollection() {
-//        let inlineEntity = Entity()
-//        inlineEntity.setType(propertyTypeName)
-//        inlineEntity.properties.addAll(( inlined as ComplexValue).getValue())
-//        copyAnnotations(inlineEntity, inlined as ComplexValue)
-//        inlineEntitySet.getEntities().add(inlineEntity)
-//      }
-//      if (count != nil) {
-//        inlineEntitySet.setCount(count)
-//      }
-//      return createODataInlineEntitySet(inlineEntitySet, nil, property.getName(), nil)
-//  }
-//  else {
-//      let inlineEntity = Entity()
-//      inlineEntity.setType(propertyTypeName)
-//      inlineEntity.properties.addAll(property.asComplex().getValue())
-//      copyAnnotations(inlineEntity, property.asComplex())
-//      return createODataInlineEntity(inlineEntity, nil, property.getName(), nil)
-//    }
-//  }
+  /*
+  private func createLinkFromNavigationProperty(property:Property,propertyTypeName:String,count:Int) -> ClientLink  {
+    if (property.isCollection()) {
+      let inlineEntitySet = EntityCollection()
+      for inlined in property.asCollection() {
+        let inlineEntity = Entity()
+        inlineEntity.setType(propertyTypeName)
+        inlineEntity.properties.addAll(( inlined as ComplexValue).getValue())
+        copyAnnotations(inlineEntity, inlined as ComplexValue)
+        inlineEntitySet.getEntities().add(inlineEntity)
+      }
+      if (count != nil) {
+        inlineEntitySet.setCount(count)
+      }
+      return createODataInlineEntitySet(inlineEntitySet, nil, property.getName(), nil)
+  }
+  else {
+      let inlineEntity = Entity()
+      inlineEntity.setType(propertyTypeName)
+      inlineEntity.properties.addAll(property.asComplex().getValue())
+      copyAnnotations(inlineEntity, property.asComplex())
+      return createODataInlineEntity(inlineEntity, nil, property.getName(), nil)
+    }
+  }
+  */
   
   // TODO: func copyAnnotations(inlineEntity:Entity , complex:ComplexValue )
-//  private func copyAnnotations(inlineEntity:Entity , complex:ComplexValue ) {
-//    for (annotation in complex.getAnnotations()) {
-//      if (annotation.getTerm().equals(JSON_TYPE.substring(1))){
-//        inlineEntity.setType((String)annotation.asPrimitive())
-//      }
-//      else if (annotation.getTerm().equals(Constants.JSON_ID.substring(1))){
-//        inlineEntity.setId(URI.create((String)annotation.asPrimitive()))
-//      }
-//      else if (annotation.getTerm().equals(Constants.JSON_ETAG.substring(1))){
-//        inlineEntity.setETag((String)annotation.asPrimitive())
-//      }
-//    }
-//  }
+  /*
+  private func copyAnnotations(inlineEntity:Entity , complex:ComplexValue ) {
+    for (annotation in complex.getAnnotations()) {
+      if (annotation.getTerm().equals(JSON_TYPE.substring(1))){
+        inlineEntity.setType((String)annotation.asPrimitive())
+      }
+      else if (annotation.getTerm().equals(Constants.JSON_ID.substring(1))){
+        inlineEntity.setId(URI.create((String)annotation.asPrimitive()))
+      }
+      else if (annotation.getTerm().equals(Constants.JSON_ETAG.substring(1))){
+        inlineEntity.setETag((String)annotation.asPrimitive())
+      }
+    }
+  }
+  */
   
   
   //TODO: func createLinkFromEmptyNavigationProperty(propertyName:String,count:Int) -> ClientLink
-//  private func createLinkFromEmptyNavigationProperty(propertyName:String,count:Int) -> ClientLink {
-//    let inlineEntitySet = EntityCollection()
-//    if (count != nil) {
-//      inlineEntitySet.setCount(count)
-//    }
-//    return createODataInlineEntitySet(inlineEntitySet, nil, propertyName, nil)
-//  }
+  /*
+  private func createLinkFromEmptyNavigationProperty(propertyName:String,count:Int) -> ClientLink {
+    let inlineEntitySet = EntityCollection()
+    if (count != nil) {
+      inlineEntitySet.setCount(count)
+    }
+    return createODataInlineEntitySet(inlineEntitySet, nil, propertyName, nil)
+  }
+  */
   
   
   
   //TODO: func getODataDelta(resource: ResWrap<Delta> ) -> ClientDelta
-//  public func getODataDelta(resource: ResWrap<Delta> ) -> ClientDelta {
-//    if let baseURI = resource.contextURL {
-//      let base = ContextURLParser.parse(resource.contextURL).getServiceRoot()
-//    }
-//    else {
-//      let base = resource.contextURL == resource.payload.getBaseURI()
-//    }
-//    
-//    if let next = resource.payload.getNext() {
-//      let delta = client.getObjectFactory().newDelta(URIUtils.getURI(base, next.toASCIIString()))
-//    }
-//    else {
-//      let delta = client.getObjectFactory().newDelta()
-//    }
-//
-//    if (resource.payload.getCount() != nil) {
-//      delta.setCount(resource.payload.getCount())
-//    }
-//    
-//    if (resource.payload.getDeltaLink() != nil) {
-//      delta.setDeltaLink(URIUtils.getURI(base, resource.payload.getDeltaLink()))
-//    }
-//    
-//    for (entityResource in resource.payload.getEntities()) {
-//      add(delta, getODataEntity(ResWrap<Entity>(resource.contextURL, resource.metadataETag, entityResource)))
-//    }
-//    for (deletedEntity in resource.payload.getDeletedEntities()) {
-//      let impl = ClientDeletedEntityImpl()
-//      impl.setId(URIUtils.getURI(base, deletedEntity.getId()))
-//      impl.setReason(Reason.valueOf(deletedEntity.getReason().name()))
-//      delta.getDeletedEntities().add(impl)
-//    }
-//    
-//    odataAnnotations(resource.payload, delta)    
-//    for (link in resource.payload.getAddedLinks()) {
-//      let impl = ClientDeltaLinkImpl()
-//      impl.setRelationship(link.getRelationship())
-//      impl.setSource(URIUtils.getURI(base, link.getSource()))
-//      impl.setTarget(URIUtils.getURI(base, link.getTarget()))
-//      odataAnnotations(link, impl)
-//      delta.getAddedLinks().add(impl)
-//    }
-//    for (link in resource.payload.getDeletedLinks()) {
-//      let impl = ClientDeltaLinkImpl()
-//      impl.setRelationship(link.getRelationship())
-//      impl.setSource(URIUtils.getURI(base, link.getSource()))
-//      impl.setTarget(URIUtils.getURI(base, link.getTarget()))
-//      odataAnnotations(link, impl)      
-//      delta.getDeletedLinks().add(impl)
-//    }
-//    
-//    return delta
-//  }
- 
- 
+  /*
+  public func getODataDelta(resource: ResWrap<Delta> ) -> ClientDelta {
+    if let baseURI = resource.contextURL {
+      let base = ContextURLParser.parse(resource.contextURL).getServiceRoot()
+    }
+    else {
+      let base = resource.contextURL == resource.payload.getBaseURI()
+    }
+    
+    if let next = resource.payload.getNext() {
+      let delta = client.getObjectFactory().newDelta(URIUtils.getURI(base, next.toASCIIString()))
+    }
+    else {
+      let delta = client.getObjectFactory().newDelta()
+    }
 
+    if (resource.payload.getCount() != nil) {
+      delta.setCount(resource.payload.getCount())
+    }
+    
+    if (resource.payload.getDeltaLink() != nil) {
+      delta.setDeltaLink(URIUtils.getURI(base, resource.payload.getDeltaLink()))
+    }
+    
+    for (entityResource in resource.payload.getEntities()) {
+      add(delta, getODataEntity(ResWrap<Entity>(resource.contextURL, resource.metadataETag, entityResource)))
+    }
+    for (deletedEntity in resource.payload.getDeletedEntities()) {
+      let impl = ClientDeletedEntityImpl()
+      impl.setId(URIUtils.getURI(base, deletedEntity.getId()))
+      impl.setReason(Reason.valueOf(deletedEntity.getReason().name()))
+      delta.getDeletedEntities().add(impl)
+    }
+    
+    odataAnnotations(resource.payload, delta)    
+    for (link in resource.payload.getAddedLinks()) {
+      let impl = ClientDeltaLinkImpl()
+      impl.setRelationship(link.getRelationship())
+      impl.setSource(URIUtils.getURI(base, link.getSource()))
+      impl.setTarget(URIUtils.getURI(base, link.getTarget()))
+      odataAnnotations(link, impl)
+      delta.getAddedLinks().add(impl)
+    }
+    for (link in resource.payload.getDeletedLinks()) {
+      let impl = ClientDeltaLinkImpl()
+      impl.setRelationship(link.getRelationship())
+      impl.setSource(URIUtils.getURI(base, link.getSource()))
+      impl.setTarget(URIUtils.getURI(base, link.getTarget()))
+      odataAnnotations(link, impl)      
+      delta.getDeletedLinks().add(impl)
+    }
+    
+    return delta
+  }
+  */
  
 }
