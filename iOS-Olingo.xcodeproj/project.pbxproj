@@ -33,6 +33,23 @@
 		4252B9361D48D7630025E72C /* EdmDecimal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B9351D48D7630025E72C /* EdmDecimal.swift */; };
 		4252B9381D4A46EF0025E72C /* EdmInt64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B9371D4A46EF0025E72C /* EdmInt64.swift */; };
 		4252B93A1D5230B00025E72C /* ODataEntityRetrieveResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B9391D5230B00025E72C /* ODataEntityRetrieveResponse.swift */; };
+		4252B93C1D5247040025E72C /* URIBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B93B1D5247040025E72C /* URIBuilder.swift */; };
+		4252B93E1D52511F0025E72C /* URIBuilderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B93D1D52511F0025E72C /* URIBuilderImpl.swift */; };
+		4252B9401D526ED70025E72C /* QueryOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B93F1D526ED70025E72C /* QueryOption.swift */; };
+		4252B9421D5272020025E72C /* SegmentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B9411D5272020025E72C /* SegmentType.swift */; };
+		4252B9441D538A2F0025E72C /* URIBuilderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B9431D538A2F0025E72C /* URIBuilderTest.swift */; };
+		4252B9451D538B440025E72C /* URIBuilderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B93D1D52511F0025E72C /* URIBuilderImpl.swift */; };
+		4252B9461D538B5B0025E72C /* URIBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B93B1D5247040025E72C /* URIBuilder.swift */; };
+		4252B9471D538E2C0025E72C /* QueryOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B93F1D526ED70025E72C /* QueryOption.swift */; };
+		4252B9481D538E460025E72C /* SegmentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B9411D5272020025E72C /* SegmentType.swift */; };
+		4252B9491D538E550025E72C /* EdmEnumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025FD1D37E44300D4A4E1 /* EdmEnumType.swift */; };
+		4252B94A1D538EB10025E72C /* EdmPrimitiveType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260257E1D2FAC8800D4A4E1 /* EdmPrimitiveType.swift */; };
+		4252B94B1D538EBD0025E72C /* EdmMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025FF1D37E51A00D4A4E1 /* EdmMember.swift */; };
+		4252B94C1D538F870025E72C /* EdmType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025AF1D355CE200D4A4E1 /* EdmType.swift */; };
+		4252B94D1D538F8F0025E72C /* EdmNamed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025B11D355E4100D4A4E1 /* EdmNamed.swift */; };
+		4252B94E1D538FA30025E72C /* FullQualifiedName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260257C1D2EB2AA00D4A4E1 /* FullQualifiedName.swift */; };
+		4252B94F1D538FB00025E72C /* EdmTypeKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025B31D355F1300D4A4E1 /* EdmTypeKind.swift */; };
+		4252B9501D538FC40025E72C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025381D2CF56000D4A4E1 /* Extensions.swift */; };
 		426025151D26B12C00D4A4E1 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025141D26B12C00D4A4E1 /* Configuration.swift */; };
 		426025171D26B3D500D4A4E1 /* HttpClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025161D26B3D500D4A4E1 /* HttpClientFactory.swift */; };
 		426025191D26B4AD00D4A4E1 /* HttpUriRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025181D26B4AD00D4A4E1 /* HttpUriRequestFactory.swift */; };
@@ -246,6 +263,11 @@
 		4252B9351D48D7630025E72C /* EdmDecimal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EdmDecimal.swift; path = ClientLibrary/core/edm/primitiveType/EdmDecimal.swift; sourceTree = "<group>"; };
 		4252B9371D4A46EF0025E72C /* EdmInt64.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EdmInt64.swift; path = ClientLibrary/core/edm/primitiveType/EdmInt64.swift; sourceTree = "<group>"; };
 		4252B9391D5230B00025E72C /* ODataEntityRetrieveResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ODataEntityRetrieveResponse.swift; path = ClientLibrary/core/communication/request/retrieve/ODataEntityRetrieveResponse.swift; sourceTree = "<group>"; };
+		4252B93B1D5247040025E72C /* URIBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URIBuilder.swift; path = ClientLibrary/api/uri/URIBuilder.swift; sourceTree = "<group>"; };
+		4252B93D1D52511F0025E72C /* URIBuilderImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URIBuilderImpl.swift; path = ClientLibrary/core/uri/URIBuilderImpl.swift; sourceTree = "<group>"; };
+		4252B93F1D526ED70025E72C /* QueryOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QueryOption.swift; path = ClientLibrary/api/uri/QueryOption.swift; sourceTree = "<group>"; };
+		4252B9411D5272020025E72C /* SegmentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SegmentType.swift; path = ClientLibrary/api/uri/SegmentType.swift; sourceTree = "<group>"; };
+		4252B9431D538A2F0025E72C /* URIBuilderTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URIBuilderTest.swift; sourceTree = "<group>"; };
 		426025141D26B12C00D4A4E1 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Configuration.swift; path = ClientLibrary/api/Configuration.swift; sourceTree = "<group>"; };
 		426025161D26B3D500D4A4E1 /* HttpClientFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpClientFactory.swift; path = ClientLibrary/api/http/HttpClientFactory.swift; sourceTree = "<group>"; };
 		426025181D26B4AD00D4A4E1 /* HttpUriRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpUriRequestFactory.swift; path = ClientLibrary/api/http/HttpUriRequestFactory.swift; sourceTree = "<group>"; };
@@ -459,6 +481,7 @@
 			children = (
 				426025641D2E6AD500D4A4E1 /* Constants.swift */,
 				426025141D26B12C00D4A4E1 /* Configuration.swift */,
+				424307461D1BEBC900880BDB /* uri */,
 				4243079F1D1D7C5F00880BDB /* http */,
 				4243077F1D1C2B0600880BDB /* ODataClient.swift */,
 				4243074F1D1BEC8A00880BDB /* format */,
@@ -614,6 +637,9 @@
 		424307461D1BEBC900880BDB /* uri */ = {
 			isa = PBXGroup;
 			children = (
+				4252B93F1D526ED70025E72C /* QueryOption.swift */,
+				4252B9411D5272020025E72C /* SegmentType.swift */,
+				4252B93B1D5247040025E72C /* URIBuilder.swift */,
 			);
 			name = uri;
 			sourceTree = "<group>";
@@ -689,6 +715,7 @@
 		4243074C1D1BEC2A00880BDB /* uri */ = {
 			isa = PBXGroup;
 			children = (
+				4252B93D1D52511F0025E72C /* URIBuilderImpl.swift */,
 			);
 			name = uri;
 			sourceTree = "<group>";
@@ -712,7 +739,6 @@
 		4243074F1D1BEC8A00880BDB /* format */ = {
 			isa = PBXGroup;
 			children = (
-				424307461D1BEBC900880BDB /* uri */,
 				426025291D2A896200D4A4E1 /* PreferenceName.swift */,
 				426057061D2574DE00EB202B /* TypeUtil.swift */,
 				424307BD1D23223E00880BDB /* ContentType.swift */,
@@ -966,6 +992,7 @@
 			children = (
 				424307AF1D229BE300880BDB /* ODataHeadersTest.swift */,
 				426025331D2BC67500D4A4E1 /* AbstractODataRequestTest.swift */,
+				4252B9431D538A2F0025E72C /* URIBuilderTest.swift */,
 			);
 			name = "Client Library";
 			sourceTree = "<group>";
@@ -1199,6 +1226,7 @@
 				426025B41D355F1300D4A4E1 /* EdmTypeKind.swift in Sources */,
 				426025491D2D634800D4A4E1 /* ODataDeserializer.swift in Sources */,
 				4260263C1D3CEE3800D4A4E1 /* EdmTerm.swift in Sources */,
+				4252B9401D526ED70025E72C /* QueryOption.swift in Sources */,
 				426025321D2BBADE00D4A4E1 /* HttpSessionFactory.swift in Sources */,
 				4260260A1D37E91E00D4A4E1 /* EdmProperty.swift in Sources */,
 				426025E21D36DADE00D4A4E1 /* Geospatial.swift in Sources */,
@@ -1238,6 +1266,7 @@
 				426025711D2E882A00D4A4E1 /* AtomDeserializer.swift in Sources */,
 				426026491D3ECB2600D4A4E1 /* EdmString.swift in Sources */,
 				426025591D2DAA2B00D4A4E1 /* Valuable.swift in Sources */,
+				4252B93E1D52511F0025E72C /* URIBuilderImpl.swift in Sources */,
 				426025C81D36447B00D4A4E1 /* ClientItem.swift in Sources */,
 				4260258C1D3393B500D4A4E1 /* Logger.swift in Sources */,
 				426025901D33A8EC00D4A4E1 /* ODataEntitySetRequestImpl.swift in Sources */,
@@ -1278,6 +1307,7 @@
 				4260254D1D2D6CD000D4A4E1 /* ResWrapper.swift in Sources */,
 				426025391D2CF56000D4A4E1 /* Extensions.swift in Sources */,
 				426025C01D358F4700D4A4E1 /* ClientComplexValueImpl.swift in Sources */,
+				4252B93C1D5247040025E72C /* URIBuilder.swift in Sources */,
 				426025E81D37C6B300D4A4E1 /* EdmComplexTypeImpl.swift in Sources */,
 				426025431D2D21AD00D4A4E1 /* ODataResponse.swift in Sources */,
 				426025411D2D1AAB00D4A4E1 /* AbstractODataResponse.swift in Sources */,
@@ -1292,6 +1322,7 @@
 				4260256F1D2E85EE00D4A4E1 /* DeletedEntity.swift in Sources */,
 				426026041D37E6A400D4A4E1 /* EdmStructuredType.swift in Sources */,
 				4260261C1D37F3B800D4A4E1 /* EdmNavigationPropertyBinding.swift in Sources */,
+				4252B9421D5272020025E72C /* SegmentType.swift in Sources */,
 				426026421D3D056100D4A4E1 /* ContextURL.swift in Sources */,
 				4260260E1D37EB8A00D4A4E1 /* EdmMapping.swift in Sources */,
 				426025191D26B4AD00D4A4E1 /* HttpUriRequestFactory.swift in Sources */,
@@ -1378,19 +1409,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4252B9451D538B440025E72C /* URIBuilderImpl.swift in Sources */,
 				424307B01D229BE300880BDB /* ODataHeadersTest.swift in Sources */,
+				4252B9461D538B5B0025E72C /* URIBuilder.swift in Sources */,
 				426025351D2BCCA100D4A4E1 /* ContentType.swift in Sources */,
+				4252B9441D538A2F0025E72C /* URIBuilderTest.swift in Sources */,
 				426025201D26BA7C00D4A4E1 /* DefaultHttpClientFactory.swift in Sources */,
 				426025891D304ACC00D4A4E1 /* HttpSessionFactory.swift in Sources */,
+				4252B94D1D538F8F0025E72C /* EdmNamed.swift in Sources */,
 				426025231D26BD9500D4A4E1 /* ConfigurationImpl.swift in Sources */,
 				426025861D304A1C00D4A4E1 /* ErrorTypes.swift in Sources */,
 				4260258A1D304AE200D4A4E1 /* TypeUtil.swift in Sources */,
 				426025261D2A628D00D4A4E1 /* ConfigurationProperty.swift in Sources */,
 				426025871D304A4C00D4A4E1 /* Configuration.swift in Sources */,
 				42E62B441D0B0E91004B1B6D /* iOS_OlingoTests.swift in Sources */,
+				4252B9481D538E460025E72C /* SegmentType.swift in Sources */,
+				4252B94F1D538FB00025E72C /* EdmTypeKind.swift in Sources */,
+				4252B94B1D538EBD0025E72C /* EdmMember.swift in Sources */,
 				4260251D1D26B67500D4A4E1 /* AbstractHttpClientFactory.swift in Sources */,
+				4252B9471D538E2C0025E72C /* QueryOption.swift in Sources */,
+				4252B94E1D538FA30025E72C /* FullQualifiedName.swift in Sources */,
 				426025881D304A7500D4A4E1 /* HttpSessionFactoryImpl.swift in Sources */,
+				4252B9501D538FC40025E72C /* Extensions.swift in Sources */,
 				426025341D2BC67500D4A4E1 /* AbstractODataRequestTest.swift in Sources */,
+				4252B94A1D538EB10025E72C /* EdmPrimitiveType.swift in Sources */,
+				4252B94C1D538F870025E72C /* EdmType.swift in Sources */,
+				4252B9491D538E550025E72C /* EdmEnumType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,18 +15,27 @@ class ViewController: UIViewController {
   @IBOutlet weak var entitySetField: UITextField!
   
   @IBOutlet weak var Northwind: UILabel!
+  @IBOutlet weak var entityIDField: UITextField!
+
   
-  
+  @IBOutlet weak var numRecsSkipField: UITextField!
+  @IBOutlet weak var numRecsToReturnField: UITextField!
   @IBOutlet weak var TripPin: UILabel!
   
   @IBOutlet weak var Status: UILabel!
+  @IBOutlet weak var filterQueryField: UITextField!
+  @IBOutlet weak var propertyFilterField: UITextField!
+  @IBOutlet weak var orderByField: UITextField!
   
   @IBOutlet weak var Console: UITextView!
   
   @IBOutlet weak var StatusConsole: UITextView!
   
   @IBOutlet weak var RawConsole: UITextView!
+  
+  
   @IBAction func ClearConsole(sender: AnyObject) {
+
     Console.text = ""
   }
   
@@ -111,10 +120,11 @@ class ViewController: UIViewController {
     let client:ODataClient = ODataClientFactory().getClient()
     log.logMode = Log.LogMode.DEBUG
   
-    var urlString = root
 
+    let uriBuilder = client.newURIBuilder(root)
+    
   
-    if var entitySet = entitySetField.text{
+    if let entitySet = entitySetField.text{
       if entitySet.isEmpty || entitySet == "entity set" {
         // request service document
         ResetStatusConsole("No request provided")
@@ -123,13 +133,7 @@ class ViewController: UIViewController {
         ResetRawConsole("")
         return
       }
-      if entitySet.containsString("\"") {
-        entitySet = entitySet.stringByReplacingOccurrencesOfString("\"", withString: "'")
-      }
-      urlString += "/"+entitySet
-      guard let uri:NSURL = NSURL(string:urlString)! else {
-        AppendToStatusConsole("Invalid URL format")
-      }
+      
       if entitySet.containsString("$metadata"){
         // request metadata
         ResetStatusConsole("No request provided")
@@ -138,25 +142,81 @@ class ViewController: UIViewController {
         ResetRawConsole("")
       }
       else {
-        // request entity set (at present) will expand as functionality increases (option picker?)
-        ResetStatusConsole("Retrieve Request Factory")
-        log.debug("Retrieve Request Factory")
-        let retriveRequestFactory = client.retrieveRequestFactory
-        
-        if entitySet.containsString("(") {
-          processEntity(retriveRequestFactory,uri: uri)
+        do {
+          
+          // request entity set (at present) will expand as functionality increases (option picker?)
+          ResetStatusConsole("Retrieve Request Factory")
+          log.debug("Retrieve Request Factory")
+          let retriveRequestFactory = client.retrieveRequestFactory
+          
+          if let entityID = entityIDField.text {
+            if entityID.isEmpty || entityID == "entity ID" {
+              // Request entity set
+              AppendToStatusConsole("Build URI")
+              log.debug("Build URI")
+              uriBuilder.appendEntitySetSegment(entitySet)
+              uriBuilder.count(true)
+              if let topAsText = numRecsToReturnField.text{
+                if !topAsText.isEmpty && topAsText != "# recs" {
+                  if let top = Int(topAsText) {
+                    uriBuilder.top(top)
+                  }
+                }
+              }
+
+              if let skipAsText = numRecsSkipField.text{
+                if !skipAsText.isEmpty && skipAsText != " @ rec" {
+                  if let skip = Int(skipAsText) {
+                    uriBuilder.skip(skip)
+                  }
+                }
+              }
+              
+              if let orderBytext = orderByField.text {
+                if !orderBytext.isEmpty && orderBytext != "order by (desc)" {
+                  uriBuilder.orderBy(orderBytext)
+                }
+              }
+              
+              if let properties = propertyFilterField.text {
+                if !properties.isEmpty && properties != "property filter" {
+                  let filterArray = properties.componentsSeparatedByString(",")
+                  uriBuilder.select(filterArray)
+                }
+              }
+              
+              if let filterQuery = filterQueryField.text {
+                if !filterQuery.isEmpty && filterQuery != "filter query" {
+                  uriBuilder.filter(filterQuery)
+                }
+              }
+              let uri = try uriBuilder.build()
+              processEntitySet(retriveRequestFactory,uri: uri)
+            }
+            else {
+              // request specific entity by ID
+              AppendToStatusConsole("Build URI")
+              log.debug("Build URI")
+              uriBuilder.appendEntitySetSegment(entitySet)
+              uriBuilder.appendKeySegment(entityID)
+              let uri = try uriBuilder.build()
+              processEntity(retriveRequestFactory,uri: uri)
+
+            }
+            
+          }
         }
-        else {
-          processEntitySet(retriveRequestFactory,uri: uri)
+        catch {
+          AppendToStatusConsole("Invalid URL format")
         }
       }
     }
-    else {
-      // submit the root only
-      let uri:NSURL = NSURL(string:urlString)!
-    }
+    
 
   }
+  
+  
+  
   
   func processEntitySet(retriveRequestFactory:RetrieveRequestFactory,uri:NSURL) {
     
@@ -168,11 +228,15 @@ class ViewController: UIViewController {
     AppendToStatusConsole("Build Entity Set Request")
     log.debug("Build Entity Set Request")
     startTime = NSDate()
+    
     let entitySetRequest = retriveRequestFactory.entitySetRequest(uri)
+    
     AppendToStatusConsole("Execute Built Request")
     
     log.debug("Execute Built Request")
+    
     guard let response = entitySetRequest.execute() else {
+    
       AppendToConsole("Nil returned from execute request")
       return
     }
@@ -184,7 +248,7 @@ class ViewController: UIViewController {
     log.info ("Response Status Code: \(response.statusCode)")
     Status.text = "Response Status Code: \(response.statusCode)"
     
-    let headerNames = response.headerNames
+    //let headerNames = response.headerNames
     let headers = response.headers
     AppendToConsole("Headers :")
     for (name,value) in headers {
@@ -193,11 +257,13 @@ class ViewController: UIViewController {
       AppendToConsole("Name: \(name) : Value: \(value)")
     }
     
+    /*
     AppendToConsole("Header Names :")
     for name in headerNames {
       AppendToConsole(name)
       log.debug ("Header Name: \(name)")
     }
+     */
     
     if let dataString = NSString(data:response.res.data!,encoding: NSUTF8StringEncoding) {
       log.debug(String(dataString))
@@ -221,7 +287,8 @@ class ViewController: UIViewController {
       
       AppendToConsole("")
       AppendToConsole("Body Content")
-      AppendToConsole("Number of Entiites returned (info from service): \(entitySet.count)")
+      AppendToConsole("Number of Entiites available: \(entitySet.count)")
+      AppendToStatusConsole("Number of Entiites available: \(entitySet.count)")
       AppendToConsole("Next URL: \(entitySet.next.debugDescription)")
       AppendToStatusConsole("Number of Entiites returned (calculated): \(entitySet.entities.count)")
       
@@ -295,11 +362,13 @@ class ViewController: UIViewController {
       AppendToConsole("Name: \(name) : Value: \(value)")
     }
     
+    /*
     AppendToConsole("Header Names :")
     for name in headerNames {
       AppendToConsole(name)
       log.debug ("Header Name: \(name)")
     }
+ */
     
     if let dataString = NSString(data:response.res.data!,encoding: NSUTF8StringEncoding) {
       log.debug(String(dataString))
@@ -323,6 +392,7 @@ class ViewController: UIViewController {
       duration = endTime.timeIntervalSinceDate(startTime)
       AppendToStatusConsole("Time to extract returned response: \(round(duration*100)/100) secs")
       
+      AppendToConsole("")
       AppendToConsole("Body Content")
 
       startTime = NSDate()

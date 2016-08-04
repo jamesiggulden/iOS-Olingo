@@ -51,6 +51,14 @@ public class ODataClientImp: ODataClient {
     return ClientODataDeserializerImpl(boolean: false, contentType: contentType)
   }
   
+  /// get a new URI builder
+  /// - parameters:
+  ///   - serviceRoot: root URL for service
+  /// - returns: URI Builder
+  /// - throws: No error conditions are expected
+  public func newURIBuilder(serviceRoot:String) -> URIBuilder {
+    return URIBuilderImpl(configuration: configuration, serviceRoot: serviceRoot)
+  }
 
   
 }

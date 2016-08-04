@@ -54,10 +54,16 @@ public protocol ODataClient {
   /// get the deserializer
   /// - parameters:
   ///   - contentType: type of content
-  /// - returns: Odat deserializer object
+  /// - returns: Odata deserializer object
   /// - throws: No error conditions are expected
   func getDeserializer(contentType:ContentType) -> ClientODataDeserializerImpl
   
+  /// get a new URI builder
+  /// - parameters:
+  ///   - serviceRoot: root URL for service
+  /// - returns: URI Builder
+  /// - throws: No error conditions are expected
+  func newURIBuilder(serviceRoot:String) -> URIBuilder
   
   // var retrieveReqFact:RetrieveRequestFactory {get}
   // func retrieveRequestFactory()-> RetrieveRequestFactory

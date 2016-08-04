@@ -34,6 +34,7 @@ public enum IllegalArgumentException:ErrorType {
   case ContainsWhiteSpace
   case InvalidFormat
   case BeginsWithWhiteSpace
+  case CouldNotBuildValidURI
 }
 
 public enum ClassInitialisationException: ErrorType {
