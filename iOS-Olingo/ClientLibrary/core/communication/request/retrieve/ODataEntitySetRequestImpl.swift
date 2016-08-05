@@ -63,6 +63,15 @@ public class ODataEntitySetRequestImpl: AbstractODataRequest,ODataRetrieveReques
   public override func getDefaultFormat() -> ContentType {
     return odataClient.configuration.defaultPubFormat
   }
+  
+  /// Request execute, return an OData response
+  /// - parameters:
+  ///   - none
+  /// - returns: ODataRetrieveResponse
+  /// - throws: ODataException
+  public func execute() throws -> ODataRetrieveResponse! {
+    return nil
+  }
 
   /// Execute a synchronise request, wait, receive and return the received response
   /// - parameters:
@@ -74,7 +83,7 @@ public class ODataEntitySetRequestImpl: AbstractODataRequest,ODataRetrieveReques
     
     do {
       let result = try doExecute()
-      let response = ODataEntitySetResponse(odataClient: odataClient,res: result)
+      let response = ODataEntitySetResponse(odataClient: odataClient,res: result!)
       return response
       //return ODataEntityResponse(odataClient, httpClient, doExecute())
     }

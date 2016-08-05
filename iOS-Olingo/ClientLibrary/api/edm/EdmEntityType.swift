@@ -45,7 +45,7 @@ public protocol EdmEntityType : EdmStructuredType {
    *
    * @return collection of key properties of type List&lt;EdmKeyPropertyRef&gt;
    */
-  var keyPropertyRefs: [EdmKeyPropertyRef] {get}
+  func getKeyPropertyRefs() -> [EdmKeyPropertyRef]
   
   /**
    * Get a key property ref by its name.
@@ -67,6 +67,6 @@ public protocol EdmEntityType : EdmStructuredType {
    *
    * @see org.apache.olingo.api.edm.EdmStructuralType#getBaseType()
    */
-  
-  var baseType: EdmEntityType {get}
+   ///Not included in API as already defined in EdmStructuredType protocol
+   ///var baseType: EdmType {get}
 }

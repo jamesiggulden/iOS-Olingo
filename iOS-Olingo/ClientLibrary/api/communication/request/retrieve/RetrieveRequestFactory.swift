@@ -54,6 +54,13 @@ public protocol RetrieveRequestFactory {
   /// - returns: Odata Entity Request
   /// - throws: No error conditions are expected
   func entityRequest(uri:NSURL) -> ODataEntityRequest
+  
+  /// Gets a uri request returning the service metadata
+  /// - parameters:
+  ///   - uri: NSURL object containing a URI
+  /// - returns: EdmMetadataRequest
+  /// - throws: No error conditions are expected
+  func getMetadataRequest(uri:NSURL) -> EdmMetadataRequest
 }
 
 

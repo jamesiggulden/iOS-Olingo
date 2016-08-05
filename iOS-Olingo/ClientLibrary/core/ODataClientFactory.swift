@@ -13,12 +13,11 @@ public final class ODataClientFactory {
   
   
   /// create a new instance of an Odata client
-/// - parameters:
-///   - none
-/// - returns: OData client
-/// - throws: No error conditions are expected
-  func getClient() -> ODataClient {
-    
+  /// - parameters:
+  ///   - none
+  /// - returns: OData client
+  /// - throws: No error conditions are expected
+  static func getClient() -> ODataClient {    
     let client:ODataClient = ODataClientImp()
     return client
   }

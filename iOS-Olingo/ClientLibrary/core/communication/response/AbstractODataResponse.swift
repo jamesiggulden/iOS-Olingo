@@ -120,7 +120,7 @@ public class AbstractODataResponse: ODataResponse {
   /// - returns: OData response instance
   /// - throws: No error conditions are expected
   public final func initFromHttpResponse(res:HttpResponseContent) -> ODataResponse {
-//    do {
+//    do {https://www.youtube.com/watch?v=PT-VqPrA5Ac
 //      self.payload = try res.getEntity() == nil ? nil : res.getEntity().getContent()
 //    } catch (final IllegalStateException e) {
 //      LOG.error("Error retrieving payload", e)

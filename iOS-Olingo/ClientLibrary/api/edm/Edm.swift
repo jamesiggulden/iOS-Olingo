@@ -97,7 +97,7 @@ public protocol Edm {
    * @param name full qualified name of entity type
    * @return {@link EdmEntityType}
    */
-   func getEntityType(name:FullQualifiedName ) -> EdmEntityType
+   func getEntityType(name:FullQualifiedName ) -> EdmEntityType?
   
   /**
    * Get complex type by full qualified name..

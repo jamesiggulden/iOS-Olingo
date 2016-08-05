@@ -71,7 +71,7 @@ public class ODataEntityRequestImpl:AbstractODataRequest,ODataRetrieveRequest,OD
     
     do {
       let result = try doExecute()
-      let response = ODataEntityResponse(odataClient: odataClient,res: result)
+      let response = ODataEntityResponse(odataClient: odataClient,res: result!)
       // MARK: REDUNDANT:?
       //let httpClient = HttpClient()
       //let response = ODataEntityResponse(odataClient: odataClient, httpClient: httpClient, res: result)
@@ -109,8 +109,8 @@ public class ODataEntityRequestImpl:AbstractODataRequest,ODataRetrieveRequest,OD
     ///   - none
     /// - returns: Entity
     /// - throws: No error conditions are expected
-    public func getBody() {
-      
+    public func getBody() -> Any {
+      return "Unsupported operation"
     }
     
     //TODO: Come back to this once we are happy we are getting something through to here

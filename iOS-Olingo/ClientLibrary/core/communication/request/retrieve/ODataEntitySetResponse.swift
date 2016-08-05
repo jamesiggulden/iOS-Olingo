@@ -50,8 +50,8 @@ public class ODataEntitySetResponse : AbstractODataResponse, ODataRetrieveRespon
   ///   - none
   /// - returns: Entity
   /// - throws: No error conditions are expected
-  public func getBody() {
-    
+  public func getBody() -> Any {
+    return "Unsupported operation"
   }
   
   /*

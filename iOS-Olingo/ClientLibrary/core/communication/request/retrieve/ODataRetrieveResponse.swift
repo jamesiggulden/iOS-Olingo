@@ -33,14 +33,14 @@ import Foundation
 // MARK: - Protocol
 
 /// Response abstract class about an ODataRetrieveRequest.
-public protocol ODataRetrieveResponse : ODataResponse {
+public protocol ODataRetrieveResponse: ODataResponse {
   
   //associatedtype bodyReturn
   
   // MARK: - Protocol Properties
   
   // MARK: - Protocol Methods
-  func getBody()
+  func getBody() -> Any
   //func getBody() -> bodyReturn?
 }
 

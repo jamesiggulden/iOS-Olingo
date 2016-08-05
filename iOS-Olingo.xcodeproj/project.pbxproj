@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10357E961D50CE4D00B6D5BE /* ODataReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10357E951D50CE4D00B6D5BE /* ODataReader.swift */; };
+		10357E981D50D2AF00B6D5BE /* ODataReaderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10357E971D50D2AF00B6D5BE /* ODataReaderImpl.swift */; };
+		10357E9A1D50D52800B6D5BE /* EdmProviderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10357E991D50D52800B6D5BE /* EdmProviderImpl.swift */; };
+		10357E9F1D50F5C800B6D5BE /* EdmSchemaImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10357E9E1D50F5C800B6D5BE /* EdmSchemaImpl.swift */; };
+		10357EA11D51F3FA00B6D5BE /* EdmEntityTypeImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10357EA01D51F3FA00B6D5BE /* EdmEntityTypeImpl.swift */; };
+		10357EA61D52018500B6D5BE /* CsdlEntityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10357EA51D52018500B6D5BE /* CsdlEntityType.swift */; };
+		10357EA81D522DDB00B6D5BE /* EdmKeyPropertyRefImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10357EA71D522DDB00B6D5BE /* EdmKeyPropertyRefImpl.swift */; };
+		10357EAE1D5336DE00B6D5BE /* EdmMetadataRequestTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10357EAD1D5336DE00B6D5BE /* EdmMetadataRequestTest.swift */; };
+		10357EB21D5354AA00B6D5BE /* EdmTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10357EB11D5354AA00B6D5BE /* EdmTest.swift */; };
+		10656A6E1D4F59A000206B7B /* EdmMetadataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10656A6D1D4F59A000206B7B /* EdmMetadataRequest.swift */; };
+		10656A701D4F5A6E00206B7B /* EdmMetadataRequestImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10656A6F1D4F5A6E00206B7B /* EdmMetadataRequestImpl.swift */; };
+		10656A721D4F685C00206B7B /* ODataException.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10656A711D4F685C00206B7B /* ODataException.swift */; };
+		10656A761D4F808500206B7B /* EdmMetadataResponseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10656A751D4F808500206B7B /* EdmMetadataResponseImpl.swift */; };
 		424307381D198AA700880BDB /* ResponseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307371D198AA700880BDB /* ResponseViewController.swift */; };
 		4243073A1D198EAF00880BDB /* olingo120.png in Resources */ = {isa = PBXBuildFile; fileRef = 424307391D198EAF00880BDB /* olingo120.png */; };
 		4243073D1D19A14B00880BDB /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243073C1D19A14B00880BDB /* Customer.swift */; };
@@ -219,6 +232,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		10357E951D50CE4D00B6D5BE /* ODataReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ODataReader.swift; sourceTree = "<group>"; };
+		10357E971D50D2AF00B6D5BE /* ODataReaderImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ODataReaderImpl.swift; sourceTree = "<group>"; };
+		10357E991D50D52800B6D5BE /* EdmProviderImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmProviderImpl.swift; sourceTree = "<group>"; };
+		10357E9E1D50F5C800B6D5BE /* EdmSchemaImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmSchemaImpl.swift; sourceTree = "<group>"; };
+		10357EA01D51F3FA00B6D5BE /* EdmEntityTypeImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmEntityTypeImpl.swift; sourceTree = "<group>"; };
+		10357EA51D52018500B6D5BE /* CsdlEntityType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CsdlEntityType.swift; sourceTree = "<group>"; };
+		10357EA71D522DDB00B6D5BE /* EdmKeyPropertyRefImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmKeyPropertyRefImpl.swift; sourceTree = "<group>"; };
+		10357EAD1D5336DE00B6D5BE /* EdmMetadataRequestTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmMetadataRequestTest.swift; sourceTree = "<group>"; };
+		10357EB11D5354AA00B6D5BE /* EdmTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmTest.swift; sourceTree = "<group>"; };
+		10656A6D1D4F59A000206B7B /* EdmMetadataRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmMetadataRequest.swift; sourceTree = "<group>"; };
+		10656A6F1D4F5A6E00206B7B /* EdmMetadataRequestImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmMetadataRequestImpl.swift; sourceTree = "<group>"; };
+		10656A711D4F685C00206B7B /* ODataException.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ODataException.swift; sourceTree = "<group>"; };
+		10656A751D4F808500206B7B /* EdmMetadataResponseImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmMetadataResponseImpl.swift; sourceTree = "<group>"; };
 		424307371D198AA700880BDB /* ResponseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseViewController.swift; sourceTree = "<group>"; };
 		424307391D198EAF00880BDB /* olingo120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = olingo120.png; sourceTree = "<group>"; };
 		4243073C1D19A14B00880BDB /* Customer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
@@ -434,6 +460,104 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		10357E9B1D50F59D00B6D5BE /* commons */ = {
+			isa = PBXGroup;
+			children = (
+				10357EA21D52015900B6D5BE /* api */,
+				10357E9C1D50F5A900B6D5BE /* core */,
+			);
+			name = commons;
+			sourceTree = "<group>";
+		};
+		10357E9C1D50F5A900B6D5BE /* core */ = {
+			isa = PBXGroup;
+			children = (
+				10357E9D1D50F5AF00B6D5BE /* edm */,
+			);
+			name = core;
+			sourceTree = "<group>";
+		};
+		10357E9D1D50F5AF00B6D5BE /* edm */ = {
+			isa = PBXGroup;
+			children = (
+				10357E9E1D50F5C800B6D5BE /* EdmSchemaImpl.swift */,
+				10357EA71D522DDB00B6D5BE /* EdmKeyPropertyRefImpl.swift */,
+			);
+			name = edm;
+			sourceTree = "<group>";
+		};
+		10357EA21D52015900B6D5BE /* api */ = {
+			isa = PBXGroup;
+			children = (
+				10357EA31D52016200B6D5BE /* edm */,
+			);
+			name = api;
+			sourceTree = "<group>";
+		};
+		10357EA31D52016200B6D5BE /* edm */ = {
+			isa = PBXGroup;
+			children = (
+				10357EA41D52016B00B6D5BE /* provider */,
+			);
+			name = edm;
+			sourceTree = "<group>";
+		};
+		10357EA41D52016B00B6D5BE /* provider */ = {
+			isa = PBXGroup;
+			children = (
+				10357EA51D52018500B6D5BE /* CsdlEntityType.swift */,
+			);
+			name = provider;
+			sourceTree = "<group>";
+		};
+		10357EA91D53367A00B6D5BE /* core */ = {
+			isa = PBXGroup;
+			children = (
+				10357EAA1D53368300B6D5BE /* communication */,
+			);
+			name = core;
+			sourceTree = "<group>";
+		};
+		10357EAA1D53368300B6D5BE /* communication */ = {
+			isa = PBXGroup;
+			children = (
+				10357EAB1D53368C00B6D5BE /* request */,
+			);
+			name = communication;
+			sourceTree = "<group>";
+		};
+		10357EAB1D53368C00B6D5BE /* request */ = {
+			isa = PBXGroup;
+			children = (
+				10357EAC1D53369400B6D5BE /* retrieve */,
+			);
+			name = request;
+			sourceTree = "<group>";
+		};
+		10357EAC1D53369400B6D5BE /* retrieve */ = {
+			isa = PBXGroup;
+			children = (
+				10357EAD1D5336DE00B6D5BE /* EdmMetadataRequestTest.swift */,
+			);
+			name = retrieve;
+			sourceTree = "<group>";
+		};
+		10357EAF1D53548A00B6D5BE /* api */ = {
+			isa = PBXGroup;
+			children = (
+				10357EB01D53549400B6D5BE /* edm */,
+			);
+			name = api;
+			sourceTree = "<group>";
+		};
+		10357EB01D53549400B6D5BE /* edm */ = {
+			isa = PBXGroup;
+			children = (
+				10357EB11D5354AA00B6D5BE /* EdmTest.swift */,
+			);
+			name = edm;
+			sourceTree = "<group>";
+		};
 		4243073B1D19A11F00880BDB /* Entities */ = {
 			isa = PBXGroup;
 			children = (
@@ -445,6 +569,7 @@
 		4243073E1D1BEAC900880BDB /* ClientLibrary */ = {
 			isa = PBXGroup;
 			children = (
+				10357E9B1D50F59D00B6D5BE /* commons */,
 				426056FF1D253FEF00EB202B /* utils */,
 				424307401D1BEB4800880BDB /* core */,
 				4243073F1D1BEB3E00880BDB /* api */,
@@ -605,6 +730,7 @@
 				426025AD1D35555700D4A4E1 /* ODataBinder.swift */,
 				426025461D2D622F00D4A4E1 /* ClientODataDeserializer.swift */,
 				426025481D2D634800D4A4E1 /* ODataDeserializer.swift */,
+				10357E951D50CE4D00B6D5BE /* ODataReader.swift */,
 			);
 			name = serialization;
 			sourceTree = "<group>";
@@ -666,6 +792,8 @@
 				426025E71D37C6B300D4A4E1 /* EdmComplexTypeImpl.swift */,
 				426025801D2FAFAB00D4A4E1 /* AbstractPrimitiveType.swift */,
 				424307971D1D7B7C00880BDB /* xml */,
+				10357E991D50D52800B6D5BE /* EdmProviderImpl.swift */,
+				10357EA01D51F3FA00B6D5BE /* EdmEntityTypeImpl.swift */,
 			);
 			name = edm;
 			sourceTree = "<group>";
@@ -680,6 +808,7 @@
 				426025951D341EAC00D4A4E1 /* ODataBinderImpl.swift */,
 				426025701D2E882A00D4A4E1 /* AtomDeserializer.swift */,
 				4260254E1D2D74AE00D4A4E1 /* ClientODataDeserializerImpl.swift */,
+				10357E971D50D2AF00B6D5BE /* ODataReaderImpl.swift */,
 			);
 			name = serialization;
 			sourceTree = "<group>";
@@ -701,6 +830,7 @@
 		4243074E1D1BEC8400880BDB /* ex */ = {
 			isa = PBXGroup;
 			children = (
+				10656A711D4F685C00206B7B /* ODataException.swift */,
 				426025721D2E8AE900D4A4E1 /* ODataError.swift */,
 				426025741D2E913100D4A4E1 /* ODataErrorDetail.swift */,
 			);
@@ -769,6 +899,9 @@
 				4260253C1D2D124800D4A4E1 /* ODataRetrieveRequest.swift */,
 				4260253E1D2D186400D4A4E1 /* ODataRetrieveResponse.swift */,
 				4243078A1D1C2EF600880BDB /* RetrieveRequestFactoryImp.swift */,
+				10656A6D1D4F59A000206B7B /* EdmMetadataRequest.swift */,
+				10656A6F1D4F5A6E00206B7B /* EdmMetadataRequestImpl.swift */,
+				10656A751D4F808500206B7B /* EdmMetadataResponseImpl.swift */,
 			);
 			name = retrieve;
 			sourceTree = "<group>";
@@ -961,6 +1094,8 @@
 		424307AE1D229BA900880BDB /* Client Library */ = {
 			isa = PBXGroup;
 			children = (
+				10357EAF1D53548A00B6D5BE /* api */,
+				10357EA91D53367A00B6D5BE /* core */,
 				424307AF1D229BE300880BDB /* ODataHeadersTest.swift */,
 				426025331D2BC67500D4A4E1 /* AbstractODataRequestTest.swift */,
 			);
@@ -1195,13 +1330,16 @@
 			files = (
 				426025B41D355F1300D4A4E1 /* EdmTypeKind.swift in Sources */,
 				426025491D2D634800D4A4E1 /* ODataDeserializer.swift in Sources */,
+				10357E9A1D50D52800B6D5BE /* EdmProviderImpl.swift in Sources */,
 				4260263C1D3CEE3800D4A4E1 /* EdmTerm.swift in Sources */,
+				10656A6E1D4F59A000206B7B /* EdmMetadataRequest.swift in Sources */,
 				426025321D2BBADE00D4A4E1 /* HttpSessionFactory.swift in Sources */,
 				4260260A1D37E91E00D4A4E1 /* EdmProperty.swift in Sources */,
 				426025E21D36DADE00D4A4E1 /* Geospatial.swift in Sources */,
 				42E62B311D0B0E91004B1B6D /* ViewController.swift in Sources */,
 				4260255B1D2DB45400D4A4E1 /* ValueType.swift in Sources */,
 				426025FC1D37E2B000D4A4E1 /* EdmOperation.swift in Sources */,
+				10357E9F1D50F5C800B6D5BE /* EdmSchemaImpl.swift in Sources */,
 				426025691D2E76E800D4A4E1 /* ServiceDocumentItem.swift in Sources */,
 				4260262C1D37FE5900D4A4E1 /* CsdlStructuralType.swift in Sources */,
 				4260251C1D26B67500D4A4E1 /* AbstractHttpClientFactory.swift in Sources */,
@@ -1212,6 +1350,7 @@
 				426025C41D35993200D4A4E1 /* ClientLink.swift in Sources */,
 				424307A71D22720D00880BDB /* Request.swift in Sources */,
 				426025571D2DA34200D4A4E1 /* Property.swift in Sources */,
+				10357EA11D51F3FA00B6D5BE /* EdmEntityTypeImpl.swift in Sources */,
 				426025CC1D3653EE00D4A4E1 /* ClientEnumValue.swift in Sources */,
 				424307AB1D22848700880BDB /* ODataHeaders.swift in Sources */,
 				426025F21D37D96900D4A4E1 /* AbstractEdmAnnotatable.swift in Sources */,
@@ -1249,6 +1388,7 @@
 				426025A41D3513CE00D4A4E1 /* AbstractClientValue.swift in Sources */,
 				426025E61D37A9B700D4A4E1 /* ComplexValue.swift in Sources */,
 				426025F01D37D87000D4A4E1 /* AbstractEdmNamed.swift in Sources */,
+				10656A701D4F5A6E00206B7B /* EdmMetadataRequestImpl.swift in Sources */,
 				4260264D1D4003F000D4A4E1 /* ODataEntitySetIteratorRequestImpl.swift in Sources */,
 				426025921D33B08900D4A4E1 /* ODataEntitySetRequest.swift in Sources */,
 				426025651D2E6AD500D4A4E1 /* Constants.swift in Sources */,
@@ -1266,6 +1406,7 @@
 				4260262E1D38E12400D4A4E1 /* CsdlProperty.swift in Sources */,
 				426025471D2D622F00D4A4E1 /* ClientODataDeserializer.swift in Sources */,
 				4252B9381D4A46EF0025E72C /* EdmInt64.swift in Sources */,
+				10656A721D4F685C00206B7B /* ODataException.swift in Sources */,
 				426026101D37ECE500D4A4E1 /* EdmNavigationProperty.swift in Sources */,
 				426026241D37F72700D4A4E1 /* EdmOperationImport.swift in Sources */,
 				426025EE1D37D4D800D4A4E1 /* EdmTypeImpl.swift in Sources */,
@@ -1284,6 +1425,7 @@
 				4260264B1D3ED0BF00D4A4E1 /* SingletonPrimitiveType.swift in Sources */,
 				426025151D26B12C00D4A4E1 /* Configuration.swift in Sources */,
 				4243078B1D1C2EF600880BDB /* RetrieveRequestFactoryImp.swift in Sources */,
+				10357E961D50CE4D00B6D5BE /* ODataReader.swift in Sources */,
 				426025D41D36824200D4A4E1 /* ClientEntitySetImpl.swift in Sources */,
 				4260256F1D2E85EE00D4A4E1 /* DeletedEntity.swift in Sources */,
 				426026041D37E6A400D4A4E1 /* EdmStructuredType.swift in Sources */,
@@ -1318,11 +1460,13 @@
 				426026461D3EC65600D4A4E1 /* EdmPrimitiveTypeFactory.swift in Sources */,
 				426025751D2E913100D4A4E1 /* ODataErrorDetail.swift in Sources */,
 				426025251D2A628D00D4A4E1 /* ConfigurationProperty.swift in Sources */,
+				10357EA61D52018500B6D5BE /* CsdlEntityType.swift in Sources */,
 				426025DC1D369E4400D4A4E1 /* ClientObjectFactoryImpl.swift in Sources */,
 				4260261E1D37F45300D4A4E1 /* EdmEntityContainer.swift in Sources */,
 				426025AE1D35555700D4A4E1 /* ODataBinder.swift in Sources */,
 				426025B61D35614000D4A4E1 /* ClientPrimitiveValueBuilderImpl.swift in Sources */,
 				426025A81D351CCE00D4A4E1 /* ClientPrimitiveValueImpl.swift in Sources */,
+				10357E981D50D2AF00B6D5BE /* ODataReaderImpl.swift in Sources */,
 				426025A61D35171A00D4A4E1 /* ClientValue.swift in Sources */,
 				426026261D37F7CE00D4A4E1 /* EdmAction.swift in Sources */,
 				4260256B1D2E827000D4A4E1 /* Delta.swift in Sources */,
@@ -1350,6 +1494,8 @@
 				4243073D1D19A14B00880BDB /* Customer.swift in Sources */,
 				426025CE1D3655C200D4A4E1 /* ClientComplexValue.swift in Sources */,
 				424307821D1C2B3900880BDB /* ODataClientImp.swift in Sources */,
+				10656A761D4F808500206B7B /* EdmMetadataResponseImpl.swift in Sources */,
+				10357EA81D522DDB00B6D5BE /* EdmKeyPropertyRefImpl.swift in Sources */,
 				4260259C1D35015800D4A4E1 /* ClientEntity.swift in Sources */,
 				426025E41D36DE8700D4A4E1 /* SRID.swift in Sources */,
 				4260251F1D26BA7C00D4A4E1 /* DefaultHttpClientFactory.swift in Sources */,
@@ -1377,12 +1523,14 @@
 				424307B01D229BE300880BDB /* ODataHeadersTest.swift in Sources */,
 				426025351D2BCCA100D4A4E1 /* ContentType.swift in Sources */,
 				426025201D26BA7C00D4A4E1 /* DefaultHttpClientFactory.swift in Sources */,
+				10357EAE1D5336DE00B6D5BE /* EdmMetadataRequestTest.swift in Sources */,
 				426025891D304ACC00D4A4E1 /* HttpSessionFactory.swift in Sources */,
 				426025231D26BD9500D4A4E1 /* ConfigurationImpl.swift in Sources */,
 				426025861D304A1C00D4A4E1 /* ErrorTypes.swift in Sources */,
 				4260258A1D304AE200D4A4E1 /* TypeUtil.swift in Sources */,
 				426025261D2A628D00D4A4E1 /* ConfigurationProperty.swift in Sources */,
 				426025871D304A4C00D4A4E1 /* Configuration.swift in Sources */,
+				10357EB21D5354AA00B6D5BE /* EdmTest.swift in Sources */,
 				42E62B441D0B0E91004B1B6D /* iOS_OlingoTests.swift in Sources */,
 				4260251D1D26B67500D4A4E1 /* AbstractHttpClientFactory.swift in Sources */,
 				426025881D304A7500D4A4E1 /* HttpSessionFactoryImpl.swift in Sources */,

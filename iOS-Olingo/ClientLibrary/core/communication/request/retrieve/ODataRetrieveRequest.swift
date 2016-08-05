@@ -33,11 +33,16 @@ import Foundation
 
 /// This is an abstract representation of an OData retrieve query request returning one or more result item.
 public protocol ODataRetrieveRequest {
+  
   // MARK: - Protocol Properties
-
   // MARK: - Protocol Methods
-
-  //func execute() -> ODataRetrieveResponse!
+  
+  /// Request execute, return an OData response
+  /// - parameters:
+  ///   - none
+  /// - returns: ODataRetrieveResponse
+  /// - throws: ODataException
+  func execute() throws -> ODataRetrieveResponse!
 }
 
 // MARK: - Extension

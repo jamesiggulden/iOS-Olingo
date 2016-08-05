@@ -108,7 +108,7 @@ class ViewController: UIViewController {
   
   
   func odataLibrarySubmit(root:String) {
-    let client:ODataClient = ODataClientFactory().getClient()
+    let client:ODataClient = ODataClientFactory.getClient()
     log.logMode = Log.LogMode.DEBUG
   
     var urlString = root
@@ -116,6 +116,7 @@ class ViewController: UIViewController {
     var endTime:NSDate
     var duration:Double
     var consoleOutput:String = ""
+    var myEdm: Edm
   
     if let entitySet = entitySetField.text{
       if entitySet.isEmpty || entitySet == "entity set" {
@@ -130,10 +131,20 @@ class ViewController: UIViewController {
       let uri:NSURL = NSURL(string:urlString)!
       if entitySet.containsString("$metadata"){
         // request metadata
-        ResetStatusConsole("No request provided")
-        AppendToStatusConsole("Stub for metadata request")
-        ResetConsole("")
-        ResetRawConsole("")
+        ResetStatusConsole("Retrieve Request Factory")
+        let myRetriveRequestFactory = client.retrieveRequestFactory
+        let myEdmMetaRequest = myRetriveRequestFactory.getMetadataRequest(uri)
+        do {
+         let myResponse = try myEdmMetaRequest.execute()
+         myEdm = (myResponse.getBody() as! EdmProviderImpl)
+         ResetStatusConsole("Number of schemas returned: " + String(myEdm.getSchemas().count))
+        }
+        catch {
+          ResetStatusConsole("Error occurred retrieving the metadata")
+        }
+        return
+        //ResetConsole("")
+        //ResetRawConsole("")
       }
       else {
         // request entity set (at present) will expand as functionality increases (option picker?)

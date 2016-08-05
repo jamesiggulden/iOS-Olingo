@@ -58,6 +58,12 @@ public protocol ODataClient {
   /// - throws: No error conditions are expected
   func getDeserializer(contentType:ContentType) -> ClientODataDeserializerImpl
   
+  /// get the reader
+  /// - parameters:
+  ///   - none
+  /// - returns: ODataReader
+  /// - throws: No error conditions are expected
+  func getReader() -> ODataReader
   
   // var retrieveReqFact:RetrieveRequestFactory {get}
   // func retrieveRequestFactory()-> RetrieveRequestFactory

@@ -40,7 +40,6 @@ public class ODataClientImp: ODataClient {
   ///   - none
   /// - returns: Odata headers
   /// - throws: No error conditions are expected
-  
   public func newVersionHeaders() -> ODataHeadersImpl {
     let odataHeaders = ODataHeadersImpl()
     odataHeaders.setHeader(HttpHeader.ODATA_MAX_VERSION.rawValue, value: ODataServiceVersion.V40.rawValue)
@@ -57,6 +56,14 @@ public class ODataClientImp: ODataClient {
     return ClientODataDeserializerImpl(boolean: false, contentType: contentType)
   }
   
+  /// get the reader
+  /// - parameters:
+  ///   - none
+  /// - returns: ODataReader
+  /// - throws: No error conditions are expected
+  public func getReader() -> ODataReader {
+    return ODataReaderImpl()
+  }
 
   
 }

@@ -207,7 +207,7 @@ public class AbstractODataRequest: Request {
   ///   - none
   /// - returns: HTTP response struct
   /// - throws: HTTP error exception if error returned or if HTTP status code >= 200
-  func doExecute() throws -> HttpResponseContent {
+  func doExecute() throws -> HttpResponseContent? {
     
     //TODO:  Enable check request once we pass in the request object
     // Always callaed but only required for EDM enabled clients so just stubbed for now
@@ -292,10 +292,14 @@ public class AbstractODataRequest: Request {
       self.httpResponseContent = HttpResponseContent(data: data!,response: httpResponse!)
 
     }
-      
-    log.debug("Status Code: \(self.httpResponseContent.response.statusCode)")
     
-    return httpResponseContent
+    if (self.httpResponseContent != nil) {
+      log.debug("Status Code: \(self.httpResponseContent.response.statusCode)")
+      return httpResponseContent
+    }
+    else {
+      return nil
+    }
     
   }
   

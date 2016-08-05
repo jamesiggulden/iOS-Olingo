@@ -73,5 +73,14 @@ public class RetrieveRequestFactoryImpl: RetrieveRequestFactory {
   public func entityRequest(uri:NSURL) -> ODataEntityRequest {
     return ODataEntityRequestImpl(odataClient: client, query: uri)
   }
+  
+  /// Gets a uri request returning the service metadata
+  /// - parameters:
+  ///   - uri: NSURL object containing a URI
+  /// - returns: Odata Entity Request
+  /// - throws: No error conditions are expected
+  public func getMetadataRequest(uri:NSURL) -> EdmMetadataRequest {
+    return EdmMetadataRequestImpl(odataClient: client, query: uri)
+  }
 
 }
