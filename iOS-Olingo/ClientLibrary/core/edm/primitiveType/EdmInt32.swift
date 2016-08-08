@@ -52,8 +52,6 @@ public final class EdmInt32:SingletonPrimitiveType {
   
   
   // MARK: - Methods
-
-  // TODO: internalValueOfString
   
   override func internalValueOfString<T>(value:String,isnilable:Bool,maxLength:Int?,precision:Int,scale:Int,isUnicode:Bool,returnType:T) throws -> T {
     

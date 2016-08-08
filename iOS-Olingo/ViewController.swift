@@ -26,6 +26,7 @@ class ViewController: UIViewController {
   @IBOutlet weak var filterQueryField: UITextField!
   @IBOutlet weak var propertyFilterField: UITextField!
   @IBOutlet weak var orderByField: UITextField!
+  @IBOutlet weak var urlLabel: UILabel!
   
   @IBOutlet weak var Console: UITextView!
   
@@ -121,7 +122,10 @@ class ViewController: UIViewController {
     log.logMode = Log.LogMode.DEBUG
   
 
-    let uriBuilder = client.newURIBuilder(root)
+    guard let uriBuilder = client.newURIBuilder(root) else {
+      return
+    }
+    ResetRawConsole("")
     
   
     if let entitySet = entitySetField.text{
@@ -130,7 +134,6 @@ class ViewController: UIViewController {
         ResetStatusConsole("No request provided")
         AppendToStatusConsole("Stub for service document request")
         ResetConsole("")
-        ResetRawConsole("")
         return
       }
       
@@ -139,7 +142,6 @@ class ViewController: UIViewController {
         ResetStatusConsole("No request provided")
         AppendToStatusConsole("Stub for metadata request")
         ResetConsole("")
-        ResetRawConsole("")
       }
       else {
         do {
@@ -191,6 +193,8 @@ class ViewController: UIViewController {
                 }
               }
               let uri = try uriBuilder.build()
+              urlLabel.text = uri.absoluteString
+              
               processEntitySet(retriveRequestFactory,uri: uri)
             }
             else {
@@ -199,7 +203,15 @@ class ViewController: UIViewController {
               log.debug("Build URI")
               uriBuilder.appendEntitySetSegment(entitySet)
               uriBuilder.appendKeySegment(entityID)
+              if let properties = propertyFilterField.text {
+                if !properties.isEmpty && properties != "property filter" {
+                  let filterArray = properties.componentsSeparatedByString(",")
+                  uriBuilder.select(filterArray)
+                }
+              }
               let uri = try uriBuilder.build()
+              urlLabel.text = uri.absoluteString
+              
               processEntity(retriveRequestFactory,uri: uri)
 
             }

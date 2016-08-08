@@ -90,7 +90,7 @@ public final class EdmInt64:SingletonPrimitiveType {
     //if (returnType.isAssignableFrom(Int.self)) {
     //
     
-    //TODO: Why does this not work?  Workaround to convertt to string and check as strings
+    //TODO: Why does this not work?  Workaround to convert to string and check as strings
     //if returnType.self is Int {
     if String(returnType.self) == "Int" {
       return  Int(value) as! T

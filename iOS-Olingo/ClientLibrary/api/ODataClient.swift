@@ -61,9 +61,9 @@ public protocol ODataClient {
   /// get a new URI builder
   /// - parameters:
   ///   - serviceRoot: root URL for service
-  /// - returns: URI Builder
+  /// - returns: URI Builder or nil if serviceRoot is empty
   /// - throws: No error conditions are expected
-  func newURIBuilder(serviceRoot:String) -> URIBuilder
+  func newURIBuilder(serviceRoot:String) -> URIBuilder?
   
   // var retrieveReqFact:RetrieveRequestFactory {get}
   // func retrieveRequestFactory()-> RetrieveRequestFactory

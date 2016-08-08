@@ -50,6 +50,10 @@
 		4252B94E1D538FA30025E72C /* FullQualifiedName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260257C1D2EB2AA00D4A4E1 /* FullQualifiedName.swift */; };
 		4252B94F1D538FB00025E72C /* EdmTypeKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025B31D355F1300D4A4E1 /* EdmTypeKind.swift */; };
 		4252B9501D538FC40025E72C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025381D2CF56000D4A4E1 /* Extensions.swift */; };
+		4252B9521D54E6A70025E72C /* RequestEntitySetTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B9511D54E6A70025E72C /* RequestEntitySetTest.swift */; };
+		4252B9541D55F3730025E72C /* EdmBoolean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B9531D55F3730025E72C /* EdmBoolean.swift */; };
+		4252B9561D55FC870025E72C /* EdmDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B9551D55FC870025E72C /* EdmDouble.swift */; };
+		4252B9581D5898620025E72C /* EdmTypesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B9571D5898620025E72C /* EdmTypesTest.swift */; };
 		426025151D26B12C00D4A4E1 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025141D26B12C00D4A4E1 /* Configuration.swift */; };
 		426025171D26B3D500D4A4E1 /* HttpClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025161D26B3D500D4A4E1 /* HttpClientFactory.swift */; };
 		426025191D26B4AD00D4A4E1 /* HttpUriRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025181D26B4AD00D4A4E1 /* HttpUriRequestFactory.swift */; };
@@ -268,6 +272,10 @@
 		4252B93F1D526ED70025E72C /* QueryOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QueryOption.swift; path = ClientLibrary/api/uri/QueryOption.swift; sourceTree = "<group>"; };
 		4252B9411D5272020025E72C /* SegmentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SegmentType.swift; path = ClientLibrary/api/uri/SegmentType.swift; sourceTree = "<group>"; };
 		4252B9431D538A2F0025E72C /* URIBuilderTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URIBuilderTest.swift; sourceTree = "<group>"; };
+		4252B9511D54E6A70025E72C /* RequestEntitySetTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestEntitySetTest.swift; sourceTree = "<group>"; };
+		4252B9531D55F3730025E72C /* EdmBoolean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EdmBoolean.swift; path = ClientLibrary/core/edm/primitiveType/EdmBoolean.swift; sourceTree = "<group>"; };
+		4252B9551D55FC870025E72C /* EdmDouble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EdmDouble.swift; path = ClientLibrary/core/edm/primitiveType/EdmDouble.swift; sourceTree = "<group>"; };
+		4252B9571D5898620025E72C /* EdmTypesTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmTypesTest.swift; sourceTree = "<group>"; };
 		426025141D26B12C00D4A4E1 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Configuration.swift; path = ClientLibrary/api/Configuration.swift; sourceTree = "<group>"; };
 		426025161D26B3D500D4A4E1 /* HttpClientFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpClientFactory.swift; path = ClientLibrary/api/http/HttpClientFactory.swift; sourceTree = "<group>"; };
 		426025181D26B4AD00D4A4E1 /* HttpUriRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpUriRequestFactory.swift; path = ClientLibrary/api/http/HttpUriRequestFactory.swift; sourceTree = "<group>"; };
@@ -991,8 +999,10 @@
 			isa = PBXGroup;
 			children = (
 				424307AF1D229BE300880BDB /* ODataHeadersTest.swift */,
+				4252B9511D54E6A70025E72C /* RequestEntitySetTest.swift */,
 				426025331D2BC67500D4A4E1 /* AbstractODataRequestTest.swift */,
 				4252B9431D538A2F0025E72C /* URIBuilderTest.swift */,
+				4252B9571D5898620025E72C /* EdmTypesTest.swift */,
 			);
 			name = "Client Library";
 			sourceTree = "<group>";
@@ -1012,6 +1022,8 @@
 		426026471D3EC96F00D4A4E1 /* PrimitiveType */ = {
 			isa = PBXGroup;
 			children = (
+				4252B9531D55F3730025E72C /* EdmBoolean.swift */,
+				4252B9551D55FC870025E72C /* EdmDouble.swift */,
 				4252B9311D48D0740025E72C /* EdmInt32.swift */,
 				4252B9331D48D5740025E72C /* EdmDateTimeOffset.swift */,
 				4252B9351D48D7630025E72C /* EdmDecimal.swift */,
@@ -1248,6 +1260,7 @@
 				426025F21D37D96900D4A4E1 /* AbstractEdmAnnotatable.swift in Sources */,
 				426025671D2E74F800D4A4E1 /* ServiceDocumentItemImpl.swift in Sources */,
 				426025D21D36629200D4A4E1 /* ClientCollectionValue.swift in Sources */,
+				4252B9541D55F3730025E72C /* EdmBoolean.swift in Sources */,
 				426026021D37E58800D4A4E1 /* EdmEntityType.swift in Sources */,
 				426025811D2FAFAB00D4A4E1 /* AbstractPrimitiveType.swift in Sources */,
 				426025371D2BFA3D00D4A4E1 /* HttpResponseContent.swift in Sources */,
@@ -1365,6 +1378,7 @@
 				424307B41D22C3B400880BDB /* HttpClient.swift in Sources */,
 				424307BC1D22E4B100880BDB /* ODataServiceVersion.swift in Sources */,
 				426025631D2E631300D4A4E1 /* ServiceDocumentImpl.swift in Sources */,
+				4252B9561D55FC870025E72C /* EdmDouble.swift in Sources */,
 				426025AC1D352A1F00D4A4E1 /* ClientPrimitiveValueBuilder.swift in Sources */,
 				426026401D3D039C00D4A4E1 /* ContextURLParser.swift in Sources */,
 				4252B9361D48D7630025E72C /* EdmDecimal.swift in Sources */,
@@ -1425,7 +1439,9 @@
 				42E62B441D0B0E91004B1B6D /* iOS_OlingoTests.swift in Sources */,
 				4252B9481D538E460025E72C /* SegmentType.swift in Sources */,
 				4252B94F1D538FB00025E72C /* EdmTypeKind.swift in Sources */,
+				4252B9581D5898620025E72C /* EdmTypesTest.swift in Sources */,
 				4252B94B1D538EBD0025E72C /* EdmMember.swift in Sources */,
+				4252B9521D54E6A70025E72C /* RequestEntitySetTest.swift in Sources */,
 				4260251D1D26B67500D4A4E1 /* AbstractHttpClientFactory.swift in Sources */,
 				4252B9471D538E2C0025E72C /* QueryOption.swift in Sources */,
 				4252B94E1D538FA30025E72C /* FullQualifiedName.swift in Sources */,
