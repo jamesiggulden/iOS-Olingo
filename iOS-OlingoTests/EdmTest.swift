@@ -129,5 +129,64 @@ public class EdmTest: XCTestCase {
     }
     XCTAssert(myPropertyExists)
   }
+
+  func testRetrieveEntityTypePropertyTypeString() {
+    var myPropertyExists = false
+    let myODataClient = ODataClientFactory.getClient()
+    let myRetriveRequestFactory = myODataClient.retrieveRequestFactory
+    let myUri:NSURL = NSURL(string:SERVICE_ROOT)!
+    let myRequest = myRetriveRequestFactory.getMetadataRequest(myUri)
+    do {
+      let myResponse = try myRequest.execute()
+      let myEdm = myResponse.getBody() as! EdmProviderImpl
+      let myEntityType = myEdm.getEntityType(FullQualifiedName(namespace: "NorthwindModel", name: "Customer"))
+      let myKeyPropertyRefs = myEntityType?.getKeyPropertyRefs()
+      for myKeyPropertyRef in myKeyPropertyRefs! {
+        let myPropName = myKeyPropertyRef.name
+        if (myPropName == "ContactTitle") {
+          myPropertyExists = true
+          let myProperty = myKeyPropertyRef.property
+          let myPropertyType = myProperty.type
+          XCTAssert(myPropertyType is EdmString)
+        }
+      }
+    }
+    catch {
+      XCTFail()
+    }
+    XCTAssert(myPropertyExists)
+  }
+  
+  ///The following need implementing:
+  ///func testRetrieveEntityTypePropertyTypeDouble()
+  ///func testRetrieveEntityTypePropertyTypeBoolean()
+  ///func testRetrieveEntityTypePropertyTypeDateTime()
+
+  func testRetrieveEntityTypePropertyTypeInt32() {
+    var myPropertyExists = false
+    let myODataClient = ODataClientFactory.getClient()
+    let myRetriveRequestFactory = myODataClient.retrieveRequestFactory
+    let myUri:NSURL = NSURL(string:SERVICE_ROOT)!
+    let myRequest = myRetriveRequestFactory.getMetadataRequest(myUri)
+    do {
+      let myResponse = try myRequest.execute()
+      let myEdm = myResponse.getBody() as! EdmProviderImpl
+      let myEntityType = myEdm.getEntityType(FullQualifiedName(namespace: "NorthwindModel", name: "Employee"))
+      let myKeyPropertyRefs = myEntityType?.getKeyPropertyRefs()
+      for myKeyPropertyRef in myKeyPropertyRefs! {
+        let myPropName = myKeyPropertyRef.name
+        if (myPropName == "ReportsTo") {
+          myPropertyExists = true
+          let myProperty = myKeyPropertyRef.property
+          let myPropertyType = myProperty.type
+          XCTAssert(myPropertyType is EdmInt32)
+        }
+      }
+    }
+    catch {
+      XCTFail()
+    }
+    XCTAssert(myPropertyExists)
+  }
   
 }
