@@ -20,6 +20,145 @@
 		10656A701D4F5A6E00206B7B /* EdmMetadataRequestImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10656A6F1D4F5A6E00206B7B /* EdmMetadataRequestImpl.swift */; };
 		10656A721D4F685C00206B7B /* ODataException.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10656A711D4F685C00206B7B /* ODataException.swift */; };
 		10656A761D4F808500206B7B /* EdmMetadataResponseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10656A751D4F808500206B7B /* EdmMetadataResponseImpl.swift */; };
+		10A7B80E1D58D65E0087D6F8 /* EdmProviderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10357E991D50D52800B6D5BE /* EdmProviderImpl.swift */; };
+		10A7B80F1D58D6A20087D6F8 /* Edm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025F51D37DE6600D4A4E1 /* Edm.swift */; };
+		10A7B8101D58D6C30087D6F8 /* EdmTypeDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026391D3CECE000D4A4E1 /* EdmTypeDefinition.swift */; };
+		10A7B8111D58D6D90087D6F8 /* EdmSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025F71D37E0EF00D4A4E1 /* EdmSchema.swift */; };
+		10A7B8121D58D6E20087D6F8 /* EdmSchemaImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10357E9E1D50F5C800B6D5BE /* EdmSchemaImpl.swift */; };
+		10A7B8131D58D6F50087D6F8 /* EdmEntityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026011D37E58800D4A4E1 /* EdmEntityType.swift */; };
+		10A7B8141D58D6FD0087D6F8 /* EdmComplexType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025E91D37C98D00D4A4E1 /* EdmComplexType.swift */; };
+		10A7B8151D58D7040087D6F8 /* EdmAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026251D37F7CE00D4A4E1 /* EdmAction.swift */; };
+		10A7B8161D58D70A0087D6F8 /* EdmFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025F91D37E24200D4A4E1 /* EdmFunction.swift */; };
+		10A7B8171D58D7110087D6F8 /* EdmTerm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260263B1D3CEE3800D4A4E1 /* EdmTerm.swift */; };
+		10A7B8181D58D7170087D6F8 /* EdmEntityContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260261D1D37F45300D4A4E1 /* EdmEntityContainer.swift */; };
+		10A7B8191D58D7340087D6F8 /* EdmStructuredType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026031D37E6A400D4A4E1 /* EdmStructuredType.swift */; };
+		10A7B81A1D58D73A0087D6F8 /* EdmKeyPropertyRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026131D37EEBF00D4A4E1 /* EdmKeyPropertyRef.swift */; };
+		10A7B81B1D58D7410087D6F8 /* EdmOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025FB1D37E2B000D4A4E1 /* EdmOperation.swift */; };
+		10A7B81C1D58D7520087D6F8 /* EdmProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026091D37E91E00D4A4E1 /* EdmProperty.swift */; };
+		10A7B81D1D58D75A0087D6F8 /* EdmElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026051D37E82900D4A4E1 /* EdmElement.swift */; };
+		10A7B81E1D58D7630087D6F8 /* EdmParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026151D37F06400D4A4E1 /* EdmParameter.swift */; };
+		10A7B81F1D58D76A0087D6F8 /* EdmEntitySet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026171D37F19700D4A4E1 /* EdmEntitySet.swift */; };
+		10A7B8201D58D7790087D6F8 /* EdmBindingTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026191D37F1FD00D4A4E1 /* EdmBindingTarget.swift */; };
+		10A7B8211D58D77F0087D6F8 /* EdmTyped.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026071D37E88B00D4A4E1 /* EdmTyped.swift */; };
+		10A7B8221D58D7860087D6F8 /* SRID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025E31D36DE8700D4A4E1 /* SRID.swift */; };
+		10A7B8231D58D78E0087D6F8 /* EdmMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260260B1D37EAC700D4A4E1 /* EdmMappable.swift */; };
+		10A7B8241D58D7950087D6F8 /* EdmReturnType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026291D37FC8800D4A4E1 /* EdmReturnType.swift */; };
+		10A7B8251D58D79B0087D6F8 /* EdmAnnotatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026331D38F20300D4A4E1 /* EdmAnnotatable.swift */; };
+		10A7B8261D58DD390087D6F8 /* EdmMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260260D1D37EB8A00D4A4E1 /* EdmMapping.swift */; };
+		10A7B8271D58DD3F0087D6F8 /* EdmNavigationPropertyBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260261B1D37F3B800D4A4E1 /* EdmNavigationPropertyBinding.swift */; };
+		10A7B8281D58DD510087D6F8 /* Geospatial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025E11D36DADE00D4A4E1 /* Geospatial.swift */; };
+		10A7B8291D58DD580087D6F8 /* EdmSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260261F1D37F66200D4A4E1 /* EdmSingleton.swift */; };
+		10A7B82A1D58DD610087D6F8 /* EdmActionImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026211D37F6A600D4A4E1 /* EdmActionImport.swift */; };
+		10A7B82B1D58DD670087D6F8 /* EdmFunctionImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026271D37F81B00D4A4E1 /* EdmFunctionImport.swift */; };
+		10A7B82C1D58DD7F0087D6F8 /* EdmOperationImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026231D37F72700D4A4E1 /* EdmOperationImport.swift */; };
+		10A7B82D1D58DD860087D6F8 /* EdmPrimitiveTypeKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260257A1D2EABDF00D4A4E1 /* EdmPrimitiveTypeKind.swift */; };
+		10A7B82E1D58DD950087D6F8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025641D2E6AD500D4A4E1 /* Constants.swift */; };
+		10A7B82F1D58DE2A0087D6F8 /* EdmMetadataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10656A6D1D4F59A000206B7B /* EdmMetadataRequest.swift */; };
+		10A7B8301D58DE340087D6F8 /* EdmMetadataRequestImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10656A6F1D4F5A6E00206B7B /* EdmMetadataRequestImpl.swift */; };
+		10A7B8311D58DE450087D6F8 /* AbstractODataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307B11D22BE4800880BDB /* AbstractODataRequest.swift */; };
+		10A7B8321D58DE4A0087D6F8 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307A61D22720D00880BDB /* Request.swift */; };
+		10A7B8331D58DE6C0087D6F8 /* ODataClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243077F1D1C2B0600880BDB /* ODataClient.swift */; };
+		10A7B8341D58DE720087D6F8 /* ODataHeadersImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307AC1D2288C600880BDB /* ODataHeadersImpl.swift */; };
+		10A7B8351D58DE790087D6F8 /* HttpUriRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307B71D22C53200880BDB /* HttpUriRequest.swift */; };
+		10A7B8361D58DE800087D6F8 /* HttpResponseContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025361D2BFA3D00D4A4E1 /* HttpResponseContent.swift */; };
+		10A7B8371D58DE880087D6F8 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260252D1D2AA09200D4A4E1 /* HttpMethod.swift */; };
+		10A7B8381D58DE900087D6F8 /* HttpHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307B91D22D73500880BDB /* HttpHeader.swift */; };
+		10A7B8391D58DE970087D6F8 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260258B1D3393B500D4A4E1 /* Logger.swift */; };
+		10A7B83A1D58DEA70087D6F8 /* RetrieveRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307661D1C2A7C00880BDB /* RetrieveRequestFactory.swift */; };
+		10A7B83B1D58DEAE0087D6F8 /* ClientObjectFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025DD1D36AA9100D4A4E1 /* ClientObjectFactory.swift */; };
+		10A7B83C1D58DEB50087D6F8 /* ODataBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025AD1D35555700D4A4E1 /* ODataBinder.swift */; };
+		10A7B83D1D58DEBB0087D6F8 /* ODataPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025271D2A859400D4A4E1 /* ODataPreferences.swift */; };
+		10A7B83E1D58DEC10087D6F8 /* ClientODataDeserializerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260254E1D2D74AE00D4A4E1 /* ClientODataDeserializerImpl.swift */; };
+		10A7B83F1D58DEC80087D6F8 /* ODataReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10357E951D50CE4D00B6D5BE /* ODataReader.swift */; };
+		10A7B8401D58DECD0087D6F8 /* ODataHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307AA1D22848700880BDB /* ODataHeaders.swift */; };
+		10A7B8411D58DED40087D6F8 /* ODataRetrieveRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260253C1D2D124800D4A4E1 /* ODataRetrieveRequest.swift */; };
+		10A7B8421D58DEE00087D6F8 /* ODataRetrieveResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260253E1D2D186400D4A4E1 /* ODataRetrieveResponse.swift */; };
+		10A7B8431D58DEE30087D6F8 /* ODataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025421D2D21AD00D4A4E1 /* ODataResponse.swift */; };
+		10A7B8441D58DEEA0087D6F8 /* ODataException.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10656A711D4F685C00206B7B /* ODataException.swift */; };
+		10A7B8451D58DEFF0087D6F8 /* ODataEntitySetRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025911D33B08900D4A4E1 /* ODataEntitySetRequest.swift */; };
+		10A7B8461D58DF060087D6F8 /* ClientEntitySet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025D51D36860400D4A4E1 /* ClientEntitySet.swift */; };
+		10A7B8471D58DF0D0087D6F8 /* ClientPrimitiveValueBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025AB1D352A1F00D4A4E1 /* ClientPrimitiveValueBuilder.swift */; };
+		10A7B8481D58DF180087D6F8 /* ClientEnumValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025CB1D3653EE00D4A4E1 /* ClientEnumValue.swift */; };
+		10A7B8491D58DF1F0087D6F8 /* ClientComplexValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025CD1D3655C200D4A4E1 /* ClientComplexValue.swift */; };
+		10A7B84A1D58DF270087D6F8 /* ClientValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025A51D35171A00D4A4E1 /* ClientValue.swift */; };
+		10A7B84B1D58DF2F0087D6F8 /* ClientProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025B71D356A6600D4A4E1 /* ClientProperty.swift */; };
+		10A7B84C1D58DF4A0087D6F8 /* ClientPrimitiveValueBuilderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025B51D35614000D4A4E1 /* ClientPrimitiveValueBuilderImpl.swift */; };
+		10A7B84D1D58DF500087D6F8 /* ClientPrimitiveValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025A91D35299B00D4A4E1 /* ClientPrimitiveValue.swift */; };
+		10A7B84E1D58DF620087D6F8 /* ODataEntitySetRetrieveResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026431D3E1C4600D4A4E1 /* ODataEntitySetRetrieveResponse.swift */; };
+		10A7B84F1D58DF690087D6F8 /* ClientEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260259B1D35015800D4A4E1 /* ClientEntity.swift */; };
+		10A7B8501D58DF700087D6F8 /* ODataEntityRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260258D1D339A2F00D4A4E1 /* ODataEntityRequest.swift */; };
+		10A7B8511D58DF880087D6F8 /* ClientValuable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025A11D350FE600D4A4E1 /* ClientValuable.swift */; };
+		10A7B8521D58DF8F0087D6F8 /* ClientCollectionValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025D11D36629200D4A4E1 /* ClientCollectionValue.swift */; };
+		10A7B8531D58DF940087D6F8 /* ODataEntityRetrieveResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B9391D5230B00025E72C /* ODataEntityRetrieveResponse.swift */; };
+		10A7B8541D58DF9D0087D6F8 /* EntityCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025541D2D9F2700D4A4E1 /* EntityCollection.swift */; };
+		10A7B8551D58DFA40087D6F8 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025501D2D79E000D4A4E1 /* Entity.swift */; };
+		10A7B8561D58DFAA0087D6F8 /* ResWrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260254A1D2D6AF800D4A4E1 /* ResWrap.swift */; };
+		10A7B8571D58DFB10087D6F8 /* ClientODataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025461D2D622F00D4A4E1 /* ClientODataDeserializer.swift */; };
+		10A7B8581D58DFB70087D6F8 /* JsonDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025761D2E974200D4A4E1 /* JsonDeserializer.swift */; };
+		10A7B8591D58DFD90087D6F8 /* ResWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260254C1D2D6CD000D4A4E1 /* ResWrapper.swift */; };
+		10A7B85A1D58DFDF0087D6F8 /* ClientPrimitiveValueImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025A71D351CCE00D4A4E1 /* ClientPrimitiveValueImpl.swift */; };
+		10A7B85B1D58DFE60087D6F8 /* EdmPrimitiveTypeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026451D3EC65600D4A4E1 /* EdmPrimitiveTypeFactory.swift */; };
+		10A7B85C1D58DFEB0087D6F8 /* AbstractODataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025D91D368EEA00D4A4E1 /* AbstractODataObject.swift */; };
+		10A7B85D1D58DFF00087D6F8 /* IEntityCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025D71D368E3B00D4A4E1 /* IEntityCollection.swift */; };
+		10A7B85E1D58E0050087D6F8 /* AbstractClientValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025A31D3513CE00D4A4E1 /* AbstractClientValue.swift */; };
+		10A7B85F1D58E0190087D6F8 /* ODataDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025481D2D634800D4A4E1 /* ODataDeserializer.swift */; };
+		10A7B8601D58E01F0087D6F8 /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025521D2D824800D4A4E1 /* Link.swift */; };
+		10A7B8611D58E02B0087D6F8 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260255C1D2DB8CE00D4A4E1 /* Operation.swift */; };
+		10A7B8621D58E0310087D6F8 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025561D2DA34200D4A4E1 /* Property.swift */; };
+		10A7B8631D58E0470087D6F8 /* Valuable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025581D2DAA2B00D4A4E1 /* Valuable.swift */; };
+		10A7B8641D58E04E0087D6F8 /* ValueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260255A1D2DB45400D4A4E1 /* ValueType.swift */; };
+		10A7B8651D58E05E0087D6F8 /* EdmTypeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026371D38FED900D4A4E1 /* EdmTypeInfo.swift */; };
+		10A7B8661D58E0630087D6F8 /* PropertyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025781D2EAA2900D4A4E1 /* PropertyType.swift */; };
+		10A7B8671D58E0780087D6F8 /* ComplexValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025E51D37A9B700D4A4E1 /* ComplexValue.swift */; };
+		10A7B8681D58E0890087D6F8 /* JsonEntitySetDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025841D2FD1D300D4A4E1 /* JsonEntitySetDeserializer.swift */; };
+		10A7B8691D58E0910087D6F8 /* PreferenceName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025291D2A896200D4A4E1 /* PreferenceName.swift */; };
+		10A7B86A1D58E0A50087D6F8 /* JsonEntityDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025821D2FCC5900D4A4E1 /* JsonEntityDeserializer.swift */; };
+		10A7B86B1D58E0AE0087D6F8 /* ODataClientImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307811D1C2B3900880BDB /* ODataClientImp.swift */; };
+		10A7B86C1D58E0B40087D6F8 /* EdmMetadataResponseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10656A751D4F808500206B7B /* EdmMetadataResponseImpl.swift */; };
+		10A7B86D1D58E0BB0087D6F8 /* EdmString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026481D3ECB2600D4A4E1 /* EdmString.swift */; };
+		10A7B86E1D58E0C10087D6F8 /* EdmInt32.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B9311D48D0740025E72C /* EdmInt32.swift */; };
+		10A7B86F1D58E0C70087D6F8 /* EdmInt64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B9371D4A46EF0025E72C /* EdmInt64.swift */; };
+		10A7B8701D58E0CC0087D6F8 /* EdmDecimal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B9351D48D7630025E72C /* EdmDecimal.swift */; };
+		10A7B8711D58E0D20087D6F8 /* EdmDateTimeOffset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B9331D48D5740025E72C /* EdmDateTimeOffset.swift */; };
+		10A7B8721D58E0E40087D6F8 /* SingletonPrimitiveType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260264A1D3ED0BF00D4A4E1 /* SingletonPrimitiveType.swift */; };
+		10A7B8731D58E0F30087D6F8 /* AbstractODataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025401D2D1AAB00D4A4E1 /* AbstractODataResponse.swift */; };
+		10A7B8741D58E1090087D6F8 /* AbstractPrimitiveType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025801D2FAFAB00D4A4E1 /* AbstractPrimitiveType.swift */; };
+		10A7B8751D58E1150087D6F8 /* ODataClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243078C1D1C3DD700880BDB /* ODataClientFactory.swift */; };
+		10A7B8761D58E1220087D6F8 /* RetrieveRequestFactoryImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243078A1D1C2EF600880BDB /* RetrieveRequestFactoryImp.swift */; };
+		10A7B8771D58E12B0087D6F8 /* ODataBinderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025951D341EAC00D4A4E1 /* ODataBinderImpl.swift */; };
+		10A7B8781D58E1310087D6F8 /* ClientObjectFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025DB1D369E4400D4A4E1 /* ClientObjectFactoryImpl.swift */; };
+		10A7B8791D58E1380087D6F8 /* ODataServiceVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307BB1D22E4B100880BDB /* ODataServiceVersion.swift */; };
+		10A7B87A1D58E1410087D6F8 /* ODataReaderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10357E971D50D2AF00B6D5BE /* ODataReaderImpl.swift */; };
+		10A7B87B1D58E1550087D6F8 /* ClientEntitySetImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025D31D36824200D4A4E1 /* ClientEntitySetImpl.swift */; };
+		10A7B87C1D58E15C0087D6F8 /* ClientEntityImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025971D34F38E00D4A4E1 /* ClientEntityImpl.swift */; };
+		10A7B87D1D58E1610087D6F8 /* ClientEnumValueImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025C91D36510E00D4A4E1 /* ClientEnumValueImpl.swift */; };
+		10A7B87E1D58E1670087D6F8 /* ClientComplexValueImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025BF1D358F4700D4A4E1 /* ClientComplexValueImpl.swift */; };
+		10A7B87F1D58E16D0087D6F8 /* ClientCollectionValueImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025CF1D365AB900D4A4E1 /* ClientCollectionValueImpl.swift */; };
+		10A7B8801D58E1720087D6F8 /* ClientPropertyImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260259D1D3506EC00D4A4E1 /* ClientPropertyImpl.swift */; };
+		10A7B8811D58E1790087D6F8 /* ODataEntityRequestImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025441D2D4F5D00D4A4E1 /* ODataEntityRequestImpl.swift */; };
+		10A7B8821D58E1820087D6F8 /* ContextURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026411D3D056100D4A4E1 /* ContextURL.swift */; };
+		10A7B8831D58E1880087D6F8 /* ContextURLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260263F1D3D039C00D4A4E1 /* ContextURLParser.swift */; };
+		10A7B8841D58E1980087D6F8 /* AbstractClientPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025C51D36421A00D4A4E1 /* AbstractClientPayload.swift */; };
+		10A7B8851D58E19D0087D6F8 /* ClientAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025BB1D357E0500D4A4E1 /* ClientAnnotation.swift */; };
+		10A7B8861D58E1A60087D6F8 /* ClientValuableImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260259F1D350A5F00D4A4E1 /* ClientValuableImpl.swift */; };
+		10A7B8871D58E1B90087D6F8 /* ClientItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025C71D36447B00D4A4E1 /* ClientItem.swift */; };
+		10A7B8881D58E1C30087D6F8 /* ODataEntitySetRequestImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260258F1D33A8EC00D4A4E1 /* ODataEntitySetRequestImpl.swift */; };
+		10A7B8891D58E1D20087D6F8 /* ODataBasicRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260253A1D2D054200D4A4E1 /* ODataBasicRequest.swift */; };
+		10A7B88A1D58E1D80087D6F8 /* EdmEntityTypeImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10357EA01D51F3FA00B6D5BE /* EdmEntityTypeImpl.swift */; };
+		10A7B88B1D58E1E00087D6F8 /* CsdlEntityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10357EA51D52018500B6D5BE /* CsdlEntityType.swift */; };
+		10A7B88C1D58E1E60087D6F8 /* CsdlProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260262D1D38E12400D4A4E1 /* CsdlProperty.swift */; };
+		10A7B88D1D58E1EA0087D6F8 /* EdmPropertyImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026351D38F2C200D4A4E1 /* EdmPropertyImpl.swift */; };
+		10A7B88E1D58E1F00087D6F8 /* EdmKeyPropertyRefImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10357EA71D522DDB00B6D5BE /* EdmKeyPropertyRefImpl.swift */; };
+		10A7B88F1D58E1FF0087D6F8 /* CsdlAbstractEdmItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260262F1D38E7AC00D4A4E1 /* CsdlAbstractEdmItem.swift */; };
+		10A7B8901D58E2040087D6F8 /* csdlNamed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026311D38EBF800D4A4E1 /* csdlNamed.swift */; };
+		10A7B8911D58E20A0087D6F8 /* CsdlAnnotatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025F31D37DD7300D4A4E1 /* CsdlAnnotatable.swift */; };
+		10A7B8921D58E2170087D6F8 /* AbstractEdmNamed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025EF1D37D87000D4A4E1 /* AbstractEdmNamed.swift */; };
+		10A7B8931D58E21B0087D6F8 /* AbstractEdmAnnotatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025F11D37D96900D4A4E1 /* AbstractEdmAnnotatable.swift */; };
+		10A7B8941D58E23C0087D6F8 /* CsdlStructuralType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260262B1D37FE5900D4A4E1 /* CsdlStructuralType.swift */; };
+		10A7B8951D58E24F0087D6F8 /* AbstractEdmStructuredType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025EB1D37CA2D00D4A4E1 /* AbstractEdmStructuredType.swift */; };
+		10A7B8961D58E2530087D6F8 /* EdmTypeImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025ED1D37D4D800D4A4E1 /* EdmTypeImpl.swift */; };
+		10A7B8971D58E26A0087D6F8 /* EdmNavigationProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260260F1D37ECE500D4A4E1 /* EdmNavigationProperty.swift */; };
+		10A7B8981D58E27B0087D6F8 /* EdmReferentialConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026111D37EE2000D4A4E1 /* EdmReferentialConstraint.swift */; };
 		424307381D198AA700880BDB /* ResponseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307371D198AA700880BDB /* ResponseViewController.swift */; };
 		4243073A1D198EAF00880BDB /* olingo120.png in Resources */ = {isa = PBXBuildFile; fileRef = 424307391D198EAF00880BDB /* olingo120.png */; };
 		4243073D1D19A14B00880BDB /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243073C1D19A14B00880BDB /* Customer.swift */; };
@@ -45,6 +184,24 @@
 		4252B9341D48D5740025E72C /* EdmDateTimeOffset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B9331D48D5740025E72C /* EdmDateTimeOffset.swift */; };
 		4252B9361D48D7630025E72C /* EdmDecimal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B9351D48D7630025E72C /* EdmDecimal.swift */; };
 		4252B9381D4A46EF0025E72C /* EdmInt64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B9371D4A46EF0025E72C /* EdmInt64.swift */; };
+		4252B93A1D5230B00025E72C /* ODataEntityRetrieveResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B9391D5230B00025E72C /* ODataEntityRetrieveResponse.swift */; };
+		4252B93C1D5247040025E72C /* URIBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B93B1D5247040025E72C /* URIBuilder.swift */; };
+		4252B93E1D52511F0025E72C /* URIBuilderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B93D1D52511F0025E72C /* URIBuilderImpl.swift */; };
+		4252B9401D526ED70025E72C /* QueryOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B93F1D526ED70025E72C /* QueryOption.swift */; };
+		4252B9421D5272020025E72C /* SegmentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B9411D5272020025E72C /* SegmentType.swift */; };
+		4252B9441D538A2F0025E72C /* URIBuilderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B9431D538A2F0025E72C /* URIBuilderTest.swift */; };
+		4252B9451D538B440025E72C /* URIBuilderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B93D1D52511F0025E72C /* URIBuilderImpl.swift */; };
+		4252B9461D538B5B0025E72C /* URIBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B93B1D5247040025E72C /* URIBuilder.swift */; };
+		4252B9471D538E2C0025E72C /* QueryOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B93F1D526ED70025E72C /* QueryOption.swift */; };
+		4252B9481D538E460025E72C /* SegmentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B9411D5272020025E72C /* SegmentType.swift */; };
+		4252B9491D538E550025E72C /* EdmEnumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025FD1D37E44300D4A4E1 /* EdmEnumType.swift */; };
+		4252B94A1D538EB10025E72C /* EdmPrimitiveType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260257E1D2FAC8800D4A4E1 /* EdmPrimitiveType.swift */; };
+		4252B94B1D538EBD0025E72C /* EdmMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025FF1D37E51A00D4A4E1 /* EdmMember.swift */; };
+		4252B94C1D538F870025E72C /* EdmType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025AF1D355CE200D4A4E1 /* EdmType.swift */; };
+		4252B94D1D538F8F0025E72C /* EdmNamed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025B11D355E4100D4A4E1 /* EdmNamed.swift */; };
+		4252B94E1D538FA30025E72C /* FullQualifiedName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260257C1D2EB2AA00D4A4E1 /* FullQualifiedName.swift */; };
+		4252B94F1D538FB00025E72C /* EdmTypeKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025B31D355F1300D4A4E1 /* EdmTypeKind.swift */; };
+		4252B9501D538FC40025E72C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025381D2CF56000D4A4E1 /* Extensions.swift */; };
 		426025151D26B12C00D4A4E1 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025141D26B12C00D4A4E1 /* Configuration.swift */; };
 		426025171D26B3D500D4A4E1 /* HttpClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025161D26B3D500D4A4E1 /* HttpClientFactory.swift */; };
 		426025191D26B4AD00D4A4E1 /* HttpUriRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025181D26B4AD00D4A4E1 /* HttpUriRequestFactory.swift */; };
@@ -270,6 +427,12 @@
 		4252B9331D48D5740025E72C /* EdmDateTimeOffset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EdmDateTimeOffset.swift; path = ClientLibrary/core/edm/primitiveType/EdmDateTimeOffset.swift; sourceTree = "<group>"; };
 		4252B9351D48D7630025E72C /* EdmDecimal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EdmDecimal.swift; path = ClientLibrary/core/edm/primitiveType/EdmDecimal.swift; sourceTree = "<group>"; };
 		4252B9371D4A46EF0025E72C /* EdmInt64.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EdmInt64.swift; path = ClientLibrary/core/edm/primitiveType/EdmInt64.swift; sourceTree = "<group>"; };
+		4252B9391D5230B00025E72C /* ODataEntityRetrieveResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ODataEntityRetrieveResponse.swift; path = ClientLibrary/core/communication/request/retrieve/ODataEntityRetrieveResponse.swift; sourceTree = "<group>"; };
+		4252B93B1D5247040025E72C /* URIBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URIBuilder.swift; path = ClientLibrary/api/uri/URIBuilder.swift; sourceTree = "<group>"; };
+		4252B93D1D52511F0025E72C /* URIBuilderImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URIBuilderImpl.swift; path = ClientLibrary/core/uri/URIBuilderImpl.swift; sourceTree = "<group>"; };
+		4252B93F1D526ED70025E72C /* QueryOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QueryOption.swift; path = ClientLibrary/api/uri/QueryOption.swift; sourceTree = "<group>"; };
+		4252B9411D5272020025E72C /* SegmentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SegmentType.swift; path = ClientLibrary/api/uri/SegmentType.swift; sourceTree = "<group>"; };
+		4252B9431D538A2F0025E72C /* URIBuilderTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URIBuilderTest.swift; sourceTree = "<group>"; };
 		426025141D26B12C00D4A4E1 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Configuration.swift; path = ClientLibrary/api/Configuration.swift; sourceTree = "<group>"; };
 		426025161D26B3D500D4A4E1 /* HttpClientFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpClientFactory.swift; path = ClientLibrary/api/http/HttpClientFactory.swift; sourceTree = "<group>"; };
 		426025181D26B4AD00D4A4E1 /* HttpUriRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpUriRequestFactory.swift; path = ClientLibrary/api/http/HttpUriRequestFactory.swift; sourceTree = "<group>"; };
@@ -582,6 +745,7 @@
 			children = (
 				426025641D2E6AD500D4A4E1 /* Constants.swift */,
 				426025141D26B12C00D4A4E1 /* Configuration.swift */,
+				424307461D1BEBC900880BDB /* uri */,
 				4243079F1D1D7C5F00880BDB /* http */,
 				4243077F1D1C2B0600880BDB /* ODataClient.swift */,
 				4243074F1D1BEC8A00880BDB /* format */,
@@ -738,6 +902,9 @@
 		424307461D1BEBC900880BDB /* uri */ = {
 			isa = PBXGroup;
 			children = (
+				4252B93F1D526ED70025E72C /* QueryOption.swift */,
+				4252B9411D5272020025E72C /* SegmentType.swift */,
+				4252B93B1D5247040025E72C /* URIBuilder.swift */,
 			);
 			name = uri;
 			sourceTree = "<group>";
@@ -816,6 +983,7 @@
 		4243074C1D1BEC2A00880BDB /* uri */ = {
 			isa = PBXGroup;
 			children = (
+				4252B93D1D52511F0025E72C /* URIBuilderImpl.swift */,
 			);
 			name = uri;
 			sourceTree = "<group>";
@@ -840,7 +1008,6 @@
 		4243074F1D1BEC8A00880BDB /* format */ = {
 			isa = PBXGroup;
 			children = (
-				424307461D1BEBC900880BDB /* uri */,
 				426025291D2A896200D4A4E1 /* PreferenceName.swift */,
 				426057061D2574DE00EB202B /* TypeUtil.swift */,
 				424307BD1D23223E00880BDB /* ContentType.swift */,
@@ -902,6 +1069,7 @@
 				10656A6D1D4F59A000206B7B /* EdmMetadataRequest.swift */,
 				10656A6F1D4F5A6E00206B7B /* EdmMetadataRequestImpl.swift */,
 				10656A751D4F808500206B7B /* EdmMetadataResponseImpl.swift */,
+				4252B9391D5230B00025E72C /* ODataEntityRetrieveResponse.swift */,
 			);
 			name = retrieve;
 			sourceTree = "<group>";
@@ -1098,6 +1266,7 @@
 				10357EA91D53367A00B6D5BE /* core */,
 				424307AF1D229BE300880BDB /* ODataHeadersTest.swift */,
 				426025331D2BC67500D4A4E1 /* AbstractODataRequestTest.swift */,
+				4252B9431D538A2F0025E72C /* URIBuilderTest.swift */,
 			);
 			name = "Client Library";
 			sourceTree = "<group>";
@@ -1333,6 +1502,7 @@
 				10357E9A1D50D52800B6D5BE /* EdmProviderImpl.swift in Sources */,
 				4260263C1D3CEE3800D4A4E1 /* EdmTerm.swift in Sources */,
 				10656A6E1D4F59A000206B7B /* EdmMetadataRequest.swift in Sources */,
+				4252B9401D526ED70025E72C /* QueryOption.swift in Sources */,
 				426025321D2BBADE00D4A4E1 /* HttpSessionFactory.swift in Sources */,
 				4260260A1D37E91E00D4A4E1 /* EdmProperty.swift in Sources */,
 				426025E21D36DADE00D4A4E1 /* Geospatial.swift in Sources */,
@@ -1374,6 +1544,7 @@
 				426025711D2E882A00D4A4E1 /* AtomDeserializer.swift in Sources */,
 				426026491D3ECB2600D4A4E1 /* EdmString.swift in Sources */,
 				426025591D2DAA2B00D4A4E1 /* Valuable.swift in Sources */,
+				4252B93E1D52511F0025E72C /* URIBuilderImpl.swift in Sources */,
 				426025C81D36447B00D4A4E1 /* ClientItem.swift in Sources */,
 				4260258C1D3393B500D4A4E1 /* Logger.swift in Sources */,
 				426025901D33A8EC00D4A4E1 /* ODataEntitySetRequestImpl.swift in Sources */,
@@ -1386,6 +1557,7 @@
 				426025FE1D37E44300D4A4E1 /* EdmEnumType.swift in Sources */,
 				426025D81D368E3B00D4A4E1 /* IEntityCollection.swift in Sources */,
 				426025A41D3513CE00D4A4E1 /* AbstractClientValue.swift in Sources */,
+				4252B93A1D5230B00025E72C /* ODataEntityRetrieveResponse.swift in Sources */,
 				426025E61D37A9B700D4A4E1 /* ComplexValue.swift in Sources */,
 				426025F01D37D87000D4A4E1 /* AbstractEdmNamed.swift in Sources */,
 				10656A701D4F5A6E00206B7B /* EdmMetadataRequestImpl.swift in Sources */,
@@ -1415,6 +1587,7 @@
 				4260254D1D2D6CD000D4A4E1 /* ResWrapper.swift in Sources */,
 				426025391D2CF56000D4A4E1 /* Extensions.swift in Sources */,
 				426025C01D358F4700D4A4E1 /* ClientComplexValueImpl.swift in Sources */,
+				4252B93C1D5247040025E72C /* URIBuilder.swift in Sources */,
 				426025E81D37C6B300D4A4E1 /* EdmComplexTypeImpl.swift in Sources */,
 				426025431D2D21AD00D4A4E1 /* ODataResponse.swift in Sources */,
 				426025411D2D1AAB00D4A4E1 /* AbstractODataResponse.swift in Sources */,
@@ -1430,6 +1603,7 @@
 				4260256F1D2E85EE00D4A4E1 /* DeletedEntity.swift in Sources */,
 				426026041D37E6A400D4A4E1 /* EdmStructuredType.swift in Sources */,
 				4260261C1D37F3B800D4A4E1 /* EdmNavigationPropertyBinding.swift in Sources */,
+				4252B9421D5272020025E72C /* SegmentType.swift in Sources */,
 				426026421D3D056100D4A4E1 /* ContextURL.swift in Sources */,
 				4260260E1D37EB8A00D4A4E1 /* EdmMapping.swift in Sources */,
 				426025191D26B4AD00D4A4E1 /* HttpUriRequestFactory.swift in Sources */,
@@ -1520,21 +1694,173 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10A7B85D1D58DFF00087D6F8 /* IEntityCollection.swift in Sources */,
+				10A7B80F1D58D6A20087D6F8 /* Edm.swift in Sources */,
+				4252B9451D538B440025E72C /* URIBuilderImpl.swift in Sources */,
+				10A7B8631D58E0470087D6F8 /* Valuable.swift in Sources */,
+				10A7B8161D58D70A0087D6F8 /* EdmFunction.swift in Sources */,
+				10A7B84F1D58DF690087D6F8 /* ClientEntity.swift in Sources */,
+				10A7B8891D58E1D20087D6F8 /* ODataBasicRequest.swift in Sources */,
+				10A7B85A1D58DFDF0087D6F8 /* ClientPrimitiveValueImpl.swift in Sources */,
+				10A7B8691D58E0910087D6F8 /* PreferenceName.swift in Sources */,
+				10A7B8941D58E23C0087D6F8 /* CsdlStructuralType.swift in Sources */,
+				10A7B8241D58D7950087D6F8 /* EdmReturnType.swift in Sources */,
+				10A7B8531D58DF940087D6F8 /* ODataEntityRetrieveResponse.swift in Sources */,
+				10A7B8471D58DF0D0087D6F8 /* ClientPrimitiveValueBuilder.swift in Sources */,
+				10A7B8351D58DE790087D6F8 /* HttpUriRequest.swift in Sources */,
+				10A7B8451D58DEFF0087D6F8 /* ODataEntitySetRequest.swift in Sources */,
 				424307B01D229BE300880BDB /* ODataHeadersTest.swift in Sources */,
+				4252B9461D538B5B0025E72C /* URIBuilder.swift in Sources */,
+				10A7B8821D58E1820087D6F8 /* ContextURL.swift in Sources */,
+				10A7B8211D58D77F0087D6F8 /* EdmTyped.swift in Sources */,
+				10A7B8431D58DEE30087D6F8 /* ODataResponse.swift in Sources */,
 				426025351D2BCCA100D4A4E1 /* ContentType.swift in Sources */,
+				10A7B8621D58E0310087D6F8 /* Property.swift in Sources */,
+				10A7B8591D58DFD90087D6F8 /* ResWrapper.swift in Sources */,
+				10A7B87C1D58E15C0087D6F8 /* ClientEntityImpl.swift in Sources */,
+				10A7B81F1D58D76A0087D6F8 /* EdmEntitySet.swift in Sources */,
+				10A7B8851D58E19D0087D6F8 /* ClientAnnotation.swift in Sources */,
+				10A7B88E1D58E1F00087D6F8 /* EdmKeyPropertyRefImpl.swift in Sources */,
+				10A7B8131D58D6F50087D6F8 /* EdmEntityType.swift in Sources */,
+				10A7B8701D58E0CC0087D6F8 /* EdmDecimal.swift in Sources */,
+				10A7B87F1D58E16D0087D6F8 /* ClientCollectionValueImpl.swift in Sources */,
+				10A7B8801D58E1720087D6F8 /* ClientPropertyImpl.swift in Sources */,
+				10A7B8191D58D7340087D6F8 /* EdmStructuredType.swift in Sources */,
+				10A7B8911D58E20A0087D6F8 /* CsdlAnnotatable.swift in Sources */,
+				10A7B8981D58E27B0087D6F8 /* EdmReferentialConstraint.swift in Sources */,
+				10A7B8151D58D7040087D6F8 /* EdmAction.swift in Sources */,
+				4252B9441D538A2F0025E72C /* URIBuilderTest.swift in Sources */,
+				10A7B8181D58D7170087D6F8 /* EdmEntityContainer.swift in Sources */,
+				10A7B8401D58DECD0087D6F8 /* ODataHeaders.swift in Sources */,
+				10A7B81D1D58D75A0087D6F8 /* EdmElement.swift in Sources */,
+				10A7B8561D58DFAA0087D6F8 /* ResWrap.swift in Sources */,
+				10A7B82C1D58DD7F0087D6F8 /* EdmOperationImport.swift in Sources */,
+				10A7B8901D58E2040087D6F8 /* csdlNamed.swift in Sources */,
+				10A7B8121D58D6E20087D6F8 /* EdmSchemaImpl.swift in Sources */,
+				10A7B8141D58D6FD0087D6F8 /* EdmComplexType.swift in Sources */,
+				10A7B8331D58DE6C0087D6F8 /* ODataClient.swift in Sources */,
+				10A7B8661D58E0630087D6F8 /* PropertyType.swift in Sources */,
+				10A7B8101D58D6C30087D6F8 /* EdmTypeDefinition.swift in Sources */,
+				10A7B8511D58DF880087D6F8 /* ClientValuable.swift in Sources */,
+				10A7B8541D58DF9D0087D6F8 /* EntityCollection.swift in Sources */,
+				10A7B82A1D58DD610087D6F8 /* EdmActionImport.swift in Sources */,
 				426025201D26BA7C00D4A4E1 /* DefaultHttpClientFactory.swift in Sources */,
 				10357EAE1D5336DE00B6D5BE /* EdmMetadataRequestTest.swift in Sources */,
+				10A7B8361D58DE800087D6F8 /* HttpResponseContent.swift in Sources */,
+				10A7B8521D58DF8F0087D6F8 /* ClientCollectionValue.swift in Sources */,
 				426025891D304ACC00D4A4E1 /* HttpSessionFactory.swift in Sources */,
+				10A7B8791D58E1380087D6F8 /* ODataServiceVersion.swift in Sources */,
+				10A7B8671D58E0780087D6F8 /* ComplexValue.swift in Sources */,
+				4252B94D1D538F8F0025E72C /* EdmNamed.swift in Sources */,
+				10A7B8461D58DF060087D6F8 /* ClientEntitySet.swift in Sources */,
+				10A7B82B1D58DD670087D6F8 /* EdmFunctionImport.swift in Sources */,
+				10A7B8411D58DED40087D6F8 /* ODataRetrieveRequest.swift in Sources */,
+				10A7B8781D58E1310087D6F8 /* ClientObjectFactoryImpl.swift in Sources */,
+				10A7B8611D58E02B0087D6F8 /* Operation.swift in Sources */,
 				426025231D26BD9500D4A4E1 /* ConfigurationImpl.swift in Sources */,
+				10A7B85C1D58DFEB0087D6F8 /* AbstractODataObject.swift in Sources */,
+				10A7B87D1D58E1610087D6F8 /* ClientEnumValueImpl.swift in Sources */,
+				10A7B8231D58D78E0087D6F8 /* EdmMappable.swift in Sources */,
+				10A7B8321D58DE4A0087D6F8 /* Request.swift in Sources */,
+				10A7B88C1D58E1E60087D6F8 /* CsdlProperty.swift in Sources */,
+				10A7B8391D58DE970087D6F8 /* Logger.swift in Sources */,
+				10A7B8311D58DE450087D6F8 /* AbstractODataRequest.swift in Sources */,
+				10A7B8491D58DF1F0087D6F8 /* ClientComplexValue.swift in Sources */,
 				426025861D304A1C00D4A4E1 /* ErrorTypes.swift in Sources */,
+				10A7B8271D58DD3F0087D6F8 /* EdmNavigationPropertyBinding.swift in Sources */,
+				10A7B8221D58D7860087D6F8 /* SRID.swift in Sources */,
 				4260258A1D304AE200D4A4E1 /* TypeUtil.swift in Sources */,
+				10A7B8641D58E04E0087D6F8 /* ValueType.swift in Sources */,
 				426025261D2A628D00D4A4E1 /* ConfigurationProperty.swift in Sources */,
+				10A7B8831D58E1880087D6F8 /* ContextURLParser.swift in Sources */,
+				10A7B84A1D58DF270087D6F8 /* ClientValue.swift in Sources */,
+				10A7B87B1D58E1550087D6F8 /* ClientEntitySetImpl.swift in Sources */,
+				10A7B8881D58E1C30087D6F8 /* ODataEntitySetRequestImpl.swift in Sources */,
+				10A7B84D1D58DF500087D6F8 /* ClientPrimitiveValue.swift in Sources */,
+				10A7B8811D58E1790087D6F8 /* ODataEntityRequestImpl.swift in Sources */,
+				10A7B8201D58D7790087D6F8 /* EdmBindingTarget.swift in Sources */,
 				426025871D304A4C00D4A4E1 /* Configuration.swift in Sources */,
+				10A7B83A1D58DEA70087D6F8 /* RetrieveRequestFactory.swift in Sources */,
+				10A7B8731D58E0F30087D6F8 /* AbstractODataResponse.swift in Sources */,
+				10A7B8971D58E26A0087D6F8 /* EdmNavigationProperty.swift in Sources */,
+				10A7B8481D58DF180087D6F8 /* ClientEnumValue.swift in Sources */,
+				10A7B86E1D58E0C10087D6F8 /* EdmInt32.swift in Sources */,
 				10357EB21D5354AA00B6D5BE /* EdmTest.swift in Sources */,
+				10A7B83F1D58DEC80087D6F8 /* ODataReader.swift in Sources */,
+				10A7B8761D58E1220087D6F8 /* RetrieveRequestFactoryImp.swift in Sources */,
+				10A7B8581D58DFB70087D6F8 /* JsonDeserializer.swift in Sources */,
+				10A7B8741D58E1090087D6F8 /* AbstractPrimitiveType.swift in Sources */,
+				10A7B8441D58DEEA0087D6F8 /* ODataException.swift in Sources */,
+				10A7B8771D58E12B0087D6F8 /* ODataBinderImpl.swift in Sources */,
+				10A7B83B1D58DEAE0087D6F8 /* ClientObjectFactory.swift in Sources */,
+				10A7B8111D58D6D90087D6F8 /* EdmSchema.swift in Sources */,
 				42E62B441D0B0E91004B1B6D /* iOS_OlingoTests.swift in Sources */,
+				10A7B8751D58E1150087D6F8 /* ODataClientFactory.swift in Sources */,
+				10A7B8861D58E1A60087D6F8 /* ClientValuableImpl.swift in Sources */,
+				10A7B8961D58E2530087D6F8 /* EdmTypeImpl.swift in Sources */,
+				4252B9481D538E460025E72C /* SegmentType.swift in Sources */,
+				10A7B88F1D58E1FF0087D6F8 /* CsdlAbstractEdmItem.swift in Sources */,
+				10A7B8381D58DE900087D6F8 /* HttpHeader.swift in Sources */,
+				4252B94F1D538FB00025E72C /* EdmTypeKind.swift in Sources */,
+				10A7B81C1D58D7520087D6F8 /* EdmProperty.swift in Sources */,
+				10A7B82D1D58DD860087D6F8 /* EdmPrimitiveTypeKind.swift in Sources */,
+				10A7B83C1D58DEB50087D6F8 /* ODataBinder.swift in Sources */,
+				10A7B8171D58D7110087D6F8 /* EdmTerm.swift in Sources */,
+				10A7B86C1D58E0B40087D6F8 /* EdmMetadataResponseImpl.swift in Sources */,
+				10A7B84B1D58DF2F0087D6F8 /* ClientProperty.swift in Sources */,
+				10A7B8341D58DE720087D6F8 /* ODataHeadersImpl.swift in Sources */,
+				10A7B8501D58DF700087D6F8 /* ODataEntityRequest.swift in Sources */,
+				10A7B82E1D58DD950087D6F8 /* Constants.swift in Sources */,
+				10A7B84E1D58DF620087D6F8 /* ODataEntitySetRetrieveResponse.swift in Sources */,
+				10A7B85F1D58E0190087D6F8 /* ODataDeserializer.swift in Sources */,
+				10A7B81E1D58D7630087D6F8 /* EdmParameter.swift in Sources */,
+				10A7B8251D58D79B0087D6F8 /* EdmAnnotatable.swift in Sources */,
+				10A7B8551D58DFA40087D6F8 /* Entity.swift in Sources */,
+				10A7B82F1D58DE2A0087D6F8 /* EdmMetadataRequest.swift in Sources */,
+				10A7B8371D58DE880087D6F8 /* HttpMethod.swift in Sources */,
+				4252B94B1D538EBD0025E72C /* EdmMember.swift in Sources */,
 				4260251D1D26B67500D4A4E1 /* AbstractHttpClientFactory.swift in Sources */,
+				10A7B8871D58E1B90087D6F8 /* ClientItem.swift in Sources */,
+				10A7B8841D58E1980087D6F8 /* AbstractClientPayload.swift in Sources */,
+				4252B9471D538E2C0025E72C /* QueryOption.swift in Sources */,
+				4252B94E1D538FA30025E72C /* FullQualifiedName.swift in Sources */,
 				426025881D304A7500D4A4E1 /* HttpSessionFactoryImpl.swift in Sources */,
+				10A7B86D1D58E0BB0087D6F8 /* EdmString.swift in Sources */,
+				10A7B8721D58E0E40087D6F8 /* SingletonPrimitiveType.swift in Sources */,
+				10A7B8571D58DFB10087D6F8 /* ClientODataDeserializer.swift in Sources */,
+				10A7B8931D58E21B0087D6F8 /* AbstractEdmAnnotatable.swift in Sources */,
+				10A7B8651D58E05E0087D6F8 /* EdmTypeInfo.swift in Sources */,
+				10A7B84C1D58DF4A0087D6F8 /* ClientPrimitiveValueBuilderImpl.swift in Sources */,
+				4252B9501D538FC40025E72C /* Extensions.swift in Sources */,
+				10A7B83D1D58DEBB0087D6F8 /* ODataPreferences.swift in Sources */,
 				426025341D2BC67500D4A4E1 /* AbstractODataRequestTest.swift in Sources */,
+				10A7B8601D58E01F0087D6F8 /* Link.swift in Sources */,
+				10A7B86F1D58E0C70087D6F8 /* EdmInt64.swift in Sources */,
+				10A7B8301D58DE340087D6F8 /* EdmMetadataRequestImpl.swift in Sources */,
+				10A7B8281D58DD510087D6F8 /* Geospatial.swift in Sources */,
+				10A7B8681D58E0890087D6F8 /* JsonEntitySetDeserializer.swift in Sources */,
+				10A7B80E1D58D65E0087D6F8 /* EdmProviderImpl.swift in Sources */,
+				10A7B81A1D58D73A0087D6F8 /* EdmKeyPropertyRef.swift in Sources */,
+				10A7B81B1D58D7410087D6F8 /* EdmOperation.swift in Sources */,
+				10A7B83E1D58DEC10087D6F8 /* ClientODataDeserializerImpl.swift in Sources */,
+				10A7B87E1D58E1670087D6F8 /* ClientComplexValueImpl.swift in Sources */,
+				4252B94A1D538EB10025E72C /* EdmPrimitiveType.swift in Sources */,
+				4252B94C1D538F870025E72C /* EdmType.swift in Sources */,
+				10A7B85B1D58DFE60087D6F8 /* EdmPrimitiveTypeFactory.swift in Sources */,
+				10A7B8261D58DD390087D6F8 /* EdmMapping.swift in Sources */,
+				10A7B88D1D58E1EA0087D6F8 /* EdmPropertyImpl.swift in Sources */,
+				10A7B88B1D58E1E00087D6F8 /* CsdlEntityType.swift in Sources */,
+				10A7B86A1D58E0A50087D6F8 /* JsonEntityDeserializer.swift in Sources */,
+				10A7B85E1D58E0050087D6F8 /* AbstractClientValue.swift in Sources */,
+				10A7B8421D58DEE00087D6F8 /* ODataRetrieveResponse.swift in Sources */,
+				10A7B8711D58E0D20087D6F8 /* EdmDateTimeOffset.swift in Sources */,
+				10A7B88A1D58E1D80087D6F8 /* EdmEntityTypeImpl.swift in Sources */,
+				10A7B8291D58DD580087D6F8 /* EdmSingleton.swift in Sources */,
+				10A7B8951D58E24F0087D6F8 /* AbstractEdmStructuredType.swift in Sources */,
+				10A7B87A1D58E1410087D6F8 /* ODataReaderImpl.swift in Sources */,
+				4252B9491D538E550025E72C /* EdmEnumType.swift in Sources */,
+				10A7B8921D58E2170087D6F8 /* AbstractEdmNamed.swift in Sources */,
+				10A7B86B1D58E0AE0087D6F8 /* ODataClientImp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

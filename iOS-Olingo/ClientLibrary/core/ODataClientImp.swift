@@ -11,18 +11,14 @@ import Foundation
 /// Implmentation of an OData Client
 public class ODataClientImp: ODataClient {
   
-//  let retrieveReqFact:RetrieveRequestFactory = RetrieveRequestFactoryImpl();
-//
-//  func retrieveRequestFactory() -> RetrieveRequestFactory {
-//    
-//     return retrieveReqFact;
-//  }
   
-    /// an instance of a retrieve request factory (read only)
-  //TODO: Design notes - use of lazy
+  /// an instance of a retrieve request factory (read only)
+  // declared lazy in order to allow instantiation of ODataClientImp to then pass self to RetrieveRequestFactoryImpl
   public lazy var retrieveRequestFactory:RetrieveRequestFactory = RetrieveRequestFactoryImpl(client: self)
   
   public let objectFactory:ClientObjectFactory = ClientObjectFactoryImpl()
+  
+  // declared lazy in order to allow instantiation of ODataClientImp to then pass self to OdataBinderImpl
   public lazy var binder:ODataBinder = ODataBinderImpl(client: self)
   
   public let configuration:Configuration = ConfigurationImpl()
@@ -31,7 +27,6 @@ public class ODataClientImp: ODataClient {
   
   public init() {
     httpSession = configuration.httpSessionFactory.create()
-    //retrieveRequestFactory = RetrieveRequestFactoryImpl(client: self)
   }
   
    
@@ -56,6 +51,7 @@ public class ODataClientImp: ODataClient {
     return ClientODataDeserializerImpl(boolean: false, contentType: contentType)
   }
   
+
   /// get the reader
   /// - parameters:
   ///   - none
@@ -63,6 +59,15 @@ public class ODataClientImp: ODataClient {
   /// - throws: No error conditions are expected
   public func getReader() -> ODataReader {
     return ODataReaderImpl()
+  }
+
+  /// get a new URI builder
+  /// - parameters:
+  ///   - serviceRoot: root URL for service
+  /// - returns: URI Builder
+  /// - throws: No error conditions are expected
+  public func newURIBuilder(serviceRoot:String) -> URIBuilder {
+    return URIBuilderImpl(configuration: configuration, serviceRoot: serviceRoot)
   }
 
   

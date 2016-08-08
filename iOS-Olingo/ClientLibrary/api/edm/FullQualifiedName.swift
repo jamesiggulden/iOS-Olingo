@@ -57,7 +57,7 @@ public final class FullQualifiedName { //implements Serializable {
   ///   - name: name of FQN
   /// - returns: New instance of object
   /// - throws: No error conditions are expected
-  init( namespace:String,name:String) {
+  init(namespace:String,name:String) {
     self.namespace = namespace
     self.name = name
     self.fqn = namespace + "." + name

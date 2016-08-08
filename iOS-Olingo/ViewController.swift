@@ -15,18 +15,27 @@ class ViewController: UIViewController {
   @IBOutlet weak var entitySetField: UITextField!
   
   @IBOutlet weak var Northwind: UILabel!
+  @IBOutlet weak var entityIDField: UITextField!
+
   
-  
+  @IBOutlet weak var numRecsSkipField: UITextField!
+  @IBOutlet weak var numRecsToReturnField: UITextField!
   @IBOutlet weak var TripPin: UILabel!
   
   @IBOutlet weak var Status: UILabel!
+  @IBOutlet weak var filterQueryField: UITextField!
+  @IBOutlet weak var propertyFilterField: UITextField!
+  @IBOutlet weak var orderByField: UITextField!
   
   @IBOutlet weak var Console: UITextView!
   
   @IBOutlet weak var StatusConsole: UITextView!
   
   @IBOutlet weak var RawConsole: UITextView!
+  
+  
   @IBAction func ClearConsole(sender: AnyObject) {
+
     Console.text = ""
   }
   
@@ -117,6 +126,7 @@ class ViewController: UIViewController {
     var duration:Double
     var consoleOutput:String = ""
     var myEdm: Edm
+    let uriBuilder = client.newURIBuilder(root)
   
     if let entitySet = entitySetField.text{
       if entitySet.isEmpty || entitySet == "entity set" {
@@ -127,10 +137,11 @@ class ViewController: UIViewController {
         ResetRawConsole("")
         return
       }
-      urlString += "/"+entitySet
-      let uri:NSURL = NSURL(string:urlString)!
+      
       if entitySet.containsString("$metadata"){
         // request metadata
+        urlString += "/"+entitySet
+        let uri:NSURL = NSURL(string:urlString)!
         ResetStatusConsole("Retrieve Request Factory")
         let myRetriveRequestFactory = client.retrieveRequestFactory
         let myEdmMetaRequest = myRetriveRequestFactory.getMetadataRequest(uri)
@@ -147,117 +158,294 @@ class ViewController: UIViewController {
         //ResetRawConsole("")
       }
       else {
-        // request entity set (at present) will expand as functionality increases (option picker?)
-        ResetStatusConsole("Retrieve Request Factory")
-        log.debug("Retrieve Request Factory")
-        let retriveRequestFactory = client.retrieveRequestFactory
-        AppendToStatusConsole("Build Entity Set Request")
-        log.debug("Build Entity Set Request")
-        startTime = NSDate()
-        let entitySetRequest = retriveRequestFactory.entitySetRequest(uri)
-        AppendToStatusConsole("Execute Built Request")
-
-        log.debug("Execute Built Request")
-        guard let response = entitySetRequest.execute() else {
-          AppendToConsole("Nil returned from execute request")
-          return
-        }
-        endTime = NSDate()
-        duration = endTime.timeIntervalSinceDate(startTime)
-        AppendToStatusConsole("Time to execute build request: \(round(duration*100)/100) secs")
-        
-        AppendToStatusConsole("Response Status Code: \(response.statusCode)")
-        log.info ("Response Status Code: \(response.statusCode)")
-        Status.text = "Response Status Code: \(response.statusCode)"
-        
-        let headerNames = response.headerNames
-        let headers = response.headers
-        AppendToConsole("Headers :")
-        for (name,value) in headers {
-          log.debug ("Header Name: \(name) : Value: \(value)")
-          // AppendToConsole("Header Name: \(name) : Value: \(value)")
-          AppendToConsole("Name: \(name) : Value: \(value)")
-        }
-        
-        AppendToConsole("Header Names :")
-        for name in headerNames {
-          AppendToConsole(name)
-          log.debug ("Header Name: \(name)")
-        }
-        
-        if let dataString = NSString(data:response.res.data!,encoding: NSUTF8StringEncoding) {
-          log.debug(String(dataString))
-          AppendToRawConsole("Data:")
-          AppendToRawConsole(String(dataString))
-        }
-        else {
-          AppendToConsole("No data returned")
-          log.warn("No data returned")
-        }
-        startTime = NSDate()
         do {
-          AppendToStatusConsole("Get Body")
-          guard let entitySet = try response.getBody() else {
-            AppendToConsole("No data in body")
-            return
-          }
-          endTime = NSDate()
-          duration = endTime.timeIntervalSinceDate(startTime)
-          AppendToStatusConsole("Time to extract returned response: \(round(duration*100)/100) secs")
           
-          AppendToConsole("")
-          AppendToConsole("Body Content")
-          AppendToConsole("Number of Entiites returned (info from service): \(entitySet.count)")
-          AppendToConsole("Next URL: \(entitySet.next.debugDescription)")
-          AppendToStatusConsole("Number of Entiites returned (calculated): \(entitySet.entities.count)")
+          // request entity set (at present) will expand as functionality increases (option picker?)
+          ResetStatusConsole("Retrieve Request Factory")
+          log.debug("Retrieve Request Factory")
+          let retriveRequestFactory = client.retrieveRequestFactory
           
-          let entityList = entitySet.entities
-          startTime = NSDate()
-          for entity in entityList {
-            if let name = entity.id?.absoluteString {
-              consoleOutput += "\n"
-              consoleOutput += "\n \(name)"
-            }
-            for property in entity.properties {
-              var name:String = ""
-              var val:String = ""
-              var type:String = ""
-              
-              if let propertyValue = property.value.asPrimitive {
-                
-                if let propertyValueValue = propertyValue.value {
-                  name = String(property.name)
-                  val = String(propertyValueValue)
-                  switch (propertyValueValue){
-                  case is String:
-                    type = "String"
-                  case is Int:
-                    type = "Int"
-                  default:
-                    type = "?"
+          if let entityID = entityIDField.text {
+            if entityID.isEmpty || entityID == "entity ID" {
+              // Request entity set
+              AppendToStatusConsole("Build URI")
+              log.debug("Build URI")
+              uriBuilder.appendEntitySetSegment(entitySet)
+              uriBuilder.count(true)
+              if let topAsText = numRecsToReturnField.text{
+                if !topAsText.isEmpty && topAsText != "# recs" {
+                  if let top = Int(topAsText) {
+                    uriBuilder.top(top)
                   }
                 }
-                consoleOutput += "\n    \(name) : \(val)  : (\(type))"
               }
+
+              if let skipAsText = numRecsSkipField.text{
+                if !skipAsText.isEmpty && skipAsText != " @ rec" {
+                  if let skip = Int(skipAsText) {
+                    uriBuilder.skip(skip)
+                  }
+                }
+              }
+              
+              if let orderBytext = orderByField.text {
+                if !orderBytext.isEmpty && orderBytext != "order by (desc)" {
+                  uriBuilder.orderBy(orderBytext)
+                }
+              }
+              
+              if let properties = propertyFilterField.text {
+                if !properties.isEmpty && properties != "property filter" {
+                  let filterArray = properties.componentsSeparatedByString(",")
+                  uriBuilder.select(filterArray)
+                }
+              }
+              
+              if let filterQuery = filterQueryField.text {
+                if !filterQuery.isEmpty && filterQuery != "filter query" {
+                  uriBuilder.filter(filterQuery)
+                }
+              }
+              let uri = try uriBuilder.build()
+              processEntitySet(retriveRequestFactory,uri: uri)
+            }
+            else {
+              // request specific entity by ID
+              AppendToStatusConsole("Build URI")
+              log.debug("Build URI")
+              uriBuilder.appendEntitySetSegment(entitySet)
+              uriBuilder.appendKeySegment(entityID)
+              let uri = try uriBuilder.build()
+              processEntity(retriveRequestFactory,uri: uri)
+
             }
             
           }
-          AppendToConsole(consoleOutput)
-          endTime = NSDate()
-          duration = endTime.timeIntervalSinceDate(startTime)
-          AppendToStatusConsole("Time to extract returned response: \(round(duration*100)/100) secs")
         }
         catch {
-          AppendToConsole("No content returned")
+          AppendToStatusConsole("Invalid URL format")
         }
       }
     }
-    else {
-      // submit the root only
-      let uri:NSURL = NSURL(string:urlString)!
-    }
+    
 
   }
+  
+  
+  
+  
+  func processEntitySet(retriveRequestFactory:RetrieveRequestFactory,uri:NSURL) {
+    
+    var startTime:NSDate
+    var endTime:NSDate
+    var duration:Double
+    var consoleOutput:String = ""
+    
+    AppendToStatusConsole("Build Entity Set Request")
+    log.debug("Build Entity Set Request")
+    startTime = NSDate()
+    
+    let entitySetRequest = retriveRequestFactory.entitySetRequest(uri)
+    
+    AppendToStatusConsole("Execute Built Request")
+    
+    log.debug("Execute Built Request")
+    
+    guard let response = entitySetRequest.execute() else {
+    
+      AppendToConsole("Nil returned from execute request")
+      return
+    }
+    endTime = NSDate()
+    duration = endTime.timeIntervalSinceDate(startTime)
+    AppendToStatusConsole("Time to execute build request: \(round(duration*100)/100) secs")
+    
+    AppendToStatusConsole("Response Status Code: \(response.statusCode)")
+    log.info ("Response Status Code: \(response.statusCode)")
+    Status.text = "Response Status Code: \(response.statusCode)"
+    
+    //let headerNames = response.headerNames
+    let headers = response.headers
+    AppendToConsole("Headers :")
+    for (name,value) in headers {
+      log.debug ("Header Name: \(name) : Value: \(value)")
+      // AppendToConsole("Header Name: \(name) : Value: \(value)")
+      AppendToConsole("Name: \(name) : Value: \(value)")
+    }
+    
+    /*
+    AppendToConsole("Header Names :")
+    for name in headerNames {
+      AppendToConsole(name)
+      log.debug ("Header Name: \(name)")
+    }
+     */
+    
+    if let dataString = NSString(data:response.res.data!,encoding: NSUTF8StringEncoding) {
+      log.debug(String(dataString))
+      AppendToRawConsole("Data:")
+      AppendToRawConsole(String(dataString))
+    }
+    else {
+      AppendToConsole("No data returned")
+      log.warn("No data returned")
+    }
+    startTime = NSDate()
+    do {
+      AppendToStatusConsole("Get Body")
+      guard let entitySet = try response.getBody() else {
+        AppendToConsole("No data in body")
+        return
+      }
+      endTime = NSDate()
+      duration = endTime.timeIntervalSinceDate(startTime)
+      AppendToStatusConsole("Time to extract returned response: \(round(duration*100)/100) secs")
+      
+      AppendToConsole("")
+      AppendToConsole("Body Content")
+      AppendToConsole("Number of Entiites available: \(entitySet.count)")
+      AppendToStatusConsole("Number of Entiites available: \(entitySet.count)")
+      AppendToConsole("Next URL: \(entitySet.next.debugDescription)")
+      AppendToStatusConsole("Number of Entiites returned (calculated): \(entitySet.entities.count)")
+      
+      let entityList = entitySet.entities
+      startTime = NSDate()
+      for entity in entityList {
+        if let name = entity.id?.absoluteString {
+          consoleOutput += "\n"
+          consoleOutput += "\n \(name)"
+        }
+        for property in entity.properties {
+          var name:String = ""
+          var val:String = ""
+          var typeKind:String = ""
+          
+          if let propertyValue = property.value.asPrimitive {
+            if let propertyValueValue = propertyValue.value {
+              name = String(property.name)
+              val = String(propertyValueValue)
+              if let tk = propertyValue.typeKind?.toString() {
+                typeKind = tk
+              }
+            }
+            consoleOutput += "\n    \(name) : \(val)  : (\(typeKind))"
+          }
+        }
+        
+      }
+      AppendToConsole(consoleOutput)
+      endTime = NSDate()
+      duration = endTime.timeIntervalSinceDate(startTime)
+      AppendToStatusConsole("Time to extract returned response: \(round(duration*100)/100) secs")
+    }
+    catch {
+      AppendToConsole("No content returned")
+    }
+  }
+  
+  func processEntity(retriveRequestFactory:RetrieveRequestFactory,uri:NSURL) {
+    
+    var startTime:NSDate
+    var endTime:NSDate
+    var duration:Double
+    var consoleOutput:String = ""
+    
+    AppendToStatusConsole("Build Entity Set Request")
+    log.debug("Build Entity Set Request")
+    startTime = NSDate()
+    let entityRequest = retriveRequestFactory.entityRequest(uri)
+    AppendToStatusConsole("Execute Built Request")
+    
+    log.debug("Execute Built Request")
+    guard let response = entityRequest.execute() else {
+      AppendToConsole("Nil returned from execute request")
+      return
+    }
+    endTime = NSDate()
+    duration = endTime.timeIntervalSinceDate(startTime)
+    AppendToStatusConsole("Time to execute build request: \(round(duration*100)/100) secs")
+    
+    AppendToStatusConsole("Response Status Code: \(response.statusCode)")
+    log.info ("Response Status Code: \(response.statusCode)")
+    Status.text = "Response Status Code: \(response.statusCode)"
+    
+    let headerNames = response.headerNames
+    let headers = response.headers
+    AppendToConsole("Headers :")
+    for (name,value) in headers {
+      log.debug ("Header Name: \(name) : Value: \(value)")
+      // AppendToConsole("Header Name: \(name) : Value: \(value)")
+      AppendToConsole("Name: \(name) : Value: \(value)")
+    }
+    
+    /*
+    AppendToConsole("Header Names :")
+    for name in headerNames {
+      AppendToConsole(name)
+      log.debug ("Header Name: \(name)")
+    }
+ */
+    
+    if let dataString = NSString(data:response.res.data!,encoding: NSUTF8StringEncoding) {
+      log.debug(String(dataString))
+      AppendToRawConsole("Data:")
+      AppendToRawConsole(String(dataString))
+    }
+    else {
+      AppendToConsole("No data returned")
+      log.warn("No data returned")
+    }
+    startTime = NSDate()
+    do {
+      AppendToStatusConsole("Get Body")
+      guard let entity = try response.getBody() else {
+        AppendToConsole("No data in body")
+        AppendToStatusConsole("No data in body")
+        
+        return
+      }
+      endTime = NSDate()
+      duration = endTime.timeIntervalSinceDate(startTime)
+      AppendToStatusConsole("Time to extract returned response: \(round(duration*100)/100) secs")
+      
+      AppendToConsole("")
+      AppendToConsole("Body Content")
+
+      startTime = NSDate()
+      
+      if let name = entity.id?.absoluteString {
+        consoleOutput += "\n"
+        consoleOutput += "\n \(name)"
+      }
+      for property in entity.properties {
+        var name:String = ""
+        var val:String = ""
+        var typeKind:String = ""
+        
+        if let propertyValue = property.value.asPrimitive {
+          if let propertyValueValue = propertyValue.value {
+            name = String(property.name)
+            val = String(propertyValueValue)
+            if let tk = propertyValue.typeKind?.toString() {
+              typeKind = tk
+            }
+          }
+          consoleOutput += "\n  \(name) : \(val)  : (\(typeKind))"
+        }
+      }
+      
+      
+      AppendToConsole(consoleOutput)
+      endTime = NSDate()
+      duration = endTime.timeIntervalSinceDate(startTime)
+      AppendToStatusConsole("Time to extract returned response: \(round(duration*100)/100) secs")
+    }
+    catch {
+      AppendToConsole("No content returned")
+      AppendToStatusConsole("No content returned")
+    }
+  }
+
   
   func AppendToConsole(msg: String) {
       Console.text = Console.text + "\n" + msg

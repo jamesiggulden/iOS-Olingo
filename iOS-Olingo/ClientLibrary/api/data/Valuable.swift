@@ -29,9 +29,7 @@
 
 import Foundation
 
-/**
- * Defines a value with an according type.
- */
+/// Defines a value with an according type
 // TODO: This should be Abstract class
 public class Valuable {  //: Annotatable {
   
@@ -114,7 +112,7 @@ public class Valuable {  //: Annotatable {
   /// Get the value in its complex representation or nil if it is not based on a complex ValueType
   public var asComplex: ComplexValue? {
     if isComplex && !isCollection {
-      return value as! ComplexValue
+      return (value as! ComplexValue)
     }
     else {
       return nil
@@ -124,7 +122,7 @@ public class Valuable {  //: Annotatable {
   /// Get the value in its geospatial representation or null if it is not based on a geospatial ValueType
   public func  asGeospatial() -> Geospatial? {
     if isGeospatial && !isCollection {
-      return value as! Geospatial
+      return (value as! Geospatial)
     }
     else {
       return nil
@@ -135,7 +133,7 @@ public class Valuable {  //: Annotatable {
 
   public var asCollection: [Any]? {
     if isCollection {
-      return value as! [Any]
+      return (value as! [Any])
     }
     else {
       return nil
@@ -161,17 +159,56 @@ public class Valuable {  //: Annotatable {
 
 
   public func equals( o:AnyObject) -> Bool {
+    
+    let other = o as! Valuable
+    
     if (self  === o) {
       return true
     }
     else {
-      return false
-      // TODO: Add extra checks
-      /*
-      if (o == nil || getClass() != o.getClass()) {
+      if self.dynamicType !== other.dynamicType {
         return false
       }
-      final Valuable other = (Valuable) o
+      if self.valueType == nil {
+        if other.valueType != nil {
+          return false
+        }
+      }
+      else {
+        if self.valueType != other.valueType {
+          return false
+      }
+      if self.value == nil {
+        if other.value != nil {
+          return false
+        }
+      }
+      else {
+        // is this a valid method to compare?
+        if String (self.type) != String(other.value) {
+          return false
+        }
+      }
+      // as type is not optional we only need to copare if values are the same
+      if self.type != other.type {
+        return false
+      }
+      // TODO: Add Annotations
+        /*
+      if self.getAnnotations().equals(other.getAnnotations()) {
+         return true
+      }
+      else{
+        return false
+      }
+         */
+      return true
+    }
+      
+    return false
+
+      // Original Olingo
+      /*
       return getAnnotations().equals(other.getAnnotations())
         && (valueType == null ? other.valueType == null : valueType.equals(other.valueType))
         && (value == null ? other.value == null : value.equals(other.value))
@@ -199,7 +236,6 @@ public class Valuable {  //: Annotatable {
     else {
       return ""
     }
-    //return value == nil ? "nil" : String(value)  //.toString()
   }
 }
 

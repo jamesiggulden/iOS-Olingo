@@ -70,7 +70,7 @@ public class EdmTest: XCTestCase {
     let myRequest = myRetriveRequestFactory.getMetadataRequest(myUri)
     do {
       let myResponse = try myRequest.execute()
-      let myEdm = myResponse.getBody() as! EdmProviderImpl
+      let myEdm = (myResponse.getBody() as! EdmProviderImpl)
       let myEntityType = myEdm.getEntityType(FullQualifiedName(namespace: "NorthwindModel", name: "Customer"))
       XCTAssert(myEntityType!.name == "Customer")
     }

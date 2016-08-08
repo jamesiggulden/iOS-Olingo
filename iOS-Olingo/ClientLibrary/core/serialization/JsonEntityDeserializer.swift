@@ -48,17 +48,31 @@ public class JsonEntityDeserializer : JsonDeserializer {
   
   // MARK: - Methods
   
-  //TODO: doDeserialize(parser:JsonParser) throws -> ResWrap<Entity>
+  /// Deserialize the data into an Entity object.
+  /// - parameters:
+  ///   - inputData: NSDATA object containing the preparsed JSON data
+  /// - returns: Entity
+  /// - throws: Error thrown from deserializeEntity function
   func doDeserialize(inputData: AnyObject) throws -> Entity?  {
     
-    guard var data = inputData as? [String: AnyObject] else {
+    guard let data = inputData as? [String: AnyObject] else {
       log.error("Not a dictionary")
       return nil
     }
     log.debug(data.debugDescription)
+    let entityData = try deserializeEntity(data)
+    return entityData.payload
+  }
+  
+  
+  /// Deserialize the data dictionary into an Entity object.
+  /// - parameters:
+  ///   - inputData: dictionary containing the preparsed JSON data
+  /// - returns: Entity
+  /// - throws: Error thrown from deserializeEntity function
+  private func deserializeEntity(inputData:[String:AnyObject]) throws -> (contextURL: NSURL!, metadataETag: String, payload: Entity!) {
     
-
-    
+    var data = inputData
     let entity:Entity = Entity()
     var contextURL:NSURL? = nil
     var metadataETag:String = ""
@@ -143,10 +157,10 @@ public class JsonEntityDeserializer : JsonDeserializer {
       data[JSON_MEDIA_ETAG] = nil
     }
     
-    var toRemove:[String] = []
-    
     // TODO: Annotations
     /*
+     var toRemove:[String] = []
+     
      //final Map<String, List<Annotation>> annotations = new HashMap<String, List<Annotation>>()
      
      // with explictly checked for keys and values handled and removed
@@ -233,28 +247,45 @@ public class JsonEntityDeserializer : JsonDeserializer {
      */
     
     do {
-     try populate(&entity.properties, data: data)
-      
-     log.debug("Number of properties: \(entity.properties.count)")
-      //try populate(entity, entity.properties, tree, parser.getCodec())
+      try populate(&entity.properties, data: data)
+      log.debug("Number of properties: \(entity.properties.count)")
     } catch  {
-      // throw new IOException(e)
+      // bubble up error to calling function
     }
-    
-    log.debug("Entity Property 3: \(entity.properties[3].name) : \(String(entity.properties[3].value as! String))")
-    return entity
-    //return  ResWrap<Entity>(contextURL: contextURL!, metadataETag: metadataETag, payload: entity)
-    
+    return (contextURL: contextURL, metadataETag: metadataETag, payload: entity)
   }
 
   
   //TODO: doDeserialize(parser:JsonParser) throws -> ResWrap<Entity>
+  /// Parse and deserialize the data into an Entity object.
+  /// - parameters:
+  ///   - inputData: NSDATA object containing the unparsed JSON data
+  /// - returns: Resource Wrapper with Entity
+  /// - throws: No error conditions are expected
   func doDeserialize(inputData: NSData) throws -> ResWrap<Entity>?  {
     
     
-    guard var data = parseHttpData(inputData) else {
+    guard let data = parseHttpData(inputData) else {
       return nil
     }
+    do {
+      let entityData = try deserializeEntity(data)
+      if entityData.contextURL == nil {
+        return nil
+      }
+      return  ResWrap<Entity>(contextURL: entityData.contextURL!, metadataETag: entityData.metadataETag, payload: entityData.payload)
+
+    }
+    catch {
+      throw GetODataException.ODataEntityFailed
+    }
+    
+    // ==============================================================
+    // REDUNDENT?
+    /*
+    
+    
+    //return try deserializeEntity(data)
     
     let entity:Entity = Entity()
     var contextURL:NSURL? = nil
@@ -436,45 +467,27 @@ public class JsonEntityDeserializer : JsonDeserializer {
     }
     
     return  ResWrap<Entity>(contextURL: contextURL!, metadataETag: metadataETag, payload: entity)
-  
+     */
   }
   
-  // This helper method helps parse response JSON NSData into an array of customer objects.
+  
+  /// parse response JSON NSData into an array of customer objects
+  /// - parameters:
+  ///   - data: raw JSON data
+  /// - returns: Dictionary of JSON key value pairs
+  /// - throws: No error conditions are expected
   private func parseHttpData(data: NSData?) -> [String:AnyObject]! {
     do {
-      //if let data = data, response = try NSJSONSerialization.JSONObjectWithData(data,options:NSJSONReadingOptions(rawValue:0) as? [String: AnyObject] {
       if let data = data, response = try NSJSONSerialization.JSONObjectWithData(data, options:NSJSONReadingOptions(rawValue:0)) as? [String: AnyObject] {
         return response
-        // Get the results array
-        /*
-         if let array: AnyObject = response["value"]
-         {
-         
-         for entitySetDictonary in array as! [AnyObject]
-         {
-         if let entitySetDictonary = entitySetDictonary as? [String: AnyObject]{
-         return entitySetDictonary
-         }
-         else
-         {
-         print("Not a dictionary")
-         return nil
-         }
-         }
-         } else {
-         print("Value key not found in dictionary")
-         //self.responseStatusLabel.text = "Value key not found in dictionary"
-         }
-         */
       } else {
-        print("JSON Error")
-        //self.responseStatusLabel.text = "JSON Error"
+        log.error("JSON Error")
       }
     } catch let error as NSError {
-      print("Error parsing results: \(error.localizedDescription)")
-      //self.responseStatusLabel.text = "Error parsing results: \(error.localizedDescription)"
+      log.error("Error parsing results: \(error.localizedDescription)")
     }
     return nil
   }
+ 
 
 }

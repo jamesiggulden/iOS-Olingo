@@ -35,7 +35,7 @@ import Foundation
  /// AbstractODataRetrieveRequest,AbstractODataBasicRequest
 
 public class ODataEntityRequestImpl:AbstractODataRequest,ODataRetrieveRequest,ODataBasicRequest,ODataEntityRequest { //extends AbstractODataRetrieveRequest<E> implements ODataEntityRequest<E> {
-  
+
   
   // MARK: - Stored Properties
 
@@ -60,37 +60,50 @@ public class ODataEntityRequestImpl:AbstractODataRequest,ODataRetrieveRequest,OD
   public override func getDefaultFormat() -> ContentType {
     return odataClient.configuration.defaultPubFormat
   }
-  
+
+  /// Execute a synchronise request, wait, receive and return the received response
+  /// - parameters:
+  ///   - none
+  /// - returns: ODataEntityRetrieveResponse
+  /// - throws: ODataException
+  public func execute() -> ODataEntityRetrieveResponse? {
+    do {
+      return try executeRequest() as? ODataEntityRetrieveResponse
+    }
+    catch {
+      log.error("Error ocurred executing request.")
+      return nil
+    }
+  }
    
   /// Execute a synchronise request, wait, receive and return the received response
   /// - parameters:
   ///   - none
-  /// - returns: response
-  /// - throws: No error conditions are expected
-  public func execute() -> ODataRetrieveResponse! {
-    
+  /// - returns: ODataRetrieveResponse
+  /// - throws: ODataException
+  public func execute() throws -> ODataRetrieveResponse! {
+    return try executeRequest() as! ODataRetrieveResponse
+  }
+  
+  private func executeRequest() throws -> Any? {
     do {
       let result = try doExecute()
       let response = ODataEntityResponse(odataClient: odataClient,res: result!)
-      // MARK: REDUNDANT:?
-      //let httpClient = HttpClient()
-      //let response = ODataEntityResponse(odataClient: odataClient, httpClient: httpClient, res: result)
       return response
-      //return ODataEntityResponse(odataClient, httpClient, doExecute())
     }
     catch {
-      // need to do something with a thrown error
+      throw ODataException.DataProviderException
     }
-    return nil
-    
   }
   
   /// Response class about an ODataEntityRequest.
-  public class ODataEntityResponse: AbstractODataResponse, ODataRetrieveResponse {
+  public class ODataEntityResponse: AbstractODataResponse, ODataEntityRetrieveResponse, ODataRetrieveResponse {
     
     // MARK: - Stored Properties
 
-    private var entity:AnyObject? // ??? is this a gerneic type?
+    private var entity:ClientEntity?
+    // make this type specific at present
+    //private var entity:AnyObject? // ??? is this a gerneic type?
     
     // MARK: - Computed Properties
 
@@ -107,10 +120,38 @@ public class ODataEntityRequestImpl:AbstractODataRequest,ODataRetrieveRequest,OD
     /// Get the body of the returned response
     /// - parameters:
     ///   - none
-    /// - returns: Entity
+    /// - returns: Any
     /// - throws: No error conditions are expected
     public func getBody() -> Any {
-      return "Unsupported operation"
+      fatalError("Unsupported Operation")
+    }
+    
+    /// Get the body of the returned response
+    /// - parameters:
+    ///   - none
+    /// - returns: Entity
+    /// - throws: GetODataException
+    public func getBody() throws -> ClientEntity? {
+      if entity == nil {
+        do {
+          
+          log.debug("Parse Client entity")
+          let contentType = ContentType.parse(self.contentType)!
+          log.debug("To entity")
+          let  oDataDeserializer = odataClient.getDeserializer(contentType)
+          guard let resource:ResWrap<Entity> = try oDataDeserializer.toEntity(payload) else {
+            throw GetODataException.ODataEntityFailed
+          }
+          log.debug("Bind entity")
+          entity = try odataClient.binder.getODataEntity(resource) as ClientEntity
+        } catch  {
+          throw GetODataException.ODataEntityFailed
+        }
+        defer {
+          self.close()
+        }
+      }
+      return entity
     }
     
     //TODO: Come back to this once we are happy we are getting something through to here

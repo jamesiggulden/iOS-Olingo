@@ -19,10 +19,10 @@
 
 
 //
-//  ODataEntitySetRetrieveResponse.swift
+//  ODataEntityRetrieveResponse.swift
 //  iOS-Olingo
 //
-//  Created by Greg Napier on 19/07/2016.
+//  Created by Greg Napier on 03/08/2016.
 //  Copyright © 2016 EnergySys. All rights reserved.
 //
 
@@ -31,13 +31,14 @@ import Foundation
 // MARK: - Protocol
 
 /// Response abstract class about an ODataRetrieveRequest.
-public protocol ODataEntitySetRetrieveResponse : ODataResponse {
+public protocol ODataEntityRetrieveResponse : ODataResponse {
   
-
+  
   
   // MARK: - Protocol Properties
   
   // MARK: - Protocol Methods
 
-  func getBody() throws -> ClientEntitySet?
+  func getBody() throws -> ClientEntity?
+
 }

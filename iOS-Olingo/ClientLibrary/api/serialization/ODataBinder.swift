@@ -44,8 +44,7 @@ public protocol ODataBinder {
   ///   - entity: OData entity set
   /// - returns: Entity  object
   /// - throws: No error conditions are expected
-  // TODO: func getEntity(entity:ClientEntity ) -> Entity
-  //func getEntity(entity:ClientEntity ) -> Entity
+  func getEntity(entity:ClientEntity ) -> Entity
   
 
   /// Gets an `link` from the given OData link
@@ -126,8 +125,7 @@ public protocol ODataBinder {
   ///   - resource: entity resource
   /// - returns: `ClientEntity` object
   /// - throws: No error conditions are expected
-  // TODO: unc getODataEntity(resource:ResWrap<Entity> ) -> ClientEntity
-  //func getODataEntity(resource:ResWrap<Entity> ) -> ClientEntity
+  func getODataEntity(resource:ResWrap<Entity> ) throws -> ClientEntity
   
 
   /// Gets `ODataProperty` from the given property resource

@@ -19,25 +19,41 @@
 
 
 //
-//  ODataEntitySetRetrieveResponse.swift
+//  SegmentType.swift
 //  iOS-Olingo
 //
-//  Created by Greg Napier on 19/07/2016.
+//  Created by Greg Napier on 03/08/2016.
 //  Copyright © 2016 EnergySys. All rights reserved.
 //
 
 import Foundation
 
-// MARK: - Protocol
-
-/// Response abstract class about an ODataRetrieveRequest.
-public protocol ODataEntitySetRetrieveResponse : ODataResponse {
+/// URI Segment types
+public enum SegmentType:String {
   
-
+  case ENTITY = "$entity"
+  case ENTITYSET
+  case SINGLETON
+  case KEY
+  case KEY_AS_SEGMENT
+  case PROPERTY
+  case NAVIGATION
+  case DERIVED_ENTITY_TYPE
+  case VALUE = "$value"
+  case COUNT = "$count"
+  case BOUND_OPERATION
+  case UNBOUND_OPERATION
+  case BOUND_ACTION
+  case UNBOUND_ACTION
+  case METADATA = "$metadata"
+  case BATCH = "$batch"
+  case LINKS = "$links"
+  case REF = "$ref"
+  case CROSS_JOIN = "$crossjoin"
+  case ALL = "$all"
+  /// For query options like $count that need to stay in their own segment, right after service root.
+  case ROOT_QUERY_OPTION
+  case SERVICEROOT
   
-  // MARK: - Protocol Properties
   
-  // MARK: - Protocol Methods
-
-  func getBody() throws -> ClientEntitySet?
 }

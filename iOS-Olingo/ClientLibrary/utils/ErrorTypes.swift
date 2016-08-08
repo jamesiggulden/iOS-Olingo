@@ -34,6 +34,7 @@ public enum IllegalArgumentException:ErrorType {
   case ContainsWhiteSpace
   case InvalidFormat
   case BeginsWithWhiteSpace
+  case CouldNotBuildValidURI
 }
 
 public enum ClassInitialisationException: ErrorType {
@@ -55,6 +56,7 @@ public enum EdmPrimitiveTypeException:ErrorType{
   case LiteralHasIllegalContent
   case LiteralCannotBeConvertedToValueType
   case ValueTypeNotSupported
+  case DoesNotMatchFacetsConstraints
 }
 
 public enum EdmException:ErrorType{
@@ -69,6 +71,6 @@ public enum GetODataException:ErrorType{
   case ODataValueFailed
   case ODataPropertyFailed
   case ODataEntityFailed
-  case OdataEntitySetFailed
+  case ODataEntitySetFailed
 }
   

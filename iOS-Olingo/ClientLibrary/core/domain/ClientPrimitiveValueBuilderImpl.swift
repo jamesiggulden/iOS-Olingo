@@ -66,8 +66,7 @@ public class ClientPrimitiveValueBuilderImpl: ClientPrimitiveValueBuilder {
         instance.typeKind = type
       }
       
-      // TODO: EdmPrimitiveTypeFactory.getInstance(instance.typeKind)
-      //instance.type = EdmPrimitiveTypeFactory.getInstance(instance.typeKind)
+      instance.type = try EdmPrimitiveTypeFactory.getInstance(instance.typeKind!)
       
       return self
     }
