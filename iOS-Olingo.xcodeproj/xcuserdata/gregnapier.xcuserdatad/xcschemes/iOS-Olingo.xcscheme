@@ -37,6 +37,14 @@
                BlueprintName = "iOS-OlingoTests"
                ReferencedContainer = "container:iOS-Olingo.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "AbstractODataRequestTest/testPerformanceExample()">
+               </Test>
+               <Test
+                  Identifier = "EdmTypes/testPerformanceExample()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
          <TestableReference
             skipped = "NO">

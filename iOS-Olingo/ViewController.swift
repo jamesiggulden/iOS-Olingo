@@ -26,6 +26,7 @@ class ViewController: UIViewController {
   @IBOutlet weak var filterQueryField: UITextField!
   @IBOutlet weak var propertyFilterField: UITextField!
   @IBOutlet weak var orderByField: UITextField!
+  @IBOutlet weak var urlLabel: UILabel!
   
   @IBOutlet weak var Console: UITextView!
   
@@ -35,6 +36,7 @@ class ViewController: UIViewController {
   
   
   @IBAction func ClearConsole(sender: AnyObject) {
+    urlLabel.text = ""
     Status.text = ""
     StatusConsole.text = ""
     RawConsole.text = ""
@@ -128,7 +130,10 @@ class ViewController: UIViewController {
     var duration:Double
     var consoleOutput:String = ""
     var myEdm: Edm
-    let uriBuilder = client.newURIBuilder(root)
+    guard let uriBuilder = client.newURIBuilder(root) else {
+      return
+    }
+    ResetRawConsole("")
   
     if let entitySet = entitySetField.text{
       if entitySet.isEmpty || entitySet == "entity set" {
@@ -136,10 +141,8 @@ class ViewController: UIViewController {
         ResetStatusConsole("No request provided")
         AppendToStatusConsole("Stub for service document request")
         ResetConsole("")
-        ResetRawConsole("")
         return
       }
-      
       if entitySet.containsString("$metadata"){
         // request metadata
         urlString += "/"+entitySet
@@ -213,6 +216,8 @@ class ViewController: UIViewController {
                 }
               }
               let uri = try uriBuilder.build()
+              urlLabel.text = uri.absoluteString
+              
               processEntitySet(retriveRequestFactory,uri: uri)
             }
             else {
@@ -221,7 +226,15 @@ class ViewController: UIViewController {
               log.debug("Build URI")
               uriBuilder.appendEntitySetSegment(entitySet)
               uriBuilder.appendKeySegment(entityID)
+              if let properties = propertyFilterField.text {
+                if !properties.isEmpty && properties != "property filter" {
+                  let filterArray = properties.componentsSeparatedByString(",")
+                  uriBuilder.select(filterArray)
+                }
+              }
               let uri = try uriBuilder.build()
+              urlLabel.text = uri.absoluteString
+              
               processEntity(retriveRequestFactory,uri: uri)
 
             }
@@ -524,21 +537,6 @@ class ViewController: UIViewController {
 //    let URIData = serviceRootField.text! + "/" + entitySetField.text!
 //    
 //    responseController.URIData = URIData
-    
-    
-    
-    
-    
-
-    
   }
-  
-  
-  
-  
-  
-  
-
-
 }
 

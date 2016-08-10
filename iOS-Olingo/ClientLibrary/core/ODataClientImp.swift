@@ -66,7 +66,11 @@ public class ODataClientImp: ODataClient {
   ///   - serviceRoot: root URL for service
   /// - returns: URI Builder
   /// - throws: No error conditions are expected
-  public func newURIBuilder(serviceRoot:String) -> URIBuilder {
+  public func newURIBuilder(serviceRoot:String) -> URIBuilder? {
+    if serviceRoot.isEmpty{
+      return nil
+    }
+    
     return URIBuilderImpl(configuration: configuration, serviceRoot: serviceRoot)
   }
 

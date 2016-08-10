@@ -66,7 +66,6 @@ public final class EdmDecimal:SingletonPrimitiveType {
    ///   - scale: scale value
    ///   - isUnicode: is the value in unicode format
    ///   - returnType: returnType expected
-   
    /// - returns: NSDate with values obtained from value string
    /// - throws: EDMPrimtiveType Error
   override func internalValueOfString<T>(value:String,isnilable:Bool,maxLength:Int?,precision:Int,scale:Int,isUnicode:Bool,returnType:T) throws -> T {
@@ -160,22 +159,22 @@ public final class EdmDecimal:SingletonPrimitiveType {
   func convertDecimal<T>(value:NSDecimalNumber,returnType:T) throws -> T {
   
     log.debug("ConvertDecimal: \(returnType.dynamicType)")
-    if returnType is NSDecimalNumber.Type {
+    if returnType is NSDecimalNumber {
       return  value as! T //returnType.cast(value)
     }
-    else if returnType is Double.Type  {
+    else if returnType is Double  {
       let doubleValue = value.doubleValue
-      if value.isEqual(doubleValue) {
-        return value as! T //returnType.cast(doubleValue)
+      if value.isEqualToNumber(doubleValue) {  // .isEqualTo(doubleValue)
+        return value.doubleValue as! T //returnType.cast(doubleValue)
       }
       else {
         throw EdmPrimitiveTypeException.LiteralHasIllegalContent
       }
     }
-    else if returnType is Float.Type {
+    else if returnType is Float {
       let floatValue = value.floatValue
-      if value.isEqual(floatValue) {
-        return value as! T //returnType.cast(doubleValue)
+      if value.isEqualToNumber(floatValue) { //.isEqual(floatValue)
+        return value.floatValue as! T //returnType.cast(doubleValue)
       }
       else {
         throw EdmPrimitiveTypeException.LiteralHasIllegalContent
@@ -183,8 +182,8 @@ public final class EdmDecimal:SingletonPrimitiveType {
     }
     else {
 
-      if returnType is Int.Type {
-        return returnType as T //.cast(value.toBigIntegerExact())
+      if returnType is Int {
+        return value.integerValue as! T //.cast(value.toBigIntegerExact())
       }
       /*
       else if returnType.isAssignableFrom(Long.class)) {
@@ -207,18 +206,27 @@ public final class EdmDecimal:SingletonPrimitiveType {
   
   
   //TODO: isCompatible
-  /*
-  public boolean isCompatible(final EdmPrimitiveType primitiveType) {
-    return primitiveType instanceof EdmByte
-      || primitiveType instanceof EdmSByte
-        || primitiveType instanceof EdmInt16
-          || primitiveType instanceof EdmInt32
-            || primitiveType instanceof EdmInt64
-              || primitiveType instanceof EdmSingle
-                || primitiveType instanceof EdmDouble
-                  || primitiveType instanceof EdmDecimal
+  
+  public override func isCompatible(primitiveType:EdmPrimitiveType)-> Bool {
+    return primitiveType is EdmInt32
+      || primitiveType is EdmInt64
+      || primitiveType is EdmDouble
+      || primitiveType is EdmDecimal
+    
+    // TODO: Adding in EdmTypes when implemented
+    /*
+    return primitiveType is EdmByte
+      || primitiveType is EdmSByte
+      || primitiveType is EdmInt16
+      || primitiveType is EdmInt32
+      || primitiveType is EdmInt64
+      || primitiveType is EdmSingle
+      || primitiveType is EdmDouble
+      || primitiveType is EdmDecimal
+    */
+
   }
-  */
+  
   
   
   

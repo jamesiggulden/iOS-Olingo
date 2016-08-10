@@ -24,25 +24,61 @@ class URIBuilderTest: XCTestCase {
         super.tearDown()
     }
   
-  func encodeURL(uri:String) -> NSURL {
-    let escapedTest = uri.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
-    return NSURL(string:escapedTest!)!
-  }
   
   func testRootBuild() {
-    let uriBuilder = client.newURIBuilder(root)
+    guard let uriBuilder = client.newURIBuilder(root) else {
+      XCTFail()
+      return
+    }
     do {
       let uri = try uriBuilder.build()
       let testUrl = encodeURL(root)
       XCTAssert(uri == testUrl)
     }
     catch {
-      
+      XCTFail()
     }
   }
   
+  func testEmptyRootBuild() {
+    guard let uriBuilder = client.newURIBuilder(root) else {
+      XCTFail()
+      return
+    }
+    do {
+      let uri = try uriBuilder.build()
+      let testUrl = encodeURL(root)
+      XCTAssert(uri == testUrl)
+    }
+    catch {
+      XCTFail()
+    }
+  }
+  
+  // test to check if root is checked for validity
+  // currently no check performed
+  func testInvalidRootBuild() {
+    let invalidRoot = "h;/anayay"
+    guard let uriBuilder = client.newURIBuilder(invalidRoot) else {
+      XCTFail()
+      return
+    }
+    do {
+      let uri = try uriBuilder.build()
+      let testUrl = encodeURL(invalidRoot)
+      XCTAssert(uri == testUrl)
+    }
+    catch {
+      XCTFail()
+    }
+  }
+
+  
   func testEntitySetBuild() {
-    let uriBuilder = client.newURIBuilder(root)
+    guard let uriBuilder = client.newURIBuilder(root) else {
+      XCTFail()
+      return
+    }
     do {
       let uriBuilder = uriBuilder.appendEntitySetSegment("Customers")
       let uri = try uriBuilder.build()
@@ -50,12 +86,15 @@ class URIBuilderTest: XCTestCase {
       XCTAssert(uri == testUrl)
     }
     catch {
-      
+      XCTFail()
     }
   }
   
   func testAppendMultiEntitySetBuild() {
-    let uriBuilder = client.newURIBuilder(root)
+    guard let uriBuilder = client.newURIBuilder(root) else {
+      XCTFail()
+      return
+    }
     do {
       var uriBuilder = uriBuilder.appendEntitySetSegment("Customers")
       uriBuilder = uriBuilder.appendEntitySetSegment("Orders")
@@ -64,12 +103,15 @@ class URIBuilderTest: XCTestCase {
       XCTAssert(uri == testUrl)
     }
     catch {
-      
+      XCTFail()
     }
   }
   
   func testEmptyEntitySetBuild() {
-    let uriBuilder = client.newURIBuilder(root)
+    guard let uriBuilder = client.newURIBuilder(root) else {
+      XCTFail()
+      return
+    }
     do {
       let uriBuilder = uriBuilder.appendEntitySetSegment("")
       let uri = try uriBuilder.build()
@@ -77,13 +119,16 @@ class URIBuilderTest: XCTestCase {
       XCTAssert(uri == testUrl)
     }
     catch {
-      
+      XCTFail()
     }
   }
   
   
   func testAppendKeySegmentWhenString() {
-    let uriBuilder = client.newURIBuilder(root)
+    guard let uriBuilder = client.newURIBuilder(root) else {
+      XCTFail()
+      return
+    }
     do {
       let uriBuilder = uriBuilder.appendEntitySetSegment("Customers")
       uriBuilder.appendKeySegment("'BOTTM'")
@@ -92,13 +137,16 @@ class URIBuilderTest: XCTestCase {
       XCTAssert(uri == testUrl)
     }
     catch {
-      
+      XCTFail()
     }
   }
   
   
   func testAppendKeySegmentDblQuotesWhenString() {
-    let uriBuilder = client.newURIBuilder(root)
+    guard let uriBuilder = client.newURIBuilder(root) else {
+      XCTFail()
+      return
+    }
     do {
       let uriBuilder = uriBuilder.appendEntitySetSegment("Customers")
       uriBuilder.appendKeySegment("\"BOTTM\"")
@@ -107,41 +155,50 @@ class URIBuilderTest: XCTestCase {
       XCTAssert(uri == testUrl)
     }
     catch {
-      
+      XCTFail()
     }
   }
   
   func testAppendKeySegmentNoQuotesWhenString() {
-    let uriBuilder = client.newURIBuilder(root)
+    guard let uriBuilder = client.newURIBuilder(root) else {
+      XCTFail()
+      return
+    }
     do {
       let uriBuilder = uriBuilder.appendEntitySetSegment("Customers")
       uriBuilder.appendKeySegment("BOTTM")
       let uri = try uriBuilder.build()
-      let testUrl = encodeURL(root + "/Customers" + "('BOTTM')")
+      let testUrl = encodeURL(root + "/Customers" + "(BOTTM)")
       XCTAssert(uri == testUrl)
     }
     catch {
-      
+      XCTFail()
     }
   }
 
   func testAppendKeySegmentByPropertyWhenString() {
-    let uriBuilder = client.newURIBuilder(root)
+    guard let uriBuilder = client.newURIBuilder(root) else {
+      XCTFail()
+      return
+    }
     do {
       let uriBuilder = uriBuilder.appendEntitySetSegment("Customers")
       let id = "BOTTM"
       uriBuilder.appendKeySegment(id)
       let uri = try uriBuilder.build()
-      let testUrl = encodeURL(root + "/Customers" + "('BOTTM')")
+      let testUrl = encodeURL(root + "/Customers" + "(BOTTM)")
       XCTAssert(uri == testUrl)
     }
     catch {
-      
+      XCTFail()
     }
   }
   
   func testAppendKeySegmentByPropertyWhenStringWithSingleQuotes() {
-    let uriBuilder = client.newURIBuilder(root)
+    guard let uriBuilder = client.newURIBuilder(root) else {
+      XCTFail()
+      return
+    }
     do {
       let uriBuilder = uriBuilder.appendEntitySetSegment("Customers")
       let id = "'BOTTM'"
@@ -151,12 +208,15 @@ class URIBuilderTest: XCTestCase {
       XCTAssert(uri == testUrl)
     }
     catch {
-      
+      XCTFail()
     }
   }
 
   func testAppendKeySegmentWhenNumeric() {
-    let uriBuilder = client.newURIBuilder(root)
+    guard let uriBuilder = client.newURIBuilder(root) else {
+      XCTFail()
+      return
+    }
     do {
       let uriBuilder = uriBuilder.appendEntitySetSegment("Customers")
       uriBuilder.appendKeySegment(27)
@@ -165,12 +225,15 @@ class URIBuilderTest: XCTestCase {
       XCTAssert(uri == testUrl)
     }
     catch {
-      
+      XCTFail()
     }
   }
   
   func testAppendKeySegmentByPropertyWhenNumeric() {
-    let uriBuilder = client.newURIBuilder(root)
+    guard let uriBuilder = client.newURIBuilder(root) else {
+      XCTFail()
+      return
+    }
     do {
       let uriBuilder = uriBuilder.appendEntitySetSegment("Customers")
       let id = 27
@@ -180,54 +243,192 @@ class URIBuilderTest: XCTestCase {
       XCTAssert(uri == testUrl)
     }
     catch {
-      
+      XCTFail()
     }
   }
   
   func testAppendKeySegmentByPropertyWhenStringEmpty() {
-    let uriBuilder = client.newURIBuilder(root)
+    guard let uriBuilder = client.newURIBuilder(root) else {
+      XCTFail()
+      return
+    }
     do {
       let uriBuilder = uriBuilder.appendEntitySetSegment("Customers")
       let id:String = ""
       uriBuilder.appendKeySegment(id)
       let uri = try uriBuilder.build()
-      let testUrl = encodeURL(root)
+      let testUrl = encodeURL(root+"/Customers")
       XCTAssert(uri == testUrl)
     }
     catch {
-      
+      XCTFail()
     }
   }
   
+  func testAppendFilter() {
+    guard let uriBuilder = client.newURIBuilder(root) else {
+      XCTFail()
+      return
+    }
+    do {
+      let uriBuilder = uriBuilder.appendEntitySetSegment("Customers")
+      let filter:String = "Country eq 'UK'"
+      uriBuilder.filter(filter)
+      let uri = try uriBuilder.build()
+      let testUrl = encodeURL(root+"/Customers?$filter=Country eq 'UK'")
+      XCTAssert(uri == testUrl)
+    }
+    catch {
+      XCTFail()
+    }
+  }
+  
+  func testAppendEmptyFilter() {
+    guard let uriBuilder = client.newURIBuilder(root) else {
+      XCTFail()
+      return
+    }
+    do {
+      let uriBuilder = uriBuilder.appendEntitySetSegment("Customers")
+      let filter:String = ""
+      uriBuilder.filter(filter)
+      let uri = try uriBuilder.build()
+      let testUrl = encodeURL(root+"/Customers")
+      XCTAssert(uri == testUrl)
+    }
+    catch {
+      XCTFail()
+    }
+  }
+  
+  func testAppendSelect() {
+    guard let uriBuilder = client.newURIBuilder(root) else {
+      XCTFail()
+      return
+    }
+    do {
+      let uriBuilder = uriBuilder.appendEntitySetSegment("Customers")
+      let select:String = "Country"
+      uriBuilder.select(select)
+      let uri = try uriBuilder.build()
+      let testUrl = encodeURL(root+"/Customers?$select=Country")
+      XCTAssert(uri == testUrl)
+    }
+    catch {
+      XCTFail()
+    }
+  }
+  
+  func testAppendEmptySelect() {
+    guard let uriBuilder = client.newURIBuilder(root) else {
+      XCTFail()
+      return
+    }
+    do {
+      let uriBuilder = uriBuilder.appendEntitySetSegment("Customers")
+      let select:String = ""
+      uriBuilder.select(select)
+      let uri = try uriBuilder.build()
+      let testUrl = encodeURL(root+"/Customers")
+      XCTAssert(uri == testUrl)
+    }
+    catch {
+      XCTFail()
+    }
+  }
+
+  func testAppendOrderBy() {
+    guard let uriBuilder = client.newURIBuilder(root) else {
+      XCTFail()
+      return
+    }
+    do {
+      let uriBuilder = uriBuilder.appendEntitySetSegment("Customers")
+      let order:String = "Country"
+      uriBuilder.orderBy(order)
+      let uri = try uriBuilder.build()
+      let testUrl = encodeURL(root+"/Customers?$orderby=Country")
+      XCTAssert(uri == testUrl)
+    }
+    catch {
+      XCTFail()
+    }
+  }
+  
+  func testAppendEmptyOrderBy() {
+    guard let uriBuilder = client.newURIBuilder(root) else {
+      XCTFail()
+      return
+    }
+    do {
+      let uriBuilder = uriBuilder.appendEntitySetSegment("Customers")
+      let order:String = ""
+      uriBuilder.orderBy(order)
+      let uri = try uriBuilder.build()
+      let testUrl = encodeURL(root+"/Customers")
+      XCTAssert(uri == testUrl)
+    }
+    catch {
+      XCTFail()
+    }
+  }
+
+  
+  
   
 
-    func testURIAddTopToRoot() {
-      
-      let uriBuilder = client.newURIBuilder(root)
-      do {
-        let uri = try uriBuilder.top(10).build()
-        let test = root + "?" + "$top=10"
-        let testURL = encodeURL(test)
-        XCTAssert(uri == testURL)
-      }
-      catch {
-        
-      }
+  func testURIAddSkip() {
+    guard let uriBuilder = client.newURIBuilder(root) else {
+      XCTFail()
+      return
     }
-  
-  func testURIAddTopToRootwithExisting() {
-    let rootPlus = root + "?$skip=5"
-    let uriBuilder = client.newURIBuilder(rootPlus)
     do {
-      let uri = try uriBuilder.top(10).build()
-      let test = rootPlus + "?$top=10"
-      let escapedTest = test.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
-      let testURL = NSURL(string:escapedTest!)
+      let uri = try uriBuilder.skip(10).build()
+      let test = root + "?" + "$skip=10"
+      let testURL = encodeURL(test)
       XCTAssert(uri == testURL)
     }
     catch {
-      
+      XCTFail()
     }
+  }
+
+  func testURIAddTopToRoot() {
+    guard let uriBuilder = client.newURIBuilder(root) else {
+      XCTFail()
+      return
+    }
+    do {
+      let uri = try uriBuilder.top(10).build()
+      let test = root + "?" + "$top=10"
+      let testURL = encodeURL(test)
+      XCTAssert(uri == testURL)
+    }
+    catch {
+      XCTFail()
+    }
+  }
+
+  func testURIAddTopToRootwithExisting() {
+    let rootPlus = root + "?$skip=5"
+    guard let uriBuilder = client.newURIBuilder(rootPlus) else {
+      XCTFail()
+      return
+    }
+    do {
+      let uri = try uriBuilder.top(10).build()
+      let test = rootPlus + "?$top=10"
+      let testURL = encodeURL(test)
+      XCTAssert(uri == testURL)
+    }
+    catch {
+      XCTFail()
+    }
+  }
+  
+  func encodeURL(uri:String) -> NSURL {
+    let escapedTest = uri.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+    return NSURL(string:escapedTest!)!
   }
 
     func testPerformanceExample() {

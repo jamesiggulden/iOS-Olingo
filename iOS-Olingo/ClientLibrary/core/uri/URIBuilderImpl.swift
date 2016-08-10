@@ -96,11 +96,15 @@ public class URIBuilderImpl: URIBuilder {
   /// - parameters:
   ///   - option: query option
   ///   - value: query option value
-  ///   - replace: if `true` then replace existing one
+  ///   - replace: if `true` then replace existing value for given option, defaults to false
   /// - returns: current URIBuilder instance
   /// - throws: No error conditions are expected
-  public func addQueryOption(option:String, value:String,replace:Bool) -> URIBuilder {
+  public func addQueryOption(option:String, value:String,replace:Bool = false) -> URIBuilder {
     var builder:String = ""
+    
+    if value.isEmpty {
+      return self
+    }
     
     if let keyValue = queryOptions[option] {
       if !replace {
@@ -131,7 +135,10 @@ public class URIBuilderImpl: URIBuilder {
   /// - returns: current URIBuilder instance
   /// - throws: No error conditions are expected
   public func appendEntitySetSegment(segmentValue:String) -> URIBuilder {
-    segments.append(Segment(type: SegmentType.ENTITYSET, value: segmentValue))
+    
+    if !segmentValue.isEmpty {
+      segments.append(Segment(type: SegmentType.ENTITYSET, value: segmentValue))
+    }
     return self
   }
   
@@ -142,7 +149,11 @@ public class URIBuilderImpl: URIBuilder {
   /// - returns: current URIBuilder instance
   /// - throws: No error conditions are expected
   public func appendKeySegment(val:AnyObject) -> URIBuilder {
+    
     var segValue:String = String(val)  //URIUtils.escape(val)
+    if segValue.isEmpty {
+      return self
+    }
     
     // replacing any " with ' as Swift usage is normally dbl quotes but Odata expects '
     if segValue.containsString("\"") {
@@ -184,7 +195,9 @@ public class URIBuilderImpl: URIBuilder {
   /// - returns: current URIBuilder instance
   /// - throws: No error conditions are expected
   public func appendPropertySegment(segmentValue:String) -> URIBuilder {
-    segments.append(Segment(type: SegmentType.PROPERTY, value: segmentValue))
+    if !segmentValue.isEmpty {
+      segments.append(Segment(type: SegmentType.PROPERTY, value: segmentValue))
+    }
     return self
   }
   
@@ -193,8 +206,11 @@ public class URIBuilderImpl: URIBuilder {
   ///  - segmentValue: segment value.
   /// - returns: current URIBuilder instance
   public func appendNavigationSegment(segmentValue:String) -> URIBuilder {
-    segments.append(Segment(type: SegmentType.NAVIGATION, value: segmentValue))
+    if !segmentValue.isEmpty {
+      segments.append(Segment(type: SegmentType.NAVIGATION, value: segmentValue))
+    }
     return self
+      
   }
   
   
@@ -204,7 +220,9 @@ public class URIBuilderImpl: URIBuilder {
   /// - returns: current URIBuilder instance
   /// - throws: No error conditions are expected
   public func appendDerivedEntityTypeSegment(segmentValue:String) -> URIBuilder {
-    segments.append(Segment(type: SegmentType.DERIVED_ENTITY_TYPE, value: segmentValue))
+    if !segmentValue.isEmpty {
+      segments.append(Segment(type: SegmentType.DERIVED_ENTITY_TYPE, value: segmentValue))
+    }
     return self
   }
   
@@ -237,11 +255,13 @@ public class URIBuilderImpl: URIBuilder {
   /// - returns: current URIBuilder instance
   /// - throws: No error conditions are expected
   public func appendOperationCallSegment(operation:String) -> URIBuilder {
-    if segments.count == 1 {
-      segments.append(Segment(type: SegmentType.UNBOUND_OPERATION,value: operation))
-    }
-    else {
-      segments.append(Segment(type: SegmentType.BOUND_OPERATION, value: operation))
+    if !operation.isEmpty {
+      if segments.count == 1 {
+        segments.append(Segment(type: SegmentType.UNBOUND_OPERATION,value: operation))
+      }
+      else {
+        segments.append(Segment(type: SegmentType.BOUND_OPERATION, value: operation))
+      }
     }
     return self
   }
@@ -276,6 +296,15 @@ public class URIBuilderImpl: URIBuilder {
     return self
   }
   
+  /// Appends count query option.
+  /// - parameters:
+  ///  - value: true or false
+  /// - returns: current URIBuilder instance
+  
+  public func count(value:Bool) -> URIBuilder {
+    return addQueryOption(QueryOption.COUNT, value: String(value))
+  }
+  
   
   /// Adds expand query option.
   /// - parameters:
@@ -293,7 +322,11 @@ public class URIBuilderImpl: URIBuilder {
   /// - returns: current URIBuilder instance
   /// - throws: No error conditions are expected
   public func format(format:String) -> URIBuilder {
-      return replaceQueryOption(QueryOption.FORMAT, value: format)
+    if format.isEmpty {
+      return self
+    }
+    return replaceQueryOption(QueryOption.FORMAT, value: format)
+    
   }
   
   //TODO: filter(filter:URIFilter) -> URIBuilder
@@ -322,6 +355,9 @@ public class URIBuilderImpl: URIBuilder {
   /// - returns: current URIBuilder instance
   /// - throws: No error conditions are expected
   public func filter(filter:String) -> URIBuilder {
+    if filter.isEmpty {
+      return self
+    }
     return replaceQueryOption(QueryOption.FILTER, value: filter)
   }
   
@@ -352,7 +388,10 @@ public class URIBuilderImpl: URIBuilder {
   /// - returns: current URIBuilder instance
   /// - throws: No error conditions are expected
   public func orderBy(order:String) -> URIBuilder {
-      return replaceQueryOption(QueryOption.ORDERBY, value: order)
+    if order.isEmpty {
+      return self
+    }
+    return replaceQueryOption(QueryOption.ORDERBY, value: order)
   }
 
   /// Adds top query option.
@@ -361,7 +400,7 @@ public class URIBuilderImpl: URIBuilder {
   /// - returns: current URIBuilder instance
   /// - throws: No error conditions are expected
   public func top(top:Int) -> URIBuilder {
-      return replaceQueryOption(QueryOption.TOP, value: String(top))
+    return replaceQueryOption(QueryOption.TOP, value: String(top))
   }
   
   
@@ -371,7 +410,7 @@ public class URIBuilderImpl: URIBuilder {
   /// - returns: current URIBuilder instance
   
   public func skip(skip:Int) -> URIBuilder {
-      return replaceQueryOption(QueryOption.SKIP, value: String(skip))
+    return replaceQueryOption(QueryOption.SKIP, value: String(skip))
   }
   
   
@@ -381,7 +420,7 @@ public class URIBuilderImpl: URIBuilder {
   /// - returns: current URIBuilder instance
   /// - throws: No error conditions are expected
   public func skipToken(skipToken:String) -> URIBuilder {
-      return replaceQueryOption(QueryOption.SKIPTOKEN, value: skipToken)
+    return replaceQueryOption(QueryOption.SKIPTOKEN, value: skipToken)
   }
   
   
@@ -465,7 +504,10 @@ public class URIBuilderImpl: URIBuilder {
   /// - returns: current URIBuilder instance
   /// - throws: No error conditions are expected
   public func appendKeySegment(enumType:EdmEnumType, memberName:String) -> URIBuilder {
-      return appendKeySegment(enumType.toUriLiteral(memberName)!)
+    if memberName.isEmpty {
+      return self
+    }
+    return appendKeySegment(enumType.toUriLiteral(memberName)!)
   }
   
   
@@ -494,7 +536,9 @@ public class URIBuilderImpl: URIBuilder {
   /// - returns: current URIBuilder instance
   /// - throws: No error conditions are expected
     public func appendSingletonSegment(segmentValue:String) -> URIBuilder {
-      segments.append(Segment(type: SegmentType.SINGLETON, value: segmentValue))
+      if !segmentValue.isEmpty {
+        segments.append(Segment(type: SegmentType.SINGLETON, value: segmentValue))
+      }
       return self
     }
   
@@ -505,7 +549,9 @@ public class URIBuilderImpl: URIBuilder {
   /// - returns: current URIBuilder instance
   /// - throws: No error conditions are expected
     public func appendEntityIdSegment(segmentValue:String) -> URIBuilder {
-      segments.append(Segment(type: SegmentType.ENTITY, value: nil))
+      if !segmentValue.isEmpty {
+        segments.append(Segment(type: SegmentType.ENTITY, value: nil))
+      }
       return addQueryOption(QueryOption.ID, value: segmentValue)
     }
   
@@ -552,18 +598,14 @@ public class URIBuilderImpl: URIBuilder {
   /// - returns: current URIBuilder instance
   
   public func id(idValue:String) -> URIBuilder {
+    if idValue.isEmpty {
+      return self
+    }
     return addQueryOption(QueryOption.ID, value: idValue)
   }
   
   
-  /// Appends count query option.
-  /// - parameters:
-  ///  - value: true or false
-  /// - returns: current URIBuilder instance
-  
-    public func count(value:Bool) -> URIBuilder {
-          return addQueryOption(QueryOption.COUNT, value: String(value))
-    }
+
   
   //TODO: search(search:URISearch) -> URIBuilder 
   /*
@@ -584,7 +626,10 @@ public class URIBuilderImpl: URIBuilder {
   /// - returns: current URIBuilder instance
   /// - throws: No error conditions are expected
     public func search(expression:String) -> URIBuilder {
-          return addQueryOption(QueryOption.SEARCH, value: expression)
+      if expression.isEmpty {
+        return self
+      }
+      return addQueryOption(QueryOption.SEARCH, value: expression)
     }
 
   
@@ -596,7 +641,10 @@ public class URIBuilderImpl: URIBuilder {
   /// - returns: current URIBuilder instance.
   /// - throws: No error conditions are expected
     public func expandWithOptions(expandItem:String,options:[QueryOption: AnyObject]) -> URIBuilder {
-          return expandWithOptions(expandItem, pathRef: false, pathCount: false, options: options)
+      if expandItem.isEmpty {
+        return self
+      }
+      return expandWithOptions(expandItem, pathRef: false, pathCount: false, options: options)
     }
   
   
@@ -610,6 +658,9 @@ public class URIBuilderImpl: URIBuilder {
   /// - returns: current URIBuilder instance.
   /// - throws: No error conditions are expected
     public func expandWithOptions(expandItem:String, pathRef:Bool,pathCount:Bool, options:[QueryOption: AnyObject]) -> URIBuilder {
+      if expandItem.isEmpty {
+        return self
+      }
       var _options:[String:AnyObject] = [:]
       for (key,value) in options {
         let optionKey = "$" + key.rawValue
@@ -640,6 +691,9 @@ public class URIBuilderImpl: URIBuilder {
   /// - returns: current URIBuilder instance.
   /// - throws: No error conditions are expected
     public func expandWithSelect(expandItem:String,selectItems:String...) -> URIBuilder {
+      if expandItem.isEmpty {
+        return self
+      }
       return expand(expandItem + "($select=" + selectItems.joinWithSeparator(",") + ")")
     }
   
@@ -650,6 +704,9 @@ public class URIBuilderImpl: URIBuilder {
   /// - returns: current URIBuilder instance
   /// - throws: No error conditions are expected
   public func appendActionCallSegment(action:String) -> URIBuilder {
+    if action.isEmpty {
+      return self
+    }
     if segments.count == 1 {
       segments.append(Segment(type: SegmentType.UNBOUND_ACTION, value: action))
     }
