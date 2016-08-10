@@ -22,6 +22,7 @@
 		10656A761D4F808500206B7B /* EdmMetadataResponseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10656A751D4F808500206B7B /* EdmMetadataResponseImpl.swift */; };
 		1085D3191D5A2B74002F0C65 /* EdmSummarizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085D3181D5A2B74002F0C65 /* EdmSummarizer.swift */; };
 		109C22CA1D5B4E3B0096E356 /* EdmDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B9551D55FC870025E72C /* EdmDouble.swift */; };
+		109C22CB1D5B6D810096E356 /* EdmBoolean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252B9531D55F3730025E72C /* EdmBoolean.swift */; };
 		10A7B80E1D58D65E0087D6F8 /* EdmProviderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10357E991D50D52800B6D5BE /* EdmProviderImpl.swift */; };
 		10A7B80F1D58D6A20087D6F8 /* Edm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025F51D37DE6600D4A4E1 /* Edm.swift */; };
 		10A7B8101D58D6C30087D6F8 /* EdmTypeDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026391D3CECE000D4A4E1 /* EdmTypeDefinition.swift */; };
@@ -1862,6 +1863,7 @@
 				10A7B8281D58DD510087D6F8 /* Geospatial.swift in Sources */,
 				10A7B8681D58E0890087D6F8 /* JsonEntitySetDeserializer.swift in Sources */,
 				10A7B80E1D58D65E0087D6F8 /* EdmProviderImpl.swift in Sources */,
+				109C22CB1D5B6D810096E356 /* EdmBoolean.swift in Sources */,
 				10A7B81A1D58D73A0087D6F8 /* EdmKeyPropertyRef.swift in Sources */,
 				10A7B81B1D58D7410087D6F8 /* EdmOperation.swift in Sources */,
 				10A7B83E1D58DEC10087D6F8 /* ClientODataDeserializerImpl.swift in Sources */,

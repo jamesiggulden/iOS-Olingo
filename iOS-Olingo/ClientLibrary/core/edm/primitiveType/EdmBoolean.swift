@@ -35,15 +35,10 @@ public final class EdmBoolean: SingletonPrimitiveType {
   
   // MARK: - Stored Properties
 
-  private let INSTANCE = EdmBoolean()
+  public static let INSTANCE = EdmBoolean()
   
   // MARK: - Computed Properties
 
-
-  public var instance: EdmBoolean {
-    return INSTANCE
-  }
-  
   public override var defaultType: Any { // Class<?> {
     return Bool.self
   }

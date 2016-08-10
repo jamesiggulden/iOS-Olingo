@@ -31,15 +31,20 @@ public class EdmTest: XCTestCase {
   
   let SERVICE_ROOT = "http://services.odata.org/V4/Northwind/Northwind.svc"
   
-  func testEdmRetrieval() {
+  private func getEdm() throws -> EdmProviderImpl? {
+    var myEdm: EdmProviderImpl?
     let myODataClient = ODataClientFactory.getClient()
     let myRetriveRequestFactory = myODataClient.retrieveRequestFactory
     let myUri:NSURL = NSURL(string:SERVICE_ROOT)!
     let myRequest = myRetriveRequestFactory.getMetadataRequest(myUri)
+    let myResponse = try myRequest.execute()
+    myEdm = (myResponse.getBody() as! EdmProviderImpl)
+    return myEdm
+  }
+  
+  func testEdmRetrieval() {
     do {
-      let myResponse = try myRequest.execute()
-      var myEdm: Edm?
-      myEdm = myResponse.getBody() as! EdmProviderImpl
+      let myEdm = try getEdm()
       XCTAssert(myEdm != nil)
     }
     catch {
@@ -48,15 +53,10 @@ public class EdmTest: XCTestCase {
   }
   
   func testRetrieveSchemas() {
-    let myODataClient = ODataClientFactory.getClient()
-    let myRetriveRequestFactory = myODataClient.retrieveRequestFactory
-    let myUri:NSURL = NSURL(string:SERVICE_ROOT)!
-    let myRequest = myRetriveRequestFactory.getMetadataRequest(myUri)
     do {
-      let myResponse = try myRequest.execute()
-      let myEdm = myResponse.getBody() as! EdmProviderImpl
-      XCTAssert(myEdm.getSchemas().count == 2)
-      XCTAssert(myEdm.getSchema("NorthwindModel").getEntityTypes().count > 1)
+      let myEdm = try getEdm()
+      XCTAssert(myEdm!.getSchemas().count == 2)
+      XCTAssert(myEdm!.getSchema("NorthwindModel").getEntityTypes().count > 1)
     }
     catch {
       XCTFail()
@@ -64,14 +64,9 @@ public class EdmTest: XCTestCase {
   }
   
   func testRetrieveEntityType() {
-    let myODataClient = ODataClientFactory.getClient()
-    let myRetriveRequestFactory = myODataClient.retrieveRequestFactory
-    let myUri:NSURL = NSURL(string:SERVICE_ROOT)!
-    let myRequest = myRetriveRequestFactory.getMetadataRequest(myUri)
     do {
-      let myResponse = try myRequest.execute()
-      let myEdm = (myResponse.getBody() as! EdmProviderImpl)
-      let myEntityType = myEdm.getEntityType(FullQualifiedName(namespace: "NorthwindModel", name: "Customer"))
+      let myEdm = try getEdm()
+      let myEntityType = myEdm!.getEntityType(FullQualifiedName(namespace: "NorthwindModel", name: "Customer"))
       XCTAssert(myEntityType!.name == "Customer")
     }
     catch {
@@ -81,14 +76,9 @@ public class EdmTest: XCTestCase {
   
   func testRetrieveEntityTypeProperties() {
     var myPropertyExists = false
-    let myODataClient = ODataClientFactory.getClient()
-    let myRetriveRequestFactory = myODataClient.retrieveRequestFactory
-    let myUri:NSURL = NSURL(string:SERVICE_ROOT)!
-    let myRequest = myRetriveRequestFactory.getMetadataRequest(myUri)
     do {
-      let myResponse = try myRequest.execute()
-      let myEdm = myResponse.getBody() as! EdmProviderImpl
-      let myEntityType = myEdm.getEntityType(FullQualifiedName(namespace: "NorthwindModel", name: "Customer"))
+      let myEdm = try getEdm()
+      let myEntityType = myEdm!.getEntityType(FullQualifiedName(namespace: "NorthwindModel", name: "Customer"))
       let myKeyPropertyRefs = myEntityType?.getKeyPropertyRefs()
       for myKeyPropertyRef in myKeyPropertyRefs! {
         let myPropName = myKeyPropertyRef.name
@@ -105,14 +95,9 @@ public class EdmTest: XCTestCase {
 
   func testRetrieveEntityTypePropertyAttributes() {
     var myPropertyExists = false
-    let myODataClient = ODataClientFactory.getClient()
-    let myRetriveRequestFactory = myODataClient.retrieveRequestFactory
-    let myUri:NSURL = NSURL(string:SERVICE_ROOT)!
-    let myRequest = myRetriveRequestFactory.getMetadataRequest(myUri)
     do {
-      let myResponse = try myRequest.execute()
-      let myEdm = myResponse.getBody() as! EdmProviderImpl
-      let myEntityType = myEdm.getEntityType(FullQualifiedName(namespace: "NorthwindModel", name: "Customer"))
+      let myEdm = try getEdm()
+      let myEntityType = myEdm!.getEntityType(FullQualifiedName(namespace: "NorthwindModel", name: "Customer"))
       let myKeyPropertyRefs = myEntityType?.getKeyPropertyRefs()
       for myKeyPropertyRef in myKeyPropertyRefs! {
         let myPropName = myKeyPropertyRef.name
@@ -132,14 +117,9 @@ public class EdmTest: XCTestCase {
 
   func testRetrieveEntityTypePropertyTypeString() {
     var myPropertyExists = false
-    let myODataClient = ODataClientFactory.getClient()
-    let myRetriveRequestFactory = myODataClient.retrieveRequestFactory
-    let myUri:NSURL = NSURL(string:SERVICE_ROOT)!
-    let myRequest = myRetriveRequestFactory.getMetadataRequest(myUri)
     do {
-      let myResponse = try myRequest.execute()
-      let myEdm = myResponse.getBody() as! EdmProviderImpl
-      let myEntityType = myEdm.getEntityType(FullQualifiedName(namespace: "NorthwindModel", name: "Customer"))
+      let myEdm = try getEdm()
+      let myEntityType = myEdm!.getEntityType(FullQualifiedName(namespace: "NorthwindModel", name: "Customer"))
       let myKeyPropertyRefs = myEntityType?.getKeyPropertyRefs()
       for myKeyPropertyRef in myKeyPropertyRefs! {
         let myPropName = myKeyPropertyRef.name
@@ -159,19 +139,58 @@ public class EdmTest: XCTestCase {
   
   ///The following need implementing:
   ///func testRetrieveEntityTypePropertyTypeDouble()
-  ///func testRetrieveEntityTypePropertyTypeBoolean()
-  ///func testRetrieveEntityTypePropertyTypeDateTime()
+  ///Unfortunately, no EdmDoubles in the NorthWind feed...
+  
+  func testRetrieveEntityTypePropertyTypeBoolean() {
+    var myPropertyExists = false
+    do {
+      let myEdm = try getEdm()
+      let myEntityType = myEdm!.getEntityType(FullQualifiedName(namespace: "NorthwindModel", name: "Product"))
+      let myKeyPropertyRefs = myEntityType?.getKeyPropertyRefs()
+      for myKeyPropertyRef in myKeyPropertyRefs! {
+        let myPropName = myKeyPropertyRef.name
+        if (myPropName == "Discontinued") {
+          myPropertyExists = true
+          let myProperty = myKeyPropertyRef.property
+          let myPropertyType = myProperty.type
+          XCTAssert(myPropertyType is EdmBoolean)
+        }
+      }
+    }
+    catch {
+      XCTFail()
+    }
+    XCTAssert(myPropertyExists)
+  }
+  
+  func testRetrieveEntityTypePropertyTypeDateTimeOffset() {
+    var myPropertyExists = false
+    do {
+      let myEdm = try getEdm()
+      let myEntityType = myEdm!.getEntityType(FullQualifiedName(namespace: "NorthwindModel", name: "Order"))
+      let myKeyPropertyRefs = myEntityType?.getKeyPropertyRefs()
+      for myKeyPropertyRef in myKeyPropertyRefs! {
+        let myPropName = myKeyPropertyRef.name
+        if (myPropName == "OrderDate") {
+          myPropertyExists = true
+          let myProperty = myKeyPropertyRef.property
+          let myPropertyType = myProperty.type
+          XCTAssert(myPropertyType is EdmDateTimeOffset)
+        }
+      }
+    }
+    catch {
+      XCTFail()
+    }
+    XCTAssert(myPropertyExists)
+  }
+
 
   func testRetrieveEntityTypePropertyTypeInt32() {
     var myPropertyExists = false
-    let myODataClient = ODataClientFactory.getClient()
-    let myRetriveRequestFactory = myODataClient.retrieveRequestFactory
-    let myUri:NSURL = NSURL(string:SERVICE_ROOT)!
-    let myRequest = myRetriveRequestFactory.getMetadataRequest(myUri)
     do {
-      let myResponse = try myRequest.execute()
-      let myEdm = myResponse.getBody() as! EdmProviderImpl
-      let myEntityType = myEdm.getEntityType(FullQualifiedName(namespace: "NorthwindModel", name: "Employee"))
+      let myEdm = try getEdm()
+      let myEntityType = myEdm!.getEntityType(FullQualifiedName(namespace: "NorthwindModel", name: "Employee"))
       let myKeyPropertyRefs = myEntityType?.getKeyPropertyRefs()
       for myKeyPropertyRef in myKeyPropertyRefs! {
         let myPropName = myKeyPropertyRef.name
