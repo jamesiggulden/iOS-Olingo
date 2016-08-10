@@ -35,7 +35,9 @@ class ViewController: UIViewController {
   
   
   @IBAction func ClearConsole(sender: AnyObject) {
-
+    Status.text = ""
+    StatusConsole.text = ""
+    RawConsole.text = ""
     Console.text = ""
   }
   
@@ -142,20 +144,24 @@ class ViewController: UIViewController {
         // request metadata
         urlString += "/"+entitySet
         let uri:NSURL = NSURL(string:urlString)!
-        ResetStatusConsole("Retrieve Request Factory")
+        ResetStatusConsole("Requesting the metadata for the URL:")
+        AppendToStatusConsole(uri.absoluteString)
         let myRetriveRequestFactory = client.retrieveRequestFactory
         let myEdmMetaRequest = myRetriveRequestFactory.getMetadataRequest(uri)
         do {
          let myResponse = try myEdmMetaRequest.execute()
          myEdm = (myResponse.getBody() as! EdmProviderImpl)
-         ResetStatusConsole("Number of schemas returned: " + String(myEdm.getSchemas().count))
+         AppendToStatusConsole("Number of schemas returned: " + String(myEdm.getSchemas().count))
+         ResetRawConsole("Raw XML:")
+         AppendToRawConsole(String(data: myEdm.theRawXmlData!, encoding: NSUTF8StringEncoding)!)
+         //Create summarixer for main console output
+         let myEdmSummarizer = EdmSummarizer(anEdm: myEdm)
+         ResetConsole(myEdmSummarizer.getSummary())
         }
         catch {
-          ResetStatusConsole("Error occurred retrieving the metadata")
+          AppendToStatusConsole("Error occurred retrieving the metadata")
         }
         return
-        //ResetConsole("")
-        //ResetRawConsole("")
       }
       else {
         do {
@@ -448,31 +454,45 @@ class ViewController: UIViewController {
 
   
   func AppendToConsole(msg: String) {
-      Console.text = Console.text + "\n" + msg
-      Console.scrollRangeToVisible(NSRange(location: Console.text.characters.count,length: 1))
+    Console.scrollEnabled = false
+    Console.text = Console.text + "\n" + msg
+    Console.scrollRangeToVisible(NSRange(location: Console.text.characters.count,length: 1))
+    Console.scrollEnabled = true
   }
   
   func AppendToRawConsole(msg: String) {
+    RawConsole.scrollEnabled = false
     RawConsole.text = RawConsole.text + "\n" + msg
-    RawConsole.scrollRangeToVisible(NSRange(location: RawConsole.text.characters.count,length: 1))
+    RawConsole.scrollRangeToVisible(NSRange(location: StatusConsole.text.characters.count,length: 1))
+    RawConsole.scrollEnabled = true
   }
   
   func AppendToStatusConsole(msg: String) {
+    StatusConsole.scrollEnabled = false
     StatusConsole.text = StatusConsole.text + "\n" + msg
     StatusConsole.scrollRangeToVisible(NSRange(location: StatusConsole.text.characters.count,length: 1))
+    StatusConsole.scrollEnabled = true
   }
   
-  
   func ResetConsole(msg:String) {
+    Console.scrollEnabled = false
     Console.text = msg
+    Console.scrollRangeToVisible(NSRange(location: StatusConsole.text.characters.count,length: 1))
+    Console.scrollEnabled = true
   }
   
   func ResetRawConsole(msg:String) {
+    RawConsole.scrollEnabled = false
     RawConsole.text = msg
+    RawConsole.scrollRangeToVisible(NSRange(location: StatusConsole.text.characters.count,length: 1))
+    RawConsole.scrollEnabled = true
   }
   
   func ResetStatusConsole(msg:String) {
+    StatusConsole.scrollEnabled = false
     StatusConsole.text = msg
+    StatusConsole.scrollRangeToVisible(NSRange(location: StatusConsole.text.characters.count,length: 1))
+    StatusConsole.scrollEnabled = true
   }
   
   override func viewDidLoad() {

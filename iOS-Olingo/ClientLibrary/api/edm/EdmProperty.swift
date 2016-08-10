@@ -37,7 +37,7 @@ public protocol EdmProperty : EdmElement { //, EdmMappable  { // TODO: EdmAnnota
   /**
    * @return the maximum length as an Int or nil if not specified
    */
-  var maxLength: Int {get}
+  var maxLength: Int? {get}
   
   /**
    * @return the precision as an Int or nil if not specified

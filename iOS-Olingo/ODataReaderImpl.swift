@@ -55,6 +55,7 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
     if (!mySuccess) {
       throw ODataDeserializerException.InvalidFormat
     }
+    theEdm.theRawXmlData = someRawXmlMetaData
     return theEdm
   }
   
@@ -127,13 +128,15 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
     let myCsdlProperty = CsdlProperty()
     myCsdlProperty.setName(String: myName!)
     myCsdlProperty.setType(myType!)
-    if ("true" == myNullableString) {
-      myCsdlProperty.setNilable(Bool: true)
-    }
-    else {
+    if ("false" == myNullableString) {
       myCsdlProperty.setNilable(Bool: false)
     }
-    myCsdlProperty.setMaxLength(myMaxLength)
+    else {
+      myCsdlProperty.setNilable(Bool: true)
+    }
+    if (myMaxLengthExists && (Int(anAttributeDict["MaxLength"]!) != nil)) {
+      myCsdlProperty.setMaxLength(myMaxLength)
+    }
     
     ///Create the EdmProperty
     let myEdmProperty = EdmPropertyImpl(edm: theEdm, property: myCsdlProperty)

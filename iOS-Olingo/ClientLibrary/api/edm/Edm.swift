@@ -35,6 +35,8 @@ import Foundation
  */
 public protocol Edm {
   
+  var theRawXmlData: NSData? { get set }
+  
   /**
    * This method <b>DOES NOT</b> support lazy loading. All schemas are loaded completely!
    *
@@ -172,4 +174,5 @@ public protocol Edm {
    */
   // TODO: Annotations
    //func getAnnotationGroup(targetName:FullQualifiedName ,qualifier:String) -> EdmAnnotations
+  
 }

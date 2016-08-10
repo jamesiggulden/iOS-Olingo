@@ -68,7 +68,7 @@ public class EdmPropertyImpl:AbstractEdmNamed,  EdmProperty {
   }
   
   
-  public var maxLength:Int {
+  public var maxLength:Int? {
     get {
       return property.maxLength
     }

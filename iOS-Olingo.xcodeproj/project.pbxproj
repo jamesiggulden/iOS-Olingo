@@ -20,6 +20,7 @@
 		10656A701D4F5A6E00206B7B /* EdmMetadataRequestImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10656A6F1D4F5A6E00206B7B /* EdmMetadataRequestImpl.swift */; };
 		10656A721D4F685C00206B7B /* ODataException.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10656A711D4F685C00206B7B /* ODataException.swift */; };
 		10656A761D4F808500206B7B /* EdmMetadataResponseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10656A751D4F808500206B7B /* EdmMetadataResponseImpl.swift */; };
+		1085D3191D5A2B74002F0C65 /* EdmSummarizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085D3181D5A2B74002F0C65 /* EdmSummarizer.swift */; };
 		10A7B80E1D58D65E0087D6F8 /* EdmProviderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10357E991D50D52800B6D5BE /* EdmProviderImpl.swift */; };
 		10A7B80F1D58D6A20087D6F8 /* Edm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025F51D37DE6600D4A4E1 /* Edm.swift */; };
 		10A7B8101D58D6C30087D6F8 /* EdmTypeDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026391D3CECE000D4A4E1 /* EdmTypeDefinition.swift */; };
@@ -402,6 +403,7 @@
 		10656A6F1D4F5A6E00206B7B /* EdmMetadataRequestImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmMetadataRequestImpl.swift; sourceTree = "<group>"; };
 		10656A711D4F685C00206B7B /* ODataException.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ODataException.swift; sourceTree = "<group>"; };
 		10656A751D4F808500206B7B /* EdmMetadataResponseImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmMetadataResponseImpl.swift; sourceTree = "<group>"; };
+		1085D3181D5A2B74002F0C65 /* EdmSummarizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmSummarizer.swift; sourceTree = "<group>"; };
 		424307371D198AA700880BDB /* ResponseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseViewController.swift; sourceTree = "<group>"; };
 		424307391D198EAF00880BDB /* olingo120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = olingo120.png; sourceTree = "<group>"; };
 		4243073C1D19A14B00880BDB /* Customer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
@@ -884,6 +886,7 @@
 				4243079C1D1D7C2F00880BDB /* xml */,
 				4243079A1D1D7BCD00880BDB /* constants */,
 				424307991D1D7BC300880BDB /* provider */,
+				1085D3181D5A2B74002F0C65 /* EdmSummarizer.swift */,
 			);
 			name = edm;
 			sourceTree = "<group>";
@@ -1648,6 +1651,7 @@
 				424307B41D22C3B400880BDB /* HttpClient.swift in Sources */,
 				424307BC1D22E4B100880BDB /* ODataServiceVersion.swift in Sources */,
 				426025631D2E631300D4A4E1 /* ServiceDocumentImpl.swift in Sources */,
+				1085D3191D5A2B74002F0C65 /* EdmSummarizer.swift in Sources */,
 				426025AC1D352A1F00D4A4E1 /* ClientPrimitiveValueBuilder.swift in Sources */,
 				426026401D3D039C00D4A4E1 /* ContextURLParser.swift in Sources */,
 				4252B9361D48D7630025E72C /* EdmDecimal.swift in Sources */,

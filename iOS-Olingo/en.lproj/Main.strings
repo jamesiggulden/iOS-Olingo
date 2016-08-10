@@ -1,0 +1,57 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "2u3-co-eCd"; */
+"2u3-co-eCd.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "551-vt-I5F"; */
+"551-vt-I5F.text" = "Label";
+
+/* Class = "UITextField"; placeholder = "filter query"; ObjectID = "8F2-j6-OIp"; */
+"8F2-j6-OIp.placeholder" = "filter query";
+
+/* Class = "UILabel"; text = "http://services.odata.org/V4/Northwind/Northwind.svc"; ObjectID = "C0A-mX-bhI"; */
+"C0A-mX-bhI.text" = "http://services.odata.org/V4/Northwind/Northwind.svc";
+
+/* Class = "UILabel"; text = "Calling URI"; ObjectID = "Cyb-0K-MAZ"; */
+"Cyb-0K-MAZ.text" = "Calling URI";
+
+/* Class = "UIButton"; normalTitle = "Clear Console"; ObjectID = "DWT-y2-rVs"; */
+"DWT-y2-rVs.normalTitle" = "Clear Console";
+
+/* Class = "UIButton"; normalTitle = "Clear Console"; ObjectID = "Huq-Td-bnR"; */
+"Huq-Td-bnR.normalTitle" = "Clear Console";
+
+/* Class = "UITextField"; placeholder = "order by (desc)"; ObjectID = "IFE-tb-Mhv"; */
+"IFE-tb-Mhv.placeholder" = "order by (desc)";
+
+/* Class = "UITextField"; placeholder = "# recs"; ObjectID = "MjH-Qv-PXa"; */
+"MjH-Qv-PXa.placeholder" = "# recs";
+
+/* Class = "UIButton"; normalTitle = "Submit"; ObjectID = "Mp6-Bc-t9d"; */
+"Mp6-Bc-t9d.normalTitle" = "Submit";
+
+/* Class = "UITextField"; placeholder = "Service root"; ObjectID = "PqG-bs-AHk"; */
+"PqG-bs-AHk.placeholder" = "Service root";
+
+/* Class = "UILabel"; text = "http://services.odata.org/v4/TripPinServiceRW"; ObjectID = "WB4-Ca-u2F"; */
+"WB4-Ca-u2F.text" = "http://services.odata.org/v4/TripPinServiceRW";
+
+/* Class = "UITextField"; placeholder = "property filter"; ObjectID = "Xbq-76-qLj"; */
+"Xbq-76-qLj.placeholder" = "property filter";
+
+/* Class = "UIButton"; normalTitle = "Submit TripPin"; ObjectID = "fls-JE-d46"; */
+"fls-JE-d46.normalTitle" = "Submit TripPin";
+
+/* Class = "UITextField"; placeholder = "entity set"; ObjectID = "hJ2-i8-Vjw"; */
+"hJ2-i8-Vjw.placeholder" = "entity set";
+
+/* Class = "UILabel"; text = "Response Status"; ObjectID = "m0I-af-fDt"; */
+"m0I-af-fDt.text" = "Response Status";
+
+/* Class = "UITextField"; placeholder = "entity ID"; ObjectID = "nU4-C6-foC"; */
+"nU4-C6-foC.placeholder" = "entity ID";
+
+/* Class = "UIButton"; normalTitle = "Submit Northwind"; ObjectID = "rUl-a3-MVi"; */
+"rUl-a3-MVi.normalTitle" = "Submit Northwind";
+
+/* Class = "UITextField"; placeholder = " @ rec"; ObjectID = "ww5-As-8cT"; */
+"ww5-As-8cT.placeholder" = " @ rec";

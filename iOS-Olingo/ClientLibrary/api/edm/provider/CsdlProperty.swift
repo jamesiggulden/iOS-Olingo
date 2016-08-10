@@ -51,7 +51,7 @@ public class CsdlProperty: CsdlAbstractEdmItem , CsdlNamed, CsdlAnnotatable {
   
   public var isNilable:Bool = true
   
-  public var maxLength: Int = 0
+  public var maxLength: Int?
 
   public var precision: Int = 0
   

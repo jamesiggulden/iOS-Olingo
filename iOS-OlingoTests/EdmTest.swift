@@ -119,7 +119,7 @@ public class EdmTest: XCTestCase {
         if (myPropName == "ContactTitle") {
           myPropertyExists = true
           let myProperty = myKeyPropertyRef.property
-          XCTAssert(myProperty.isNilable == false)
+          XCTAssert(myProperty.isNilable == true)
           XCTAssert(myProperty.maxLength == 30)
         }
       }

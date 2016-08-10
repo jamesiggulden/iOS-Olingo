@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="77J-dZ-IgW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="77J-dZ-IgW">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yjY-dF-YDu">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" pagingEnabled="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yjY-dF-YDu">
                                 <rect key="frame" x="17" y="417" width="563" height="151"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
@@ -46,7 +46,7 @@
                                     <action selector="SubmitNorthwind:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xt0-4n-tON"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="http://services.odata.org/V4/Northwind/Northwind.svc" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C0A-mX-bhI">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="http://services.odata.org/V4/Northwind/Northwind.svc" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C0A-mX-bhI">
                                 <rect key="frame" x="129" y="180" width="368" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="OYc-U1-E6W"/>
@@ -74,7 +74,7 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nMX-fO-sBA">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nMX-fO-sBA">
                                 <rect key="frame" x="122" y="232" width="422" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="427" id="oAW-f0-Nxw"/>
@@ -96,7 +96,7 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="http://services.odata.org/v4/TripPinServiceRW" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WB4-Ca-u2F">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="http://services.odata.org/v4/TripPinServiceRW" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WB4-Ca-u2F">
                                 <rect key="frame" x="129" y="146" width="437" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="637" id="FEg-vH-8Xz"/>
@@ -151,12 +151,12 @@
                                     <action selector="SubmitTripPin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="L5f-bV-Aoa"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Service root" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PqG-bs-AHk">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Service root" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PqG-bs-AHk">
                                 <rect key="frame" x="129" y="82" width="442" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Huq-Td-bnR">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Huq-Td-bnR">
                                 <rect key="frame" x="252" y="570" width="123" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="115" id="F4a-5h-L2B"/>
@@ -180,7 +180,7 @@
                                     <action selector="ClearConsole:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oh4-sA-bWq"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="prR-ap-At3" userLabel="StatusConsole">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="prR-ap-At3" userLabel="StatusConsole">
                                 <rect key="frame" x="17" y="255" width="277" height="148"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -204,7 +204,7 @@
                                     </mask>
                                 </variation>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="It3-3g-Jmr" userLabel="RawConsole">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="It3-3g-Jmr" userLabel="RawConsole">
                                 <rect key="frame" x="310" y="255" width="270" height="148"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -290,7 +290,8 @@
                                         <exclude reference="3j7-bP-vvz"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=regular">
+                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="310" y="251" width="85" height="30"/>
                                     <mask key="constraints">
                                         <include reference="3j7-bP-vvz"/>
                                     </mask>
@@ -298,6 +299,30 @@
                                 <connections>
                                     <action selector="submit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jiH-eB-PLV"/>
                                     <segue destination="fRx-PM-xld" kind="show" id="gj8-C3-UKB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qav-dW-vsL">
+                                <rect key="frame" x="252" y="570" width="123" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="115" id="Mcz-Ll-u6A"/>
+                                    <constraint firstAttribute="width" constant="123" id="ncI-ba-9HK">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="115"/>
+                                    </constraint>
+                                </constraints>
+                                <state key="normal" title="Clear Console"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Mcz-Ll-u6A"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="Mcz-Ll-u6A"/>
+                                        <exclude reference="ncI-ba-9HK"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="ClearConsole:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dhC-lf-1Pv"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -318,6 +343,7 @@
                             <constraint firstItem="PqG-bs-AHk" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="17" id="46V-tm-HRd">
                                 <variation key="heightClass=regular-widthClass=regular" constant="14"/>
                             </constraint>
+                            <constraint firstItem="Qav-dW-vsL" firstAttribute="leading" secondItem="Mp6-Bc-t9d" secondAttribute="trailing" constant="3" id="4Mv-c4-n9E"/>
                             <constraint firstItem="WB4-Ca-u2F" firstAttribute="leading" secondItem="C0A-mX-bhI" secondAttribute="leading" id="5Lz-At-hs2"/>
                             <constraint firstItem="yjY-dF-YDu" firstAttribute="trailing" secondItem="It3-3g-Jmr" secondAttribute="trailing" id="6MU-MV-EKb"/>
                             <constraint firstItem="hJ2-i8-Vjw" firstAttribute="baseline" secondItem="nU4-C6-foC" secondAttribute="baseline" id="7Vu-oT-zkw"/>
@@ -361,6 +387,7 @@
                             <constraint firstItem="It3-3g-Jmr" firstAttribute="leading" secondItem="prR-ap-At3" secondAttribute="trailing" constant="16" id="QmS-gd-5xB"/>
                             <constraint firstItem="fls-JE-d46" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="267" id="SI7-4G-PYk"/>
                             <constraint firstItem="PqG-bs-AHk" firstAttribute="leading" secondItem="hJ2-i8-Vjw" secondAttribute="leading" id="U6S-Ia-2eY"/>
+                            <constraint firstItem="Qav-dW-vsL" firstAttribute="baseline" secondItem="Mp6-Bc-t9d" secondAttribute="baseline" id="UDP-WV-FcB"/>
                             <constraint firstItem="nMX-fO-sBA" firstAttribute="top" secondItem="C0A-mX-bhI" secondAttribute="bottom" constant="15" id="X7s-v1-o6k"/>
                             <constraint firstItem="rUl-a3-MVi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="122" id="XNx-5p-49F"/>
                             <constraint firstItem="fls-JE-d46" firstAttribute="top" secondItem="C0A-mX-bhI" secondAttribute="bottom" constant="1" id="Xcy-hi-MxL"/>
@@ -428,6 +455,7 @@
                                 <exclude reference="IFE-tb-Mhv"/>
                                 <exclude reference="Xbq-76-qLj"/>
                                 <exclude reference="8F2-j6-OIp"/>
+                                <exclude reference="Qav-dW-vsL"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="46V-tm-HRd"/>
@@ -467,6 +495,8 @@
                                 <exclude reference="oMm-ja-xOL"/>
                                 <exclude reference="12w-tv-4M3"/>
                                 <exclude reference="9p1-QU-V07"/>
+                                <exclude reference="4Mv-c4-n9E"/>
+                                <exclude reference="UDP-WV-FcB"/>
                                 <exclude reference="EA6-ga-CxJ"/>
                                 <exclude reference="kv5-zp-JVQ"/>
                                 <exclude reference="sFR-Yx-KkV"/>
@@ -502,6 +532,7 @@
                                 <include reference="IFE-tb-Mhv"/>
                                 <include reference="Xbq-76-qLj"/>
                                 <include reference="8F2-j6-OIp"/>
+                                <include reference="Qav-dW-vsL"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="46V-tm-HRd"/>
@@ -559,6 +590,8 @@
                                 <exclude reference="6MU-MV-EKb"/>
                                 <include reference="9p1-QU-V07"/>
                                 <exclude reference="pSW-ua-pgj"/>
+                                <include reference="4Mv-c4-n9E"/>
+                                <include reference="UDP-WV-FcB"/>
                                 <exclude reference="5Lz-At-hs2"/>
                                 <include reference="EA6-ga-CxJ"/>
                                 <exclude reference="hpx-VM-o7m"/>
@@ -674,7 +707,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0lx-58-xCY" id="bLU-nE-7x6">
-                                            <rect key="frame" x="0.0" y="0.0" width="240" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>

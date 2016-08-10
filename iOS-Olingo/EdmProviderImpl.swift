@@ -31,6 +31,7 @@ import Foundation
 public class EdmProviderImpl: Edm {
   
   var theSchemas = [String: EdmSchema]()
+  public var theRawXmlData: NSData?
   
   public func getSchemas() -> [EdmSchema]{
     return Array(theSchemas.values)
