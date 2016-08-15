@@ -32,9 +32,9 @@ import Foundation
 public protocol EdmReferentialConstraint  { //TODO:  EdmAnnotatable {
   
   /// return property name of the property inside this entity type or complex type
-  var propertyName:String {get}
+  var propertyName:String { get set }
   
   /// return property name of the referenced entity type or complex type
-  var referencedPropertyName:String {get}
+  var referencedPropertyName:String { get set }
   
 }

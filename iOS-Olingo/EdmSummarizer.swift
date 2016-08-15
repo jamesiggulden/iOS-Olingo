@@ -68,8 +68,29 @@ public final class EdmSummarizer {
           mySummary += ", maxLength: " + String(myKeyPropertyRef.property.maxLength)
           mySummary += NEW_LINE
         }
+        mySummary += BREADCRUMB + BREADCRUMB + "Navigation Properties:" + NEW_LINE
+        let myNavigationProperties = myEntity.theNavigationProperties
+        if (myNavigationProperties != nil) {
+          for myNavigationProperty in myNavigationProperties! {
+            mySummary += BREADCRUMB + BREADCRUMB + "name: " + myNavigationProperty.name
+            mySummary += ", isNullable: " + String(myNavigationProperty.isNullable)
+            mySummary += ", containsTarget: " + String(myNavigationProperty.containsTarget)
+            mySummary += ", isCollection: " + String(myNavigationProperty.isCollection)
+            mySummary += ", type: " + String(myNavigationProperty.type?.name)
+            mySummary += ", partner: " + String(myNavigationProperty.partner?.name)
+            mySummary += NEW_LINE
+            let myReferenceConstraints = myNavigationProperty.referentialConstraints
+            mySummary += BREADCRUMB + BREADCRUMB + BREADCRUMB + "Reference Constraints:" + NEW_LINE
+            for myReferenceConstraint in myReferenceConstraints {
+              mySummary += BREADCRUMB + BREADCRUMB + BREADCRUMB + "property name: " + myReferenceConstraint.propertyName
+              mySummary += ", ref property name: " + myReferenceConstraint.referencedPropertyName
+              mySummary += NEW_LINE
+            }
+          }
+        }
       }
     }
+    log.info(mySummary)
     return mySummary
   }
 

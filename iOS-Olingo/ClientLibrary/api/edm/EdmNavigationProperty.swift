@@ -35,7 +35,8 @@ import Foundation
  */
 public protocol EdmNavigationProperty:EdmElement { // TODO: EdmAnnotatable {
   
-  var type: EdmEntityType {get}
+  ///
+  ///var type: EdmEntityType {get}
   
   /// return true if nullable or not specified
   var isNullable:Bool {get}
@@ -44,7 +45,7 @@ public protocol EdmNavigationProperty:EdmElement { // TODO: EdmAnnotatable {
   var containsTarget: Bool {get}
   
   /// return the partner navigation property
-   var partner: EdmNavigationProperty {get}
+   var partner: EdmNavigationProperty? {get}
 
   
   /// Get property name for referenced property
@@ -55,6 +56,6 @@ public protocol EdmNavigationProperty:EdmElement { // TODO: EdmAnnotatable {
   func getReferencingPropertyName(referencedPropertyName:String) -> String
   
   /// return all referential constraints for this navigation property
-  var referentialConstraints:[EdmReferentialConstraint] {get}
+  var referentialConstraints:[EdmReferentialConstraint] { get set }
   
 }

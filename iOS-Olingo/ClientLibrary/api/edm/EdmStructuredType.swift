@@ -96,6 +96,7 @@ public protocol EdmStructuredType: EdmType {  // TODO: EdmAnnotatable {
   // TODO:  var navigationPropertyNames:[String] {get}
   //var navigationPropertyNames:[String] {get}
   
+  var theNavigationProperties: [EdmNavigationProperty]? { get set }
 
   
   /**

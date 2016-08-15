@@ -89,5 +89,12 @@ public protocol EdmSchema { // TODO ->  extends EdmAnnotatable {
    
   func getEntityContainer() -> EdmEntityContainer
   
+  /// Get the navigation properties for this schema
+  /// - parameters:
+  ///   - none
+  /// - returns: Dict of key: entity type name and value: list of navigation properties
+  /// - throws: No error conditions are expected
+  func getNavigationProperties() -> [String: [EdmNavigationProperty]]
+  
 }
 

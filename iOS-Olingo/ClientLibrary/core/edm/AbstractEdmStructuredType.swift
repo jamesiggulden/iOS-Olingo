@@ -33,6 +33,7 @@ public class AbstractEdmStructuredType: EdmTypeImpl, EdmStructuredType {
   // MARK: - Stored Properties
 
   public var baseType : EdmStructuredType?
+  public var theNavigationProperties:[EdmNavigationProperty]?
   let baseTypeName: FullQualifiedName?
   
   private final let providerStructuredType: CsdlStructuralType
@@ -182,11 +183,6 @@ public class AbstractEdmStructuredType: EdmTypeImpl, EdmStructuredType {
     }
     return localProperties
   }
-  
-  
-  
-  
-  
   
   
   // TODO: Navigation

@@ -6,7 +6,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOS-Olingo/ViewController.swift"
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOS-Olingo/ODataReaderImpl.swift"
-            timestampString = "492447828.507026"
+            timestampString = "492606482.450373"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "parser(_:didStartElement:namespaceURI:qualifiedName:attributes:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOS-Olingo/ODataReaderImpl.swift"
-            timestampString = "492447828.507026"
+            timestampString = "492612602.538408"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
             landmarkName = "createEdmKeyPropertyRef(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOS-Olingo/ODataReaderImpl.swift"
-            timestampString = "492447828.507026"
+            timestampString = "492612602.538408"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
             landmarkName = "createEdmKeyPropertyRef(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -198,7 +198,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOS-Olingo/EdmSummarizer.swift"
@@ -209,6 +209,117 @@
             endingLineNumber = "52"
             landmarkName = "generateSummary()"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iOS-Olingo/ODataReaderImpl.swift"
+            timestampString = "492606734.326321"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "readMetadata(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iOS-Olingo/ODataReaderImpl.swift"
+            timestampString = "492608619.83063"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
+            landmarkName = "parser(_:didStartElement:namespaceURI:qualifiedName:attributes:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iOS-Olingo/ClientLibrary/core/edm/AbstractEdmStructuredType.swift"
+            timestampString = "492612602.538408"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "AbstractEdmStructuredType"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iOS-Olingo/EdmNavigationPropertyImpl.swift"
+            timestampString = "492946830.076259"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
+            landmarkName = "EdmNavigationPropertyImpl"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "protocol witness for iOS_Olingo.EdmTyped.isCollection.getter : Swift.Bool in conformance iOS_Olingo.EdmNavigationPropertyImpl : iOS_Olingo.EdmTyped in iOS_Olingo"
+                  moduleName = "iOS-Olingo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jamesiggulden/XCode/workspaces/Olingo-Swift/iOS-Olingo/iOS-Olingo/EdmNavigationPropertyImpl.swift"
+                  timestampString = "492947130.703815"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "132"
+                  endingLineNumber = "132"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "iOS_OlingoTests.EdmNavigationPropertyImpl.isCollection.getter : Swift.Bool"
+                  moduleName = "iOS-OlingoTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jamesiggulden/XCode/workspaces/Olingo-Swift/iOS-Olingo/iOS-Olingo/EdmNavigationPropertyImpl.swift"
+                  timestampString = "492947131.593203"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "133"
+                  endingLineNumber = "133"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "protocol witness for iOS_OlingoTests.EdmTyped.isCollection.getter : Swift.Bool in conformance iOS_OlingoTests.EdmNavigationPropertyImpl : iOS_OlingoTests.EdmTyped in iOS_OlingoTests"
+                  moduleName = "iOS-OlingoTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jamesiggulden/XCode/workspaces/Olingo-Swift/iOS-Olingo/iOS-Olingo/EdmNavigationPropertyImpl.swift"
+                  timestampString = "492947131.593383"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "132"
+                  endingLineNumber = "132"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

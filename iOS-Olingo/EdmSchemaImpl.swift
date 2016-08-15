@@ -29,6 +29,7 @@ public class EdmSchemaImpl: EdmSchema {
   
   let theNamespace: String
   var theEntityTypes = [EdmEntityType]()
+  public var theNavigationProperties = [String: [EdmNavigationProperty]]()
   
   ///Initializer
   public init(aNamespace: String){
@@ -97,6 +98,15 @@ public class EdmSchemaImpl: EdmSchema {
   /// get the entity container for this schema. May be null.
   public func getEntityContainer() -> EdmEntityContainer {
     fatalError("Unsupported Operation")
+  }
+  
+  /// Get the navigation properties for this schema
+  /// - parameters:
+  ///   - none
+  /// - returns: Dict of key: entity type name and value: list of navigation properties
+  /// - throws: No error conditions are expected
+  public func getNavigationProperties() -> [String: [EdmNavigationProperty]] {
+    return theNavigationProperties
   }
   
 }

@@ -32,12 +32,18 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
   let ROOT_ELEMENT_NAME = "edmx:Edmx"
   let ENTITY_TYPE_NAME = "EntityType"
   let PROPERTY_ELEMENT_NAME = "Property"
+  let NAVIGATION_PROPERTY_ELEMENT_NAME = "NavigationProperty"
+  let REFERENTIAL_CONSTRAINT_ELEMENT_NAME = "ReferentialConstraint"
   
   var theParser: NSXMLParser?
   var theCurrentSchema: EdmSchemaImpl?
   var theCurrentEntityType: EdmEntityTypeImpl?
   var theEntityTypes = [EdmEntityType]()
   var thePropertyRefs = [String: EdmKeyPropertyRef]()
+  var theCurrentNavigationProperties = [EdmNavigationProperty]()
+  var theCurrentNavigationProperty: EdmNavigationProperty?
+  var theCurrentReferentialConstraints = [EdmReferentialConstraint]()
+  var theNavigationProperties = [String: [EdmNavigationProperty]]()
   var theSchemas = [String: EdmSchema]()
   var theEdm = EdmProviderImpl()
   
@@ -78,6 +84,20 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
       log.info("Adding property to array: " + myName!)
       thePropertyRefs[myName!] = myEdmKeyPropertyRef
     }
+    if (NAVIGATION_PROPERTY_ELEMENT_NAME == elementName) {
+      let myName = attributeDict["Name"]
+      let myNullableString = attributeDict["Nullable"]
+      let myIsNillable = !("false" == myNullableString)
+      let myPartner = attributeDict["Partner"]
+      let myType = attributeDict["Type"]
+      theCurrentNavigationProperty = EdmNavigationPropertyImpl(aName: myName!, anEntityTypeName: myType!, isNullable: myIsNillable, isContainsTarget: false, aPartnerName: myPartner!, aSchema: theCurrentSchema!)
+    }
+    if (REFERENTIAL_CONSTRAINT_ELEMENT_NAME == elementName) {
+      let myPropertyName = attributeDict["Property"]
+      let myRefProperty = attributeDict["ReferencedProperty"]
+      let myRefConstraint = EdmReferentialConstraintImpl(aPropertyName: myPropertyName!, aRefPropertyName: myRefProperty!)
+      theCurrentReferentialConstraints.append(myRefConstraint)
+    }
   }
   
   /// Callback method for NSXMLParser
@@ -93,6 +113,8 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
       theEntityTypes.removeAll()
       ///Add current schema to the list
       theSchemas[theCurrentSchema!.getNamespace()] = theCurrentSchema!
+      ///Add the navigation properties to the schema
+      theCurrentSchema?.theNavigationProperties = theNavigationProperties
     }
     if (ENTITY_TYPE_NAME == elementName) {
       ///Add any property refs to the current entity
@@ -100,6 +122,17 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
       thePropertyRefs.removeAll()
       ///Add the current entity type to the list
       theEntityTypes.append(theCurrentEntityType!)
+      ///Add the navigation properties to the dict and to the entity
+      if (theCurrentNavigationProperties.count > 0) {
+        theNavigationProperties[(theCurrentEntityType?.name)!] = theCurrentNavigationProperties
+        theCurrentEntityType?.theNavigationProperties = theCurrentNavigationProperties
+        theCurrentNavigationProperties.removeAll()
+      }
+    }
+    if (NAVIGATION_PROPERTY_ELEMENT_NAME == elementName) {
+      theCurrentNavigationProperty?.referentialConstraints = theCurrentReferentialConstraints
+      theCurrentReferentialConstraints.removeAll()
+      theCurrentNavigationProperties.append(theCurrentNavigationProperty!)
     }
   }
   
