@@ -17,7 +17,7 @@
   under the License.
  */
 
-
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  JsonEntitySetDeserializer.swift
@@ -59,12 +59,9 @@ public class JsonEntitySetDeserializer:JsonDeserializer {
     guard var data = parseHttpData(inputData) else {
       return nil
     }
-    
     let entitySet = EntityCollection()
-    
     var contextURL:NSURL?
     var metadataETag:String = ""
-    
     if data[JSON_CONTEXT] != nil {
       contextURL = NSURL(string: (data[JSON_CONTEXT]?.description)!)!
       data[JSON_CONTEXT] = nil
@@ -73,7 +70,6 @@ public class JsonEntitySetDeserializer:JsonDeserializer {
       contextURL = NSURL(string: (data[JSON_METADATA]?.description)!)!
       data[JSON_METADATA] = nil
     }
-    
     if let contextURL = contextURL {
       let idx = contextURL.absoluteString.rangeOfString(METADATA)?.startIndex
       if let idx = idx {
@@ -87,7 +83,6 @@ public class JsonEntitySetDeserializer:JsonDeserializer {
       log.info("context URL not defined")
       throw GetODataException.ODataEntitySetFailed
     }
-    
     if data[JSON_METADATA_ETAG] != nil {
       metadataETag = data[JSON_METADATA_ETAG]!.description
       data[JSON_METADATA_ETAG] = nil
@@ -119,8 +114,8 @@ public class JsonEntitySetDeserializer:JsonDeserializer {
             log.debug("Number of entities: \(entitySet.entities.count)")
           }
         }
-        catch  let err{
-          log.error("JSON value error: \(err)")
+        catch let error as NSError{
+          log.error("JSON value error: \(error.localizedDescription)")
         }
       }
       data[VALUE] = nil

@@ -24,14 +24,19 @@ class AbstractODataRequestTest: XCTestCase {
   
   
     func testexecute() {
-      let odataClient = ODataClientImp()
+      let odataClient = ODataClientImpl()
       
-      guard let uri:NSURL = NSURL(string:"http://services.odata.org/V4/Northwind/Northwind.svc/customers")! else {
+      guard let uri:NSURL = NSURL(string:"http://services.odata.org/V4/Northwind/Northwind.svc/Customers")! else {
         return
       }
-      
-      let odataRequest = AbstractODataRequest(odataClient: odataClient,method: HttpMethod.POST,uri: uri)
-    
+      do {
+        let odataRequest = AbstractODataRequest(odataClient: odataClient,method: HttpMethod.POST,uri: uri)
+        let odataResponse = try odataRequest.doExecute()
+        XCTAssert(odataResponse.response.statusCode == 200)
+      }
+      catch {
+        XCTFail()
+      }
     }
 
     func testExample() {

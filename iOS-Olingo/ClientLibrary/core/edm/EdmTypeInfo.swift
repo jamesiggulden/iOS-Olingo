@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmTypeInfo.swift
@@ -102,45 +103,34 @@ public class EdmTypeInfo {
   
   // MARK: - Computed Properties
   
-
-  
   public var isPrimitiveType:Bool {
     return primitiveTypeKind != nil
   }
   
-  
   public var isTypeDefinition:Bool {
-  return typeDefinition != nil
+    return typeDefinition != nil
   }
-  
-
   
   public var isEnumType:Bool {
-  return enumType != nil
+    return enumType != nil
   }
-  
-
   
   public var isComplexType:Bool {
-  return complexType != nil
+    return complexType != nil
   }
-  
   
   public var isEntityType:Bool {
-  return entityType != nil
+    return entityType != nil
   }
   
-  
-  // TODO: public var type: EdmType
   public var type: EdmType? {
     if isPrimitiveType {
       do {
         return try EdmPrimitiveTypeFactory.getInstance(primitiveTypeKind!)
       }
       catch {
-        
+        return nil
       }
-      
     }
     else if isTypeDefinition {
       return typeDefinition
@@ -157,7 +147,6 @@ public class EdmTypeInfo {
     else {
       return nil
     }
-    return nil
   }
 
 
@@ -204,7 +193,6 @@ public class EdmTypeInfo {
 //      baseType = typeExpression.substringWithRange(collIdx!)
 //    }
     
-    //baseType = baseType.replaceAll("^#", "")
     baseType = baseType.stringByReplacingOccurrencesOfString("#", withString: "")
     
     var typeName:String = ""
@@ -248,8 +236,6 @@ public class EdmTypeInfo {
   
   
   // MARK: - Methods
-
-
    
   /// Build string of the full qualified name  and wrap with Collection( ..  ) if the type is a collection
   /// - parameters:

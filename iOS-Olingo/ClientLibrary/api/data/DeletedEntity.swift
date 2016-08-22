@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  DeletedEntity.swift
@@ -44,7 +45,6 @@ public class DeletedEntity {
   
   public var id:NSURL?  //GS
   public var reason:Reason?  //GS
-  
   
   // MARK: - Computed Properties
 

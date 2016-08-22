@@ -17,7 +17,7 @@
   under the License.
  */
 
-
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EntityCollection.swift
@@ -36,15 +36,12 @@ public class EntityCollection : AbstractODataObject,IEntityCollection {
   
   // MARK: - Stored Properties
 
-
-  
   public var entities:[Entity] = [Entity]() //GS
   public var count:Int = 0  //GS
   public var next: NSURL? //GS
   public var deltaLink: NSURL?  //GS
   
   // MARK: - Computed Properties
-
 
   // MARK: - Init
   override init () {
@@ -53,9 +50,6 @@ public class EntityCollection : AbstractODataObject,IEntityCollection {
   }
 
   // MARK: - Methods
-  
-
-  
  
   public override func equals(o:AnyObject) -> Bool {
     if (!super.equals(o)) {

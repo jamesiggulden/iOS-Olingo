@@ -41,7 +41,6 @@ public protocol ODataHeaders {
   /// - throws: No error conditions are expected
   func getHeader(name:String) -> String!
   
-  
   /// Gets header names
   /// Please note that header name is case-insensitive
   /// - parameters:
@@ -50,7 +49,6 @@ public protocol ODataHeaders {
   /// - throws: No error conditions are expected
   func getHeaderNames()-> [String]
   
-  
   /// Add the specified (custom) header (header name is case-insensitive)
   /// - parameters:
   ///   - name: header key
@@ -58,7 +56,6 @@ public protocol ODataHeaders {
   /// - returns: the current updated header instance
   /// - throws: No error conditions are expected
   func setHeader(name:String,value:String) -> ODataHeadersImpl
-  
   
   /// Removes the header identified by the given name
   /// Please note that header name is case-insensitive.

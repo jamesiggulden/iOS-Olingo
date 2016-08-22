@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  AbstractODataObject.swift
@@ -35,12 +36,13 @@ public class AbstractODataObject  { // extends Annotatable {
   public var id:NSURL?  //GS
   public var title:String?  //G
   
-  
-  /**
-   * Sets property with given key to given value.
-   * @param key key of property
-   * @param value new value for property
-   */
+
+  /// Sets property with given key to given value.
+  /// - parameters:
+  ///   - key: key of property
+  ///   - value: new value for property
+  /// - returns: No return value (void)
+  /// - throws: No error conditions are expected
   public func setCommonProperty(key:String,value:String) {
     if "id" == key {
       id = NSURL(string: value)
@@ -55,19 +57,18 @@ public class AbstractODataObject  { // extends Annotatable {
       return true
     }
     else {
-      return false
-      // TODO: Add checks
-      /*
-      if (o == nil || getClass() != o.getClass()) {
+      if self.dynamicType != o.dynamicType {
         return false
       }
       
-      final AbstractODataObject other = (AbstractODataObject) o
-      return getAnnotations().equals(other.getAnnotations())
-        && (baseURI == nil ? other.baseURI == nil : baseURI.equals(other.baseURI))
-        && (id == nil ? other.id == nil : id.equals(other.id))
-        && (title == nil ? other.title == nil : title.equals(other.title))
-      */
+      let other =  o as! AbstractODataObject
+      
+      return (baseURI == nil ? other.baseURI == nil : baseURI == other.baseURI)
+        && (id == nil ? other.id == nil : id == other.id)
+        && (title == nil ? other.title == nil : title == other.title)
+      // TODO: Annotations
+      //&& (getAnnotations().equals(other.getAnnotations()))
+ 
     }
     
   }

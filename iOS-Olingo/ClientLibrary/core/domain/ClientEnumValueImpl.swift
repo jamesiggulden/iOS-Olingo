@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ClientEnumValueImpl.swift
@@ -34,10 +35,9 @@ public class ClientEnumValueImpl: AbstractClientValue, ClientEnumValue {
 
   public var value:String?  // G
   
-  
   // MARK: - Computed Properties
   
-  public var isEnum:Bool {
+  override public var isEnum:Bool {
     get {
       return true
     }
@@ -49,6 +49,10 @@ public class ClientEnumValueImpl: AbstractClientValue, ClientEnumValue {
     }
   }
   
+  public func asEnum() -> ClientEnumValue? {
+    return self
+  }
+  
 
   // MARK: - Init
 
@@ -58,11 +62,6 @@ public class ClientEnumValueImpl: AbstractClientValue, ClientEnumValue {
   }
   
   // MARK: - Methods
-  
-  public override func asEnum() -> ClientEnumValue {
-    return self
-  }
-  
   
   public override func toString() -> String {
     return "\(super.typeName)'\(value)'"

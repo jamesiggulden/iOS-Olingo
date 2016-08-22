@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmMappable.swift
@@ -28,15 +29,9 @@
 
 import Foundation
 
-/**
- * EdmMappable can be applied to CSDL elements to associate additional information.
- */
+/// EdmMappable can be applied to CSDL elements to associate additional information.
 public protocol EdmMappable {
   
-  /**
-   * Get mapping information applied to an EDM element. May return null if no mapping is defined.
-   *
-   * @return {@link EdmMapping} or <b>null</b> if no mapping is defined
-   */
+  /// Get mapping information applied to an EDM element. May return null if no mapping is defined.
   var mapping: EdmMapping? {get}
 }

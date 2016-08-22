@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ServiceDocument.swift
@@ -36,18 +37,13 @@ public protocol ServiceDocument {
   // MARK: - Protocol Properties
   
   var title:String {get}
-  
   var baseURI:NSURL {get}
-  
   /// top level entity sets.
   var entitySets:[ServiceDocumentItem] {get}
-  
   /// top level function imports
   var functionImports:[ServiceDocumentItem] {get}
-  
   /// top level singletons
   var singletons:[ServiceDocumentItem] {get}
-  
   /// related service documents
   var relatedServiceDocuments:[ServiceDocumentItem] {get}
   

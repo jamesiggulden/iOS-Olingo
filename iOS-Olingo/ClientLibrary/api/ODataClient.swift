@@ -65,8 +65,4 @@ public protocol ODataClient {
   /// - throws: No error conditions are expected
   func newURIBuilder(serviceRoot:String) -> URIBuilder?
   
-  // var retrieveReqFact:RetrieveRequestFactory {get}
-  // func retrieveRequestFactory()-> RetrieveRequestFactory
-
-
 }

@@ -17,6 +17,8 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
+
 //
 //  Extensions.swift
 //  iOS-Olingo
@@ -29,6 +31,13 @@ import Foundation
 
 
 extension NSURLSession {
+  
+  /// Wrapper to send synchronous requests
+  /// - parameters:
+  ///   - request: NSURL request to be sent
+  ///   - completionHandler: closure expression to perform request & repsonse
+  /// - returns: No return value (void)
+  /// - throws: No error conditions are expected
   func sendSynchronousRequest(request: NSURLRequest, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) {
     let semaphore = dispatch_semaphore_create(0)
     let task = self.dataTaskWithRequest(request) { data, response, error in
@@ -39,7 +48,13 @@ extension NSURLSession {
     task.resume()
     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
   }
-  
+   
+  /// Wrapper to send asynchronous requests
+  /// - parameters:
+  ///   - request: NSURL request to be sent
+  ///   - completionHandler: closure expression to perform request & repsonse
+  /// - returns: session data task of type NSURLSessionDataTask
+  /// - throws: No error conditions are expected
   func sendAsynchronousRequest(request: NSURLRequest, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) -> NSURLSessionDataTask {
     let task = self.dataTaskWithRequest(request) { data, response, error in
       completionHandler(data, response, error)
@@ -48,9 +63,16 @@ extension NSURLSession {
     task.resume()
     return task
   }
-}
+} 
 
 extension String {
+  
+  /// return string between 2 provided string values
+  /// - parameters:
+  ///   - start: string to compare from
+  ///   - end: string to compare to
+  /// - returns: string between the passed in values otherwise return nil
+  /// - throws: No error conditions are expected
   func substringBetweenStrings (start:String, end:String) -> String?{
     guard var idx = self.rangeOfString(start) else {
       return nil
@@ -63,6 +85,11 @@ extension String {
     return self.substringWithRange(idx)
   }
   
+  /// check if string starts with string parameter
+  /// - parameters:
+  ///   - checkFor: string to check for
+  /// - returns: true if string found at start of string, otherwise return false
+  /// - throws: No error conditions are expected
   func startsWith(checkFor:String) -> Bool {
     let idx = self.rangeOfString(checkFor)?.startIndex
     if idx == self.startIndex {
@@ -72,7 +99,12 @@ extension String {
       return false
     }
   }
-  
+   
+  /// check if string ends with string parameter
+  /// - parameters:
+  ///   - checkFor: string to check for
+  /// - returns: true if string found at end of string, otherwise return false
+  /// - throws: No error conditions are expected
   func endsWith(checkFor:String) -> Bool {
     let idx = self.rangeOfString(checkFor, options: .BackwardsSearch)?.endIndex
     if idx == self.endIndex {

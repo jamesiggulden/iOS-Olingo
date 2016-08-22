@@ -15,7 +15,7 @@
   KIND, either express or implied.  See the License for the
   specific language governing permissions and limitations
   under the License.
- */
+*/
 
 
 //
@@ -28,18 +28,15 @@
 
 import Foundation
 
-/**
- * A geometry or geography property MAY define a value for the SRID attribute. The value of this attribute identifies
- * which spatial reference system is applied to values of the property on type instances.
- * <br/>
- * The value of the SRID attribute MUST be a non-negative integer or the special value <tt>variable</tt>. If no value is
- * specified, the attribute defaults to 0 for Geometry types or 4326 for Geography types.
- * <br/>
- * Standards Track Work Product Copyright © OASIS Open 2013. All Rights Reserved. 19 November 2013
- * <br>
- * The valid values of the SRID attribute and their meanings are as defined by the
- * European Petroleum Survey Group [EPSG].
- */
+
+ /// A geometry or geography property MAY define a value for the SRID attribute. The value of this attribute identifies
+ /// which spatial reference system is applied to values of the property on type instances.
+ /// The value of the SRID attribute MUST be a non-negative integer or the special value <tt>variable</tt>. If no value is
+ /// specified, the attribute defaults to 0 for Geometry types or 4326 for Geography types.
+ /// Standards Track Work Product Copyright © OASIS Open 2013. All Rights Reserved. 19 November 2013
+ /// The valid values of the SRID attribute and their meanings are as defined by the
+ /// European Petroleum Survey Group [EPSG].
+
 public final class SRID { // Serializable {
   
   // MARK: - Stored Properties
@@ -52,7 +49,6 @@ public final class SRID { // Serializable {
   private let variable:Bool? = nil
   
   // MARK: - Computed Properties
-  
   
   
   // MARK: - Init
@@ -85,17 +81,22 @@ public final class SRID { // Serializable {
   }
  */
 
-  
+   
+  /// Get value
+  /// - parameters:
+  ///   - none:
+  /// - returns: value as string
+  /// - throws: No error conditions are expected
   private func getValue() -> String {
     return value == nil ? dimension == Geospatial.Dimension.GEOMETRY ? "0" : "4326" : "\(value)"
   }
   
-
-  
-  /**
-   * Returns true if the value of the instance is not equals to the default (uninitialized).
-   * @return true if the value of the instance is not equals to the default (uninitialized)
-   */
+  /// Check if default value
+  /// - parameters:
+  ///   - none
+  ///   - param2: add or remove params from list as required
+  /// - returns: true if the value of the instance is not equals to the default (uninitialized).
+  /// - throws: No error conditions are expected
   public func isNotDefault() -> Bool {
     return value != nil || variable != nil
   }
@@ -130,8 +131,8 @@ public final class SRID { // Serializable {
   /*
   public func hashCode() -> Int {
     int result = dimension != nil ? dimension.hashCode() : 0
-    result = 31 * result + (value != nil ? value.hashCode() : 0)
-    result = 31 * result + (variable != nil ? variable.hashCode() : 0)
+    result = 31 /// result + (value != nil ? value.hashCode() : 0)
+    result = 31 /// result + (variable != nil ? variable.hashCode() : 0)
     return result
   }
  */

@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  AbstractODataRetrieveResponse.swift
@@ -28,20 +29,16 @@
 
 import Foundation
 
-
-
 // MARK: - Protocol
 
 /// Response abstract class about an ODataRetrieveRequest.
 public protocol ODataRetrieveResponse : ODataResponse {
   
-  //associatedtype bodyReturn
-  
   // MARK: - Protocol Properties
   
   // MARK: - Protocol Methods
   func getBody()
-  //func getBody() -> bodyReturn?
+
 }
 
 

@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmEnumType.swift
@@ -33,26 +34,31 @@ import Foundation
  */
 public protocol EdmEnumType: EdmPrimitiveType {
   
-  /**
-   *  get member according to given name
-   *
-   * @param name name of member
-   * @return {@link EdmMember} for the given name
-   */
+  /// get member according to given name
+  /// - parameters:
+  ///   - name: name of member
+  /// - returns: EdmMember for the given name
+  /// - throws: No error conditions are expected
   func getMember(name:String) -> EdmMember
   
-  /**
-   * @return member names as a list
-   */
+  /// get member names as a list
+  /// - parameters:
+  ///   - none:
+  /// - returns: member names as a list
+  /// - throws: No error conditions are expected
   func getMemberNames() -> [String]
   
-  /**
-   * @return the {@link EdmPrimitiveType} this {@link EdmEnumType} is based upon
-   */
+  /// get the EdmPrimitiveType this EdmEnumType is based upon
+  /// - parameters:
+  ///   - none:
+  /// - returns: the EdmPrimitiveType this EdmEnumType is based upon
+  /// - throws: No error conditions are expected
   func getUnderlyingType() -> EdmPrimitiveType
   
-  /**
-   * @return true if flags is set
-   */
+  /// check if flags is set
+  /// - parameters:
+  ///   - none:
+  /// - returns: true if flags is set
+  /// - throws: No error conditions are expected
   func isFlags() -> Bool
 }

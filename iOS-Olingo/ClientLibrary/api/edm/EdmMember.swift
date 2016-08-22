@@ -18,6 +18,8 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
+
 //
 //  EdmMember.swift
 //  iOS-Olingo
@@ -28,13 +30,9 @@
 
 import Foundation
 
-/**
- * An {@link EdmEnumType} member element.
- */
+/// An EdmEnumType member element
 public protocol EdmMember: EdmNamed {  // TODO: EdmAnnotatable {
   
-  /**
-   * @return value of this member as string
-   */
+  /// value of this member as string
   var  value: String {get}
 }

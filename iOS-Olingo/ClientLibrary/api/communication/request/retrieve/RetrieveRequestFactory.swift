@@ -38,7 +38,6 @@ public protocol RetrieveRequestFactory {
   ///   - uri: NSURL object containing a URI
   /// - returns: No return value (void) TODO
   /// - throws: No error conditions are expected
-  
   func entitySetIteratorRequest(uri:NSURL)
   
   /// Gets a uri request returning a set of one or more OData entities

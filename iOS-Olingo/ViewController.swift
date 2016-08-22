@@ -11,51 +11,33 @@ import UIKit
 class ViewController: UIViewController {
 
   @IBOutlet weak var serviceRootField: UITextField!
-  
   @IBOutlet weak var entitySetField: UITextField!
-  
   @IBOutlet weak var Northwind: UILabel!
   @IBOutlet weak var entityIDField: UITextField!
-
-  
   @IBOutlet weak var numRecsSkipField: UITextField!
   @IBOutlet weak var numRecsToReturnField: UITextField!
   @IBOutlet weak var TripPin: UILabel!
-  
   @IBOutlet weak var Status: UILabel!
   @IBOutlet weak var filterQueryField: UITextField!
   @IBOutlet weak var propertyFilterField: UITextField!
   @IBOutlet weak var orderByField: UITextField!
   @IBOutlet weak var urlLabel: UILabel!
-  
   @IBOutlet weak var Console: UITextView!
-  
   @IBOutlet weak var StatusConsole: UITextView!
-  
   @IBOutlet weak var RawConsole: UITextView!
   
   
   @IBAction func ClearConsole(sender: AnyObject) {
-
     Console.text = ""
   }
   
   @IBAction func SubmitNorthwind(sender: AnyObject) {
-//    guard let root = Northwind.text else {
-//      return
-//    }
-    odataLibrarySubmit("http://services.odata.org/V4/Northwind/Northwind.svc")
-
+    odataLibrarySubmit("http://services.odata.org/V4/Northwind/Northwind.svc", incCount: true)
   }
   
 
   @IBAction func SubmitTripPin(sender: AnyObject) {
-    
-//    guard let root = TripPin.text else {
-//      return
-//    }
-    odataLibrarySubmit("http://services.odata.org/v4/TripPinServiceRW")
-    
+    odataLibrarySubmit("http://services.odata.org/v4/TripPinServiceRW",incCount: true)
   }
 
   
@@ -70,63 +52,17 @@ class ViewController: UIViewController {
       return
     }
     odataLibrarySubmit(root)
-    
-    
-//    guard let uri:NSURL = NSURL(string:"http://services.odata.org/V4/Northwind/Northwind.svc/Orders")! else {
-//      return
-//    }
-    
-
   }
   
   
-//  @IBAction func SubmitNorthwind(sender: AnyObject) {
-//    guard let root = Northwind.text else {
-//      return
-//    }
-//    odataLibrarySubmit(root)
-//  }
-//  
-//  
-//  @IBAction func SubmitTripPin(sender: AnyObject) {
-//    guard let root = TripPin.text else {
-//      return
-//    }
-//    odataLibrarySubmit(root)
-//  }
-  
-  
-  func testClientFactory(sender: AnyObject) {
-    
-//    let odataRequest = AbstractODataRequest(odataClient: client,method: HttpMethod.GET,uri: uri)
-//    
-//    do {
-//      //try odataRequest.doExecute()
-//      let odataResult = try odataRequest.doExecute()
-//      print (odataResult.data.length)
-//
-//    }
-//    catch {
-//      
-//    }
-
-//    let response = client.retrieveRequestFactory.getEntityRequest(uri).execute()
-//    let body = response.getBody()
-//    
-
-  }
-  
-  
-  func odataLibrarySubmit(root:String) {
+  func odataLibrarySubmit(root:String, incCount:Bool = false) {
     let client:ODataClient = ODataClientFactory().getClient()
-    log.logMode = Log.LogMode.DEBUG
+    //log.logMode = Log.LogMode.DEBUG
   
-
     guard let uriBuilder = client.newURIBuilder(root) else {
       return
     }
     ResetRawConsole("")
-    
   
     if let entitySet = entitySetField.text{
       if entitySet.isEmpty || entitySet == "entity set" {
@@ -157,7 +93,9 @@ class ViewController: UIViewController {
               AppendToStatusConsole("Build URI")
               log.debug("Build URI")
               uriBuilder.appendEntitySetSegment(entitySet)
-              uriBuilder.count(true)
+              if incCount {
+                uriBuilder.count(true)
+              }
               if let topAsText = numRecsToReturnField.text{
                 if !topAsText.isEmpty && topAsText != "# recs" {
                   if let top = Int(topAsText) {
@@ -165,7 +103,6 @@ class ViewController: UIViewController {
                   }
                 }
               }
-
               if let skipAsText = numRecsSkipField.text{
                 if !skipAsText.isEmpty && skipAsText != " @ rec" {
                   if let skip = Int(skipAsText) {
@@ -173,7 +110,6 @@ class ViewController: UIViewController {
                   }
                 }
               }
-              
               if let orderBytext = orderByField.text {
                 if !orderBytext.isEmpty && orderBytext != "order by (desc)" {
                   uriBuilder.orderBy(orderBytext)
@@ -211,11 +147,8 @@ class ViewController: UIViewController {
               }
               let uri = try uriBuilder.build()
               urlLabel.text = uri.absoluteString
-              
               processEntity(retriveRequestFactory,uri: uri)
-
             }
-            
           }
         }
         catch {
@@ -223,12 +156,7 @@ class ViewController: UIViewController {
         }
       }
     }
-    
-
   }
-  
-  
-  
   
   func processEntitySet(retriveRequestFactory:RetrieveRequestFactory,uri:NSURL) {
     
@@ -248,8 +176,7 @@ class ViewController: UIViewController {
     log.debug("Execute Built Request")
     
     guard let response = entitySetRequest.execute() else {
-    
-      AppendToConsole("Nil returned from execute request")
+      AppendToStatusConsole("Execute request did not return a valid response")
       return
     }
     endTime = NSDate()
@@ -260,22 +187,12 @@ class ViewController: UIViewController {
     log.info ("Response Status Code: \(response.statusCode)")
     Status.text = "Response Status Code: \(response.statusCode)"
     
-    //let headerNames = response.headerNames
     let headers = response.headers
     AppendToConsole("Headers :")
     for (name,value) in headers {
       log.debug ("Header Name: \(name) : Value: \(value)")
-      // AppendToConsole("Header Name: \(name) : Value: \(value)")
       AppendToConsole("Name: \(name) : Value: \(value)")
     }
-    
-    /*
-    AppendToConsole("Header Names :")
-    for name in headerNames {
-      AppendToConsole(name)
-      log.debug ("Header Name: \(name)")
-    }
-     */
     
     if let dataString = NSString(data:response.res.data!,encoding: NSUTF8StringEncoding) {
       log.debug(String(dataString))
@@ -295,7 +212,7 @@ class ViewController: UIViewController {
       }
       endTime = NSDate()
       duration = endTime.timeIntervalSinceDate(startTime)
-      AppendToStatusConsole("Time to extract returned response: \(round(duration*100)/100) secs")
+      AppendToStatusConsole("Time to extract returned response (getBody): \(round(duration*100)/100) secs")
       
       AppendToConsole("")
       AppendToConsole("Body Content")
@@ -315,6 +232,7 @@ class ViewController: UIViewController {
           var name:String = ""
           var val:String = ""
           var typeKind:String = ""
+          var swiftType = ""
           
           if let propertyValue = property.value.asPrimitive {
             if let propertyValueValue = propertyValue.value {
@@ -323,16 +241,18 @@ class ViewController: UIViewController {
               if let tk = propertyValue.typeKind?.toString() {
                 typeKind = tk
               }
+              swiftType = String(propertyValueValue.dynamicType)
             }
-            consoleOutput += "\n    \(name) : \(val)  : (\(typeKind))"
+            consoleOutput += "\n    \(name) : \(val) (EdmType: \(typeKind))"
           }
         }
         
       }
+      consoleOutput += "\n\n\n"
       AppendToConsole(consoleOutput)
       endTime = NSDate()
       duration = endTime.timeIntervalSinceDate(startTime)
-      AppendToStatusConsole("Time to extract returned response: \(round(duration*100)/100) secs")
+      AppendToStatusConsole("Time to extract data from API and render: \(round(duration*100)/100) secs")
     }
     catch {
       AppendToConsole("No content returned")
@@ -365,22 +285,12 @@ class ViewController: UIViewController {
     log.info ("Response Status Code: \(response.statusCode)")
     Status.text = "Response Status Code: \(response.statusCode)"
     
-    let headerNames = response.headerNames
     let headers = response.headers
     AppendToConsole("Headers :")
     for (name,value) in headers {
       log.debug ("Header Name: \(name) : Value: \(value)")
-      // AppendToConsole("Header Name: \(name) : Value: \(value)")
       AppendToConsole("Name: \(name) : Value: \(value)")
     }
-    
-    /*
-    AppendToConsole("Header Names :")
-    for name in headerNames {
-      AppendToConsole(name)
-      log.debug ("Header Name: \(name)")
-    }
- */
     
     if let dataString = NSString(data:response.res.data!,encoding: NSUTF8StringEncoding) {
       log.debug(String(dataString))
@@ -402,7 +312,7 @@ class ViewController: UIViewController {
       }
       endTime = NSDate()
       duration = endTime.timeIntervalSinceDate(startTime)
-      AppendToStatusConsole("Time to extract returned response: \(round(duration*100)/100) secs")
+      AppendToStatusConsole("Time to extract returned response (getBody): \(round(duration*100)/100) secs")
       
       AppendToConsole("")
       AppendToConsole("Body Content")
@@ -426,15 +336,15 @@ class ViewController: UIViewController {
               typeKind = tk
             }
           }
-          consoleOutput += "\n  \(name) : \(val)  : (\(typeKind))"
+          consoleOutput += "\n  \(name) : \(val) (EdmType: \(typeKind))"
         }
       }
       
-      
+      consoleOutput += "\n\n\n"
       AppendToConsole(consoleOutput)
       endTime = NSDate()
       duration = endTime.timeIntervalSinceDate(startTime)
-      AppendToStatusConsole("Time to extract returned response: \(round(duration*100)/100) secs")
+      AppendToStatusConsole("Time to extract data from API and render: \(round(duration*100)/100) secs")
     }
     catch {
       AppendToConsole("No content returned")
@@ -482,39 +392,10 @@ class ViewController: UIViewController {
     // Dispose of any resources that can be recreated.
   }
   
-  // MARK: - Navigation
-  
   // In a storyboard-based application, you will often want to do a little preparation before navigation
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//    let responseController = segue.destinationViewController as! ResponseViewController
-//    
-//    guard ((serviceRootField.text?.isEmpty) != nil) else {
-//      responseController.URIData = "Invalid URL"
-//      return
-//    }
-//    guard ((entitySetField.text?.isEmpty) != nil) else {
-//      responseController.URIData = "Invalid URL"
-//      return
-//    }
-//    
-//    let URIData = serviceRootField.text! + "/" + entitySetField.text!
-//    
-//    responseController.URIData = URIData
-    
-    
-    
-    
-    
-
     
   }
-  
-  
-  
-  
-  
-  
-
 
 }
 

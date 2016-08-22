@@ -26,7 +26,8 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -43,6 +44,24 @@
                </Test>
                <Test
                   Identifier = "EdmTypes/testPerformanceExample()">
+               </Test>
+               <Test
+                  Identifier = "ODataHeadersTest/testPerformanceExample()">
+               </Test>
+               <Test
+                  Identifier = "RequestEntitySetTest">
+               </Test>
+               <Test
+                  Identifier = "RequestEntitySetTest/testPerformanceExample()">
+               </Test>
+               <Test
+                  Identifier = "URIBuilderTest/testPerformanceExample()">
+               </Test>
+               <Test
+                  Identifier = "iOS_OlingoTests/testExample()">
+               </Test>
+               <Test
+                  Identifier = "iOS_OlingoTests/testPerformanceExample()">
                </Test>
             </SkippedTests>
          </TestableReference>

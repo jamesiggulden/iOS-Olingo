@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  AbstractEdmAnnotatable.swift
@@ -27,9 +28,6 @@
 //
 
 import Foundation
-
-
-
 
 public class AbstractEdmAnnotatable: EdmAnnotatable {
   

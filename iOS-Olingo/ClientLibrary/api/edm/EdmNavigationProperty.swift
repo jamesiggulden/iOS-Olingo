@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmNavigationProperty.swift
@@ -36,16 +37,14 @@ import Foundation
 public protocol EdmNavigationProperty:EdmElement { // TODO: EdmAnnotatable {
   
   var type: EdmEntityType {get}
-  
   /// return true if nullable or not specified
   var isNullable:Bool {get}
-  
   /// return true if containsTarget
   var containsTarget: Bool {get}
-  
   /// return the partner navigation property
-   var partner: EdmNavigationProperty {get}
-
+  var partner: EdmNavigationProperty {get}
+  /// return all referential constraints for this navigation property
+  var referentialConstraints:[EdmReferentialConstraint] {get}
   
   /// Get property name for referenced property
   /// - parameters:
@@ -54,7 +53,6 @@ public protocol EdmNavigationProperty:EdmElement { // TODO: EdmAnnotatable {
   /// - throws: No error conditions are expected
   func getReferencingPropertyName(referencedPropertyName:String) -> String
   
-  /// return all referential constraints for this navigation property
-  var referentialConstraints:[EdmReferentialConstraint] {get}
+
   
 }

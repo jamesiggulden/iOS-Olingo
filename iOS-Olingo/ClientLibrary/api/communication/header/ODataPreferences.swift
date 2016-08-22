@@ -28,14 +28,10 @@
 import Foundation
 
 
- /// Values of the Prefer header.
- ///
-
- 
+/// Values of the Prefer header
 public struct ODataPreferences {
   
-  /// `Prefer` header, return content.
-  ///
+  /// `Prefer` header, return content
   /// - SeeAlso: org.apache.olingo.commons.api.http.HttpHeader#PREFER
   var returnContent:String {
     get {
@@ -58,7 +54,6 @@ public struct ODataPreferences {
     }
   }
   
-  
    /// The odata.allow-entityreferences preference indicates that the service is allowed to return entity references in
    /// place of entities that have previously been returned, with at least the properties requested, in the same response
    /// (for example, when serializing the expanded results of many-to-many relationships). The service MUST NOT return
@@ -77,7 +72,6 @@ public struct ODataPreferences {
       return PreferenceName.ALLOW_ENTITY_REFERENCES.rawValue
     }
   }
-
 
    /// The odata.continue-on-error preference on a batch request is used to request that, upon encountering a request
    /// within the batch that returns an error, the service return the error for that request and continue processing
@@ -111,13 +105,11 @@ public struct ODataPreferences {
    /// Supported by OData version 4.0 only.
    ///
    /// - SeeAlso: org.apache.olingo.commons.api.http.HttpHeader#PREFER
-   
   var trackChanges:String {
     get {
       return PreferenceName.TRACK_CHANGES.rawValue
     }
   }
-  
   
    /// The respond-async preference, as defined in [HTTP-Prefer], allows clients to request that the service process the
    /// request asynchronously.
@@ -141,13 +133,11 @@ public struct ODataPreferences {
    /// Supported by OData version 4.0 only.
    ///
    /// - SeeAlso: org.apache.olingo.commons.api.http.HttpHeader#PREFER
-   
   var respondAsync:String {
     get {
       return PreferenceName.RESPOND_ASYNC.rawValue
     }
   }
-  
   
    /// The return=representation and return=minimal preferences are defined in [HTTP-Prefer],
    ///
@@ -172,15 +162,11 @@ public struct ODataPreferences {
    /// - Note: Supported by OData version 4.0 only.
    ///
    /// - SeeAlso: org.apache.olingo.commons.api.http.HttpHeader#PREFER
-   
-  
   var returnMinimal:String {
     get {
       return PreferenceName.RETURN.rawValue + "=minimal"
     }
   }
-
-  
   
    /// The return=representation and return=minimal preferences are defined in [HTTP-Prefer],
    ///
@@ -205,7 +191,6 @@ public struct ODataPreferences {
    /// Supported by OData version 4.0 only.
    ///
    /// - SeeAlso: org.apache.olingo.commons.api.http.HttpHeader#PREFER
-   
   var returnRepresentation:String {
     get {
       return PreferenceName.RETURN.rawValue + "=representation"
@@ -266,7 +251,10 @@ public struct ODataPreferences {
   ///
   /// - Note: Supported by OData version 4.0 only.
   ///
-  
+  /// - parameters:
+  ///   - value: value
+  /// - returns: formatted string
+  /// - throws: No error conditions are expected
   public func callback(url:String) -> String {
     return PreferenceName.CALLBACK.rawValue + ";url=\"" + url + "\""
   }
@@ -311,8 +299,10 @@ public struct ODataPreferences {
   /// Supported by OData version 4.0 only.
   ///
   /// - SeeAlso: org.apache.olingo.commons.api.http.HttpHeader#PREFER
-  
-  
+  /// - parameters:
+  ///   - value: value
+  /// - returns: formatted string
+  /// - throws: No error conditions are expected
   public func includeAnnotations(value:String)  -> String {
     return PreferenceName.INCLUDE_ANNOTATIONS.rawValue + "=" + value
   }
@@ -344,8 +334,10 @@ public struct ODataPreferences {
   /// Supported by OData version 4.0 only.
   ///
   /// - SeeAlso: org.apache.olingo.commons.api.http.HttpHeader#PREFER
-  
-  
+  /// - parameters:
+  ///   - value: value
+  /// - returns: formatted string
+  /// - throws: No error conditions are expected
   public func maxPageSize(size:Int) -> String {
     return PreferenceName.MAX_PAGE_SIZE.rawValue + "=" + String(size)
   }
@@ -363,7 +355,10 @@ public struct ODataPreferences {
   /// Supported by OData version 4.0 only.
   ///
   /// - SeeAlso: org.apache.olingo.commons.api.http.HttpHeader#PREFER
-  
+  /// - parameters:
+  ///   - value: value
+  /// - returns: formatted string
+  /// - throws: No error conditions are expected
   public func wait(value:Int) -> String {
     return PreferenceName.WAIT.rawValue + "=" + String(value)
   }

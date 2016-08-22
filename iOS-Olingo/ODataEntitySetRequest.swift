@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ODataEntitySetRequest.swift
@@ -38,7 +39,4 @@ public protocol ODataEntitySetRequest: ODataRetrieveRequest {
   
 }
 
-//public interface ODataEntitySetRequest<ES extends ClientEntitySet> extends ODataRetrieveRequest<ES> {
-//  //No additional methods needed for now.
-//}
 

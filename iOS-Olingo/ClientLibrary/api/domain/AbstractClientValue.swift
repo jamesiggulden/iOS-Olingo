@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  AbstractClientValue.swift
@@ -32,7 +33,6 @@ public class AbstractClientValue: ClientValue {
   
   // MARK: - Stored Properties
 
-
   /// Type name
   public let typeName:String? // G
   
@@ -44,7 +44,6 @@ public class AbstractClientValue: ClientValue {
     }
   }
   
-  
   /// Casts to primitive value
   public var asPrimitive: ClientPrimitiveValue? {
     get {
@@ -55,10 +54,8 @@ public class AbstractClientValue: ClientValue {
       else {
         return nil
       }
-      //return isPrimitive ?  self as? ClientPrimitiveValue : nil
     }
   }
-  
   
   /// Check is a complex value
   public var isComplex: Bool {
@@ -71,10 +68,14 @@ public class AbstractClientValue: ClientValue {
   /// Casts to complex value
   public var asComplex: ClientComplexValue?  {
     get {
-      return isComplex ?  self as! ClientComplexValue : nil
+      if isComplex {
+        return self as? ClientComplexValue
+      }
+      else {
+        return nil
+      }
     }
   }
-  
   
   /// Check is a collection value
   public var isCollection: Bool {
@@ -83,21 +84,21 @@ public class AbstractClientValue: ClientValue {
     }
   }
   
-  // TODO: func asCollection<OV:ClientValue>() -> ClientCollectionValue <OV>
-  /*
-   /// Casts to collection value
-   /// - parameters:
-   ///   - none:
-   /// - returns: collection value
-   /// - throws: No error conditions are expected
-   //TODO: func asCollection() -> ClientCollectionValue <OV:ClientValue>
-   
-   public  func asCollection<OV:ClientValue>() -> ClientCollectionValue <OV> {
-   return isCollection() ?  self as ClientCollectionValue<OV>  : nil
-   }
-   */
+  // Cast as collection Value
   public  var  asCollection: ClientCollectionValue? {
     return isCollection ?  self as? ClientCollectionValue : nil
+  }
+  
+  /// Check is a collection value
+  public var isEnum: Bool {
+    get {
+      return (self is ClientEnumValue)
+    }
+  }
+  
+  // Cast as collection Value
+  public  var  asEnum: ClientEnumValue? {
+    return isEnum ?  self as? ClientEnumValue : nil
   }
 
 
@@ -108,20 +109,6 @@ public class AbstractClientValue: ClientValue {
   }
   
   // MARK: - Methods
-   
-  
-  
-  
-  
-  
-  
-  public func isEnum() -> Bool {
-    fatalError("Must implement")
-  }
-  
-  public func asEnum() -> ClientEnumValue{
-    fatalError("Must implement")
-  }
   
   
   /// Check if objects are identical

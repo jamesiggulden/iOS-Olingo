@@ -18,6 +18,8 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
+
 //
 //  EdmTerm.swift
 //  iOS-Olingo
@@ -29,62 +31,35 @@
 import Foundation
 
 
- /// An {@link EdmTerm} defines a term in a vocabulary.
- 
+ /// An EdmTerm defines a term in a vocabulary.
 public protocol EdmTerm: EdmNamed, EdmAnnotatable {
   
-  
    /// return type of value returned by the expression contained in an annotation using this term
-   
    var type: EdmType {get}
-  
-  
    /// return the fully qualified name of this term
-   
    var fullQualifiedName: FullQualifiedName {get}
-  
   
    /// When applying a term with a base term,the base term MUST also be applied with the same qualifier, and so on until a
    /// term without a base term is reached.
-   ///
    /// return the base term if found or null otherwise
-   
    var baseTerm: EdmTerm {get}
-  
   
    /// return list of CSDL element that this term can be applied to; if no value is supplied, the term is not restricted
    /// in its application.
    // TODO: TragetType
   //var appliesTo: [TargetType] {get}
   
-  
    /// return true if nullable
-   
   var isNullable:Bool  {get}
-  
-  
    /// return the maximum length as an Integer or null if not specified
-   
   var maxLength: Int {get}
-  
-  
    /// return the precision as an Integer or null if not specified
-   
   var precision: Int {get}
-  
-  
    /// return the scale as an Integer or null if not specified
-   
   var scale: Int {get}
-  
-  
    /// return a non-negative integer or the special value <tt>variable</tt>
-   
   var srid: SRID {get}
-  
-  
    /// return the default value as a String or null if not specified
-   
   var defaultValue: String {get}
   
 }

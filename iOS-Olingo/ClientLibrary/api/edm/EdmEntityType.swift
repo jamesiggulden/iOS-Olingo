@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmEntityType.swift
@@ -28,45 +29,26 @@
 
 import Foundation
 
-/**
- * A CSDL EntityType element.
- */
+/// A CSDL EntityType element
 public protocol EdmEntityType : EdmStructuredType {
   
-  /**
-   * Gets all key predicate names. In case an alias is defined for a key predicate this will be returned.
-   *
-   * @return collection of key property names of type List&lt;String&gt;
-   */
+  /// Gets all key predicate names. In case an alias is defined for a key predicate this will be returned
   var keyPredicateNames:[String] {get}
   
-  /**
-   * Get all key properties references as list of {@link EdmKeyPropertyRef}.
-   *
-   * @return collection of key properties of type List&lt;EdmKeyPropertyRef&gt;
-   */
+  /// Get all key properties references as list of {@link EdmKeyPropertyRef}
   var keyPropertyRefs: [EdmKeyPropertyRef] {get}
   
-  /**
-   * Get a key property ref by its name.
-   *
-   * @param keyPredicateName name of key property
-   * @return {@link EdmKeyPropertyRef} for given name
-   */
-  func getKeyPropertyRef(keyPredicateName:String) -> EdmKeyPropertyRef
-  
-  /**
-   * Indicates if the entity type is treated as Media Link Entry with associated Media Resource.
-   *
-   * @return <code>true</code> if the entity type is a Media Link Entry
-   */
+  /// Indicates if the entity type is treated as Media Link Entry with associated Media Resource
   var hasStream:Bool {get}
   
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.apache.olingo.api.edm.EdmStructuralType#getBaseType()
-   */
-  
+  // Get EDM Entity Type
   var baseType: EdmEntityType {get}
-}
+
+  /// Get a key property ref by its name
+  /// - parameters:
+  ///   - keyPredicateName: name of key property
+  /// - returns: EdmKeyPropertyRef for given name
+  /// - throws: No error conditions are expected
+  func getKeyPropertyRef(keyPredicateName:String) -> EdmKeyPropertyRef
+  
+  }

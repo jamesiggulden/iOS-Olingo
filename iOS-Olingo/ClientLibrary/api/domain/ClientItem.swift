@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ClientItem.swift
@@ -35,13 +36,10 @@ public class ClientItem {
   
   // MARK: - Stored Properties
 
-
   /// OData entity name/type
   public let name:String //G
-  
   /// OData item self link
   public var link:NSURL? //GS
-  
   
   // MARK: - Computed Properties
 

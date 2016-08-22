@@ -58,12 +58,9 @@ public protocol Configuration {
   
   /// HTTP Gzip compression enabled setting
   var gzipCompression: Bool {get set}
-   
-   
   
   /// chunk HTTP encoding setting
   var useChunked: Bool {get set}
-  
   
   /// URIs contains entity key between parentheses (standard) or 
   /// instead as additional segment(non-standard)
@@ -83,52 +80,47 @@ public protocol Configuration {
   /// When processing a set of requests (in batch requests, for example), checks if the execution will be aborted after first error encountered or not.
   var continueOnError: Bool {get set}
   
-  
-  /// the HttpClient factory to be used for executing requests.
-  //var httpClientFactory: HttpClientFactory {get}
-  
   var httpSessionFactory: HttpSessionFactoryImpl {get}
   
+  // TODO: This is potentially redundent but wait until we know this is not required
+  /*
   
-//  
-//  /**
-//   * Sets the HttpClient factory to be used for executing requests.
-//   *
-//   * @param factory implementation of <tt>HttpClientFactory</tt>.
-//   * @see HttpClientFactory
-//   */
-//  func setHttpClientFactory(factory:HttpClientFactory)
-//  
-//  /**
-//   * Gets the HttpUriRequest factory for generating requests to be executed.
-//   *
-//   * @return provided implementation (if configured via <tt>setHttpUriRequestFactory</tt> or default.
-//   */
-//   func getHttpUriRequestFactory() -> HttpUriRequestFactory
-//  
-//  /**
-//   * Sets the HttpUriRequest factory generating requests to be executed.
-//   *
-//   * @param factory implementation of <tt>HttpUriRequestFactory</tt>.
-//   * @see HttpUriRequestFactory
-//   */
-//  func setHttpUriRequestFactory(factory:HttpUriRequestFactory)
-//  
+  /**
+   * Gets the HttpUriRequest factory for generating requests to be executed.
+   *
+   * @return provided implementation (if configured via <tt>setHttpUriRequestFactory</tt> or default.
+   */
+   func getHttpUriRequestFactory() -> HttpUriRequestFactory
   
+  /**
+   * Sets the HttpUriRequest factory generating requests to be executed.
+   *
+   * @param factory implementation of <tt>HttpUriRequestFactory</tt>.
+   * @see HttpUriRequestFactory
+   */
+  func setHttpUriRequestFactory(factory:HttpUriRequestFactory)
+ */
+  
+    // TODO: getExecutor()
+  /*
   /**
    * Retrieves request executor service.
    *
    * @return request executor service.
    */
-  // TODO:
-  //func getExecutor() -> ExecutorService
+
+  func getExecutor() -> ExecutorService
+ */
   
+    // TODO: setExecutor(ExecutorService executorService:ExecutorService)
+  /*
   /**
    * Sets request executor service.
    *
    * @param executorService new executor services.
    */
-  // TODO:
-  //func setExecutor(ExecutorService executorService:ExecutorService);
+
+  func setExecutor(ExecutorService executorService:ExecutorService);
+ */
 }
 

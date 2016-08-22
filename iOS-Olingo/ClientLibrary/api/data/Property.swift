@@ -17,7 +17,7 @@
   under the License.
  */
 
-
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  Property.swift
@@ -36,12 +36,11 @@ public class Property : Valuable {
   
   // MARK: - Stored Properties
 
-
   public var name:String = ""
   
   // MARK: - Computed Properties
 
-// MARK: - Init
+  // MARK: - Init
 
   override init() {
     super.init()
@@ -57,8 +56,6 @@ public class Property : Valuable {
     super.init()
     self.name = name
     super.type = type
-    
-
   }
    
   /// creates a new property
@@ -89,17 +86,21 @@ public class Property : Valuable {
   }
   
   // TODO: func equals(o:Object) -> Bool
-//  public func equals(o:Object) -> Bool {
-//    return super.equals(o)
-//      && (name == nil ? ((Property) o).name == null : name.equals(((Property) o).name))
-//  }
+  /*
+  public func equals(o:Object) -> Bool {
+    return super.equals(o)
+      && (name == nil ? ((Property) o).name == null : name.equals(((Property) o).name))
+  }
+  */
   
   // TODO: func hashCode() -> Int
-//  public func hashCode() -> Int {
-//    int result = super.hashCode()
-//    result = 31 * result + (name == null ? 0 : name.hashCode())
-//    return result
-//  }
+  /*
+  public func hashCode() -> Int {
+    int result = super.hashCode()
+    result = 31 * result + (name == null ? 0 : name.hashCode())
+    return result
+  }
+  */
   
  
   /// Generate string representation of name = value for property

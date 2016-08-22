@@ -72,7 +72,6 @@ public class ResWrap<T>:ResWrapper {
     self.metadataETag = metadataETag
     self.payload = payload
   }
-  
 
   // MARK: - Methods
 

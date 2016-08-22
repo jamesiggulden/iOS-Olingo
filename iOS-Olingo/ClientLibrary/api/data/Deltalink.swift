@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  Deltalink.swift
@@ -32,7 +33,6 @@ import Foundation
 public class DeltaLink { //: Annotatable {
   
   // MARK: - Stored Properties
-
 
   public var source:NSURL = NSURL() //GS
   public var relationship:String = "" //GS

@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmEntityContainer.swift
@@ -33,78 +34,54 @@ import Foundation
  /// EdmEntityContainer hold the information of EntitySets, Singletons, ActionImports and FunctionImports contained
 public protocol EdmEntityContainer: EdmNamed{ //TODO: , EdmAnnotatable
   
-  /**
-   * @return namespace of this entity container
-   */
+  /// namespace of this entity container
   var namespace: String {get}
   
-  /**
-   * @return full qualified name of this entity container
-   */
+  /// full qualified name of this entity container
   var fullQualifiedName: FullQualifiedName {get}
-  
-  /**
-   * Get contained Singleton by name.
-   *
-   * @param name name of contained Singleton
-   * @return {@link EdmSingleton}
-   */
-  func singleton(name:String) -> EdmSingleton
-  
-  /**
-   * Get contained EntitySet by name.
-   *
-   * @param name name of contained EntitySet
-   * @return {@link EdmEntitySet}
-   */
-  func entitySet(name:String) -> EdmEntitySet
-  
-  /**
-   * Get contained ActionImport by name.
-   *
-   * @param name name of contained ActionImport
-   * @return {@link EdmActionImport}
-   */
-  func actionImport(name:String) -> EdmActionImport
-  
-  /**
-   * Get contained FunctionImport by name.
-   *
-   * @param name name of contained FunctionImport
-   * @return {@link EdmFunctionImport}
-   */
-   func functionImport(name:String) -> EdmFunctionImport
-  
-  /**
-   * This method <b>DOES NOT</b> support lazy loading
-   *
-   * @return returns all entity sets for this container.
-   */
+
+  /// returns all entity sets for this container.
   var entitySets: [EdmEntitySet] {get}
   
-  /**
-   * This method <b>DOES NOT</b> support lazy loading
-   *
-   * @return returns all function imports for this container.
-   */
+  /// returns all function imports for this container.
   var functionImports: [EdmFunctionImport] {get}
   
-  /**
-   * This method <b>DOES NOT</b> support lazy loading
-   *
-   * @return returns all singletons for this container.
-   */
+  /// returns all singletons for this container.
   var singletons: [EdmSingleton] {get}
   
-  /**
-   * This method <b>DOES NOT</b> support lazy loading
-   *
-   * @return returns all action imports for this container.
-   */
+  /// returns all action imports for this container.
   var actionImports: [EdmActionImport] {get}
   
-  /**
-   * @return the {@link FullQualifiedName} of the parentContainer or null if no parent is specified
-   */
+  ///return the FullQualifiedName of the parentContainer or null if no parent is specified
   var parentContainerName: FullQualifiedName {get}
+ 
+  /// Get contained Singleton by name
+  /// - parameters:
+  ///   - name: name of contained Singleton
+  /// - returns: EdmSingleton
+  /// - throws: No error conditions are expected
+  func singleton(name:String) -> EdmSingleton
+  
+  /// Get contained EntitySet by name
+  /// - parameters:
+  ///   - name: name of contained EntitySet
+  /// - returns: EdmEntitySet
+  /// - throws: No error conditions are expected
+  func entitySet(name:String) -> EdmEntitySet
+  
+  /// Get contained ActionImport by name
+  /// - parameters:
+  ///   - name: name of contained ActionImport
+  /// - returns: EdmActionImport
+  /// - throws: No error conditions are expected
+  func actionImport(name:String) -> EdmActionImport
+  
+  /// Get contained FunctionImport by name
+  /// - parameters:
+  ///   - name: name of contained FunctionImport
+  /// - returns: EdmFunctionImport
+  /// - throws: No error conditions are expected
+   func functionImport(name:String) -> EdmFunctionImport
+  
+ 
 }

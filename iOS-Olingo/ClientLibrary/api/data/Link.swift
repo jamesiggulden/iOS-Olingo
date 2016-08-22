@@ -17,7 +17,7 @@
   under the License.
  */
 
-
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  Link.swift
@@ -42,10 +42,8 @@ public class Link {  //extends Annotatable {
   public var mediaETag:String = "" //GS
   public lazy var entity:Entity = Entity()  //GS
   public lazy var entitySet:EntityCollection = EntityCollection() //GS
-  
   /// If this is a "toOne" relationship this method delivers the binding link or ""(isEmpty) if not set
   public var bindingLink:String = ""
-  
   /// If this is a "toMany" relationship this method delivers the binding links or `emptyList` if not set
   public var bindingLinks:[String] = [String]()
   
@@ -68,14 +66,9 @@ public class Link {  //extends Annotatable {
       self.entitySet = entitySet
     }
   }
-
   
   // MARK: - Init
   
-  init() {
-    //self.entity = Entity()
-  //  self.entitySet = EntityCollection()
-  }
 
   // MARK: - Methods
   

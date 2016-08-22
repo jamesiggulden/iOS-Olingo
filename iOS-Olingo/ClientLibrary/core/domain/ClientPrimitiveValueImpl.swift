@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ClientPrimitiveValueImpl.swift
@@ -44,6 +45,18 @@ public class ClientPrimitiveValueImpl: AbstractClientValue, ClientPrimitiveValue
   
   // MARK: - Computed Properties
   
+  override public var isComplex: Bool {
+    return false
+  }
+  
+  override public var isEnum: Bool {
+    return false
+  }
+  
+  override public var asEnum: ClientEnumValue? {
+    return nil
+  }
+  
   //TODO: typename exist in superclass but we are getting it from typekind??
 //  public var typeName {
 //    get{
@@ -59,57 +72,42 @@ public class ClientPrimitiveValueImpl: AbstractClientValue, ClientPrimitiveValue
   }
   
   // MARK: - Methods
-
+  
   // TODO: func getTypeName() -> String
   /*
-  public func getTypeName() -> String {
-    return typeKind.getFullQualifiedName().toString()
-  }
- */
+   public func getTypeName() -> String {
+   return typeKind.getFullQualifiedName().toString()
+   }
+   */
   
   // TODO: func toCastValue<T>(reference:T ) throws -> T
-//  public func toCastValue<T>(reference:T ) throws -> T {
-//  //public <T> T toCastValue(final Class<T> reference) throws EdmPrimitiveTypeException {
-//    if (typeKind.isGeospatial()) {
-//      return reference.cast(value)
-//    } else {
-//      // TODO: set facets
-//      return type.valueOfString(type.valueToString(value,nil, nil,DEFAULT_PRECISION, DEFAULT_SCALE, nil),nil, nil, DEFAULT_PRECISION, DEFAULT_SCALE, nil, reference)
-//    }
-//  }
+  //  public func toCastValue<T>(reference:T ) throws -> T {
+  //  //public <T> T toCastValue(final Class<T> reference) throws EdmPrimitiveTypeException {
+  //    if (typeKind.isGeospatial()) {
+  //      return reference.cast(value)
+  //    } else {
+  //      // TODO: set facets
+  //      return type.valueOfString(type.valueToString(value,nil, nil,DEFAULT_PRECISION, DEFAULT_SCALE, nil),nil, nil, DEFAULT_PRECISION, DEFAULT_SCALE, nil, reference)
+  //    }
+  //  }
   
   // TODO: func toString() -> String
-//  public func toString() -> String {
-//    if (value == nil) {
-//      return ""
-//    } else if (typeKind.isGeospatial()) {
-//      return value.toString()
-//    } else {
-//      try {
-//        // TODO: set facets
-//        return type.valueToString(value, nil, nil, Constants.DEFAULT_PRECISION, Constants.DEFAULT_SCALE, nil)
-//      }
-//      catch (EdmPrimitiveTypeException e) {
-//        throw new IllegalArgumentException(e)
-//      }
-//    }
-//  }
-  
-  
-  public override func isEnum() -> Bool {
-    return false
-  }
-  
-  //TODO: func asEnum() -> ClientEnumValue!
-//  public func asEnum() -> ClientEnumValue! {
-//    return nil
-//  }
-  
-  
-  public func isComplex() -> Bool {
-    return false
-  }
-  
+  //  public func toString() -> String {
+  //    if (value == nil) {
+  //      return ""
+  //    } else if (typeKind.isGeospatial()) {
+  //      return value.toString()
+  //    } else {
+  //      try {
+  //        // TODO: set facets
+  //        return type.valueToString(value, nil, nil, Constants.DEFAULT_PRECISION, Constants.DEFAULT_SCALE, nil)
+  //      }
+  //      catch (EdmPrimitiveTypeException e) {
+  //        throw new IllegalArgumentException(e)
+  //      }
+  //    }
+  //  }
+
   //TODO: func hashCode() -> Int
 //  public func hashCode() -> Int {
 //    final int prime = 31

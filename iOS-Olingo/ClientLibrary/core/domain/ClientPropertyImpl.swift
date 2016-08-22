@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ClientPropertyImpl.swift
@@ -30,15 +31,23 @@ import Foundation
 
 public final class ClientPropertyImpl : ClientValuableImpl, ClientProperty {
   
+  // MARK: - Stored Properties
+
   public let annotations:[ClientAnnotation] = []  //G
   public let name:String  //G
   
+  // MARK: - Computed Properties
+
+  // MARK: - Init
+
   init (name:String, value:ClientValue) {
     self.name = name
     super.init(value: value)
 
   }
- 
+  
+ // MARK: - Methods
+
   /// Checks if has null value
   /// - parameters:
   ///   - none

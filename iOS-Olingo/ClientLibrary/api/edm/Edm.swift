@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  Edm.swift
@@ -28,148 +29,120 @@
 
 import Foundation
 
-/**
- * Entity Data Model (EDM)
- * <br/>
- * Interface representing a Entity Data Model as described in the Conceptual Schema Definition.
- */
+/// Entity Data Model (EDM)
+/// Interface representing a Entity Data Model as described in the Conceptual Schema Definition.
 public protocol Edm {
   
-  /**
-   * This method <b>DOES NOT</b> support lazy loading. All schemas are loaded completely!
-   *
-   * @return all schemas defined for this EDM
-   */
+  /// return all schemas defined for this EDM
+  /// - parameters:
+  ///   - none:
+  /// - returns: Array of EdmSchemas
+  /// - throws: No error conditions are expected
   func getSchemas() -> [EdmSchema]
   
-  /**
-   * Get schema by namespace.
-   *
-   * @param namespace must not be null
-   * @return {@link EdmSchema}
-   */
+  /// Get schema by namespace
+  /// - parameters:
+  ///   - namespace: namespace
+  /// - returns: EdmSchema
+  /// - throws: No error conditions are expected
   func getSchema(namespace:String) -> EdmSchema
   
-  /**
-   * Get main entity container.
-   * <br/>
-   * See {@link EdmEntityContainer} for more information.
-   *
-   * @return {@link EdmEntityContainer}
-   */
-   func getEntityContainer() -> EdmEntityContainer
+  /// Get main entity container
+  /// - parameters:
+  ///   - none:
+  /// - returns: EdmEntityContainer
+  /// - throws: No error conditions are expected
+  func getEntityContainer() -> EdmEntityContainer
   
-  /**
-   * Get entity container by full qualified name.
-   * <br/>
-   * See {@link EdmEntityContainer} for more information.
-   *
-   * @param name full qualified name of entity container
-   * @return {@link EdmEntityContainer}
-   */
-   func getEntityContainer(name: FullQualifiedName ) -> EdmEntityContainer
+  /// Get entity container by full qualified name
+  /// - parameters:
+  ///   - name: full qualified name of entity container
+  /// - returns: EdmEntityContainer
+  /// - throws: No error conditions are expected
+  func getEntityContainer(name: FullQualifiedName ) -> EdmEntityContainer
   
-  /**
-   * Get enum type by full qualified name.
-   * <br/>
-   * See {@link EdmEnumType} for more information
-   *
-   * @param name full qualified name of enum type
-   * @return {@link EdmEnumType}
-   */
-   func getEnumType(name:FullQualifiedName ) -> EdmEnumType?
+  /// Get enum type by full qualified name
+  /// - parameters:
+  ///   - name: full qualified name of enum type
+  /// - returns: EdmEnumType
+  /// - throws: No error conditions are expected
+  func getEnumType(name:FullQualifiedName ) -> EdmEnumType?
   
-  /**
-   * Get a type definition by full qualified name.
-   * <br/>
-   * See {@link EdmTypeDefinition} for more information
-   *
-   * @param name full qualified name of type definition
-   * @return {@link EdmTypeDefinition}
-   */
-   func getTypeDefinition(name:FullQualifiedName ) -> EdmTypeDefinition
+  /// Get a type definition by full qualified name
+  /// - parameters:
+  ///   - name: full qualified name of type definition
+  /// - returns: EdmTypeDefinition
+  /// - throws: No error conditions are expected
+  func getTypeDefinition(name:FullQualifiedName ) -> EdmTypeDefinition
   
-  /**
-   * Get entity type by full qualified name.
-   * <br/>
-   * See {@link EdmEntityType} for more information.
-   *
-   * @param name full qualified name of entity type
-   * @return {@link EdmEntityType}
-   */
+  /// Get entity type by full qualified name
+  /// - parameters:
+  ///   - name: full qualified name of entity type
+  /// - returns: EdmEntityType
+  /// - throws: No error conditions are expected
    func getEntityType(name:FullQualifiedName ) -> EdmEntityType
   
-  /**
-   * Get complex type by full qualified name..
-   * <br/>
-   * See {@link EdmComplexType} for more information.
-   *
-   * @param name full qualified name of complex type
-   * @return {@link EdmComplexType}
-   */
+  /// Get complex type by full qualified name
+  /// - parameters:
+  ///   - name: full qualified name of complex type
+  /// - returns: EdmComplexType
+  /// - throws: No error conditions are expected
   func getComplexType(name:FullQualifiedName ) -> EdmComplexType
   
-  /**
-   * Get unbound Action by full qualified name.
-   *
-   * @param actionName must not be null
-   * @return {@link EdmAction}
-   */
+  /// Get unbound Action by full qualified name
+  /// - parameters:
+  ///   - name: full qualified name of unbound Action
+  /// - returns: EdmAction
+  /// - throws: No error conditions are expected
   func  getUnboundAction(actionName:FullQualifiedName ) -> EdmAction
   
-  /**
-   * Get Action by full qualified name and binding parameter type.
-   *
-   * @param actionName must not be null
-   * @param bindingParameterTypeName must not be null
-   * @param isBindingParameterCollection may be null
-   * @return {@link EdmAction}
-   */
+  /// Get Action by full qualified name and binding parameter type
+  /// - parameters:
+  ///   - actionName: full qualified name of action
+  ///   - BindingParameterTypeName: full qualified name of binding parameter
+  ///   - isBindingParameterCollection: flag for is collection
+  /// - returns: EdmAction
+  /// - throws: No error conditions are expected
   func getBoundAction(actionName:FullQualifiedName , bindingParameterTypeName:FullQualifiedName, isBindingParameterCollection:Bool) -> EdmAction
   
-  /**
-   * Get Function by full qualified name.
-   *
-   * @param functionName must not be null
-   * @return {@link EdmFunction}
-   */
+  /// Get function by full qualified name
+  /// - parameters:
+  ///   - name: full qualified name of function
+  /// - returns: Array of EdmFunction
+  /// - throws: No error conditions are expected
   func getUnboundFunctions(functionName:FullQualifiedName) -> [EdmFunction]
   
-  /**
-   * Get Function by full qualified name.
-   *
-   * @param functionName must not be null
-   * @param parameterNames may be null: in this case it is considered as empty
-   * @return {@link EdmFunction}
-   */
+  /// Get function by full qualified name
+  /// - parameters:
+  ///   - name: full qualified name of function
+  ///   - parameterNames: array of parameter names
+  /// - returns: EdmFunction
+  /// - throws: No error conditions are expected
   func getUnboundFunction(functionName:FullQualifiedName,parameterNames:[String]) -> EdmFunction
   
-  /**
-   * Get Function by full qualified name and binding parameter type and binding parameter names.
-   *
-   * @param functionName must not be null
-   * @param bindingParameterTypeName must not be null
-   * @param isBindingParameterCollection may be null
-   * @param parameterNames may be null: in this case it is considered as empty
-   * @return {@link EdmFunction}
-   */
+  /// Get Function by full qualified name and binding parameter type and binding parameter names
+  /// - parameters:
+  ///   - functionName: full qualified name of function
+  ///   - bindingParameterTypeName: full qualified name of binding parameter
+  ///   - isBindingParameterCollection: is a collection flag
+  ///   - parameterNames: fArray of parameter names
+  /// - returns: EdmFunction
+  /// - throws: No error conditions are expected
   func getBoundFunction(functionName:FullQualifiedName,bindingParameterTypeName:FullQualifiedName,isBindingParameterCollection:Bool,  parameterNames:[String]) -> EdmFunction
   
-  /**
-   * Get Term full by qualified name.
-   *
-   * @param termName must not be null
-   * @return {@link EdmTerm}
-   */
+  /// Get term by full qualified name
+  /// - parameters:
+  ///   - termName: full qualified name of term
+  /// - returns: EdmTerm
+  /// - throws: No error conditions are expected
   func getTerm(termName:FullQualifiedName ) -> EdmTerm
   
-  /**
-   * Get {@link EdmAnnotations} by target.
-   *
-   * @param targetName <tt>edm:Annotations</tt> target
-   * @param qualifier for the target. Can be <code>NULL</code>
-   * @return {@link EdmAnnotations}
-   */
   // TODO: Annotations
+  /// Get EdmAnnotations by target
+  /// - parameters:
+  ///   - targetName: full qualified name of EDM annotations target
+  ///   - qualifier: qualifier for the target
+  /// - returns: EdmAnnotations
+  /// - throws: No error conditions are expected
    //func getAnnotationGroup(targetName:FullQualifiedName ,qualifier:String) -> EdmAnnotations
 }

@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  Entity.swift
@@ -37,23 +38,14 @@ public class Entity:AbstractODataObject { //:Linked and then AbstractODataObject
   // MARK: - Stored Properties
   
   public var eTag:String = ""  // GS
-  
   public var type:String = ""  // GS
-  
   public var readLink:Link = Link()  // GS
-  
   public var editLink:Link? // = Link()  // GS
-  
   public let mediaEditLinks:[Link] = [Link]() //G
-  
   public let operations:[Operation] = [Operation]()  //G
-  
   public var properties:[Property] = [Property]()  //G
-  
   public var mediaContentType:String = "" //GS
-  
   public var mediaContentSource:NSURL? //GS
-
   public var mediaETag:String = ""  //GS
   
   // MARK: - Computed Properties

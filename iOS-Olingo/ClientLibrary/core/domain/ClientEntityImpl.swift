@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ClientEntityImpl.swift
@@ -66,10 +67,8 @@ public class ClientEntityImpl: AbstractClientPayload, ClientEntity { // implemen
   /// Operations (legacy, functions, actions)
   private let operations:[ClientOperation] = []
   */
-  
 
   // MARK: - Computed Properties
-
 
   
   // MARK: - Init
@@ -97,13 +96,11 @@ public class ClientEntityImpl: AbstractClientPayload, ClientEntity { // implemen
   }
  */
   
-  // REDUNDENT
-//  public List<ClientOperation> getOperations() {
-//    return operations
-//  }
-  
-  
-  
+  /// get property with the provided name
+  /// - parameters:
+  ///   - name: name of property to find and return
+  /// - returns: ClientProperty if found nil otherwise
+  /// - throws: No error conditions are expected
   public func getProperty(name:String) -> ClientProperty! {
     var result:ClientProperty?
     

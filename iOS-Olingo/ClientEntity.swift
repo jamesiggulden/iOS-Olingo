@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ClientEntity.swift
@@ -35,11 +36,14 @@ public protocol ClientEntity { // extends ClientLinked, ClientAnnotatable, Clien
   var typeName:FullQualifiedName {get}
   
   ///returns self link
-  // TODO: When implmnented in impl
+  // TODO: When implemented in impl
   //func getLink() -> NSURL
   
   /// Entity ID
   var id:NSURL?  {get set}
+  
+  /// List of properties
+  var properties:[ClientProperty] {get set}
 
   /// OData entity edit link
   var editLink: NSURL?  {get set}
@@ -59,17 +63,9 @@ public protocol ClientEntity { // extends ClientLinked, ClientAnnotatable, Clien
   /// Media ETag
   var mediaETag:String?  {get set}
   
-  //TODO: Client Operations
-  /// Searches for operation with given title
-  /// - parameters:
-  ///   - title: operation to look for
-  /// - returns: operation if found with given title, `nil` otherwise
-  /// - throws: No error conditions are expected
-  //func getOperation(title:String) -> ClientOperation
-  
-  /// Operations (legacy, functions, actions)
+  /// TODO: Operations (legacy, functions, actions)
   //var operations:[ClientOperation] {get}
-
+  
 
   /// Searches for property with given name
   /// - parameters:
@@ -78,8 +74,20 @@ public protocol ClientEntity { // extends ClientLinked, ClientAnnotatable, Clien
   /// - throws: No error conditions are expected
   func getProperty(name:String) -> ClientProperty!
   
-  /// List of properties
-  var properties:[ClientProperty] {get set}
+  /// TRUE if read-only entity
+  /// - parameters:
+  ///   - none
+  /// - returns: TRUE if read-only FALSE otherwise
+  /// - throws: No error conditions are expected
+  func isReadOnly() -> Bool
+
+  //TODO: Client Operations
+  /// Searches for operation with given title
+  /// - parameters:
+  ///   - title: operation to look for
+  /// - returns: operation if found with given title, `nil` otherwise
+  /// - throws: No error conditions are expected
+  //func getOperation(title:String) -> ClientOperation
   
   //TODO: Links to be added
   
@@ -93,12 +101,6 @@ public protocol ClientEntity { // extends ClientLinked, ClientAnnotatable, Clien
   /// Media edit links
   //var mediaEditLinks:[ClientLink] {get}
   
-  //TODO: func isReadOnly() -> Bool
-  /// TRUE if read-only entity
-  /// - parameters:
-  ///   - none
-  /// - returns: TRUE if read-only FALSE otherwise
-  /// - throws: No error conditions are expected
-  func isReadOnly() -> Bool
+
   
 }

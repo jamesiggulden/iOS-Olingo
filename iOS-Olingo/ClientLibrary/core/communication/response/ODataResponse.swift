@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ODataResponse.swift
@@ -40,10 +41,10 @@ public protocol ODataResponse {
   var headerNames:[String] {get}
   
   /// Gets 'ETag' header value.
-  var eTag:String {get}
+  var eTag:String? {get}
   
   /// Gets the content type
-  var contentType:String {get}
+  var contentType:String? {get}
   
   /// Gets status code.
   var statusCode:Int {get}
@@ -66,7 +67,7 @@ public protocol ODataResponse {
 /// @param name header to be retrieved.
 /// @return response header value.
    
-  func getHeader(name:String) -> String!
+  func getHeader(name:String) -> String?
   
   /// Gets response body as NSData (replaces java InputStream)
   func getRawResponse() -> NSData  // InputStream

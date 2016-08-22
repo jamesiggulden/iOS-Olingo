@@ -27,8 +27,6 @@
 
 import Foundation
 
-
-
 /// Type utilities helper class
 /// See also AccentType
 /// See also Content Type
@@ -47,21 +45,6 @@ public final class TypeUtil {
     // static helper class 
     // add any value to alway have a init even if empty?
   }
-  
-  // Swift provides dictionary to manage key value pairs, it does not offer a defined ordered but can use sort method on the dictionary
-  // Will assume that we do not need the sorted functionality at this point.
-  // Creates a parameter map with predictable order
-//  static Map<String, String> func createParameterMap()
-//  {
-//    return new TreeMap<String, String>(new Comparator<String>()
-//      {
-//        public int compare(final String o1, final String o2)
-//        {
-//          return o1.compareToIgnoreCase(o2)
-//        }
-//      })
-//  }
-  
 
   /// Split string of separated `key=value` pairs and build key value Dictionary
   /// See RFC 7231:
@@ -86,7 +69,6 @@ public final class TypeUtil {
         let keyValue:[String] = try parseParameter(pair)
         parameterDictionary[keyValue[0]] = keyValue[1]
       }
-
     }
   }
 
@@ -102,24 +84,19 @@ public final class TypeUtil {
   ///   - parameters: string of separated `key=value` pairs
   /// - returns: dictionary of parameters
   /// - throws: No error conditions are expected
-
   static func parseParameters(parameters:String?) throws -> [String:String]? {
     guard let parameters = parameters else {
       return nil
     }
-
     var paramDictionary:[String:String] = [:]
-
     let paramSplit = parameters.componentsSeparatedByString(self.PARAMETER_SEPARATOR)
-    
     for pair in paramSplit {
       do {
       let keyValue:[String] = try parseParameter(pair)
         paramDictionary[keyValue[0]] = keyValue[1]
       }
     }
-      return paramDictionary
-    
+    return paramDictionary
   }
 
    
@@ -134,7 +111,6 @@ public final class TypeUtil {
   ///   - parameter: `key=value` pair
   /// - returns: `key` as first array value (as lower case) and `value` as second array value
   /// - throws: Illegal Arguement Exception if parameter is not of the right format
-  
   static func parseParameter(parameter: String?) throws -> [String] {
     
     guard let parameter=parameter else {
@@ -151,9 +127,6 @@ public final class TypeUtil {
     }
     // no specific catch as we will propogate to the calling method
   }
-  
-
-
    
   /// Validates that parameter name and parameter value are valid
   /// i.e not nil or empty, no whitespace in name or begins with whitespace for value
@@ -162,7 +135,6 @@ public final class TypeUtil {
   ///   - parameterValue : string of the parameter value
   /// - returns: No return value (void)
   /// - throws: Illegal Arguement Exception if parameters is not of the right format
-  
   static func validateParameterNameAndValue(parameterName:String?, parameterValue:String?) throws {
 
     if parameterName?.isEmpty ?? true {
@@ -171,11 +143,9 @@ public final class TypeUtil {
     if parameterValue?.isEmpty ?? true {
       throw IllegalArgumentException.NilOrEmptyString
     }
-    
     if parameterName!.containsString(self.WHITESPACE){
       throw IllegalArgumentException.ContainsWhiteSpace
     }
-    
     let index = parameterValue?.startIndex
     if parameterValue!.substringToIndex(index!) == self.WHITESPACE {
       throw IllegalArgumentException.BeginsWithWhiteSpace

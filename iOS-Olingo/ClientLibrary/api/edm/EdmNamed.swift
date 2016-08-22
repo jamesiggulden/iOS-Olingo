@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmNamed.swift
@@ -34,5 +35,5 @@ public protocol EdmNamed {
   
   var name:String {get}
   /// Return the name as a string
-  //func getName() -> String
+
 }

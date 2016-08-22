@@ -1,3 +1,24 @@
+/*
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+ 
+    http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+ */
+
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
+
 //
 //  ConfigurationImpl.swift
 //  iOS-Olingo
@@ -10,17 +31,11 @@ import Foundation
 
 public class ConfigurationImpl :Configuration {
   
-  // STORED PROPERTIES:
+  // MARK: - Stored Properties
   
   private static let HTTP_CLIENT_FACTORY:String = "httpClientFactory"
   
-  // Obsolete
-  //private static let HTTP_URI_REQUEST_FACTORY:String = "httpUriRequestFactory"
-  
-  //public let httpClientFactory:HttpClientFactory = DefaultHttpClientFactory()
-  
   public let httpSessionFactory:HttpSessionFactoryImpl = HttpSessionFactoryImpl()
-  
   
   // TODO:
   // public let httpUriRequestFactory:HttpUriRequestFactory = DefaultHttpUriRequestFactory()
@@ -29,11 +44,8 @@ public class ConfigurationImpl :Configuration {
   //private transient ExecutorService executor = Executors.newFixedThreadPool(10)
   
   private var CONF:[String:AnyObject]=[:]
-  //private let Map<String, Object> CONF:String = new HashMap<String, Object>()
   
-  
- 
-  // COMPUTED PROPERTIES:
+  // MARK: - Computed Properties
   
   public var defaultPubFormat:ContentType {
     get {
@@ -43,7 +55,6 @@ public class ConfigurationImpl :Configuration {
       setProperty(ConfigurationProperty.DEFAULT_PUB_FORMAT.rawValue, Object: contentType)
     }
   }
-
   
   public var defaultBatchAcceptFormat: ContentType {
     get {
@@ -87,8 +98,6 @@ public class ConfigurationImpl :Configuration {
         return ct
       }
     }
-  
-  
   }
 
   
@@ -155,30 +164,23 @@ public class ConfigurationImpl :Configuration {
     }
   }
   
+  // TODO: executor
+  /*
   
-  //
-  //  }
-  //
-  //
-  //  public func setHttpClientFactory(factory:HttpClientFactory) {
-  //    setProperty(HTTP_CLIENT_FACTORY, factory)
-  //  }
-  
-  
-  // private static let DEFAULT_PUB_FORMAT:String = "pubFormat"
-  // private static let DEFAULT_VALUE_FORMAT:String = "valueFormat"
-  // private static let DEFAULT_BATCH_ACCEPT_FORMAT:String = "batchAcceptFormat"
-  // private static let DEFAULT_MEDIA_FORMAT:String = "valueFormat"
-  // private static let USE_XHTTP_METHOD:String = "useHTTPMethod"
-  // private static let KEY_AS_SEGMENT:String = "keyAsSegment"
-  // private static let ADDRESS_DERIVED_TYPE:String = "addressDerivedType"
-  // private static let USE_OPERATION_FQN_IN_URL:String = "useOperationFqnInUrl"
-  // private static let GZIP_COMPRESSION:String = "gzipCompression"
-  // private static let CHUNKING:String = "chunking"
-  // private static let CONTINUE_ON_ERROR:String = "continueOnError"
-  
+  public var  getExecutor: ExecutorService {
+    get {
+      return executor
+    }
+    set(executorService:ExecutorService) {
+      executor = executorService
+    }
+  }
+ */
 
- // METHODS:
+  
+  // MARK: - Init
+
+  // MARK: - Methods
   
   /// Gets given configuration property
   /// - parameters:
@@ -203,28 +205,5 @@ public class ConfigurationImpl :Configuration {
   private func setProperty(key:String,Object value:AnyObject) -> AnyObject {
     return CONF.updateValue(value,forKey: key)!
   }
-  
-
-//  public getHttpUriRequestFactory() -> HttpUriRequestFactory {
-//    return (HttpUriRequestFactory) getProperty(HTTP_URI_REQUEST_FACTORY, new DefaultHttpUriRequestFactory())
-//  }
-//  
-//
-//  public func setHttpUriRequestFactory(factory:HttpUriRequestFactory) {
-//    setProperty(HTTP_URI_REQUEST_FACTORY, factory)
-//  }
-  
-  // TODO:
-  
-  //  public func  getExecutor() -> ExecutorService {
-  //    return executor
-  //  }
-  //
-  //
-  //  public func setExecutor (executorService:ExecutorService) {
-  //    executor = executorService
-  //  }
-
-// OBSOLETE
 
 }

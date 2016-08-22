@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmMapping.swift
@@ -31,18 +32,9 @@ import Foundation
 /// EdmMapping holds custom mapping information which can be applied to a CSDL element
 public protocol EdmMapping {
   
-  /**
-   * Returns the internal name for this mapped object. This name won`t be used by the Olingo library but can be used by
-   * applications to access their database easier.
-   * @return the internal name of this mapped object
-   */
+  /// Returns the internal name for this mapped object. This name won`t be used by the Olingo library but can be used by applications to access their database easier.
   var internalName: String {get}
   
-  /**
-   * The class which is returned here will be used to during deserialization to replace the default java class for a
-   * primitive type.
-   * @return class used during deserialization
-   */
- 
+  /// The class which is returned here will be used to during deserialization to replace the default swift class for a primitive type.
   var mappedSwiftClass: AnyClass {get}  // Class<?> getMappedJavaClass();
 }

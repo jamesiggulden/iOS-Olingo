@@ -17,6 +17,8 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
+
 //
 //  EdmInt64.swift
 //  iOS-Olingo
@@ -61,10 +63,18 @@ public final class EdmInt64:SingletonPrimitiveType {
  */
   
   
-
+  /// Convert the value provided as a string into the actual value of the type specified by returnType
+  /// - parameters:
+  ///   - value: value as string to be converted
+  ///   - isnilable: is the value allowed to be nil
+  ///   - maxlength: max length of value string
+  ///   - precision: precision value
+  ///   - scale: scale value
+  ///   - isUnicode: is the value in unicode format
+  ///   - returnType: returnType expected
+  /// - returns: value of string of type T
+  /// - throws: EDMPrimtiveType Error
   override func internalValueOfString<T>(value:String,isnilable:Bool,maxLength:Int?,precision:Int,scale:Int,isUnicode:Bool,returnType:T) throws -> T {
-  
-
     guard let valueLong = Int(value) else {
       throw EdmPrimitiveTypeException.LiteralHasIllegalContent //("The literal '" + value + "' has illegal content.", e)
     }
@@ -81,14 +91,7 @@ public final class EdmInt64:SingletonPrimitiveType {
   ///   - eturnType the class of the returned value it must be one of BigInteger, Long, Integer, Short or Byte
   /// - returns: the converted value
   /// - throws: EdmPrimitiveTypeException if the conversion is not possible or if the return type is not allowed
-
   public func convertNumber <T> (value:NSNumber, returnType:T) throws -> T {
-  
-    
-
-    // No specific long in Swift defaults to Int 64 or int 32 dependent on device
-    //if (returnType.isAssignableFrom(Int.self)) {
-    //
     
     //TODO: Why does this not work?  Workaround to convert to string and check as strings
     //if returnType.self is Int {

@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmPropertyImpl.swift
@@ -60,20 +61,17 @@ public class EdmPropertyImpl:AbstractEdmNamed,  EdmProperty {
     }
   }
   
-  
   public var isNilable:Bool {
     get {
       return property.isNilable
     }
   }
   
-  
   public var maxLength:Int {
     get {
       return property.maxLength
     }
   }
-  
   
   public var precision:Int {
     get {
@@ -134,7 +132,6 @@ public class EdmPropertyImpl:AbstractEdmNamed,  EdmProperty {
       propertyType = typeInfo!.type
       if (propertyType == nil) {
         log.error("Cannot find type with name: \(typeInfo!.fullQualifiedName)")
-        //throw EdmException.TypeNotFound(msg: "Cannot find type with name: \(typeInfo.fqm)")
       }
     }
     
@@ -147,14 +144,16 @@ public class EdmPropertyImpl:AbstractEdmNamed,  EdmProperty {
   init(edm:Edm, property:CsdlProperty ) {
     self.property = property
     super.init(edm: edm, name: property.name, annotatable: property)
-    
-    
-    
   }
+  
+  
   // MARK: - Methods
-
-  
-  
+   
+  /// Build a new EDM type info instance
+  /// - parameters:
+  ///   - none
+  /// - returns: No return value (void)
+  /// - throws: EdmException.TypeNotFound
   private func buildTypeInfo() throws {
     if (property.type == nil) {
       log.error("Property \(property.name) must have a full qualified type.")
@@ -164,9 +163,5 @@ public class EdmPropertyImpl:AbstractEdmNamed,  EdmProperty {
     typeInfo = EdmTypeInfo.Builder().setEdm(edm).setTypeExpression(property.type!).build()
   }
   
-  
-  
-  
-  
-  }
+}
 

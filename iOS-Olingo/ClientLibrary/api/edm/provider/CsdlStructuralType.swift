@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  File.swift
@@ -28,9 +29,7 @@
 
 import Foundation
 
-/**
- * The type Csdl structural type.
- */
+/// The type Csdl structural type.
 
 // TODO: class CsdlStructuralType
 public class CsdlStructuralType : CsdlAbstractEdmItem, CsdlAnnotatable { // TODO : ext  imps CsdlNamed,
@@ -44,16 +43,19 @@ public class CsdlStructuralType : CsdlAbstractEdmItem, CsdlAnnotatable { // TODO
 
   /// The Base type
   let  baseType:FullQualifiedName? = nil  //G
-  
   /// The Properties
   public var properties: [CsdlProperty] = []  //G
-  
   /// The Is abstract
   public var isAbstract:Bool = false //GS
-  
   /// The Is open type
   public var isOpenType:Bool = false
-
+  ///The Name
+  public var name:String = ""
+  
+  //TODO: Annotations
+  /// The Annotations
+  //private var annotations:[CsdlAnnotation] = [CsdlAnnotation]
+  
   
   // MARK: - Computed Properties
   
@@ -69,34 +71,45 @@ public class CsdlStructuralType : CsdlAbstractEdmItem, CsdlAnnotatable { // TODO
   
   // MARK: - Methods
   
-  
-  
-  /**
-   * Gets property.
-   *
-   * @param name the name
-   * @return the property
-   */
+  /// get property with the provided name
+  /// - parameters:
+  ///   - name: name of property to find and return
+  /// - returns: property if found nil otherwise
+  /// - throws: No error conditions are expected
   public func getProperty(name:String) -> CsdlProperty? {
     return getOneByName(name, items: properties)
   }
   
-  /**
-   * Sets properties.
-   *
-   * @param properties the properties
-   * @return the properties
-   */
+  /// Sets properties
+  /// - parameters:
+  ///   - properties: the properties
+  /// - returns: self
+  /// - throws: No error conditions are expected
   public func setProperties(properties:[CsdlProperty]) -> CsdlStructuralType {
     self.properties = properties
     return self
   }
   
-  /**
-   * Gets navigation properties.
-   *
-   * @return the navigation properties
-   */
+  /// Sets abstract
+  /// - parameters:
+  ///   - isAbstract: the is abstract
+  /// - returns: self
+  /// - throws: No error conditions are expected
+  public func setAbstract(isAbstract:Bool) -> CsdlStructuralType {
+    self.isAbstract = isAbstract
+    return self
+  }
+  
+  /// Sets open type
+  /// - parameters:
+  ///   - isOpenType: the is open type
+  /// - returns: self
+  /// - throws: No error conditions are expected
+  public func setOpenType(isOpenType:Bool) -> CsdlStructuralType {
+    self.isOpenType = isOpenType
+    return self
+  }
+  
   
   // TODO: Navigation
   /*
@@ -121,47 +134,9 @@ public class CsdlStructuralType : CsdlAbstractEdmItem, CsdlAnnotatable { // TODO
     return self
   }
  */
-
-
-  /// Sets abstract
-  /// - parameters:
-  ///   - isAbstract: the is abstract
-  /// - returns: self
-  /// - throws: No error conditions are expected
-  public func setAbstract(isAbstract:Bool) -> CsdlStructuralType {
-    self.isAbstract = isAbstract
-    return self
-  }
   
-  
-  /// Sets open type
-  /// - parameters:
-  ///   - isOpenType: the is open type
-  /// - returns: self
-  /// - throws: No error conditions are expected
-  public func setOpenType(isOpenType:Bool) -> CsdlStructuralType {
-    self.isOpenType = isOpenType
-    return self
-  }
-  
+  // TODO: Remaining CSDL functionality
   /*
-  /**
-   * The Name.
-   */
-  protected String name;
-  
-
-  
-
-  
-  
-
-  
-  
-  /**
-   * The Annotations.
-   */
-  protected List<CsdlAnnotation> annotations = new ArrayList<CsdlAnnotation>();
    
    /**
    * Gets base type.
@@ -190,11 +165,6 @@ public class CsdlStructuralType : CsdlAbstractEdmItem, CsdlAnnotatable { // TODO
     this.name = name;
     return this;
   }
-  
-   
-
-  
-  
   
   /**
    * Gets base type fQN.
@@ -226,12 +196,6 @@ public class CsdlStructuralType : CsdlAbstractEdmItem, CsdlAnnotatable { // TODO
     this.baseType = baseType;
     return this;
   }
-  
-  
-  
-  
-  
-
   
   /**
    * Gets navigation properties.

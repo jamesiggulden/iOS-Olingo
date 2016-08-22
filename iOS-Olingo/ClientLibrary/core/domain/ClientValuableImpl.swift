@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ClientValuableImpl.swift
@@ -32,11 +33,9 @@ public class ClientValuableImpl : ClientValuable {
   
   // MARK: - Stored Properties
 
-
   public let value: ClientValue //G
   
   // MARK: - Computed Properties
-  
   
   public var hasNilValue:Bool {
     get {
@@ -45,8 +44,6 @@ public class ClientValuableImpl : ClientValuable {
       return false
     }
   }
-  
-  
   
   public var hasPrimitiveValue: Bool {
     get {
@@ -85,11 +82,11 @@ public class ClientValuableImpl : ClientValuable {
   
   
   public var hasEnumValue: Bool {
-    return !hasNilValue && value.isEnum()
+    return !hasNilValue && value.isEnum
   }
   
   public var enumValue: ClientEnumValue?{
-    return hasEnumValue ? value.asEnum() : nil
+    return hasEnumValue ? value.asEnum! : nil
   }
   
   public var collectionValue:ClientCollectionValue? {
@@ -107,16 +104,6 @@ public class ClientValuableImpl : ClientValuable {
   
   // MARK: - Methods
   
-  // TODO: getCollectionValue() -> ClientCollectionValue<ClientValue>
-  // replaced with compurted property
-  /*
-  public func getCollectionValue() -> ClientCollectionValue? {
-    return hasCollectionValue ? value.asCollection : nil
-  }
- */
-
- 
-  
   public func equals(o: AnyObject) -> Bool {
     if (self === o) {
       return true
@@ -125,13 +112,13 @@ public class ClientValuableImpl : ClientValuable {
       return false
       //TODO: Additional checks for equals
       /*
-      if object_getClassName(self) != object_getClassName(o) {
+      if self.dynamicType != o.dynamicType {
         return false
       }
       
       let that =  o as! ClientValuableImpl
-      return !(self.value != nil ? !self.value == that.value : that.value != nil)
-        */
+      return value.equals(that.value)
+      */
     }
     
   }

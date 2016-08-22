@@ -29,7 +29,7 @@ import Foundation
 
 //public protocol HttpClientFactory {
 //  
-// // TODO:
+// // TODO: Redundent?
 //  func  create(method:HttpMethod, URI uri:NSURL) -> HttpClient
 //  func close(httpClient:HttpClient)
 //  

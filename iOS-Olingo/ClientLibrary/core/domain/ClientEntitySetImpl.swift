@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ClientEntitySetImpl.swift
@@ -85,19 +86,21 @@ public class ClientEntitySetImpl:AbstractClientPayload, ClientEntitySet {
       return true
     }
     else {
-      return false
       // TODO: Add additional checks
-      /*
-      if (obj == nil || !(obj instanceof ClientEntitySetImpl)) {
+      
+      if  !(obj is ClientEntitySetImpl) {
         return false
       }
-      final ClientEntitySetImpl other = (ClientEntitySetImpl) obj
-      return (count == nil ? other.count == nil : count.equals(other.count))
-        && (next == nil ? other.next == nil : next.equals(other.next))
-        && annotations.equals(other.annotations)
-        && (deltaLink == nil ? other.deltaLink == nil : deltaLink.equals(other.deltaLink))
-        && entities.equals(other.entities)
-      */
+      
+      let other =  obj as! ClientEntitySetImpl
+      return  count == other.count
+        && (next == nil ? other.next == nil : next == other.next)
+        //&& (entities == other.entities)
+        // TODO: Annotations & deltalinks
+        //&& annotations.equals(other.annotations)
+        //&& (deltaLink == nil ? other.deltaLink == nil : deltaLink.equals(other.deltaLink))
+
+      
     }
     
   }

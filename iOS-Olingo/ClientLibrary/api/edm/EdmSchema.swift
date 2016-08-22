@@ -16,6 +16,9 @@
   specific language governing permissions and limitations
   under the License.
  */
+
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
+
  
 
 
@@ -34,59 +37,38 @@ import Foundation
  
 public protocol EdmSchema { // TODO ->  extends EdmAnnotatable {
   
-  
    /// get the namespace for this schema
-   
   func getNamespace() -> String
   
-  
    /// get the alias for this schema. May be null.
-   
   func getAlias() -> String
   
-  
    /// get all enum types for this schema
-   
   func getEnumTypes() -> [EdmEnumType]
   
-  
    /// get all entity types for this schema
-   
   func getEntityTypes() -> [EdmEntityType]
   
-  
    /// get all complex types for this schema
-   
   func getComplexTypes() -> [EdmComplexType]
   
-  
    /// get all actions for this schema
-   
   func getActions() -> [EdmAction]
   
-  
    /// get all functions for this schema
-   
   func getFunctions() -> [EdmFunction]
   
-  
-   /// get all {@link EdmTypeDefinition} for this schema.
-   
+   /// get all EdmTypeDefinition for this schema.
   func getTypeDefinitions() -> [EdmTypeDefinition]
   
-  
-   /// get all {@link EdmTerm} for this schema.
-   
+   /// get all EdmTerm for this schema.
   func getTerms() -> [EdmTerm]
   
-  
-   /// get all {@link EdmAnnotations} for this schema.
   // TODO: Annotations
+  /// get all EdmAnnotations for this schema.
   //func getAnnotationGroups() -> [EdmAnnotations]
   
-  
    /// get the entity container for this schema. May be null.
-   
   func getEntityContainer() -> EdmEntityContainer
   
 }

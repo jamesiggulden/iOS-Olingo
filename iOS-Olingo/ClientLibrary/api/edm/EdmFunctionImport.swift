@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmFunctionImport.swift
@@ -34,6 +35,14 @@ public protocol EdmFunctionImport : EdmOperationImport {
   /// Gets unbound functions
   var unboundFunctions:[EdmFunction] {get}
   
+  /// return the Full qualified name for the function as specified in the metadata
+  var functionFqn: FullQualifiedName {get}
+  
+  /// Returns a human readable title or null if not set
+  var title: String {get}
+  
+  /// return true if the function import must be included in the service document
+  var isIncludeInServiceDocument: Bool {get}
 
   /// Gets unbound function with given parameter names
   /// - parameters:
@@ -42,14 +51,7 @@ public protocol EdmFunctionImport : EdmOperationImport {
   /// - throws: No error conditions are expected
   func getUnboundFunction(parameterNames:[String]) -> EdmFunction
   
-  /// return the Full qualified name for the function as specified in the metadata
-  var getFunctionFqn: FullQualifiedName {get}
-  
-  /// Returns a human readable title or null if not set
-  var title: String {get}
-  
-  /// return true if the function import must be included in the service document
-  var isIncludeInServiceDocument: Bool {get}
+
   
 }
 

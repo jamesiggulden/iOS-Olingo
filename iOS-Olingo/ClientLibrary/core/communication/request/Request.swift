@@ -17,6 +17,8 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
+
 //
 //  Request.swift
 //  iOS-Olingo
@@ -29,24 +31,6 @@ import Foundation
 
 /// Protocol with extension that provides common functionality for all types of requests
 public protocol Request{
-  
-//  /// If using an EDM enabled client, checks that the cached service root matches the request URI
-//  /// - parameters:
-//  ///   - odataClient: an oDataClient object
-//  ///   - request: an HTTP URI request TODO
-//  /// - returns: No return value (void)
-//  /// - throws: Illegal argument exception if the URI and service root stored in the client object do not match
-//  func checkRequest(odataClient:ODataClient) //,request: HttpUriRequest)
-//  
-// 
-//  /// Check response and status code 400 was returned if not throw error
-//  /// - parameters:
-//  ///   - odatClient : an oDataClient object
-//  ///   - response: HTTP response
-//  ///   - accept: string
-//  /// - returns: No return value (void)
-//  /// - throws: Odata runtime exception
-//  func checkResponse(odataClient:ODataClient) //, response: HttpResponse,accept: String)
   
 }
 
@@ -61,7 +45,7 @@ extension Request{
   /// - throws: Illegal argument exception if the URI and service root stored in the client object do not match
   func checkRequest(odataClient:ODataClient) //,request: HttpUriRequest)
   {
-    // TODO:
+    // TODO: with EDM Enabled client only
     
     /*
     // If using and Edm enabled client, checks that the cached service root matches the request URI
@@ -87,27 +71,12 @@ extension Request{
   /// - throws: Odata runtime exception
   func checkResponse(odataClient:ODataClient, response: NSURLResponse!) throws //, accept: String) throws
   {
-    
     // cast to NSHTTPURLResponse so we can access status code
     guard let httpResponse = response as? NSHTTPURLResponse else {
       throw HttpError.InvalidHttpResponse
     }
     if httpResponse.statusCode >= 400 {
       throw HttpError.ErrorCodeReturned(errorCode: httpResponse.statusCode)
-      
-      // TODO:
-      // need to expand on error handling and get retunred header messages
-      //      try {
-      //        final ODataRuntimeException exception = ODataErrorResponseChecker.checkResponse(odataClient,response.getStatusLine(),response.getEntity() == null ? null : response.getEntity().getContent(),accept);
-      //        if (exception != null) {
-      //          throw exception;
-      //        }
-      //      } catch (IOException e) {
-      //        throw new ODataRuntimeException(
-      //          "Received '" + response.getStatusLine() + "' but could not extract error body", e);
-      //        }
-      //      }
-
     }
   }
 }

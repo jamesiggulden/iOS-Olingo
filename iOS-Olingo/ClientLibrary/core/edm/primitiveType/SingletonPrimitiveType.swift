@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  SingletonPrimitiveType.swift
@@ -57,7 +58,12 @@ public class SingletonPrimitiveType: AbstractPrimitiveType {
   // MARK: - Methods
 
   public func equals(obj:AnyObject) -> Bool {
-    return self === obj // TODO: || obj != nil && getClass() == obj.getClass()
+    if self === obj {
+      return true
+    }
+    else {
+      return self.dynamicType == obj.dynamicType
+    }
   }
   
   // TODO:

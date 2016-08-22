@@ -17,6 +17,8 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
+
 //
 //  ODataDeserializer.swift
 //  iOS-Olingo
@@ -32,39 +34,39 @@ import Foundation
 
 public protocol ODataDeserializer {
   
-  /**
-   * Gets an entity set object from the given InputStream.
-   *
-   * @param input stream to be de-serialized.
-   * @return {@link EntityCollection} instance.
-   */
-   func toEntitySet(input: NSData) throws -> ResWrap<EntityCollection>?
+  /// Gets an entity set object from the given InputStream
+  /// - parameters:
+  ///   - input: stream to be de-serialized
+  /// - returns: EntityCollection instance
+  /// - throws: No error conditions are expected
+  func toEntitySet(input: NSData) throws -> ResWrap<EntityCollection>?
   
-  /**
-   * Gets an entity object from the given InputStream.
-   *
-   * @param input stream to be de-serialized.
-   * @return {@link Entity} instance.
-   */
+  /// Gets an entity object from the given InputStream
+  /// - parameters:
+  ///   - input: stream to be de-serialized
+  /// - returns: Entity instance
+  /// - throws: No error conditions are expected
   func toEntity(input: NSData) throws -> ResWrap<Entity>?
-  
-  /**
-   * Gets a property object from the given InputStream.
-   *
-   * @param input stream to be de-serialized.
-   * @return Property instance.
-   */
+
+  //TODO: Include when impl functionality added
+  /*
+  /// Gets a property object from the given InputStream
+  /// - parameters:
+  ///   - input: stream to be de-serialized
+  /// - returns: Property instance
+  /// - throws: No error conditions are expected
+  func toProperty(input: NSData) ->  ResWrap<Property>
+ */
   
   //TODO: Include when impl functionality added
-  // func toProperty(input: NSData) ->  ResWrap<Property>
+  /*
+  /// Gets the ODataError object represented by the given InputStream
+  /// - parameters:
+  ///   - input: stream to be de-serialized
+  /// - returns: parsed ODataError object instance
+  /// - throws: No error conditions are expected
+  func toError(input: NSData) -> ODataError
+ */
   
-  /**
-   * Gets the ODataError object represented by the given InputStream.
-   *
-   * @param input stream to be parsed and de-serialized.
-   * @return parsed ODataError object represented by the given InputStream
-   */
-    //TODO: Include when impl functionality added
-   // func toError(input: NSData) -> ODataError
 }
 

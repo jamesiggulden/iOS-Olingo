@@ -18,6 +18,8 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
+
 //
 //  EdmKeyPropertyRef.swift
 //  iOS-Olingo
@@ -34,14 +36,10 @@ public protocol EdmKeyPropertyRef {
   /// return name of the key predicate. Can be a path in case the alias is set
   var name:String {get}
   
-  /**
-   * @return alias of this reference or null if not set
-   */
+  /// return alias of this reference or null if not set
   var alias:String {get}
   
-  /**
-   * @return the property this property ref points to
-   */
+  /// return the property this property ref points to
   var property:EdmProperty {get}
   
 }

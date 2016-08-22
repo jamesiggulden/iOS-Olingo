@@ -15,53 +15,31 @@ import Foundation
  */
 public protocol EdmProperty : EdmElement { //, EdmMappable  { // TODO: EdmAnnotatable {
   
-  /**
-   * Gets the related MIME type for the property.
-   *
-   * @return MIME type as String
-   */
+  /// Gets the related MIME type for the property.
   var mimeType: String? {get}
   
-  /**
-   * Gets the info if the property is a primitive property.
-   *
-   * @return true, if it is a primitive property
-   */
+  /// return true, if it is a primitive property
   var isPrimitive: Bool {get}
   
-  /**
-   * @return true if nilable or not specified
-   */
+  /// return true if nilable or not specified
   var isNilable: Bool {get}
   
-  /**
-   * @return the maximum length as an Int or nil if not specified
-   */
+  /// return the maximum length as an Int or nil if not specified
   var maxLength: Int {get}
   
-  /**
-   * @return the precision as an Int or nil if not specified
-   */
+  /// return the precision as an Int or nil if not specified
   var precision: Int {get}
   
-  /**
-   * @return the scale as an Int or nil if not specified
-   */
+  /// return the scale as an Int or nil if not specified
   var scale: Int {get}
   
-  /**
-   * @return a non-negative Int or the special value <tt>variable</tt>
-   */
+  /// return a non-negative Int
   var srid: SRID? {get}
   
-  /**
-   * @return true if unicode or not specified
-   */
+  /// return true if unicode or not specified
   var unicode: Bool {get}
   
-  /**
-   * @return the default value as a String or nil if not specified
-   */
+  /// return the default value as a String or nil if not specified
   var defaultValue: String? {get}
 }
 

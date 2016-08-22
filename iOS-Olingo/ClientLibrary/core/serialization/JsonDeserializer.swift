@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  JsonDeserializer.swift
@@ -59,9 +60,7 @@ public class JsonDeserializer: ODataDeserializer {
   /// - throws: GetODataException
   public func toEntitySet(input:NSData) throws  -> ResWrap<EntityCollection>? {
     do {
-      // we will just pass the json content directly and handle the json deserialization inside the class
-      return try JsonEntitySetDeserializer(serverMode: serverMode).doDeserialize(input)!
-      
+      return try JsonEntitySetDeserializer(serverMode: serverMode).doDeserialize(input)
     }
     catch {
       throw GetODataException.ODataEntitySetFailed
@@ -75,15 +74,12 @@ public class JsonDeserializer: ODataDeserializer {
   /// - throws: GetODataException
   public func toEntity(input:NSData) throws -> ResWrap<Entity>? {
     do {
-      // we will just pass the json content directly and handle the json deserialization inside the class
       return try JsonEntityDeserializer(serverMode: serverMode).doDeserialize(input)
-
     }
     catch {
       throw GetODataException.ODataEntityFailed
     }
   }
-
  
   /// Check for @ char at start of string and prepend if not found
   /// - parameters:
@@ -96,7 +92,6 @@ public class JsonDeserializer: ODataDeserializer {
     }
     return string
   }
-  
    
   /// Populate an array of properties from the JSON data dictionary
   /// - parameters:
@@ -112,9 +107,7 @@ public class JsonDeserializer: ODataDeserializer {
     
     // swift dictionary is unsorted so need to get the data into a sorted order to esnure
     // that the value type key value pair if it exists is before the actual value
-
     let sortedDataKeys = Array(data.keys).sort(>)
-      
     for key in sortedDataKeys {
       guard let value = data[key] else {
         throw IllegalArgumentException.NilOrEmptyString
@@ -188,7 +181,6 @@ public class JsonDeserializer: ODataDeserializer {
       }
     }
   }
-  
    
   /// Calculate the value of a property
   /// - parameters:
@@ -215,7 +207,6 @@ public class JsonDeserializer: ODataDeserializer {
       keyGuess = key
       valueGuess = value
     }
-    
     if let typeInfo = typeInfo {
       if typeInfo.isCollection  {
         propType = PropertyType.COLLECTION
@@ -245,7 +236,7 @@ public class JsonDeserializer: ODataDeserializer {
     
     switch (propType) {
     case PropertyType.COLLECTION:
-      // TODO: Coolections
+      // TODO: Collections
       //fromCollection(valuable, node.elements(), typeInfo, codec)
       break
       
@@ -285,54 +276,22 @@ public class JsonDeserializer: ODataDeserializer {
     case PropertyType.EMPTY:
       valuable.setValue(ValueType.PRIMITIVE, value: "")
       break
-    default:
-      valuable.setValue(ValueType.PRIMITIVE, value: "")
     }
-    
   }
-  
-  
    
-  /// Guess teh property value type based on its contents
+  /// Guess the property value type based on its contents
   /// - parameters:
   ///   - node: a value of a property from a JSON feed
   /// - returns: A dictionaory key value pair entry
   /// - throws: No error conditions are expected
   private func guessPropertyType(node:AnyObject) -> [PropertyType: EdmTypeInfo] {
     let type: PropertyType
-    
     var typeInfo:EdmTypeInfo? = nil
     var typeExpression:String = ""
     var entry:[PropertyType:EdmTypeInfo] = [:]
-    // TODO:
-    // use this as a default to start with till we get it working properly
+
     type = PropertyType.PRIMITIVE
     typeExpression = guessPrimitiveTypeKind(node).getFullQualifiedName().toString()
-    // TODO: ascertian node categories in a way similar to Java Jackson library
-    /*
-     if (node.isValueNode || node == nil) {
-     type = PropertyType.PRIMITIVE
-     typeExpression = guessPrimitiveTypeKind(value).fullQualifiedName.toString()
-     }
-     else if (node.isArray) {
-     type = PropertyType.COLLECTION
-     if (node.has(0) && node.get(0).isValueNode()) {
-     typeExpression = "Collection(" + guessPrimitiveTypeKind(value) + ")"
-     }
-     }
-     else if (node.isObject()) {
-     if (node.has(ATTR_TYPE)) {
-     type = PropertyType.PRIMITIVE
-     typeExpression = "Edm.Geography" + node.get(ATTR_TYPE).asText()
-     } else {
-     type = PropertyType.COMPLEX
-     }
-     }
-     
-     else {
-     type = PropertyType.EMPTY
-     }
-     */
     
     if !typeExpression.isEmpty {
       typeInfo = EdmTypeInfo.Builder().setTypeExpression(typeExpression).build()
@@ -358,17 +317,14 @@ public class JsonDeserializer: ODataDeserializer {
       if valueStr.caseInsensitiveCompare("true") == NSComparisonResult.OrderedSame || valueStr.caseInsensitiveCompare("false") == NSComparisonResult.OrderedSame {
         return EdmPrimitiveTypeKind.BOOLEAN
       }
-      
       let nf = NSNumberFormatter()
       guard let nsNum = nf.numberFromString(valueStr) else {
         return EdmPrimitiveTypeKind.STRING
       }
-
       let nsInt = nsNum.integerValue
       if nsInt == nsNum {
         return EdmPrimitiveTypeKind.INT64
       }
-      
       let nsFloat = nsNum.floatValue
       if nsFloat == nsNum {
         return EdmPrimitiveTypeKind.SINGLE
@@ -421,23 +377,23 @@ public class JsonDeserializer: ODataDeserializer {
      }
      */
     do {
-      
-      let primType = typeInfo.type as! EdmPrimitiveType
-      let swiftType = primType.defaultType
-      
-      if let swiftValue = try primType.valueOfString(String(node), isnilable: true, maxLength: nil,precision: DEFAULT_PRECISION, scale: DEFAULT_SCALE, isUnicode: true,returnType: swiftType) {
-        log.debug(" value: \(String(swiftValue)) of type \(swiftValue.dynamicType)")
-        return swiftValue as? AnyObject
+      guard let primType = typeInfo.type as? EdmPrimitiveType else {
+        log.error("EdmPrimitiveTypeException Value type not supported")
+        throw EdmPrimitiveTypeException.ValueTypeNotSupported
+      }
+      let nativeType = primType.defaultType
+      if let nativeValue = try primType.valueOfString(String(node), isnilable: true, maxLength: nil,precision: DEFAULT_PRECISION, scale: DEFAULT_SCALE, isUnicode: true,returnType: nativeType) {
+        log.debug(" value: \(String(nativeValue)) of type \(nativeValue.dynamicType)")
+        return nativeValue as? AnyObject
       }
       else {
         return nil
       }
     }
     catch {
-      log.error("Error from primitive: ")
+      log.error("EdmPrimitiveTypeException Literal has illegal content")
       throw EdmPrimitiveTypeException.LiteralHasIllegalContent
     }
-    return nil
   }
 
   

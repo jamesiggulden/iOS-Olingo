@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmInt32.swift
@@ -53,8 +54,18 @@ public final class EdmInt32:SingletonPrimitiveType {
   
   // MARK: - Methods
   
+  /// Convert the value provided as a string into the actual value of the type specified by returnType
+  /// - parameters:
+  ///   - value: value as string to be converted
+  ///   - isnilable: is the value allowed to be nil
+  ///   - maxlength: max length of value string
+  ///   - precision: precision value
+  ///   - scale: scale value
+  ///   - isUnicode: is the value in unicode format
+  ///   - returnType: returnType expected
+  /// - returns: value of string of type T
+  /// - throws: EDMPrimtiveType Error
   override func internalValueOfString<T>(value:String,isnilable:Bool,maxLength:Int?,precision:Int,scale:Int,isUnicode:Bool,returnType:T) throws -> T {
-    
     
     guard let valueInteger = Int(value) else {
       throw EdmPrimitiveTypeException.LiteralHasIllegalContent  //("The literal '" + value + "' has illegal content.", e)
@@ -63,19 +74,8 @@ public final class EdmInt32:SingletonPrimitiveType {
     let numConvertor = EdmInt64()
     let convertedNumber = try numConvertor.convertNumber(valueInteger, returnType: returnType)
     return convertedNumber
-   //return try EdmInt64.convertNumber(valueInteger, returnType)
-    
    }
-  // redundent?
-  /*
-  catch (final IllegalArgumentException e) {
-   throw new EdmPrimitiveTypeException("The literal '" + value
-   + "' cannot be converted to value type " + returnType + ".", e)
-   } catch (final ClassCastException e) {
-   throw new EdmPrimitiveTypeException("The value type " + returnType + " is not supported.", e)
-   }
-   }
- */
+
 
   
   // TODO: func isCompatible(primitiveType:EdmPrimitiveType ) -> Bool

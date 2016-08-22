@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmComplexType.swift
@@ -29,10 +30,14 @@
 import Foundation
 
  /// A CSDL ComplexType element.
- ///
  /// EdmComplexType holds a set of related information like {@link EdmPrimitiveType} properties and EdmComplexType properties
 public protocol EdmComplexType: EdmStructuredType {
   
-
+ 
+  /// Get base type
+  /// - parameters:
+  ///   - none:
+  /// - returns: EdmComplexType
+  /// - throws: No error conditions are expected
   func getBaseType() -> EdmComplexType
 }

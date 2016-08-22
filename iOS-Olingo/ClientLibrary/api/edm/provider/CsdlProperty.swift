@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  CsdlProperty.swift
@@ -36,11 +37,8 @@ public class CsdlProperty: CsdlAbstractEdmItem , CsdlNamed, CsdlAnnotatable {
   // MARK: - Stored Properties
 
   public var name:String = ""  //G
-  
   public var type:String?
-  
   public var isCollection:Bool = false
-
   public var mimeType:String?
 
   // TODO: mappings
@@ -48,17 +46,11 @@ public class CsdlProperty: CsdlAbstractEdmItem , CsdlNamed, CsdlAnnotatable {
 
   // Facets
   public var defaultValue:String?
-  
   public var isNilable:Bool = true
-  
   public var maxLength: Int = 0
-
   public var precision: Int = 0
-  
   public var scale: Int = 0
-  
   public var isUnicode:Bool = true
-  
   public var srid:SRID?
 
   // TODO: Annotations
@@ -66,7 +58,6 @@ public class CsdlProperty: CsdlAbstractEdmItem , CsdlNamed, CsdlAnnotatable {
   
   // MARK: - Computed Properties
 
-  
   // MARK: - Init
 
   override init() {
@@ -74,34 +65,31 @@ public class CsdlProperty: CsdlAbstractEdmItem , CsdlNamed, CsdlAnnotatable {
   }
   // MARK: - Methods
 
-  /**
-   * Sets name.
-   *
-   * @param name the name
-   * @return the name
-   */
-  public func setName(String name:String) -> CsdlProperty {
+  /// Sets name
+  /// - parameters:
+  ///   - name: the name
+  /// - returns: self
+  /// - throws: No error conditions are expected
+  public func setName(name:String) -> CsdlProperty {
     self.name = name
     return self
   }
   
-  
-  /**
-   * Sets type.
-   *
-   * @param type the type
-   * @return the type
-   */
+  /// Sets type
+  /// - parameters:
+  ///   - name: the type
+  /// - returns: self
+  /// - throws: No error conditions are expected
   public func setType(type:String) -> CsdlProperty {
     self.type = type
     return self
   }
   
-  /**
-   * Gets type as fQN object.
-   *
-   * @return the type as fQN object
-   */
+  /// Gets type as fQN object
+  /// - parameters:
+  ///   - none
+  /// - returns: the type as fQN object
+  /// - throws: No error conditions are expected
   public func getTypeAsFQNObject() throws -> FullQualifiedName?  {
     do {
       return try FullQualifiedName(namespaceAndName: type!)
@@ -109,125 +97,114 @@ public class CsdlProperty: CsdlAbstractEdmItem , CsdlNamed, CsdlAnnotatable {
     
   }
   
-  /**
-   * Sets type.
-   *
-   * @param fqnName the fqn name
-   * @return the type
-   */
+  /// Sets type using FQN
+  /// - parameters:
+  ///   - fqnName: the fqn name
+  /// - returns: self
+  /// - throws: No error conditions are expected
   public func setType(fqnName:FullQualifiedName) -> CsdlProperty {
     type = fqnName.fqn
     //type = fqnName.getFullQualifiedNameAsString()
     return self
   }
   
-
-  
-  /**
-   * Sets collection.
-   *
-   * @param isCollection the is collection
-   * @return the collection
-   */
+  /// Sets collection
+  /// - parameters:
+  ///   - isCollection: is a collection flag
+  /// - returns: self
+  /// - throws: No error conditions are expected
   public func setCollection(isCollection:Bool) -> CsdlProperty {
     self.isCollection = isCollection
     return self
   }
   
-  
-  /**
-   * Sets default value.
-   *
-   * @param defaultValue the default value
-   * @return the default value
-   */
+  /// Sets default value
+  /// - parameters:
+  ///   - defaultValue: the default value
+  /// - returns: self
+  /// - throws: No error conditions are expected
   public func setDefaultValue( String defaultValue:String) -> CsdlProperty {
     self.defaultValue = defaultValue
     return self
   }
   
-  
-  
-  /**
-   * Sets nilable.
-   *
-   * @param nilable the nilable
-   * @return the nilable
-   */
+  /// Sets nilable
+  /// - parameters:
+  ///   - nilable: is nilable flag
+  /// - returns: self
+  /// - throws: No error conditions are expected
   public func setNilable( Bool nilable:Bool) -> CsdlProperty {
     self.isNilable = nilable
     return self
   }
   
-  
-  /**
-   * Sets max length.
-   *
-   * @param maxLength the max length
-   * @return the max length
-   */
+  /// Sets max length
+  /// - parameters:
+  ///   - maxLength:the max length
+  /// - returns: self
+  /// - throws: No error conditions are expected
   public func setMaxLength(maxLength:Int) -> CsdlProperty {
     self.maxLength = maxLength
     return self
   }
   
-  
-  /**
-   * Sets precision.
-   *
-   * @param precision the precision
-   * @return the precision
-   */
+  /// Sets precision
+  /// - parameters:
+  ///   - precision:the precision
+  /// - returns: self
+  /// - throws: No error conditions are expected
   public func setPrecision(precision:Int)  -> CsdlProperty {
     self.precision = precision
     return self
   }
-  
-  
-  /**
-   * Sets scale.
-   *
-   * @param scale the scale
-   * @return the scale
-   */
+
+  /// Sets scale
+  /// - parameters:
+  ///   - scale:the max scale
+  /// - returns: self
+  /// - throws: No error conditions are expected
   public func setScale(scale:Int) -> CsdlProperty {
     self.scale = scale
     return self
   }
   
-
-  
-  /**
-   * Sets unicode.
-   *
-   * @param unicode the unicode
-   * @return the unicode
-   */
+  /// Sets unicode
+  /// - parameters:
+  ///   - unicode: is unicode flag
+  /// - returns: self
+  /// - throws: No error conditions are expected
   public func setUnicode(unicode:Bool) -> CsdlProperty {
     self.isUnicode = unicode
     return self
   }
   
-  
-  /**
-   * Sets mime type.
-   *
-   * @param mimeType the mime type
-   * @return the mime type
-   */
+  /// Sets mime type
+  /// - parameters:
+  ///   - mime type:the mime type
+  /// - returns: self
+  /// - throws: No error conditions are expected
   public func setMimeType(mimeType:String) -> CsdlProperty {
     self.mimeType = mimeType
     return self
   }
   
+  /// Sets srid
+  /// - parameters:
+  ///   - srid: the srid
+  /// - returns: self
+  /// - throws: No error conditions are expected
+  public func setSrid(srid:SRID) -> CsdlProperty {
+    self.srid = srid
+    return self
+  }
+  
   // TODO: Mapping
-/*
-  /**
-   * Sets mapping.
-   *
-   * @param mapping the mapping
-   * @return the mapping
-   */
+  /*
+   /// Sets mapping
+   /// - parameters:
+   ///   - mapping:the mapping
+   /// - returns: self
+   /// - throws: No error conditions are expected
   public func setMapping( CsdlMapping mapping) -> CsdlProperty {
     self.mapping = mapping
     return self
@@ -237,26 +214,17 @@ public class CsdlProperty: CsdlAbstractEdmItem , CsdlNamed, CsdlAnnotatable {
   
   //TODO: Annotations
 /*
-  /**
-   * Sets a list of annotations
-   * @param annotations list of annotations
-   * @return self instance
-   */
-public func setAnnotations(annotations: [CsdlAnnotation]) -> CsdlProperty {
+   /// Sets a list of annotations
+   /// - parameters:
+   ///   - annotations list of annotations
+   /// - returns: self
+   /// - throws: No error conditions are expected
+   public func setAnnotations(annotations: [CsdlAnnotation]) -> CsdlProperty {
     self.annotations = annotations
     return self
   }
  */
   
-  /**
-   * Sets srid.
-   *
-   * @param srid the srid
-   * @return the srid
-   */
-  public func setSrid(srid:SRID) -> CsdlProperty {
-    self.srid = srid
-    return self
-  }
+
   
-  }
+}

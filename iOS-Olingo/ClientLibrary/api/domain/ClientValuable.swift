@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ClientValuable.swift
@@ -32,19 +33,15 @@ public protocol ClientValuable {
   
   /// client value.
   var value: ClientValue {get}
-  
 
   /// Checks if has nil value
   var hasNilValue: Bool {get}
-  
 
   /// Checks if has primitive value
   var hasPrimitiveValue: Bool {get}
-  
 
   /// Gets primitive value
   var primitiveValue: ClientPrimitiveValue? {get}
-  
 
   /// Checks if has collection value
   var hasCollectionValue: Bool {get}
@@ -52,30 +49,15 @@ public protocol ClientValuable {
   /// Gets collection value
   var collectionValue: ClientCollectionValue? {get}
   
-  // Replaced with computed property
-  /*
-  /// Gets collection value
-  /// - parameters:
-  ///   - none:
-  /// - returns: collection value if exists nil otherwise
-  /// - throws: No error conditions are expected
-  func getCollectionValue() -> ClientCollectionValue?
- */
-  
-
   /// Checks if has complex value
   var hasComplexValue: Bool {get}
   
-
   /// Gets complex value
-
   var complexValue:ClientComplexValue? {get}
-  
 
   /// Checks if has enum  value
   var hasEnumValue: Bool {get}
   
-
   /// Gets enum value
   var enumValue: ClientEnumValue? {get}
   

@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmOperationImport.swift
@@ -31,10 +32,10 @@ import Foundation
 /// An EdmOperationImport can be an EdmActionImport or an EdmFunctionImport
 public protocol EdmOperationImport: EdmNamed { // TODO: EdmAnnotatable {
   
-  /// return {@link FullQualifiedName} of this OperationImport
+  /// return  FullQualifiedName of this OperationImport
   var fullQualifiedName: FullQualifiedName {get}
   
-  /// @return EdmEntitySet of this OperationImport
+  /// return EdmEntitySet of this OperationImport
   var returnedEntitySet: EdmEntitySet {get}
   
   /// return EdmEntityContainer of this EdmOperationImport

@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ClientProperty.swift
@@ -32,6 +33,5 @@ import Foundation
 public protocol ClientProperty : ClientValuable { //extends ClientInvokeResult, ClientAnnotatable {
   
   /// property name
-  //func getName() -> String
   var name:String  {get}
 }

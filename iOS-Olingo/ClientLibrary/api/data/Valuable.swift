@@ -17,7 +17,7 @@
   under the License.
  */
 
-
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  Valuable.swift
@@ -36,8 +36,6 @@ public class Valuable {  //: Annotatable {
   // MARK: - Stored Properties
 
   public var valueType:ValueType?
-
-  //public var valueType:ValueType = ValueType(baseType: ValueType.PRIMITIVE)  //G
   public var value: Any?  //G
   public var type:String = ""  //GS
   
@@ -204,29 +202,20 @@ public class Valuable {  //: Annotatable {
          */
       return true
     }
-      
     return false
-
-      // Original Olingo
-      /*
-      return getAnnotations().equals(other.getAnnotations())
-        && (valueType == null ? other.valueType == null : valueType.equals(other.valueType))
-        && (value == null ? other.value == null : value.equals(other.value))
-        && (type == null ? other.type == null : type.equals(other.type))
-      */
     }
-    
-    
   }
   
   // TODO: func hashCode() -> Int
-//  public func hashCode() -> Int {
-//    int result = getAnnotations().hashCode()
-//    result = 31 * result + (valueType == null ? 0 : valueType.hashCode())
-//    result = 31 * result + (value == null ? 0 : value.hashCode())
-//    result = 31 * result + (type == null ? 0 : type.hashCode())
-//    return result
-//  }
+  /*
+  public func hashCode() -> Int {
+    int result = getAnnotations().hashCode()
+    result = 31 * result + (valueType == null ? 0 : valueType.hashCode())
+    result = 31 * result + (value == null ? 0 : value.hashCode())
+    result = 31 * result + (type == null ? 0 : type.hashCode())
+    return result
+  }
+  */
   
 
   public func toString() -> String {
@@ -237,5 +226,16 @@ public class Valuable {  //: Annotatable {
       return ""
     }
   }
+  
 }
+
+extension Valuable: Equatable {}
+
+public func ==(lhs: Valuable, rhs: Valuable) -> Bool {
+  return lhs.type == rhs.type
+}
+
+
+
+
 

@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  AbstractODataRequest.swift
@@ -66,7 +67,6 @@ public class AbstractODataRequest: Request {
   
   var headerNames: [String] {
     return odataHeaders.getHeaderNames()
-
   }
   
   var header: ODataHeadersImpl {
@@ -74,14 +74,6 @@ public class AbstractODataRequest: Request {
   }
   
 // MARK: - Methods
-  
-  /**
-   * Constructor.
-   *
-   * @param odataClient client instance getting this request
-   * @param method HTTP request method. If configured X-HTTP-METHOD header will be used.
-   * @param uri OData request URI.
-   */
   
    init (odataClient: ODataClient, method: HttpMethod,uri:NSURL) {
     //super();
@@ -97,16 +89,16 @@ public class AbstractODataRequest: Request {
   
     // current httpsession
     self.httpSession = odataClient.httpSession
-    
 
-    
-    
     // TODO: getURIRequest (Obsolete?)
     // self.request = odataClient.configuration.getHttpUriRequestFactory().create(self.method, uri);
   }
   
   //public abstract ContentType getDefaultFormat();
   public func getDefaultFormat() -> ContentType {
+    // only implnented to test viability of enforcing the creation of the method in a concrete class.
+    // Swift does not provide an abstarct method capability.
+    // Alternative it is create a protocol for this abstract class
     fatalError("Must override")
   }
   
@@ -202,7 +194,7 @@ public class AbstractODataRequest: Request {
   }
   
    
-  /// Build the HHTP request, execute it and get response
+  /// Build the HTTP request, execute it and get response
   /// - parameters:
   ///   - none
   /// - returns: HTTP response struct
@@ -210,11 +202,8 @@ public class AbstractODataRequest: Request {
   func doExecute() throws -> HttpResponseContent {
     
     //TODO:  Enable check request once we pass in the request object
-    // Always callaed but only required for EDM enabled clients so just stubbed for now
+    // Always called but only required for EDM enabled clients so just stubbed for now
      // checkRequest(odataClient, request)
-    
-    // TODO:  Enable the building of headers when we have confirmed how it works
-    // Set Content-Type and Accept headers with default values, if not yet set
     
     if odataHeaders.getHeader(HttpHeader.CONTENT_TYPE.rawValue)?.isEmpty ?? true {
       setContentType(getContentType())
@@ -252,13 +241,12 @@ public class AbstractODataRequest: Request {
       }
     }
 
-    
     // build the closure to submit the request and handle response
     httpSession.sendSynchronousRequest(request) {
       (let data, let response, let error) in
       
       guard let _:NSData = data, let _:NSURLResponse = response where error == nil else {
-        print ("error")
+        log.error("Error occured in httpSession.sendSynchronousRequest")
         return
       }
       let dataString = NSString(data:data!,encoding: NSUTF8StringEncoding)
@@ -266,7 +254,6 @@ public class AbstractODataRequest: Request {
       
       log.debug(String(dataString))
       log.debug(String(httpResponse!.statusCode))
-      
       
       if log.logMode == Log.LogMode.DEBUG {
         if let dataDictionary = self.parseHttpData(data) {
@@ -284,23 +271,22 @@ public class AbstractODataRequest: Request {
         else {
           log.debug ("No data returned")
         }
-        
-        
-        
-
       }
       self.httpResponseContent = HttpResponseContent(data: data!,response: httpResponse!)
-
     }
-      
+    if self.httpResponseContent == nil {
+      log.warn("No response returned")
+      throw HttpError.HttpRequestFailed
+    }
     log.debug("Status Code: \(self.httpResponseContent.response.statusCode)")
-    
     return httpResponseContent
-    
   }
   
-  
-  // This helper method helps parse response JSON NSData into an array of customer objects.
+  /// parse response JSON NSData into a dictionary of customer objects
+  /// - parameters:
+  ///   - data: JSON data
+  /// - returns: dictionary of key value pairs of JSON data
+  /// - throws: No errors expected
   public func parseHttpData(data: NSData?) -> [String:AnyObject]! {
     do {
       if let data = data, response = try NSJSONSerialization.JSONObjectWithData(data, options:NSJSONReadingOptions(rawValue:0)) as? [String: AnyObject] {
@@ -316,21 +302,19 @@ public class AbstractODataRequest: Request {
             }
             else
             {
-              print("Not a dictionary")
+              log.error("Not a dictionary")
               return nil
             }
           }
         } else {
-          print("Value key not found in dictionary")
-          //self.responseStatusLabel.text = "Value key not found in dictionary"
+          log.warn("Value key not found in dictionary")
         }
       } else {
-        print("JSON Error")
-        //self.responseStatusLabel.text = "JSON Error"
+        log.error("JSON Error")
+
       }
     } catch let error as NSError {
-      print("Error parsing results: \(error.localizedDescription)")
-      //self.responseStatusLabel.text = "Error parsing results: \(error.localizedDescription)"
+      log.error("Error parsing results: \(error.localizedDescription)")
     }
     return nil
     }

@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  AbstractEdmStructuredType.swift
@@ -88,10 +89,16 @@ public class AbstractEdmStructuredType: EdmTypeImpl, EdmStructuredType {
   // MARK: - Methods
 
   func buildBaseType(baseTypeName:FullQualifiedName ) -> EdmStructuredType  {
+    // only implnented to test vaibility of enforcing the creation of the method in a concrete class.
+    // Swift does not provide an abstarct method capability.
+    // Alternative it is create a protocol for this abstract class
     fatalError ("Must Implement in subclass")
   }
   
   func checkBaseType(){
+    // only implnented to test vaibility of enforcing the creation of the method in a concrete class.
+    // Swift does not provide an abstarct method capability.
+    // Alternative it is create a protocol for this abstract class
     fatalError ("Must Implement in subclass")
   }
   
@@ -112,7 +119,12 @@ public class AbstractEdmStructuredType: EdmTypeImpl, EdmStructuredType {
   }
   */
   
-  
+   
+  /// get property with the provided name
+  /// - parameters:
+  ///   - name: name of property to find and return
+  /// - returns: EdmElement if found nil otherwise
+  /// - throws: No error conditions are expected
   public func getProperty(name:String) -> EdmElement? {
     let property = getStructuralProperty(name)
     if property != nil {
@@ -122,7 +134,11 @@ public class AbstractEdmStructuredType: EdmTypeImpl, EdmStructuredType {
     return property
   }
   
-  
+    /// get structural property with the provided name
+  /// - parameters:
+  ///   - name: name of property to find and return
+  /// - returns: EdmProperty if found nil otherwise
+  /// - throws: No error conditions are expected
   public func getStructuralProperty(name:String) -> EdmProperty? {
     var property:EdmProperty?
     checkBaseType()
@@ -150,25 +166,32 @@ public class AbstractEdmStructuredType: EdmTypeImpl, EdmStructuredType {
   }
   */
   
-  
+   
+  /// check compatability with target type
+  /// - parameters:
+  ///   - targetType: type to check against
+  /// - returns: true if types are the same
+  /// - throws: EdmException.NilValue
   public func compatibleTo(targetType: EdmType?) throws -> Bool {
     var sourceType: EdmStructuredType?  = self
     guard let targetType = targetType else {
       throw EdmException.NilValue(msg: "Target type must not be nil")
     }
     if sourceType!.name != targetType.name || sourceType!.namespace != targetType.namespace {
-    // why use while?
-    // while(!sourceType.name == targetType.name) || !sourceType.namespace == targetType.namespace) {
-        
-        sourceType = sourceType!.baseType
-        if (sourceType == nil) {
-          return false
-        }
+      sourceType = sourceType!.baseType
+      if (sourceType == nil) {
+        return false
+      }
     }
-    
     return true
   }
   
+   
+  /// get properties as a dictionary
+  /// - parameters:
+  ///   - none
+  /// - returns: Dictionary of properties
+  /// - throws: No error conditions are expected
   public func getProperties() -> [String: EdmProperty] {
     let localProperties = [String: EdmProperty]()
     guard properties != nil else {
@@ -182,11 +205,6 @@ public class AbstractEdmStructuredType: EdmTypeImpl, EdmStructuredType {
     }
     return localProperties
   }
-  
-  
-  
-  
-  
   
   
   // TODO: Navigation

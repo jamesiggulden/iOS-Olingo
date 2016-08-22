@@ -17,7 +17,7 @@
   under the License.
  */
 
-
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  Operation.swift
@@ -34,13 +34,7 @@ import Foundation
 public class Operation {
   
   public var metadataAnchor:String = ""  //GS
-  
   public var title: String = ""  //GS
-  
   public var target: NSURL = NSURL() //GS
-  
-  
-  
-  
-  
+
 }

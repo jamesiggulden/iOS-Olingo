@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  Linked.swift
@@ -31,12 +32,10 @@ import Foundation
 public class Linked: AbstractODataObject {
   
   // MARK: - Stored Properties
-
-
+  
   public let associationLinks:[Link] = []  //G
   public let navigationLinks:[Link] = []  //G
   public let bindingLinks:[Link] = [] //G
-  
   
   // MARK: - Computed Properties
 
@@ -45,7 +44,13 @@ public class Linked: AbstractODataObject {
   
   
   // MARK: - Methods
-
+ 
+  /// Get link by title
+  /// - parameters:
+  ///   - name: link title
+  ///   - links: list of link objects
+  /// - returns: link with specified title, or nil if not found
+  /// - throws: No error conditions are expected
   func getOneByTitle(name:String, links:[Link]) ->  Link?{
     var result:Link?
     
@@ -56,34 +61,30 @@ public class Linked: AbstractODataObject {
     }
     return result
   }
-  
-  /**
-   * Gets association link with given name, if available, otherwise <tt>nil</tt>.
-   *
-   * @param name candidate link name
-   * @return association link with given name, if available, otherwise <tt>nil</tt>
-   */
+
+  /// Gets association link with given name, if available, otherwise `nil`
+  /// - parameters:
+  ///   - name: link title
+  /// - returns: link with specified title, or nil if not found
+  /// - throws: No error conditions are expected
   public func getAssociationLink(name:String) -> Link? {
     return getOneByTitle(name, links: associationLinks)
   }
   
-  /**
-   * Gets navigation link with given name, if available, otherwise <tt>nil</tt>.
-   *
-   * @param name candidate link name
-   * @return navigation link with given name, if available, otherwise <tt>nil</tt>
-   */
+  /// Gets navigation link with given name, if available, otherwise `nil`
+  /// - parameters:
+  ///   - name: link title
+  /// - returns: link with specified title, or nil if not found
+  /// - throws: No error conditions are expected
   public func getNavigationLink(name:String) -> Link? {
     return getOneByTitle(name, links: navigationLinks)
   }
-  
 
-  
-  /**
-   * Gets binding link with given name, if available, otherwise <tt>nil</tt>.
-   * @param name candidate link name
-   * @return binding link with given name, if available, otherwise <tt>nil</tt>
-   */
+  /// Gets binding link with given name, if available, otherwise `nil`
+  /// - parameters:
+  ///   - name: link title
+  /// - returns: link with specified title, or nil if not found
+  /// - throws: No error conditions are expected
   public func getNavigationBinding(name:String) -> Link? {
     return getOneByTitle(name, links: bindingLinks)
   }

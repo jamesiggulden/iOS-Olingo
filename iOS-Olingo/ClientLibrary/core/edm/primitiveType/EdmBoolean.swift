@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  File.swift
@@ -39,7 +40,6 @@ public final class EdmBoolean: SingletonPrimitiveType {
   
   // MARK: - Computed Properties
 
-
   public var instance: EdmBoolean {
     return INSTANCE
   }
@@ -53,14 +53,24 @@ public final class EdmBoolean: SingletonPrimitiveType {
   // MARK: - Methods
 
   public func validate(value:String?,isNilable:Bool?, maxLength:Int, precision:Int,scale:Int, isUnicode:Bool) -> Bool {
-    
     return value == nil ? isNilable == nil || isNilable! : validateLiteral(value!)
   }
   
   private func validateLiteral(value:String) -> Bool {
     return ("true" == value || "false" == value)
   }
-  
+   
+  /// Convert the value provided as a string into the actual value of the type specified by returnType
+  /// - parameters:
+  ///   - value: value as string to be converted
+  ///   - isnilable: is the value allowed to be nil
+  ///   - maxlength: max length of value string
+  ///   - precision: precision value
+  ///   - scale: scale value
+  ///   - isUnicode: is the value in unicode format
+  ///   - returnType: returnType expected
+  /// - returns: value of string of type T
+  /// - throws: EDMPrimtiveType Error
   override func internalValueOfString<T>(value:String,isnilable:Bool,maxLength:Int?,precision:Int,scale:Int,isUnicode:Bool,returnType:T) throws -> T {
   
     if (validateLiteral(value)) {
@@ -77,6 +87,16 @@ public final class EdmBoolean: SingletonPrimitiveType {
     }
   }
   
+  /// Convert the value provided to a string
+  /// - parameters:
+  ///   - value: value of generic type T to be converted
+  ///   - isnilable: is the value allowed to be nil
+  ///   - maxlength: max length of value string
+  ///   - precision: precision value
+  ///   - scale: scale value
+  ///   - isUnicode: is the value in unicode format
+  /// - returns: value as string
+  /// - throws: No error expected
   func internalValueToString<T>(value:T,isNilable:Bool,maxLength:Int, precision:Int,scale:Int,isUnicode:Bool) throws -> String {
     
     if value is Bool {

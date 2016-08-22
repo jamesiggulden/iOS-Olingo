@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmType.swift
@@ -30,10 +31,8 @@ import Foundation
 
 public protocol EdmType: EdmNamed {
   
-
   /// returns the full qualified name
   var fullQualifiedName: FullQualifiedName {get}
-  
 
   /// return the namespace of this EdmType
   var namespace:String {get}

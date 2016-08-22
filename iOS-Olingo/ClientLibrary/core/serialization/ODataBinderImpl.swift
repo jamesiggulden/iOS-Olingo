@@ -17,6 +17,9 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
+
+
  
 
 
@@ -73,7 +76,7 @@ public class ODataBinderImpl: ODataBinder {
     var _entity:ClientEntity = entity
     
     // this next line throws on building i.e. complier crashes: Command failed due to signal: Segmentation fault 11
-    // return _entity.properties.append(property)
+        // return _entity.properties.append(property)
     // but this works fine
     _entity.properties.append(property)
     return _entity
@@ -102,7 +105,6 @@ public class ODataBinderImpl: ODataBinder {
   /// - throws: No error conditions are expected
   public func add(entitySet:ClientEntitySet, entity:ClientEntity ) -> ClientEntitySet {
     
-    
     var _entitySet = entitySet
     _entitySet.entities.append(entity)
     
@@ -125,8 +127,6 @@ public class ODataBinderImpl: ODataBinder {
     if let next = odataEntitySet.next {
       entitySet.next = next
     }
-    //TODO : OData Entity
-    
     for odataEntity in odataEntitySet.entities {
       entitySet.entities.append(getEntity(odataEntity))
     }
@@ -255,7 +255,9 @@ public class ODataBinderImpl: ODataBinder {
     let contextURL = ContextURLParser.parse(resource.contextURL!)
     let base = resource.contextURL == nil ? resource.payload.baseURI: contextURL!.serviceRoot
     
-    let edmType = findType(resource.payload.type, contextURL: contextURL, metadataETag: resource.metadataETag)
+    // TODO: The called method only checks if EDMEnabledClient.  Currently only using standard client so no need tocall and will set EDMType to nil
+    //let edmType = findType(resource.payload.type, contextURL: contextURL, metadataETag: resource.metadataETag)
+    let edmType:EdmType? = nil
     
     var typeName:FullQualifiedName? = nil
     var entity:ClientEntity
@@ -325,8 +327,8 @@ public class ODataBinderImpl: ODataBinder {
     }
     */
     
-    // used by navigation
-    let CountDic:[String:Int] = [:]
+    // TODO: used by navigation
+    //let CountDic:[String:Int] = [:]
     
     for property in resource.payload.properties {
       var propertyType: EdmType? = nil
@@ -344,10 +346,10 @@ public class ODataBinderImpl: ODataBinder {
         }
         else {
           if property.name.containsString(JSON_COUNT){
-            let navigationName = property.name.substringToIndex(property.name.rangeOfString(JSON_COUNT)!.startIndex)
-            let edmProperty = (edmType as! EdmEntityType).getProperty(navigationName)
             // TODO : Navigation
             /*
+            let navigationName = property.name.substringToIndex(property.name.rangeOfString(JSON_COUNT)!.startIndex)
+            let edmProperty = (edmType as! EdmEntityType).getProperty(navigationName)
             if (edmProperty != nil) {
               if (edmProperty is EdmNavigationProperty) {
                 if let link = entity.getNavigationLink(navigationName) {
@@ -402,7 +404,7 @@ public class ODataBinderImpl: ODataBinder {
   }
   
 
-  /// Build an Odata property from the suppled resource
+  /// Build an Odata property from the supplied resource
   /// - parameters:
   ///   - resource: property
   /// - returns: Client property
@@ -457,7 +459,6 @@ public class ODataBinderImpl: ODataBinder {
   func getODataValue(fullQualName:FullQualifiedName?,valuable:Valuable,contextURL:NSURL?,metadataETag:String?) throws -> ClientValue? {
     
     // fixes enum values treated as primitive when no type information is available
-    
     if fullQualName == nil {
       throw IllegalArgumentException.NilOrEmptyString
     }
@@ -672,9 +673,6 @@ public class ODataBinderImpl: ODataBinder {
       }
     }
     return false
-    // replaces :
-    //return try EdmPrimitiveTypeKind.valueOfFQN(typeName) != nil
-  
   }
  
   /// Build type information
@@ -689,8 +687,10 @@ public class ODataBinderImpl: ODataBinder {
   private func buildTypeInfo(contextURL:ContextURL?, metadataETag: String? ,propertyName: String? , propertyType: String? ) -> EdmTypeInfo? {
     
     var typeName: FullQualifiedName? = nil
-    let type = findType("", contextURL: contextURL, metadataETag: metadataETag)
-    
+    // TODO: EDMEnabledClient.  With standard client findType will always return nil so comment out call till required nd set type to nil
+    //let type = findType("", contextURL: contextURL, metadataETag: metadataETag)
+    let type:EdmType? = nil
+
     // TODO: EDMEnabledClient
     /*
     if (type is EdmStructuredType) {
@@ -741,6 +741,9 @@ public class ODataBinderImpl: ODataBinder {
   }
 
   
+  // TODO: findType(candidateTypeName: String , contextURL:ContextURL? ,metadataETag:String?) -> EdmType? 
+  // Only required for EDMEnabledClient
+  /*
   /// Infer type name from various sources of information including Edm and context URL, if available.
   /// - parameters:
   ///   - candidateTypeName: type name as provided by the service
@@ -749,53 +752,49 @@ public class ODataBinderImpl: ODataBinder {
   /// - returns: Edm type information
   /// - throws: No error conditions are expected
 
-    private func findType(candidateTypeName: String , contextURL:ContextURL? ,metadataETag:String?) -> EdmType? {
-      
-      var type:EdmType? = nil
-      
-      // TODO: EDMEnabledClient
-      // This is only required for an EDMEnabledClient
-      /*
-      if (client is EdmEnabledODataClient) {
-        let edm = ((EdmEnabledODataClient) client).getEdm(metadataETag)
-        if (StringUtils.isNotBlank(candidateTypeName)) {
-          type = edm.getEntityType(new FullQualifiedName(candidateTypeName))
-        }
-        if (type == nil && contextURL != nil) {
-          if (contextURL.getDerivedEntity() == nil) {
-            for (EdmSchema schema : edm.getSchemas()) {
-              final EdmEntityContainer container = schema.getEntityContainer()
-              if (container != nil) {
-                final EdmEntityType entityType = findEntityType(contextURL.getEntitySetOrSingletonOrType(), container)
-                if (entityType != nil) {
-                  if (contextURL.getNavOrPropertyPath() == nil) {
-                    type = entityType
-                  }
-                  else {
-                    final EdmNavigationProperty navProp = entityType.getNavigationProperty(contextURL.getNavOrPropertyPath())
-                    type = navProp == nil ? entityType : navProp.getType()
-                  }
+  private func findType(candidateTypeName: String , contextURL:ContextURL? ,metadataETag:String?) -> EdmType? {
+    
+    var type:EdmType? = nil
+    
+    if (client is EdmEnabledODataClient) {
+      let edm = ((EdmEnabledODataClient) client).getEdm(metadataETag)
+      if (StringUtils.isNotBlank(candidateTypeName)) {
+        type = edm.getEntityType(new FullQualifiedName(candidateTypeName))
+      }
+      if (type == nil && contextURL != nil) {
+        if (contextURL.getDerivedEntity() == nil) {
+          for (EdmSchema schema : edm.getSchemas()) {
+            final EdmEntityContainer container = schema.getEntityContainer()
+            if (container != nil) {
+              final EdmEntityType entityType = findEntityType(contextURL.getEntitySetOrSingletonOrType(), container)
+              if (entityType != nil) {
+                if (contextURL.getNavOrPropertyPath() == nil) {
+                  type = entityType
+                }
+                else {
+                  final EdmNavigationProperty navProp = entityType.getNavigationProperty(contextURL.getNavOrPropertyPath())
+                  type = navProp == nil ? entityType : navProp.getType()
                 }
               }
             }
-            if (type == nil) {
-              type = EdmTypeInfo.Builder().setEdm(edm).setTypeExpression(contextURL.getEntitySetOrSingletonOrType()).build().getType()
-            }
           }
-          else {
-            type = edm.getEntityType(new FullQualifiedName(contextURL.getDerivedEntity()))
+          if (type == nil) {
+            type = EdmTypeInfo.Builder().setEdm(edm).setTypeExpression(contextURL.getEntitySetOrSingletonOrType()).build().getType()
           }
         }
+        else {
+          type = edm.getEntityType(new FullQualifiedName(contextURL.getDerivedEntity()))
+        }
       }
-      */
-      
-      return type
     }
+    return type
+  }
+ */
 
   
   
   // TODO: func updateValuable(propertyResource: Valuable , odataValuable:ClientValuable )
-   
+  
   /// Update property resource value with odataValue
   /// - parameters:
   ///   - propertyResource: property to be updated
@@ -828,8 +827,8 @@ public class ODataBinderImpl: ODataBinder {
       propertyResource.type = collectionValue!.typeName!
       let value:ClientValue
       var valueType = ValueType.COLLECTION_PRIMITIVE
-      if collectionValue!.size() > 0 {
-        if let valueCollection = collectionValue?.asSwiftCollection() {
+      if collectionValue!.size > 0 {
+        if let valueCollection = collectionValue?.asNativeTypeCollection() {
           value = valueCollection[0] as! ClientValue
           if value.isPrimitive {
             if value.asPrimitive!.value is Geospatial {
@@ -839,7 +838,7 @@ public class ODataBinderImpl: ODataBinder {
               valueType = ValueType.COLLECTION_PRIMITIVE
             }
           }
-          else if (value.isEnum()) {
+          else if (value.isEnum) {
             valueType = ValueType.COLLECTION_ENUM
           }
           else if value.isComplex {
