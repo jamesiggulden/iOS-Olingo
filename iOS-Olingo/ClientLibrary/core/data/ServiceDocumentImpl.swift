@@ -83,40 +83,6 @@ public final class ServiceDocumentImpl :ServiceDocument {
     return result
   }
   
-  
-
-  
-  //TODO: func equals(Object o)-> Bool
-//  public func equals(Object o)-> Bool {
-//    if (this == o) {
-//      return true
-//    }
-//    if (o == null || getClass() != o.getClass()) {
-//      return false
-//    }
-//    
-//    ServiceDocumentImpl that = (ServiceDocumentImpl) o
-//    
-//    if (title != null ? !title.equals(that.title) : that.title != null) {
-//      return false
-//    }
-//    if (entitySets != null ? !entitySets.equals(that.entitySets) : that.entitySets != null) {
-//      return false
-//    }
-//    if (functionImports != null ? !functionImports.equals(that.functionImports) : that.functionImports != null) {
-//      return false
-//    }
-//    if (singletons != null ? !singletons.equals(that.singletons) : that.singletons != null) {
-//      return false
-//    }
-//    if (relatedServiceDocuments != null ?
-//      !relatedServiceDocuments.equals(that.relatedServiceDocuments) : that.relatedServiceDocuments != null) {
-//      return false
-//    }
-//    return !(metadata != null ? !metadata.equals(that.metadata) : that.metadata != null)
-//    
-//  }
-  
   // TODO: func hashCode() -> Int
 //  public func hashCode() -> Int {
 //    int result = title != null ? title.hashCode() : 0
@@ -134,3 +100,53 @@ public final class ServiceDocumentImpl :ServiceDocument {
     return output
   }
 }
+
+// MARK: - Extension
+
+extension ServiceDocumentImpl:Equatable {}
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:ServiceDocumentImpl,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is ServiceDocumentImpl) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? ServiceDocumentImpl else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  
+  if lhs.title.isEmpty ? lhs.title != rhs.title : !rhs.title.isEmpty {
+    return false
+  }
+  // TODO: Array checks
+  /*
+  if (lhs.entitySets != null ? !lhs.entitySets.equals(rhs.entitySets) : rhs.entitySets != null) {
+    return false
+  }
+  if (lhs.functionImports != null ? !lhs.functionImports.equals(rhs.functionImports) : rhs.functionImports != null) {
+    return false
+  }
+  if (lhs.singletons != null ? !lhs.singletons.equals(rhs.singletons) : rhs.singletons != null) {
+    return false
+  }
+  if (lhs.relatedServiceDocuments != null ?
+    !relatedServiceDocuments.equals(rhs.lhs.relatedServiceDocuments) : rhs.relatedServiceDocuments != null) {
+    return false
+  }
+  return !(metadata != null ? !lhs.metadata.equals(rhs.metadata) : rhs.metadata != null)
+ */
+  return true
+}
+
+
+

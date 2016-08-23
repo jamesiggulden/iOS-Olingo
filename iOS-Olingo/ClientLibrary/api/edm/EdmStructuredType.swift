@@ -33,6 +33,8 @@ import Foundation
 /// Complex types and entity types are described in the Conceptual Schema Definition of the OData protocol.
 public protocol EdmStructuredType: EdmType {  // TODO: EdmAnnotatable {
   
+  // MARK: - Protocol Properties
+  
   /// Base types are described in the OData protocol specification.
   var baseType: EdmStructuredType? {get}
   
@@ -44,6 +46,8 @@ public protocol EdmStructuredType: EdmType {  // TODO: EdmAnnotatable {
   
   /// Indicates if the structured type is abstract.
   var isAbstract: Bool {get}
+  
+  // MARK: - Protocol Methods
   
   /// Get all navigation property names.
   // TODO:  var navigationPropertyNames:[String] {get}

@@ -19,10 +19,6 @@
 
 // Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
-
- 
-
-
 //
 //  ODataBinderImpl.swift
 //  iOS-Olingo
@@ -249,7 +245,7 @@ public class ODataBinderImpl: ODataBinder {
   /// - parameters:
   ///   - resource: entity
   /// - returns: Client Entity
-  /// - throws: No error conditions are expected
+  /// - throws: GetODataException.ODataEntityFailed
   public func getODataEntity(resource: ResWrap<Entity> ) throws -> ClientEntity {
     
     let contextURL = ContextURLParser.parse(resource.contextURL!)
@@ -535,7 +531,7 @@ public class ODataBinderImpl: ODataBinder {
       if (valuable.isPrimitive || valuable.valueType == nil) {
         // fixes non-string values treated as string when no type information is available at de-serialization level
         
-        if (!EdmPrimitiveTypeKind.STRING.getFullQualifiedName().equals(Object: fullQualName) && EDM_NAMESPACE == fullQualName.namespace && valuable.asPrimitive is String) {
+        if (EdmPrimitiveTypeKind.STRING.getFullQualifiedName() != fullQualName && EDM_NAMESPACE == fullQualName.namespace && valuable.asPrimitive is String) {
           do {
             
             let  primitiveType = try EdmPrimitiveTypeFactory.getInstance(EdmPrimitiveTypeKind(rawValue:fullQualName.name)!)

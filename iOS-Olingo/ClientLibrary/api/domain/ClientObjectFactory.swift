@@ -31,6 +31,10 @@ import Foundation
 
 public protocol ClientObjectFactory {
   
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
+  
   /// Create new entity set
   /// - parameters:
   ///   - none:

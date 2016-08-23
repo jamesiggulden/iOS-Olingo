@@ -37,6 +37,10 @@ import Foundation
  
 public protocol EdmSchema { // TODO ->  extends EdmAnnotatable {
   
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
+  
    /// get the namespace for this schema
   func getNamespace() -> String
   

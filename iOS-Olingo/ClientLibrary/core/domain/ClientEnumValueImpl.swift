@@ -78,32 +78,36 @@ public class ClientEnumValueImpl: AbstractClientValue, ClientEnumValue {
   }
  */
   
-  
-  public override func equals(obj:AnyObject) -> Bool {
-    if (self === obj) {
-      return true
-    }
-    else {
-      return false
-      //TODO: Add extra checks
-      /*
-      if (!super.equals(obj)) {
-        return false
-      }
-      if (!(obj instanceof ClientEnumValueImpl)) {
-        return false
-      }
-      ClientEnumValueImpl other = (ClientEnumValueImpl) obj
-      if (value == null) {
-        if (other.value != null) {
-          return false
-        }
-      } else if (!value.equals(other.value)) {
-        return false
-      }
-      return true
-      */
-    }
-    
+}
+
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:ClientEnumValueImpl,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is ClientEnumValueImpl) {
+    return false
   }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? ClientEnumValueImpl else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  
+  if lhs.value == nil {
+    if rhs.value != nil {
+      return false
+    }
+  }
+  else if lhs.value != rhs.value {
+    return false
+  }
+  return true
 }

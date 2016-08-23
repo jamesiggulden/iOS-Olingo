@@ -32,6 +32,10 @@ import Foundation
 /// An EdmActionImport element
 public protocol EdmActionImport: EdmOperationImport {
   
+  // MARK: - Protocol Properties
+  
   /// Gets unbound action
   var unboundAction: EdmAction {get}
+  
+  // MARK: - Protocol Methods
 }

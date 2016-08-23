@@ -33,7 +33,10 @@ import Foundation
  /// EdmComplexType holds a set of related information like {@link EdmPrimitiveType} properties and EdmComplexType properties
 public protocol EdmComplexType: EdmStructuredType {
   
- 
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
+
   /// Get base type
   /// - parameters:
   ///   - none:

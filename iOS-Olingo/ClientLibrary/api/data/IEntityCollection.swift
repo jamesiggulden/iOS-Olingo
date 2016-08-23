@@ -31,7 +31,13 @@
 import Foundation
 
 public protocol IEntityCollection {
+  
+  // MARK: - Protocol Properties
+  
   var count:Int  {get set}
   var next: NSURL? {get set}
   var deltaLink: NSURL?  {get set}
+  
+  // MARK: - Protocol Methods
+  
 }

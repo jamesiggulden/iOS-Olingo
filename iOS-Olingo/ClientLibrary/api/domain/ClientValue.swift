@@ -32,6 +32,8 @@ import Foundation
 /// Protocol for an abstract representation of an OData entity property value
 public protocol ClientValue {
   
+  // MARK: - Protocol Properties
+  
   /// Type name
   var typeName:String? {get}
   /// Check is a primitive value
@@ -51,6 +53,8 @@ public protocol ClientValue {
   var isEnum: Bool {get}
   /// Casts to an enum value
   var asEnum: ClientEnumValue? {get}
+  
+  // MARK: - Protocol Methods
   
 }
 

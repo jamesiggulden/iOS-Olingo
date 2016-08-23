@@ -31,6 +31,11 @@ import Foundation
 
 public protocol ClientPrimitiveValueBuilder {
   
+  
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
+  
   /// set primitive type
   /// - parameters:
   ///   - type: EDM primitive type

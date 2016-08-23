@@ -124,54 +124,6 @@ public class ClientComplexValueImpl: AbstractClientValue, ClientComplexValue {
     return fields[name]
   }
   
-  public override func equals(obj:AnyObject) -> Bool {
-    if (self === obj) {
-      return true
-    }
-    else{
-      return false
-      // TODO: checks to see if objects are the same
-      /*
-      if (!super.equals(obj)) {
-        return false
-      }
-      if (!(obj instanceof ClientComplexValueImpl)) {
-        return false
-      }
-      ClientComplexValueImpl other = (ClientComplexValueImpl) obj
-      if (annotations == Nil) {
-        if (other.annotations != Nil) {
-          return false
-        }
-      } else if (!annotations.equals(other.annotations)) {
-        return false
-      }
-      if (associationLinks == Nil) {
-        if (other.associationLinks != Nil) {
-          return false
-        }
-      } else if (!associationLinks.equals(other.associationLinks)) {
-        return false
-      }
-      if (fields == Nil) {
-        if (other.fields != Nil) {
-          return false
-        }
-      } else if (!fields.equals(other.fields)) {
-        return false
-      }
-      if (navigationLinks == Nil) {
-        if (other.navigationLinks != Nil) {
-          return false
-        }
-      } else if (!navigationLinks.equals(other.navigationLinks)) {
-        return false
-      }
-      return true
-       */
-    }
-  }
-  
   public override func toString() -> String {
     //TODO : Expand to include links and annotations when implmented
     return "ClientComplexValueImpl [navigationLinks='', associationLinks='', annotations='', fields=\(fields) super[\(super.toString())]]"
@@ -250,5 +202,49 @@ public class ClientComplexValueImpl: AbstractClientValue, ClientComplexValue {
    return getLink(associationLinks, name)
    }
    */
+
+}
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:ClientComplexValueImpl,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is ClientComplexValueImpl) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? ClientComplexValueImpl else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  // TODO: equality check
+  /*
+  if lhs.fields != rhs.fields {
+    return false
+  }
+  */
+  // TODO: Annotations and links
+  /*
+  if lhs.annotations != rhs.annotations {
+    return false
+  }
+  if lhs.associationLinks != rhs.associationLinks {
+    return false
+  }
+
+  if lhs.navigationLinks != rhs.navigationLinks {
+    return false
+  }
+  */
+  return true
+
+  
 
 }

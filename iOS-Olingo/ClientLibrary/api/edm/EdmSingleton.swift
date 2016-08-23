@@ -31,5 +31,10 @@ import Foundation
 
 /// An EdmSingleton represents a single entity inside the entity model
 public protocol EdmSingleton : EdmBindingTarget {
+  
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
+  
   // No additional methods needed for now.
 }

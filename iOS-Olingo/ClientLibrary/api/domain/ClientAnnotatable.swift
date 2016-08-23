@@ -31,6 +31,11 @@ import Foundation
 
 public protocol ClientAnnotatable {
   
+  // MARK: - Protocol Properties
+  
   var getAnnotations: [ClientAnnotation] {get}
+  
+  // MARK: - Protocol Methods
+
 }
 

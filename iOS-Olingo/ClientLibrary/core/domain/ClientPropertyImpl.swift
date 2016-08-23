@@ -59,25 +59,6 @@ public final class ClientPropertyImpl : ClientValuableImpl, ClientProperty {
     //return value == nil || value.isPrimitive() && value.asPrimitive().toValue() == nil
   }
   
-
-  public override func equals(obj : AnyObject) -> Bool {
-    if (self === obj) {
-      return true
-    }
-    else {
-      return false
-      // TODO: Expand on checks if objects are not identical
-//      if (obj == null || !(obj instanceof ClientPropertyImpl)) {
-//        return false
-//      }
-//      final ClientPropertyImpl other = (ClientPropertyImpl) obj
-//      return annotations.equals(other.annotations)
-//        && (name == null ? other.name == null : name.equals(other.name))
-//        && (value == null ? other.value == null : value.equals(other.value))
-//
-    }
-      }
-  
   // TODO: func hashCode() -> Int
 //  public func hashCode() -> Int {
 //    final int prime = 31
@@ -88,7 +69,7 @@ public final class ClientPropertyImpl : ClientValuableImpl, ClientProperty {
 //    return result
 //  }
    
-  /// Return proerties as a string
+  /// Return properties as a string
   /// - parameters:
   ///   - none
   /// - returns: Properties as String with format of ClientPropertyImpl{nameA = value of nameA,nameB = value of nameB, etc}
@@ -97,4 +78,68 @@ public final class ClientPropertyImpl : ClientValuableImpl, ClientProperty {
     return "ClientPropertyImpl{name=\(name), value=\(value), annotations=\(annotations)}"
   }
 }
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:ClientPropertyImpl,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is ClientPropertyImpl) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? ClientPropertyImpl else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  
+  if lhs.name != rhs.name {
+    return false
+  }
+  
+  let lhsSuper = lhs as ClientValuableImpl
+  let rhsSuper = rhs as ClientValuableImpl
+  
+  if lhsSuper != rhsSuper {
+    return false
+  }
+  //TODO: Annotations
+  /*
+  if lhs.annotations != rhs.annotations {
+    return false
+  }
+  */
+  return true
+}
+
+func ==(lhs:ClientProperty,rhs:ClientProperty) -> Bool {
+  
+  if lhs.name != rhs.name {
+    return false
+  }
+
+  // TODO: equality check
+  /*
+  let lhsSuper = lhs as ClientValuable
+  let rhsSuper = rhs as ClientValuable
+  if lhsSuper != rhsSuper {
+    return false
+  }
+  */
+  //TODO: Annotations
+  /*
+   if lhs.annotations != rhs.annotations {
+   return false
+   }
+   */
+  return true
+}
+
+
 

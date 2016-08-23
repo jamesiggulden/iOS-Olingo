@@ -33,6 +33,8 @@ import Foundation
 
 public protocol RetrieveRequestFactory {
   
+  // MARK: - Protocol Properties
+  
   /// Gets a uri request returning a set of one or more sets of OData entities
   /// - parameters:
   ///   - uri: NSURL object containing a URI

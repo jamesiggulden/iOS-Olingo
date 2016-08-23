@@ -32,6 +32,10 @@ import Foundation
 /// Can be applied to CSDL elements as described in the Conceptual Schema Definition Language
 public protocol EdmAnnotatable {
   
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
+  
   // TODO: Annotations
   /*
   /**

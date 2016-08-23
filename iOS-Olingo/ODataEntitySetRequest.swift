@@ -33,7 +33,10 @@ import Foundation
  // Protocol to describe an OData EntitySet query request.
 
 public protocol ODataEntitySetRequest: ODataRetrieveRequest {
-  //No additional methods needed for now
+  
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
   
   func execute() -> ODataEntitySetRetrieveResponse?
   

@@ -57,25 +57,37 @@ public class SingletonPrimitiveType: AbstractPrimitiveType {
 
   // MARK: - Methods
 
-  public func equals(obj:AnyObject) -> Bool {
-    if self === obj {
-      return true
-    }
-    else {
-      return self.dynamicType == obj.dynamicType
-    }
-  }
-  
   // TODO:
   /*
   public int hashCode() {
     return getClass().hashCode()
   }
-  
-  
-
  */
-  
-  
 
+}
+
+// MARK: - Extension
+
+extension SingletonPrimitiveType: Equatable {}
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:SingletonPrimitiveType,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is SingletonPrimitiveType) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? SingletonPrimitiveType else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  return false
 }

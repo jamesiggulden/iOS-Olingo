@@ -32,6 +32,10 @@ import Foundation
 /// OData entity property
 public protocol ClientProperty : ClientValuable { //extends ClientInvokeResult, ClientAnnotatable {
   
+  // MARK: - Protocol Properties
+  
   /// property name
   var name:String  {get}
+  
+  // MARK: - Protocol Methods
 }

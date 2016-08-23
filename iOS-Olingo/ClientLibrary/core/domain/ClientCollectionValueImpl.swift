@@ -109,33 +109,6 @@ public class ClientCollectionValueImpl<OV:ClientValue> :AbstractClientValue , Cl
     return self
   }
   
-  public override func equals( obj:AnyObject) -> Bool {
-    if (self === obj) {
-      return true
-    }
-    else {
-      return false
-      //TODO: Add extra checks
-      /*
-      if (!super.equals(obj)) {
-        return false
-      }
-      if (!(obj instanceof ClientCollectionValueImpl)) {
-        return false
-      }
-      ClientCollectionValueImpl<?> other = (ClientCollectionValueImpl<?>) obj
-      if (values == null) {
-        if (other.values != null) {
-          return false
-        }
-      } else if (!values.equals(other.values)) {
-        return false
-      }
-      return true
-      */
-    }
-  }
-  
   public override func toString() -> String {
     return "ClientCollectionValueImpl [values=\(values)super[\(super.toString())]]"
   }
@@ -150,4 +123,40 @@ public class ClientCollectionValueImpl<OV:ClientValue> :AbstractClientValue , Cl
    }
    */
 
+}
+
+// MARK: - Extension
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T,OV:ClientValue>(lhs:ClientCollectionValueImpl<OV>,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is ClientCollectionValueImpl<OV>) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? ClientCollectionValueImpl<OV> else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  
+  let lhsSuper = lhs as AbstractClientValue
+  let rhsSuper = rhs as AbstractClientValue
+  if lhsSuper != rhsSuper {
+    return false
+  }
+  // TODO: equality check
+  /*
+  if lhs.values != rhs.values {
+    return false
+  }
+  */
+  return true
 }

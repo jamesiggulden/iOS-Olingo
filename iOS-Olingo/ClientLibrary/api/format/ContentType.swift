@@ -328,37 +328,6 @@ public final class ContentType {
     return 1
   }
   
-  /// `ContentType`s are equal if `type`, `subtype`, and all `parameters` have the same value
-  /// - parameters:
-  ///   - obj: object to compare against self
-  /// - returns: `true` if obj and sef are equivalent
-  /// - throws: No error conditions are expected
-  public func equals(obj:AnyObject?) -> Bool {
-    
-    // basic checks
-    guard let obj=obj else {
-      return false
-    }
-    if (self === obj) {
-      return true
-    }
-    if obj.isKindOfClass(self.dynamicType){  // if (obj == nil || getClass() != obj.getClass()) {return false}
-      return false
-    }
-    let other = obj as! ContentType
-    // type/subtype checks
-    if (!isCompatible(other)) {
-      return false
-    }
-    if (self.parameters == other.parameters) {
-      return true
-    }
-    else{
-      return false
-    }
-  }
-   
-
   /// `ContentType`s are **compatible** if `type` and `subtype` have the same value
   /// The set `parameters` are **always** ignored (for compare with parameters see ` equals(AnyObject)`)
   /// - parameters:
@@ -425,4 +394,40 @@ public final class ContentType {
     return toContentTypeString()
   }
 }
+
+// MARK: - Extension
+
+extension ContentType:Equatable {}
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:ContentType,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is ContentType) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? ContentType else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  
+  if (!lhs.isCompatible(rhs)) {
+    return false
+  }
+  if (lhs.parameters == rhs.parameters) {
+    return true
+  }
+  else{
+    return false
+  }
+}
+
 

@@ -31,6 +31,8 @@ import Foundation
 
 public protocol ClientValuable {
   
+  // MARK: - Protocol Properties
+  
   /// client value.
   var value: ClientValue {get}
 
@@ -60,5 +62,7 @@ public protocol ClientValuable {
   
   /// Gets enum value
   var enumValue: ClientEnumValue? {get}
+  
+  // MARK: - Protocol Methods
   
 }

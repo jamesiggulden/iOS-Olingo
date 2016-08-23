@@ -110,38 +110,6 @@ public class AbstractClientValue: ClientValue {
   
   // MARK: - Methods
   
-  
-  /// Check if objects are identical
-  /// - parameters:
-  ///   - obj:  Any object
-  /// - returns: `TRUE` if identical `FALSE` otherwise
-  /// - throws: No error conditions are expected
-  public func equals(obj: AnyObject) -> Bool {
-    if (self === obj) {
-      return true
-    }
-    else{
-      return false
-      // TODO: Complete checks when objects are not identical
-//      if (obj == nil) {
-//        return false
-//      }
-//      if (!(obj instanceof AbstractClientValue)) {
-//        return false
-//      }
-//      AbstractClientValue other = (AbstractClientValue) obj
-//      if (typeName == nil) {
-//        if (other.typeName != nil) {
-//          return false
-//        }
-//      } else if (!typeName.equals(other.typeName)) {
-//        return false
-//      }
-//      return true
-    }
-    
-  }
-  
   // TODO: func hashCode() -> Int
 //  public func hashCode() -> Int {
 //    final int prime = 31
@@ -160,3 +128,37 @@ public class AbstractClientValue: ClientValue {
     return "AbstractClientValue [typeName=\(typeName)]"
   }
 }
+
+// MARK: - Extension
+
+extension AbstractClientValue: Equatable {}
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:AbstractClientValue,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is AbstractClientValue) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? AbstractClientValue else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  if (lhs.typeName == nil) {
+    if (rhs.typeName != nil) {
+      return false
+    }
+  } else if lhs.typeName != rhs.typeName {
+    return false
+  }
+  return true
+}
+

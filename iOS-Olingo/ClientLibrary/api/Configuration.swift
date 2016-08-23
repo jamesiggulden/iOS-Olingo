@@ -32,6 +32,8 @@ import Foundation
  */
 public protocol Configuration {
   
+  // MARK: - Protocol Properties
+  
   /// configured OData format for AtomPub if specified; If this configuration parameter doesn't exist the
   /// JSON_FULL_METADATA format will be used as default  
   var defaultPubFormat: ContentType {get set}
@@ -82,20 +84,22 @@ public protocol Configuration {
   
   var httpSessionFactory: HttpSessionFactoryImpl {get}
   
+  // MARK: - Protocol Methods
+  
   // TODO: This is potentially redundent but wait until we know this is not required
   /*
   
   /**
    * Gets the HttpUriRequest factory for generating requests to be executed.
    *
-   * @return provided implementation (if configured via <tt>setHttpUriRequestFactory</tt> or default.
+   * @return provided implementation (if configured via `setHttpUriRequestFactory` or default.
    */
    func getHttpUriRequestFactory() -> HttpUriRequestFactory
   
   /**
    * Sets the HttpUriRequest factory generating requests to be executed.
    *
-   * @param factory implementation of <tt>HttpUriRequestFactory</tt>.
+   * @param factory implementation of `HttpUriRequestFactory`.
    * @see HttpUriRequestFactory
    */
   func setHttpUriRequestFactory(factory:HttpUriRequestFactory)

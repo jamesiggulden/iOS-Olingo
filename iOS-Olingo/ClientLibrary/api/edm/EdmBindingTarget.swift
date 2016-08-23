@@ -32,18 +32,21 @@ import Foundation
 /// Entity Sets or Singletons can be bound to each other using a navigation property binding so an EdmBindingTarget can either be an {@link EdmEntitySet} or an {@link EdmSingleton}
 public protocol EdmBindingTarget : EdmNamed, EdmMappable { // TODO: EdmAnnotatable,
   
+  // MARK: - Protocol Properties
+  
   /// Returns a human readable title or null if not set
   var title:String  {get}
+  /// return all navigation property bindings
+  var navigationPropertyBindings:[EdmNavigationPropertyBinding] {get}
+  /// Returns the entity container this target is contained in
+  var entityContainer:EdmEntityContainer {get}
+  /// Get the entity type
+  var entityType: EdmEntityType {get}
+  
+  // MARK: - Protocol Methods
   
   /// Returns the target for a given path
   func getRelatedBindingTarget(path:String) -> EdmBindingTarget
   
-  /// return all navigation property bindings
-  var navigationPropertyBindings:[EdmNavigationPropertyBinding] {get}
   
-  /// Returns the entity container this target is contained in
-  var entityContainer:EdmEntityContainer {get}
-  
-  /// Get the entity type
-  var entityType: EdmEntityType {get}
 }

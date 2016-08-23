@@ -104,25 +104,6 @@ public class ClientValuableImpl : ClientValuable {
   
   // MARK: - Methods
   
-  public func equals(o: AnyObject) -> Bool {
-    if (self === o) {
-      return true
-    }
-    else {
-      return false
-      //TODO: Additional checks for equals
-      /*
-      if self.dynamicType != o.dynamicType {
-        return false
-      }
-      
-      let that =  o as! ClientValuableImpl
-      return value.equals(that.value)
-      */
-    }
-    
-  }
-  
   // TODO: func hashCode() -> Int
 //  public func hashCode() -> Int {
 //    return self.value != nil ? self.value.hashCode() : 0
@@ -133,3 +114,49 @@ public class ClientValuableImpl : ClientValuable {
     return "ClientValuableImpl{value=\(self.value)}"
   }
 }
+
+
+// MARK: - Extension
+
+extension ClientValuableImpl: Equatable {}
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:ClientValuableImpl,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is ClientValuableImpl) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? ClientValuableImpl else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  // TODO: equality check
+  /*
+  if lhs.value != rhs.value {
+    return false
+  }
+  */
+  return true
+}
+
+
+func ==(lhs:ClientValuable,rhs:ClientValuable) -> Bool {
+  
+  // TODO: equality check
+  /*
+  if lhs.value != rhs.value {
+    return false
+  }
+  */
+  return true
+}
+

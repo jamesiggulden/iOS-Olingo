@@ -167,7 +167,7 @@ import Foundation
   let ERROR_DETAILS:String = "details"
   let ERROR_INNERERROR:String = "innererror"
   
-  // canonical functions to be applied via dynamic annotation <tt>Apply</tt>
+  // canonical functions to be applied via dynamic annotation `Apply`
   let CANONICAL_FUNCTION_CONCAT:String = "odata.concat"
   let CANONICAL_FUNCTION_FILLURITEMPLATE:String = "odata.fillUriTemplate"
   let CANONICAL_FUNCTION_URIENCODE:String = "odata.uriEncode"

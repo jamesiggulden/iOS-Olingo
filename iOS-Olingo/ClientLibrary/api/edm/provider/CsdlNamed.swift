@@ -32,6 +32,10 @@ import Foundation
 /// The interface Csdl named
 public protocol CsdlNamed {
   
+  // MARK: - Protocol Properties
+  
   /// Gets name
   var name:String {get}
+  
+  // MARK: - Protocol Methods
 }

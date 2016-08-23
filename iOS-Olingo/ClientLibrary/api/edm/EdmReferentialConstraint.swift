@@ -32,10 +32,14 @@ import Foundation
 /// A referential constraint of a navigation property
 public protocol EdmReferentialConstraint  { //TODO:  EdmAnnotatable {
   
+  // MARK: - Protocol Properties
+  
   /// return property name of the property inside this entity type or complex type
   var propertyName:String {get}
   
   /// return property name of the referenced entity type or complex type
   var referencedPropertyName:String {get}
+  
+  // MARK: - Protocol Methods
   
 }

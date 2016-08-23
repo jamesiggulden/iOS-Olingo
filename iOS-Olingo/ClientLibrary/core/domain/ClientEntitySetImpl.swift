@@ -35,15 +35,11 @@ public class ClientEntitySetImpl:AbstractClientPayload, ClientEntitySet {
 
   /// Link to the next page
   public let next:NSURL?  //G
-  
   /// Number of ODataEntities contained in this entity set
   public var count:Int = 0 //GS
-  
   // TODO: Deltas
   //public var deltaLink:NSURL //GS
-  
   public var entities: [ClientEntity] = []  //GS
-  
   // TODO : Annotations
   //public let annotations: [ClientAnnotation] = [] //G
   
@@ -80,32 +76,6 @@ public class ClientEntitySetImpl:AbstractClientPayload, ClientEntitySet {
   }
  */
   
-  
-  public override func equals(obj:AnyObject) -> Bool {
-    if (self === obj) {
-      return true
-    }
-    else {
-      // TODO: Add additional checks
-      
-      if  !(obj is ClientEntitySetImpl) {
-        return false
-      }
-      
-      let other =  obj as! ClientEntitySetImpl
-      return  count == other.count
-        && (next == nil ? other.next == nil : next == other.next)
-        //&& (entities == other.entities)
-        // TODO: Annotations & deltalinks
-        //&& annotations.equals(other.annotations)
-        //&& (deltaLink == nil ? other.deltaLink == nil : deltaLink.equals(other.deltaLink))
-
-      
-    }
-    
-  }
-  
-  
   public override func toString() -> String {
     return "ClientEntitySetImpl [deltaLink='', entities=\(entities), annotations='', next=\(next), count=\(count)super[\(super.toString())]]"
     // TODO: Delta
@@ -114,3 +84,53 @@ public class ClientEntitySetImpl:AbstractClientPayload, ClientEntitySet {
     // return "ClientEntitySetImpl [deltaLink=\(deltaLink), entities=\(entities), annotations=\(annotations), next=\(next), count=\(count)super[\(super.toString())]]"
   }
 }
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:ClientEntitySetImpl,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is ClientEntitySetImpl) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? ClientEntitySetImpl else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  
+  if lhs.count != rhs.count {
+    return false
+  }
+  if lhs.next == nil {
+    if rhs.next != nil {
+      return false
+    }
+  }
+  else if lhs.next != rhs.next {
+    return false
+  }
+  // TODO: equality check
+  /*
+  if lhs.entities != rhs.entities {
+    return false
+  }
+  */
+  // TODO: Deltas & annotations
+  /*
+  if lhs.deltaLink != rhs.deltaLink {
+    return false
+  }
+  if lhs.annotations != rhs.annotations {
+    return false
+  }
+ */
+  return true
+}
+

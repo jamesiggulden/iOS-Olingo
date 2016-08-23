@@ -32,10 +32,14 @@ import Foundation
 /// OData collection property value.
 public protocol ClientCollectionValue: ClientValue {
   
+  // MARK: - Protocol Properties
+  
   /// Checks if collection is empty
   var isEmpty:Bool {get}
   /// Gets number of items in collection
   var size:Int {get}
+  
+  // MARK: - Protocol Methods
   
   /// Adds a value to the collection
   /// - parameters:

@@ -31,5 +31,10 @@ import Foundation
 
 /// A CSDL action
 public protocol EdmAction : EdmOperation {
+  
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
+  
   // No additional methods needed for now.
 }

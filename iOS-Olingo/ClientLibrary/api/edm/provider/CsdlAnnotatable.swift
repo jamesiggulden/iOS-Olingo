@@ -32,8 +32,12 @@ import Foundation
 /// Super type of all annotatable CSDL items
 public protocol CsdlAnnotatable {
   
+  // MARK: - Protocol Properties
+  
   // TODO: Annotations
   /// Returns a list of annotations
   //var getAnnotations:[CsdlAnnotation] {get}
+  
+  // MARK: - Protocol Methods
 }
 

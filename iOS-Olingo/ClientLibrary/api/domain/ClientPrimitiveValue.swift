@@ -31,6 +31,8 @@ import Foundation
 
 public protocol ClientPrimitiveValue :ClientValue {
   
+  // MARK: - Protocol Properties
+  
   /// Type kind
   var typeKind:EdmPrimitiveTypeKind? {get}
   
@@ -40,6 +42,8 @@ public protocol ClientPrimitiveValue :ClientValue {
   /// Actual value
   var value:Any?  {get}
   
+  
+  // MARK: - Protocol Methods
   
   // TODO: as per implmnentation
   /*

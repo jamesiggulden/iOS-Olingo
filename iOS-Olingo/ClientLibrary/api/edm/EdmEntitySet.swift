@@ -34,7 +34,11 @@ import Foundation
 /// EdmEntitySet is the container for entity type instances as described in the OData protocol. It can be the target of a navigation property binding.
 public protocol EdmEntitySet : EdmBindingTarget {
   
+  // MARK: - Protocol Properties
+  
   /// return true if entity set must be included in the service document
   var isIncludeInServiceDocument: Bool {get}
+  
+  // MARK: - Protocol Methods
   
 }

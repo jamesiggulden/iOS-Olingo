@@ -34,27 +34,26 @@ import Foundation
  /// EdmEntityContainer hold the information of EntitySets, Singletons, ActionImports and FunctionImports contained
 public protocol EdmEntityContainer: EdmNamed{ //TODO: , EdmAnnotatable
   
+  // MARK: - Protocol Properties
+  
   /// namespace of this entity container
   var namespace: String {get}
-  
   /// full qualified name of this entity container
   var fullQualifiedName: FullQualifiedName {get}
-
   /// returns all entity sets for this container.
   var entitySets: [EdmEntitySet] {get}
-  
   /// returns all function imports for this container.
   var functionImports: [EdmFunctionImport] {get}
-  
   /// returns all singletons for this container.
   var singletons: [EdmSingleton] {get}
-  
   /// returns all action imports for this container.
   var actionImports: [EdmActionImport] {get}
-  
   ///return the FullQualifiedName of the parentContainer or null if no parent is specified
   var parentContainerName: FullQualifiedName {get}
  
+  
+  // MARK: - Protocol Methods
+  
   /// Get contained Singleton by name
   /// - parameters:
   ///   - name: name of contained Singleton

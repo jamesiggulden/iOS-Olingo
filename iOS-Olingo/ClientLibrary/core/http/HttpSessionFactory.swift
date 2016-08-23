@@ -33,6 +33,10 @@ import Foundation
 
 public protocol HttpSessionFactory {
   
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
+  
   // TODO:
   
   func create() -> NSURLSession

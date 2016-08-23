@@ -35,42 +35,38 @@ import Foundation
 /// Abstract representation of an OData response.
 public protocol ODataResponse {
   
-// MARK: - Protocol Properties
-
+  // MARK: - Protocol Properties
+  
   /// Gets header names.
   var headerNames:[String] {get}
-  
   /// Gets 'ETag' header value.
   var eTag:String? {get}
-  
   /// Gets the content type
   var contentType:String? {get}
-  
   /// Gets status code.
   var statusCode:Int {get}
-  
   /// Gets status message.
   var statusMessage:String {get}
-  
-  
   /// HTTP response.
   var res:HttpResponseContent {get}
-  
   /// Response headers.
   var headers:[String:String] {get}
   
-  
-  
-// MARK: - Protocol Methods
-
-/// Gets header value of the given header.
-/// @param name header to be retrieved.
-/// @return response header value.
-   
+  // MARK: - Protocol Methods
+    
+  /// Gets header value of the given header
+  /// - parameters:
+  ///   - name: header to be retrieved
+  /// - returns: response header value
+  /// - throws: No error conditions are expected
   func getHeader(name:String) -> String?
   
-  /// Gets response body as NSData (replaces java InputStream)
-  func getRawResponse() -> NSData  // InputStream
+  /// Gets response body as NSData
+  /// - parameters:
+  ///   - none:
+  /// - returns: response as NSData
+  /// - throws: No error conditions are expected
+  func getRawResponse() -> NSData
   
   /// Close the underlying message entity input stream (if available and open) as well as releases any other resources associated with the response.
   ///
@@ -83,5 +79,10 @@ public protocol ODataResponse {
   /// - throws: No error conditions are expected
   func close()
   
+  /// Initiate an Opendata reponse from the HTTP response
+  /// - parameters:
+  ///   - res: The recived HTTP response
+  /// - returns: OData response object
+  /// - throws: No error conditions are expected
   func initFromHttpResponse(res:HttpResponseContent) -> ODataResponse
 }

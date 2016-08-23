@@ -33,13 +33,15 @@ import Foundation
 /// A key property reference element
 public protocol EdmKeyPropertyRef {
   
+  // MARK: - Protocol Properties
+  
   /// return name of the key predicate. Can be a path in case the alias is set
   var name:String {get}
-  
   /// return alias of this reference or null if not set
   var alias:String {get}
-  
   /// return the property this property ref points to
   var property:EdmProperty {get}
+  
+  // MARK: - Protocol Methods
   
 }

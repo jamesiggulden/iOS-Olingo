@@ -34,6 +34,10 @@ import Foundation
  */
 public protocol EdmEnumType: EdmPrimitiveType {
   
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
+  
   /// get member according to given name
   /// - parameters:
   ///   - name: name of member

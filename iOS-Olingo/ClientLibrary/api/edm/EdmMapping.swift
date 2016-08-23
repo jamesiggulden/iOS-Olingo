@@ -32,9 +32,12 @@ import Foundation
 /// EdmMapping holds custom mapping information which can be applied to a CSDL element
 public protocol EdmMapping {
   
+  // MARK: - Protocol Properties
+  
   /// Returns the internal name for this mapped object. This name won`t be used by the Olingo library but can be used by applications to access their database easier.
   var internalName: String {get}
-  
   /// The class which is returned here will be used to during deserialization to replace the default swift class for a primitive type.
-  var mappedSwiftClass: AnyClass {get}  // Class<?> getMappedJavaClass();
+  var mappedSwiftClass: AnyClass {get}
+  
+  // MARK: - Protocol Methods
 }

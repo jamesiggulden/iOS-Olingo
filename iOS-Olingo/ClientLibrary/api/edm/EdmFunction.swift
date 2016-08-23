@@ -32,6 +32,10 @@ import Foundation
  /// An EdmFunction as described in the OData specification
 public protocol EdmFunction :EdmOperation {
   
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
+  
   /// returns true if this function is composable
   func isComposable() -> Bool
   

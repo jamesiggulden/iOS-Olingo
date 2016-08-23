@@ -32,17 +32,18 @@ import Foundation
 /// A CSDL EntityType element
 public protocol EdmEntityType : EdmStructuredType {
   
+  // MARK: - Protocol Properties
+  
   /// Gets all key predicate names. In case an alias is defined for a key predicate this will be returned
   var keyPredicateNames:[String] {get}
-  
   /// Get all key properties references as list of {@link EdmKeyPropertyRef}
   var keyPropertyRefs: [EdmKeyPropertyRef] {get}
-  
   /// Indicates if the entity type is treated as Media Link Entry with associated Media Resource
   var hasStream:Bool {get}
-  
-  // Get EDM Entity Type
+  /// Get EDM Entity Type
   var baseType: EdmEntityType {get}
+  
+  // MARK: - Protocol Methods
 
   /// Get a key property ref by its name
   /// - parameters:

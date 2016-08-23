@@ -104,29 +104,6 @@ public class Entity:AbstractODataObject { //:Linked and then AbstractODataObject
     }
     return result
   }
-
-  
-  // TODO: func equals(o:AnyObject) -> Bool
-  /*
-  public override func equals(o:AnyObject) -> Bool {
-      //return true
-    return super.equals(o)
-      && (eTag == null ? ((Entity) o).eTag == null : eTag.equals(((Entity) o).eTag))
-      && (type == null ? ((Entity) o).type == null : type.equals(((Entity) o).type))
-      && (readLink == null ? ((Entity) o).readLink == null : readLink.equals(((Entity) o).readLink))
-      && (editLink == null ? ((Entity) o).editLink == null : editLink.equals(((Entity) o).editLink))
-      && mediaEditLinks.equals(((Entity) o).mediaEditLinks)
-      && operations.equals(((Entity) o).operations)
-      && properties.equals(((Entity) o).properties)
-      && (mediaContentSource == null ?
-        ((Entity) o).mediaContentSource == null :
-        mediaContentSource.equals(((Entity) o).mediaContentSource))
-      && (mediaContentType == null ?
-        ((Entity) o).mediaContentType == null :
-        mediaContentType.equals(((Entity) o).mediaContentType))
-      && (mediaETag == null ? ((Entity) o).mediaETag == null : mediaETag.equals(((Entity) o).mediaETag))
-  }
- */
   
   // TODO: func hashCode() -> Int
   /*
@@ -153,3 +130,66 @@ public class Entity:AbstractODataObject { //:Linked and then AbstractODataObject
   }
  */
 }
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:Entity,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is Entity) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? Entity else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  let lhsSuper = lhs as AbstractODataObject
+  let rhsSuper = rhs as AbstractODataObject
+  if lhsSuper != rhsSuper {
+    return false
+  }
+  
+  if lhs.eTag != rhs.eTag {
+    return false
+  }
+  if lhs.type != rhs.type {
+    return false
+  }
+  if lhs.readLink != rhs.readLink {
+    return false
+  }
+  if lhs.editLink != rhs.editLink {
+    return false
+  }
+  if lhs.mediaEditLinks != rhs.mediaEditLinks {
+    return false
+  }
+  // TODO: equality check
+  /*
+  if lhs.operations != rhs.operations {
+    return false
+  }
+ */
+  if lhs.properties != rhs.properties {
+    return false
+  }
+  if lhs.mediaContentSource != rhs.mediaContentSource {
+    return false
+  }
+  if lhs.mediaContentType != rhs.mediaContentType {
+    return false
+  }
+  if lhs.mediaETag != rhs.mediaETag {
+    return false
+  }
+  
+  return true
+}
+

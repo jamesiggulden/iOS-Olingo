@@ -33,7 +33,11 @@ import Foundation
 
 public protocol ClientComplexValue: ClientValue { //TODO: ClientLinked, ClientAnnotatable {
   
+  // MARK: - Protocol Properties
+
   var size: Int {get}
+  
+  // MARK: - Protocol Methods
   
   /// Adds field to the complex type
   /// - parameters:

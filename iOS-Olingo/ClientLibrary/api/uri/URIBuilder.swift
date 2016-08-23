@@ -32,8 +32,8 @@ import Foundation
 public protocol URIBuilder {
   
   // MARK: - Protocol Properties
-
-  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
 
   /// Adds the specified query option to the URI. Concatenates value if the specified query option already exists.
   /// - parameters:
@@ -365,8 +365,7 @@ public protocol URIBuilder {
   
 
    /// Properties of related entities can be specified by including the $select query option within the $expand.
-   /// <br />
-   /// <tt>http://host/service/Products?$expand=Category($select=Name)</tt>
+   /// `http://host/service/Products?$expand=Category($select=Name)`
    /// - parameters:
    ///  - expandItem: related entity name.
    ///  - selectItems: properties to be selected.

@@ -36,7 +36,6 @@ public protocol ODataBasicRequest {
 
   // MARK: - Protocol Properties
   
-  
   // MARK: - Protocol Methods
   
   // TODO: getpayload

@@ -32,5 +32,10 @@ import Foundation
 
 /// An EdmElement can either be an EdmNavigationProperty, an EdmProperty or an EdmParameter
 public protocol EdmElement : EdmNamed, EdmTyped {
+  
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
+  
   // No additional methods needed for now.
 }

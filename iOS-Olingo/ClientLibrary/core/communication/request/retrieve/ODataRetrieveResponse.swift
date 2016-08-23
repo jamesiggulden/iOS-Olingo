@@ -37,6 +37,7 @@ public protocol ODataRetrieveResponse : ODataResponse {
   // MARK: - Protocol Properties
   
   // MARK: - Protocol Methods
+  
   func getBody()
 
 }

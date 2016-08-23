@@ -33,6 +33,10 @@ import Foundation
 /// Interface representing a Entity Data Model as described in the Conceptual Schema Definition.
 public protocol Edm {
   
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
+  
   /// return all schemas defined for this EDM
   /// - parameters:
   ///   - none:

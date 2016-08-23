@@ -32,6 +32,10 @@ import Foundation
 /// Protocol with extension that provides common functionality for all types of requests
 public protocol Request{
   
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
+  
 }
 
 

@@ -31,14 +31,16 @@ import Foundation
 
 public protocol EdmType: EdmNamed {
   
+  // MARK: - Protocol Properties
+  
   /// returns the full qualified name
   var fullQualifiedName: FullQualifiedName {get}
-
   /// return the namespace of this EdmType
   var namespace:String {get}
-
   /// returns the EdmTypeKind of this EdmType
   var kind: EdmTypeKind? {get}
+  
+  // MARK: - Protocol Methods
   
 }
 

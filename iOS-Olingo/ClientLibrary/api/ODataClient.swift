@@ -30,12 +30,16 @@ import Foundation
 /// Protocol for an OData Client
 public protocol ODataClient {
   
+  // MARK: - Protocol Properties
+  
   /// an instance of a retrieve request factory (read only)
   var retrieveRequestFactory:RetrieveRequestFactory {get}
   var objectFactory:ClientObjectFactory {get}
   var configuration:Configuration {get}
   var httpSession:NSURLSession {get}
   var binder:ODataBinder {get}
+  
+  // MARK: - Protocol Methods
   
   /// build OData headers for Odata Max version and Odata version set to v4.0
   /// - parameters:

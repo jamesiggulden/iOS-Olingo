@@ -34,8 +34,6 @@ import Foundation
 /// Response abstract class about an ODataRetrieveRequest.
 public protocol ODataEntitySetRetrieveResponse : ODataResponse {
   
-
-  
   // MARK: - Protocol Properties
   
   // MARK: - Protocol Methods

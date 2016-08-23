@@ -39,8 +39,12 @@ import Foundation
 /// Additionally, `Decimal` can have the facet `Scale`.
 public protocol EdmPrimitiveType: EdmType {
   
-  /// Returns the default Swift type for this EDM primitive type 
+  // MARK: - Protocol Properties
+  
+  /// Returns the default Swift type for this EDM primitive type
   var defaultType: Any {get}
+  
+  // MARK: - Protocol Methods
 
   /// Checks type compatibility.
   /// - parameters:

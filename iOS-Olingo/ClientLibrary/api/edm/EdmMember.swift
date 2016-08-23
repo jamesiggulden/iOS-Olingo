@@ -33,6 +33,10 @@ import Foundation
 /// An EdmEnumType member element
 public protocol EdmMember: EdmNamed {  // TODO: EdmAnnotatable {
   
+  // MARK: - Protocol Properties
+  
   /// value of this member as string
   var  value: String {get}
+  
+  // MARK: - Protocol Methods
 }

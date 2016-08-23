@@ -374,7 +374,6 @@ public class AbstractODataRequest: Request {
   // TODO: func getResponseTemplate()
 //  /**
 //   * Gets an empty response that can be initialized by a stream.
-//   * <br/>
 //   * This method has to be used to build response items about a batch request.
 //   *
 //   * @param <V> ODataResponse type.

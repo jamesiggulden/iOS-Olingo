@@ -32,6 +32,10 @@ import Foundation
 
 public protocol ClientODataDeserializer: ODataDeserializer {
   
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
+  
   // TODO: func toMetadata( input: NSData) -> XMLMetadata
   //func toMetadata( input: NSData) -> XMLMetadata
   
@@ -41,7 +45,7 @@ public protocol ClientODataDeserializer: ODataDeserializer {
 //   * Gets the ServiceDocument object represented by the given InputStream.
 //   *
 //   * @param input stream to be de-serialized.
-//   * @return <tt>ServiceDocument</tt> object.
+//   * @return `ServiceDocument` object.
 //   * @throws ODataDeserializerException
 //   */
 //  func toServiceDocument(input: NSData) -> ResWrap<ServiceDocument>

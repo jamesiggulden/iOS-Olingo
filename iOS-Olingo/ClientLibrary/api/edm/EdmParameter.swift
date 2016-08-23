@@ -32,18 +32,18 @@ import Foundation
 /// A CSDL parameter element
 public protocol EdmParameter: EdmElement, EdmMappable { // TODO: EdmAnnotatable {
   
+  // MARK: - Protocol Properties
+  
   /// return true if nullable or not specified
   var isNullable:Bool {get}
-  
   /// return the maximum length as an Integer or null if not specified
   var maxLength: Int {get}
-  
   /// return the precision as an Integer or null if not specified
   var precision: Int {get}
-  
   /// return the scale as an Integer or null if not specified
   var scale: Int {get}
-  
   /// return a non-negative integer or the special value `variable`
   var srid: SRID {get}
+  
+  // MARK: - Protocol Methods
 }

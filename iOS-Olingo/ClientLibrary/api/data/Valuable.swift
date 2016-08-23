@@ -156,55 +156,6 @@ public class Valuable {  //: Annotatable {
   }
 
 
-  public func equals( o:AnyObject) -> Bool {
-    
-    let other = o as! Valuable
-    
-    if (self  === o) {
-      return true
-    }
-    else {
-      if self.dynamicType !== other.dynamicType {
-        return false
-      }
-      if self.valueType == nil {
-        if other.valueType != nil {
-          return false
-        }
-      }
-      else {
-        if self.valueType != other.valueType {
-          return false
-      }
-      if self.value == nil {
-        if other.value != nil {
-          return false
-        }
-      }
-      else {
-        // is this a valid method to compare?
-        if String (self.type) != String(other.value) {
-          return false
-        }
-      }
-      // as type is not optional we only need to copare if values are the same
-      if self.type != other.type {
-        return false
-      }
-      // TODO: Add Annotations
-        /*
-      if self.getAnnotations().equals(other.getAnnotations()) {
-         return true
-      }
-      else{
-        return false
-      }
-         */
-      return true
-    }
-    return false
-    }
-  }
   
   // TODO: func hashCode() -> Int
   /*
@@ -228,11 +179,70 @@ public class Valuable {  //: Annotatable {
   }
   
 }
+// MARK: - Extension
 
 extension Valuable: Equatable {}
+ 
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs: Valuable, rhs: T) -> Bool {
+  
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is Valuable) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? Valuable else {
+    return false
+  }
+  
+  if (lhs === rhs) {
+    return true
+  }
+  else {
+    if lhs.valueType == nil {
+      if rhs.valueType != nil {
+        return false
+      }
+    }
+    else {
+      if lhs.valueType != rhs.valueType {
+        return false
+      }
+      if lhs.value == nil {
+        if rhs.value != nil {
+          return false
+        }
+      }
+      else {
+        // is this a valid method to compare?
+        if String (lhs.type) != String(rhs.value) {
+          return false
+        }
+      }
+      // as type is not optional we only need to copare if values are the same
+      if lhs.type != rhs.type {
+        return false
+      }
+      // TODO: Add Annotations
+      /*
+       if lhs.annotations == rhs.annotations()) {
+       return true
+       }
+       else{
+       return false
+       }
+       */
+      return true
+    }
+    return false
+  }
 
-public func ==(lhs: Valuable, rhs: Valuable) -> Bool {
-  return lhs.type == rhs.type
 }
 
 

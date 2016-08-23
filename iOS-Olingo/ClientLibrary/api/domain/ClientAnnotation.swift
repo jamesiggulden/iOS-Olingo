@@ -32,7 +32,11 @@ import Foundation
 
 public protocol ClientAnnotation: ClientValuable {
   
+  // MARK: - Protocol Properties
+  
   /// Returns annotation name
   var term:String {get}
+  
+  // MARK: - Protocol Methods
   
 }

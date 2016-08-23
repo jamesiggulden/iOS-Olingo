@@ -32,6 +32,10 @@ import Foundation
 /// EdmMappable can be applied to CSDL elements to associate additional information.
 public protocol EdmMappable {
   
+  // MARK: - Protocol Properties
+  
   /// Get mapping information applied to an EDM element. May return null if no mapping is defined.
   var mapping: EdmMapping? {get}
+  
+  // MARK: - Protocol Methods
 }

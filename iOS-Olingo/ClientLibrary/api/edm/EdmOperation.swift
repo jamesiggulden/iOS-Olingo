@@ -34,6 +34,10 @@ import Foundation
  */
 public protocol EdmOperation : EdmType  {  // TODO: EdmAnnotatable {
   
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
+  
   /// get parameter for given name
   /// - parameters:
   ///   - name: name of parameter

@@ -34,6 +34,7 @@ import Foundation
 
 /// This is an abstract representation of an OData retrieve query request returning one or more result item.
 public protocol ODataRetrieveRequest {
+  
   // MARK: - Protocol Properties
 
   // MARK: - Protocol Methods

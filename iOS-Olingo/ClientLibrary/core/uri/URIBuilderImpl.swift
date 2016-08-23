@@ -668,7 +668,7 @@ public class URIBuilderImpl: URIBuilder {
   
   
   /// Properties of related entities can be specified by including the $select query option within the $expand.
-  /// <tt>http://host/service/Products?$expand=Category($select=Name)</tt>
+  /// `http://host/service/Products?$expand=Category($select=Name)`
   /// - parameters:
   ///  - expandItem: related entity name.
   ///  - selectItems: properties to be selected.

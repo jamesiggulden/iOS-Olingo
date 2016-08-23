@@ -34,6 +34,10 @@ import Foundation
 
 public protocol ODataDeserializer {
   
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
+  
   /// Gets an entity set object from the given InputStream
   /// - parameters:
   ///   - input: stream to be de-serialized

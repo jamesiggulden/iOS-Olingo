@@ -46,22 +46,6 @@ public class DeltaLink { //: Annotatable {
   
   // MARK: - Methods
 
-  // TODO: func equals(final Object o) -> Bool
-//  public func equals(final Object o) -> Bool {
-//    if (this == o) {
-//      return true
-//    }
-//    if (o == null || getClass() != o.getClass()) {
-//      return false
-//    }
-//    
-//    final DeltaLink other = (DeltaLink) o
-//    return getAnnotations().equals(other.getAnnotations())
-//      && (source == null ? other.source == null : source.equals(other.source))
-//      && (relationship == null ? other.relationship == null : relationship.equals(other.relationship))
-//      && (target == null ? other.target == null : target.equals(other.target))
-//  }
-  
   // TODO: func hashCode() -> Int
 //  public func hashCode() -> Int {
 //    int result = getAnnotations().hashCode()
@@ -71,3 +55,43 @@ public class DeltaLink { //: Annotatable {
 //    return result
 //  }
 }
+
+extension DeltaLink:Equatable {}
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:DeltaLink,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is DeltaLink) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? DeltaLink else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  if lhs.source != rhs.source {
+    return false
+  }
+  if lhs.relationship != rhs.relationship {
+    return false
+  }
+  if lhs.target != rhs.target {
+    return false
+  }
+  //TODO: Annotations
+    /*
+  if lhs.annotations != rhs.annotations {
+    return false
+  }
+ */
+  return true
+}
+

@@ -30,7 +30,11 @@ import Foundation
 
  /// ODataHeaders wraps OData request/response headers
 public protocol ODataHeaders {
-
+  
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
+  
   var headers:[String:String] {get}
 
   /// Gets the value of the header identified by the given name

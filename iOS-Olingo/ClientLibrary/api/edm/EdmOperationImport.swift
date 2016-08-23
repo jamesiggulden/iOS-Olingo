@@ -32,13 +32,15 @@ import Foundation
 /// An EdmOperationImport can be an EdmActionImport or an EdmFunctionImport
 public protocol EdmOperationImport: EdmNamed { // TODO: EdmAnnotatable {
   
+  // MARK: - Protocol Properties
+  
   /// return  FullQualifiedName of this OperationImport
   var fullQualifiedName: FullQualifiedName {get}
-  
   /// return EdmEntitySet of this OperationImport
   var returnedEntitySet: EdmEntitySet {get}
-  
   /// return EdmEntityContainer of this EdmOperationImport
   var entityContainer: EdmEntityContainer {get}
+  
+  // MARK: - Protocol Methods
   
 }

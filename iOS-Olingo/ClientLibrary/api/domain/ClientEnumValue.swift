@@ -31,7 +31,11 @@ import Foundation
 
 public protocol ClientEnumValue : ClientValue {
   
+  // MARK: - Protocol Properties
+  
   var value:String?  {get}
+  
+  // MARK: - Protocol Methods
 
   func toString() -> String
 }

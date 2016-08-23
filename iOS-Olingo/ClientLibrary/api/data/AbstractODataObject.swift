@@ -52,26 +52,6 @@ public class AbstractODataObject  { // extends Annotatable {
     }
   }
   
-  public func equals( o:AnyObject) -> Bool {
-    if (self === o) {
-      return true
-    }
-    else {
-      if self.dynamicType != o.dynamicType {
-        return false
-      }
-      
-      let other =  o as! AbstractODataObject
-      
-      return (baseURI == nil ? other.baseURI == nil : baseURI == other.baseURI)
-        && (id == nil ? other.id == nil : id == other.id)
-        && (title == nil ? other.title == nil : title == other.title)
-      // TODO: Annotations
-      //&& (getAnnotations().equals(other.getAnnotations()))
- 
-    }
-    
-  }
   
   //TODO: func hashCode()-> Int
   /*
@@ -84,3 +64,38 @@ public class AbstractODataObject  { // extends Annotatable {
   }
  */
 }
+
+extension AbstractODataObject:Equatable {}
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:AbstractODataObject,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is AbstractODataObject) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? AbstractODataObject else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  if lhs.baseURI != rhs.baseURI {
+    return false
+  }
+  if lhs.id != rhs.id {
+    return false
+  }
+  if lhs.title != rhs.title {
+    return false
+  }
+  return true
+}
+
+

@@ -33,7 +33,11 @@ import Foundation
 
 public protocol EdmNamed {
   
+  // MARK: - Protocol Properties
+  
   var name:String {get}
   /// Return the name as a string
+  
+  // MARK: - Protocol Methods
 
 }

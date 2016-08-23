@@ -32,12 +32,14 @@ import Foundation
 /// OData entity
 public protocol ClientEntity { // extends ClientLinked, ClientAnnotatable, ClientInvokeResult {
   
+  // MARK: - Protocol Properties
+  
   /// the type name of this entity
   var typeName:FullQualifiedName {get}
   
   ///returns self link
   // TODO: When implemented in impl
-  //func getLink() -> NSURL
+  //var link: NSURL
   
   /// Entity ID
   var id:NSURL?  {get set}
@@ -66,6 +68,8 @@ public protocol ClientEntity { // extends ClientLinked, ClientAnnotatable, Clien
   /// TODO: Operations (legacy, functions, actions)
   //var operations:[ClientOperation] {get}
   
+  
+  // MARK: - Protocol Methods
 
   /// Searches for property with given name
   /// - parameters:

@@ -31,6 +31,9 @@ import Foundation
 
 public protocol ODataBinder {
   
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
 
   /// Gets an `EntitySet` from the given OData entity set
   /// - parameters:

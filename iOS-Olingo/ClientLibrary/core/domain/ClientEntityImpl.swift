@@ -76,7 +76,6 @@ public class ClientEntityImpl: AbstractClientPayload, ClientEntity { // implemen
   init(typeName: FullQualifiedName) {
     self.typeName = typeName
     super.init(name: typeName.toString())
-    
   }
   
   // MARK: - Methods
@@ -183,146 +182,29 @@ public class ClientEntityImpl: AbstractClientPayload, ClientEntity { // implemen
     //return super.getLink() != nil
   }
  
-  
-  
 
-// TODO: func hashCode() -> Int
-  
-//  public func hashCode() -> Int {
-//    final int prime = 31
-//    int result = super.hashCode()
-//    result = prime * result + ((annotations == null) ? 0 : annotations.hashCode())
-//    result = prime * result + ((associationLinks == null) ? 0 : associationLinks.hashCode())
-//    result = prime * result + ((eTag == null) ? 0 : eTag.hashCode())
-//    result = prime * result + ((editLink == null) ? 0 : editLink.hashCode())
-//    result = prime * result + ((id == null) ? 0 : id.hashCode())
-//    result = prime * result + ((mediaContentSource == null) ? 0 : mediaContentSource.hashCode())
-//    result = prime * result + ((mediaContentType == null) ? 0 : mediaContentType.hashCode())
-//    result = prime * result + ((mediaETag == null) ? 0 : mediaETag.hashCode())
-//    result = prime * result + ((mediaEditLinks == null) ? 0 : mediaEditLinks.hashCode())
-//    result = prime * result + (mediaEntity ? 1231 : 1237)
-//    result = prime * result + ((navigationLinks == null) ? 0 : navigationLinks.hashCode())
-//    result = prime * result + ((operations == null) ? 0 : operations.hashCode())
-//    result = prime * result + ((properties == null) ? 0 : properties.hashCode())
-//    result = prime * result + ((typeName == null) ? 0 : typeName.hashCode())
-//    return result
-//  }
-  
-  
-  public override func equals(obj: AnyObject) -> Bool {
-    if (self === obj) {
-      return true
-    }
-    else {
-      return false
-      
-      // TODO: expand out the checks if objects not identical
-//      if (!super.equals(obj)) {
-//      return false
-//      }
-//      if (!(obj instanceof ClientEntityImpl)) {
-//        return false
-//      }
-//      ClientEntityImpl other = (ClientEntityImpl) obj
-//    if (annotations == null) {
-//      if (other.annotations != null) {
-//        return false
-//      }
-//    } else if (!annotations.equals(other.annotations)) {
-//      return false
-//    }
-//    if (associationLinks == null) {
-//      if (other.associationLinks != null) {
-//        return false
-//      }
-//    } else if (!associationLinks.equals(other.associationLinks)) {
-//      return false
-//    }
-//    if (eTag == null) {
-//      if (other.eTag != null) {
-//        return false
-//      }
-//    } else if (!eTag.equals(other.eTag)) {
-//      return false
-//    }
-//    if (editLink == null) {
-//      if (other.editLink != null) {
-//        return false
-//      }
-//    } else if (!editLink.equals(other.editLink)) {
-//      return false
-//    }
-//    if (id == null) {
-//      if (other.id != null) {
-//        return false
-//      }
-//    } else if (!id.equals(other.id)) {
-//      return false
-//    }
-//    if (mediaContentSource == null) {
-//      if (other.mediaContentSource != null) {
-//        return false
-//      }
-//    } else if (!mediaContentSource.equals(other.mediaContentSource)) {
-//      return false
-//    }
-//    if (mediaContentType == null) {
-//      if (other.mediaContentType != null) {
-//        return false
-//      }
-//    } else if (!mediaContentType.equals(other.mediaContentType)) {
-//      return false
-//    }
-//    if (mediaETag == null) {
-//      if (other.mediaETag != null) {
-//        return false
-//      }
-//    } else if (!mediaETag.equals(other.mediaETag)) {
-//      return false
-//    }
-//    if (mediaEditLinks == null) {
-//      if (other.mediaEditLinks != null) {
-//        return false
-//      }
-//    } else if (!mediaEditLinks.equals(other.mediaEditLinks)) {
-//      return false
-//    }
-//    if (mediaEntity != other.mediaEntity) {
-//      return false
-//    }
-//    if (navigationLinks == null) {
-//      if (other.navigationLinks != null) {
-//        return false
-//      }
-//    } else if (!navigationLinks.equals(other.navigationLinks)) {
-//      return false
-//    }
-//    if (operations == null) {
-//      if (other.operations != null) {
-//        return false
-//      }
-//    } else if (!operations.equals(other.operations)) {
-//      return false
-//    }
-//    if (properties == null) {
-//      if (other.properties != null) {
-//        return false
-//      }
-//    } else if (!properties.equals(other.properties)) {
-//      return false
-//    }
-//    if (typeName == null) {
-//      if (other.typeName != null) {
-//        return false
-//      }
-//    } else if (!typeName.equals(other.typeName)) {
-//      return false
-//    }
-//    return true
-
-    }
+  // TODO: func hashCode() -> Int
+  /*
+  public func hashCode() -> Int {
+    final int prime = 31
+    int result = super.hashCode()
+    result = prime * result + ((annotations == nil) ? 0 : annotations.hashCode())
+    result = prime * result + ((associationLinks == nil) ? 0 : associationLinks.hashCode())
+    result = prime * result + ((eTag == nil) ? 0 : eTag.hashCode())
+    result = prime * result + ((editLink == nil) ? 0 : editLink.hashCode())
+    result = prime * result + ((id == nil) ? 0 : id.hashCode())
+    result = prime * result + ((mediaContentSource == nil) ? 0 : mediaContentSource.hashCode())
+    result = prime * result + ((mediaContentType == nil) ? 0 : mediaContentType.hashCode())
+    result = prime * result + ((mediaETag == nil) ? 0 : mediaETag.hashCode())
+    result = prime * result + ((mediaEditLinks == nil) ? 0 : mediaEditLinks.hashCode())
+    result = prime * result + (mediaEntity ? 1231 : 1237)
+    result = prime * result + ((navigationLinks == nil) ? 0 : navigationLinks.hashCode())
+    result = prime * result + ((operations == nil) ? 0 : operations.hashCode())
+    result = prime * result + ((properties == nil) ? 0 : properties.hashCode())
+    result = prime * result + ((typeName == nil) ? 0 : typeName.hashCode())
+    return result
   }
-  
+  */
   
   public override func toString() -> String {
     // TODO: Build string when all proerpties availbale return "" for now
@@ -330,3 +212,106 @@ public class ClientEntityImpl: AbstractClientPayload, ClientEntity { // implemen
     //return "ClientEntityImpl [id=\(id), eTag=\(eTag), mediaEntity=\(mediaEntity), mediaContentType=\(mediaContentType), mediaContentSource=\(mediaContentSource), mediaETag=\(mediaETag), editLink=\(editLink), properties=\(properties), annotations=\(annotations), typeName=\(typeName), navigationLinks=\(navigationLinks), associationLinks=\(associationLinks), mediaEditLinks=\(mediaEditLinks), operations=\(operations)super[\(super.toString())]]"
   }
 }
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:ClientEntityImpl,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is ClientEntityImpl) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? ClientEntityImpl else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  if (lhs.eTag == nil) {
+    if (rhs.eTag != nil) {
+      return false
+    }
+  } else if lhs.eTag != rhs.eTag {
+    return false
+  }
+  if (lhs.editLink == nil) {
+    if (rhs.editLink != nil) {
+      return false
+    }
+  } else if lhs.editLink != rhs.editLink {
+    return false
+  }
+  if (lhs.id == nil) {
+    if (rhs.id != nil) {
+      return false
+    }
+  } else if lhs.id != rhs.id {
+    return false
+  }
+  if (lhs.mediaContentSource == nil) {
+    if (rhs.mediaContentSource != nil) {
+      return false
+    }
+  } else if lhs.mediaContentSource != rhs.mediaContentSource {
+    return false
+  }
+  if (lhs.mediaContentType == nil) {
+    if (rhs.mediaContentType != nil) {
+      return false
+    }
+  } else if lhs.mediaContentType != rhs.mediaContentType {
+    return false
+  }
+  if (lhs.mediaETag == nil) {
+    if (rhs.mediaETag != nil) {
+      return false
+    }
+  } else if lhs.mediaETag != rhs.mediaETag {
+    return false
+  }
+
+  if (lhs.mediaEntity != rhs.mediaEntity) {
+    return false
+  }
+  // TODO: equality check
+  /*
+  if lhs.properties != rhs.properties {
+    return false
+  }
+  */
+  if lhs.typeName != rhs.typeName {
+    return false
+  }
+  
+  // TODO: additional links & annotations
+  /*
+  if lhs.navigationLinks != rhs.navigationLinks {
+    return false
+  }
+  if lhs.operations != rhs.operations {
+    return false
+  }
+  if lhs.annotations != rhs.annotations {
+    return false
+  }
+  if lhs.associationLinks != rhs.associationLinks  {
+    return false
+  }
+  if mediaEditLinks != rhs.mediaEditLinks {
+    return false
+  }
+ */
+  
+  return true
+}
+
+
+
+
+
+

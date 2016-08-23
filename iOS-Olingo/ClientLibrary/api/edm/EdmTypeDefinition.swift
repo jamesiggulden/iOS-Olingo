@@ -34,6 +34,8 @@ import Foundation
  
 public protocol EdmTypeDefinition:EdmPrimitiveType, EdmAnnotatable {
   
+  // MARK: - Protocol Properties
+  
    /// return EdmPrimitiveTyp this type definition is based upon
   var underlyingType: EdmPrimitiveType {get}
    /// return the maximum length as an Integer or null if not specified
@@ -42,8 +44,10 @@ public protocol EdmTypeDefinition:EdmPrimitiveType, EdmAnnotatable {
   var precision:Int {get}
    /// return the scale as an Integer or null if not specified
   var scale:Int {get}
-   /// return a non-negative integer or the special value <tt>variable</tt>
+   /// return a non-negative integer or the special value `variable`
   var srid:SRID {get}
    /// return true if unicode or null if not specified
   var isUnicode:Bool {get}
+  
+  // MARK: - Protocol Methods
 }

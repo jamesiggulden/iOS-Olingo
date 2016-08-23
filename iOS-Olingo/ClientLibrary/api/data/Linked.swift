@@ -90,17 +90,6 @@ public class Linked: AbstractODataObject {
   }
   
   
-  public override func equals(o:AnyObject) -> Bool {
-    return true
-    // TODO: add checks
-    /*
-    return super.equals(o)
-      && associationLinks.equals(((Linked) o).associationLinks)
-      && navigationLinks.equals(((Linked) o).navigationLinks)
-      && bindingLinks.equals(((Linked) o).bindingLinks)
-    */
-  }
-  
   // TODO: func hashCode() -> Int
   /*
   public func hashCode() -> Int {
@@ -112,3 +101,43 @@ public class Linked: AbstractODataObject {
   }
  */
 }
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:Linked,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is Linked) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? Linked else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  
+  if lhs.associationLinks != rhs.associationLinks {
+    return false
+  }
+  if lhs.navigationLinks != rhs.navigationLinks {
+    return false
+  }
+  if lhs.bindingLinks != rhs.bindingLinks {
+    return false
+  }
+  let lhsSuper = lhs as AbstractODataObject
+  let rhsSuper = rhs as AbstractODataObject
+  
+  if lhsSuper != rhsSuper {
+    return false
+  }
+  
+  return true
+}
+
