@@ -153,10 +153,13 @@ public func ==<T,OV:ClientValue>(lhs:ClientCollectionValueImpl<OV>,rhs:T) -> Boo
     return false
   }
   // TODO: equality check
-  /*
-  if lhs.values != rhs.values {
-    return false
+  var i = 0
+  for lhsValue in lhs.values {
+    if !(lhsValue.isEqualTo(rhs.values[i])){
+      return false
+    }
+    i += 1
   }
-  */
+
   return true
 }

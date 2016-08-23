@@ -40,5 +40,15 @@ public protocol ServiceDocumentItem {
   var title:String {get}
   
   // MARK: - Protocol Methods
+  func isEqualTo(other:ServiceDocumentItem) -> Bool
 
+}
+
+extension ServiceDocumentItem where Self:Equatable {
+  public func isEqualTo(other:ServiceDocumentItem) -> Bool {
+    if let o = other as? Self {
+      return self == o
+    }
+    return false
+  }
 }

@@ -36,37 +36,29 @@ public protocol ClientEntity { // extends ClientLinked, ClientAnnotatable, Clien
   
   /// the type name of this entity
   var typeName:FullQualifiedName {get}
-  
   ///returns self link
   // TODO: When implemented in impl
   //var link: NSURL
-  
   /// Entity ID
   var id:NSURL?  {get set}
-  
   /// List of properties
   var properties:[ClientProperty] {get set}
-
   /// OData entity edit link
   var editLink: NSURL?  {get set}
- 
   /// ETag
   var eTag:String?  {get set}
-  
   /// Media entity flag
   var mediaEntity:Bool  {get set}
-  
   /// In case of media entity, media content type
   var mediaContentType:String?  {get set}
-  
   /// In case of media entity, media content source
   var mediaContentSource:NSURL?  {get set}
-  
   /// Media ETag
   var mediaETag:String?  {get set}
-  
   /// TODO: Operations (legacy, functions, actions)
   //var operations:[ClientOperation] {get}
+  /// TODO: Media edit links
+  //var mediaEditLinks:[ClientLink] {get}
   
   
   // MARK: - Protocol Methods
@@ -102,9 +94,17 @@ public protocol ClientEntity { // extends ClientLinked, ClientAnnotatable, Clien
   /// - throws: No error conditions are expected
   //func getMediaEditLink(name:String) -> ClientLink
   
-  /// Media edit links
-  //var mediaEditLinks:[ClientLink] {get}
-  
 
   
+  func isEqualTo(other:ClientEntity) -> Bool
+  
+}
+
+extension ClientEntity where Self:Equatable {
+  public func isEqualTo(other:ClientEntity) -> Bool {
+    if let o = other as? Self {
+      return self == o
+    }
+    return false
+  }
 }

@@ -128,15 +128,12 @@ public func ==<T>(lhs:Link,rhs:T) -> Bool {
   if lhs.mediaETag.isEmpty ? lhs.mediaETag != rhs.mediaETag : !rhs.mediaETag.isEmpty {
     return false
   }
-  // TODO : Entity set and entity objects
-  /*
-  if lhs.entity.isEmpty ? lhs.entity != lhs.entity : !rhs.entity.isEmpty {
+  if lhs.entity != rhs.entity {
     return false
   }
-  if lhs.entitySet.isEmpty ? lhs.entitySet != rhs.entitySet : !rhs.hentitySet.isEmpty {
+  if lhs.entitySet != rhs.entitySet {
     return false
   }
- */
   if lhs.bindingLink.isEmpty ? lhs.bindingLink != lhs.bindingLink : !rhs.bindingLink.isEmpty {
     return false
   }

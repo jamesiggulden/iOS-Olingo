@@ -224,12 +224,21 @@ public func ==<T>(lhs:ClientComplexValueImpl,rhs:T) -> Bool {
   if lhs === rhs {
     return true
   }
-  // TODO: equality check
-  /*
-  if lhs.fields != rhs.fields {
+  if lhs.fields.count != rhs.fields.count {
     return false
   }
-  */
+  else {
+    for (key,lhsValue) in lhs.fields {
+      if let rhsValue = rhs.fields[key] {
+        if !(lhsValue.isEqualTo(rhsValue)) {
+          return false
+        }
+      }
+      else {
+        return false
+      }
+    }
+  }
   // TODO: Annotations and links
   /*
   if lhs.annotations != rhs.annotations {

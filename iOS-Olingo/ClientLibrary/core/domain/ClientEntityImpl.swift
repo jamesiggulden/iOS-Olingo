@@ -278,12 +278,18 @@ public func ==<T>(lhs:ClientEntityImpl,rhs:T) -> Bool {
   if (lhs.mediaEntity != rhs.mediaEntity) {
     return false
   }
-  // TODO: equality check
-  /*
-  if lhs.properties != rhs.properties {
+  if lhs.properties.count != rhs.properties.count {
     return false
   }
-  */
+  else {
+    var i = 0
+    for property in lhs.properties {
+      if !(property.isEqualTo(rhs.properties[i])) {
+        return false
+      }
+      i += 1
+    }
+  }
   if lhs.typeName != rhs.typeName {
     return false
   }

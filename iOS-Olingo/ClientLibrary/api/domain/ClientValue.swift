@@ -55,6 +55,20 @@ public protocol ClientValue {
   var asEnum: ClientEnumValue? {get}
   
   // MARK: - Protocol Methods
+  func isEqualTo(other:ClientValue) -> Bool
   
+}
+
+extension ClientValue where Self:Equatable {
+
+  public func isEqualTo(other:ClientValue) -> Bool {
+    
+    // TODO: equality check
+    if let o = other as? Self {
+      return self == o
+    }
+    return true
+  }
+
 }
 

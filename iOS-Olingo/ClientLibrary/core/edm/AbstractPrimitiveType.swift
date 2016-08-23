@@ -254,4 +254,9 @@ public class AbstractPrimitiveType : EdmPrimitiveType {
   public func toString() -> String {
     return fullQualifiedName.fqn
   }
+  
+  public func isEqualTo(object: EdmPrimitiveType) -> Bool {
+    return false
+
+  }
 }

@@ -41,6 +41,14 @@ public protocol EdmType: EdmNamed {
   var kind: EdmTypeKind? {get}
   
   // MARK: - Protocol Methods
-  
+  //func isEqualTo(object:EdmType) -> Bool
 }
 
+extension EdmType where Self:Equatable {
+  public func isEqualTo(object:EdmType) -> Bool {
+    if let o = object as? Self {
+      return self == o
+    }
+    return false
+  }
+}

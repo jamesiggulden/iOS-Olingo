@@ -139,24 +139,15 @@ public func ==<T>(lhs:ClientValuableImpl,rhs:T) -> Bool {
   if lhs === rhs {
     return true
   }
-  // TODO: equality check
-  /*
-  if lhs.value != rhs.value {
-    return false
-  }
-  */
-  return true
-}
-
-
-func ==(lhs:ClientValuable,rhs:ClientValuable) -> Bool {
+  // cant use equality (==) on protocol types so use specific isEqualsTo method defined
   
-  // TODO: equality check
-  /*
-  if lhs.value != rhs.value {
+  if !lhs.value.isEqualTo(rhs.value) {
     return false
   }
-  */
+ 
   return true
 }
+
+
+
 

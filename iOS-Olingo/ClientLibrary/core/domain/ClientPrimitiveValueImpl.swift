@@ -146,17 +146,21 @@ public func ==<T>(lhs:ClientPrimitiveValueImpl,rhs:T) -> Bool {
   if lhs === rhs {
     return true
   }
-  if lhs.type == nil {
+  if let lhsType = lhs.type {
+    if let rhsType = rhs.type {
+      if !(lhsType.isEqualTo(rhsType)){
+        return false
+      }
+    }
+    else {
+      return false
+    }
+  }
+  else {
     if rhs.type != nil {
       return false
     }
   }
-  // TODO: equality check
-  /*
-  else if lhs.type != rhs.type {
-    return false
-  }
-  */
   if lhs.typeKind != rhs.typeKind {
     return false
   }
@@ -166,11 +170,11 @@ public func ==<T>(lhs:ClientPrimitiveValueImpl,rhs:T) -> Bool {
     }
   }
   // TODO: equality check
-  /*
-  else if lhs.value != rhs.value {
+  // There is no way is swift to compare 2 any types without casting them to a specific type
+  // therefore will cast to string to compare
+  if String(lhs.value) != String(rhs.value) {
     return false
   }
- */
   return true
 }
 

@@ -116,12 +116,20 @@ public func ==<T>(lhs:ClientEntitySetImpl,rhs:T) -> Bool {
   else if lhs.next != rhs.next {
     return false
   }
-  // TODO: equality check
-  /*
-  if lhs.entities != rhs.entities {
+  if lhs.entities.count !=  rhs.entities.count {
     return false
   }
-  */
+  else {
+    var i = 0
+    for entity in lhs.entities {
+      if !(entity.isEqualTo(rhs.entities[i])) {
+        return false
+      }
+      i += 1
+      
+    }
+  }
+  
   // TODO: Deltas & annotations
   /*
   if lhs.deltaLink != rhs.deltaLink {

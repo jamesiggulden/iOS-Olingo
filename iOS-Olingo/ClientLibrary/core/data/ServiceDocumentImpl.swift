@@ -128,23 +128,58 @@ public func ==<T>(lhs:ServiceDocumentImpl,rhs:T) -> Bool {
   if lhs.title.isEmpty ? lhs.title != rhs.title : !rhs.title.isEmpty {
     return false
   }
-  // TODO: Array checks
-  /*
-  if (lhs.entitySets != null ? !lhs.entitySets.equals(rhs.entitySets) : rhs.entitySets != null) {
+  // Array checks
+  var i = 0
+  if lhs.entitySets.count != rhs.entitySets.count {
     return false
   }
-  if (lhs.functionImports != null ? !lhs.functionImports.equals(rhs.functionImports) : rhs.functionImports != null) {
+  else {
+    for entitySet in lhs.entitySets {
+      if !(entitySet.isEqualTo(rhs.entitySets[i])) {
+        return false
+      }
+      i += 1
+    }
+  }
+  if lhs.functionImports.count != rhs.functionImports.count {
     return false
   }
-  if (lhs.singletons != null ? !lhs.singletons.equals(rhs.singletons) : rhs.singletons != null) {
+  else {
+    i = 0
+    for functionImport in lhs.functionImports {
+      if !(functionImport.isEqualTo(rhs.functionImports[i])) {
+        return false
+      }
+      i += 1
+    }
+  }
+  if lhs.singletons.count != rhs.singletons.count {
     return false
   }
-  if (lhs.relatedServiceDocuments != null ?
-    !relatedServiceDocuments.equals(rhs.lhs.relatedServiceDocuments) : rhs.relatedServiceDocuments != null) {
+  else {
+    i = 0
+    for singleton in lhs.singletons {
+      if !(singleton.isEqualTo(rhs.singletons[i])) {
+        return false
+      }
+      i += 1
+    }
+  }
+  if lhs.relatedServiceDocuments.count != rhs.relatedServiceDocuments.count {
     return false
   }
-  return !(metadata != null ? !lhs.metadata.equals(rhs.metadata) : rhs.metadata != null)
- */
+  else {
+    i = 0
+    for relatedServiceDocuments in lhs.relatedServiceDocuments {
+      if !(relatedServiceDocuments.isEqualTo(rhs.relatedServiceDocuments[i])) {
+        return false
+      }
+      i += 1
+    }
+  }
+  if lhs.metadata != rhs.metadata {
+    return false
+  }
   return true
 }
 

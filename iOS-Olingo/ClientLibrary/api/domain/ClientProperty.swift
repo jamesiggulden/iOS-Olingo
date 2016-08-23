@@ -38,4 +38,12 @@ public protocol ClientProperty : ClientValuable { //extends ClientInvokeResult, 
   var name:String  {get}
   
   // MARK: - Protocol Methods
+  
+  func isEqualTo(object:ClientProperty) -> Bool
+}
+
+extension ClientProperty where Self:Equatable {
+  public func isEqualTo(object:ClientProperty) -> Bool {
+    return self == object
+  }
 }

@@ -125,13 +125,13 @@ func ==(lhs:ClientProperty,rhs:ClientProperty) -> Bool {
   }
 
   // TODO: equality check
-  /*
+  
   let lhsSuper = lhs as ClientValuable
   let rhsSuper = rhs as ClientValuable
-  if lhsSuper != rhsSuper {
+  if !(lhsSuper.isEqualTo(rhsSuper)) {
     return false
   }
-  */
+ 
   //TODO: Annotations
   /*
    if lhs.annotations != rhs.annotations {

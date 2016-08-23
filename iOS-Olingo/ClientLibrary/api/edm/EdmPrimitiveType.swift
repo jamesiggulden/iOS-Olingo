@@ -106,5 +106,17 @@ public protocol EdmPrimitiveType: EdmType {
   /// - returns: default literal representation as String
   /// - throws: EdmPrimitiveTypeException if a required prefix or required surrounding quotation marks are missing
   func fromUriLiteral(literal:String?) throws -> String?
+  
+  func isEqualTo(object:EdmPrimitiveType) -> Bool
 
+}
+
+extension EdmPrimitiveType where Self:Equatable {
+  
+  public func isEqualTo(object:EdmPrimitiveType) -> Bool {
+    if let o = object as? Self {
+      return self == o
+    }
+    return false
+  }
 }

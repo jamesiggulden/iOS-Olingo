@@ -35,34 +35,36 @@ public protocol ClientValuable {
   
   /// client value.
   var value: ClientValue {get}
-
   /// Checks if has nil value
   var hasNilValue: Bool {get}
-
   /// Checks if has primitive value
   var hasPrimitiveValue: Bool {get}
-
   /// Gets primitive value
   var primitiveValue: ClientPrimitiveValue? {get}
-
   /// Checks if has collection value
   var hasCollectionValue: Bool {get}
-  
   /// Gets collection value
   var collectionValue: ClientCollectionValue? {get}
-  
   /// Checks if has complex value
   var hasComplexValue: Bool {get}
-  
   /// Gets complex value
   var complexValue:ClientComplexValue? {get}
-
   /// Checks if has enum  value
   var hasEnumValue: Bool {get}
-  
   /// Gets enum value
   var enumValue: ClientEnumValue? {get}
   
   // MARK: - Protocol Methods
   
+  func isEqualTo(object:ClientValuable) -> Bool
+  
+}
+
+extension ClientValuable where Self:Equatable {
+  public func isEqualTo(object:ClientValuable) -> Bool {
+    if let o = object as? Self {
+      return o == self
+    }
+    return false
+  }
 }
