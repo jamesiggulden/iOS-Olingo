@@ -32,9 +32,6 @@ import Foundation
 
 public class AbstractHttpClientFactory {
   
-  // redundent??
-  //private static let Logger LOG = LoggerFactory.getLogger(AbstractHttpClientFactory.class);
-  
   static let USER_AGENT:String = ""
   
   // TODO:
