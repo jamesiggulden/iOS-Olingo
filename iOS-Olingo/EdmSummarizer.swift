@@ -15,34 +15,31 @@
  * any nature in relation to the software and documentation.
  */
 
-//
 //  Entity Data Model summary.
-//
 //  Created by EnergySys on 02/08/2016.
 //  Copyright © 2016 EnergySys. All rights reserved.
-//
 
 import Foundation
 
-/**
- * Entity Data Model (EDM) summarizer.
- * <br/>
- */
+// Entity Data Model (EDM) summarizer.
 public final class EdmSummarizer {
   
+  // MARK: - Properties
   let theEdm: Edm
   private let BREADCRUMB = "-> "
   private let NEW_LINE = "\n"
   
+  // MARK: - Init
   init(anEdm: Edm) {
     theEdm = anEdm
   }
   
-  /// Generates the Edm summary.
-  /// - parameters:
-  ///   - none
-  /// - returns: String summary
-  /// - throws: No error conditions are expected
+  // MARK: - Methods
+  // Generates the Edm summary.
+  // - parameters:
+  //   - none
+  // - returns: String summary
+  // - throws: No error conditions are expected
   public func getSummary() -> String {
     var mySummary = "Nothing to summarize."
     mySummary = generateSummary()
@@ -54,6 +51,28 @@ public final class EdmSummarizer {
     let mySchemas = theEdm.getSchemas()
     for mySchema in mySchemas {
       mySummary += "Schema namespace: " + mySchema.getNamespace() + NEW_LINE
+      //Entity Sets
+      let myEntityContainer = mySchema.getEntityContainer()
+      mySummary += BREADCRUMB + "Entity Container:" + NEW_LINE
+      if (myEntityContainer != nil) {
+        mySummary += BREADCRUMB + "name: " + myEntityContainer!.name + NEW_LINE
+        mySummary += BREADCRUMB + "Entity Sets:" + NEW_LINE
+        let myEntitySets = myEntityContainer!.entitySets
+        for myEntitySet in myEntitySets! {
+          mySummary += BREADCRUMB + BREADCRUMB + "name: " + myEntitySet.name
+          mySummary += ", Entity Type: " + String(myEntitySet.getEntityType()!.name)
+          mySummary += NEW_LINE
+          let myNavigationProprtyBindings = myEntitySet.getNavigationPropertyBindings()
+          mySummary += BREADCRUMB + BREADCRUMB + BREADCRUMB + "NavigationPropertyBindings:"
+          mySummary += NEW_LINE
+          for myNavPropBinding in myNavigationProprtyBindings {
+            mySummary += BREADCRUMB + BREADCRUMB + BREADCRUMB + "Path: " + myNavPropBinding.path
+            mySummary += ", Target: " + myNavPropBinding.target
+            mySummary += NEW_LINE
+          }
+        }
+      }
+      //Entities
       let myEntities = mySchema.getEntityTypes()
       mySummary += BREADCRUMB + "Entities:" + NEW_LINE
       for myEntity in myEntities {

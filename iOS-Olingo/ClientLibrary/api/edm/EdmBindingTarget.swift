@@ -17,32 +17,28 @@
   under the License.
  */
 
-
-//
 //  EdmBindingTarget.swift
 //  iOS-Olingo
-//
 //  Created by Greg Napier on 14/07/2016.
 //  Copyright © 2016 EnergySys. All rights reserved.
-//
 
 import Foundation
 
-/// Entity Sets or Singletons can be bound to each other using a navigation property binding so an EdmBindingTarget can either be an {@link EdmEntitySet} or an {@link EdmSingleton}
+// Entity Sets or Singletons can be bound to each other using a navigation property binding so an EdmBindingTarget can either be an {@link EdmEntitySet} or an {@link EdmSingleton}
 public protocol EdmBindingTarget : EdmNamed, EdmMappable { // TODO: EdmAnnotatable,
   
-  /// Returns a human readable title or null if not set
-  var title:String  {get}
+  // Returns a human readable title or null if not set.
+  func getTitle() -> String
   
-  /// Returns the target for a given path
+  // Returns the target for a given path.
   func getRelatedBindingTarget(path:String) -> EdmBindingTarget
   
-  /// return all navigation property bindings
-  var navigationPropertyBindings:[EdmNavigationPropertyBinding] {get}
+  // return all navigation property bindings.
+  func getNavigationPropertyBindings() -> [EdmNavigationPropertyBinding]
+
+  // Returns the entity container this target is contained in.
+  func getEntityContainer() -> EdmEntityContainer
   
-  /// Returns the entity container this target is contained in
-  var entityContainer:EdmEntityContainer {get}
-  
-  /// Get the entity type
-  var entityType: EdmEntityType {get}
+  // Get the entity type.
+  func getEntityType() -> EdmEntityType?
 }

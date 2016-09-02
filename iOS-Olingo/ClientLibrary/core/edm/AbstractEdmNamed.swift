@@ -18,35 +18,24 @@
   under the License.
  */
 
-//
 //  AbstractEdmNamed.swift
 //  iOS-Olingo
-//
 //  Created by Greg Napier on 14/07/2016.
 //  Copyright © 2016 EnergySys. All rights reserved.
-//
 
 import Foundation
 
 public class AbstractEdmNamed:AbstractEdmAnnotatable,EdmNamed {  //TODO:
   
-  // MARK: - Stored Properties
-
-  public let name:String  //G
-
-  // MARK: - Computed Properties
-
+  // MARK: - Properties
+  public let name:String
 
   // MARK: - Init
-
-  init(edm:Edm, name:String, annotatable:CsdlAnnotatable ) {
+  init(edm: Edm, name: String, annotatable: CsdlAnnotatable?) {
     self.name = name
     // TODO: Annotations
     super.init(edm: edm, annotatable: annotatable)
-
   }
-  
-  // MARK: - Methods
 
 }
 

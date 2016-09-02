@@ -15,12 +15,9 @@
  * any nature in relation to the software and documentation.
  */
 
-//
 //  Use this class to de-serialize an OData response body.
-//
 //  Created by EnergySys on 28/07/2016.
 //  Copyright © 2016 EnergySys. All rights reserved.
-//
 
 import Foundation
 
@@ -34,6 +31,9 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
   let PROPERTY_ELEMENT_NAME = "Property"
   let NAVIGATION_PROPERTY_ELEMENT_NAME = "NavigationProperty"
   let REFERENTIAL_CONSTRAINT_ELEMENT_NAME = "ReferentialConstraint"
+  let ENTITY_CONTAINER_ELEMENT_NAME = "EntityContainer"
+  let ENTITY_SET_ELEMENT_NAME = "EntitySet"
+  let NAVIGATION_PROPERTY_BINDING_ELEMENT_NAME = "NavigationPropertyBinding"
   
   var theParser: NSXMLParser?
   var theCurrentSchema: EdmSchemaImpl?
@@ -46,14 +46,19 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
   var theNavigationProperties = [String: [EdmNavigationProperty]]()
   var theSchemas = [String: EdmSchema]()
   var theEdm = EdmProviderImpl()
+  var theCurrentEntitySetName: String?
+  var theCurrentEntitySetType: String?
+  var theCurrentEntitySet: EdmEntitySet?
+  var theCurrentEntitySets = [EdmEntitySet]()
+  var theCurrentNavPropertyBindings = [CsdlNavigationPropertyBinding]()
+  var theCurrentEntityContainer: EdmEntityContainerImpl?
   
   // MARK: - Methods
-  
-  /// Read the XML metadata into an Edm
-  /// - parameters:
-  ///   - NSData: raw XML data to be parsed.
-  /// - returns: Edm
-  /// - throws: ODataDeserializerException
+  // Read the XML metadata into an Edm
+  // - parameters:
+  //   - NSData: raw XML data to be parsed.
+  // - returns: Edm
+  // - throws: ODataDeserializerException
   public func readMetadata(someRawXmlMetaData: NSData) throws -> Edm {
     theParser = NSXMLParser(data: someRawXmlMetaData)
     theParser?.delegate = self
@@ -65,7 +70,7 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
     return theEdm
   }
   
-  /// Callback method for NSXMLParser
+  // Callback method for NSXMLParser.
   public func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
     if (SCHEMA_ELEMENT_NAME == elementName) {
       let myNamespaceAtt = attributeDict["Namespace"]
@@ -78,7 +83,7 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
       theCurrentEntityType = EdmEntityTypeImpl(edm: theEdm, typeName: FullQualifiedName(namespace: (theCurrentSchema?.getNamespace())!, name: myEntityName!), kind: EdmTypeKind.ENTITY, structuredType: CsdlEntityType())
     }
     if (PROPERTY_ELEMENT_NAME == elementName) {
-      ///Create EdmKeyPropertyRef and add to the list
+      // Create EdmKeyPropertyRef and add to the list
       let myEdmKeyPropertyRef = createEdmKeyPropertyRef(attributeDict)
       let myName = attributeDict["Name"]
       log.info("Adding property to array: " + myName!)
@@ -88,7 +93,10 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
       let myName = attributeDict["Name"]
       let myNullableString = attributeDict["Nullable"]
       let myIsNillable = !("false" == myNullableString)
-      let myPartner = attributeDict["Partner"]
+      var myPartner = attributeDict["Partner"]
+      if (myPartner == nil) {
+        myPartner = ""
+      }
       let myType = attributeDict["Type"]
       theCurrentNavigationProperty = EdmNavigationPropertyImpl(aName: myName!, anEntityTypeName: myType!, isNullable: myIsNillable, isContainsTarget: false, aPartnerName: myPartner!, aSchema: theCurrentSchema!)
     }
@@ -98,9 +106,23 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
       let myRefConstraint = EdmReferentialConstraintImpl(aPropertyName: myPropertyName!, aRefPropertyName: myRefProperty!)
       theCurrentReferentialConstraints.append(myRefConstraint)
     }
+    if (ENTITY_CONTAINER_ELEMENT_NAME == elementName) {
+      let myName = attributeDict["Name"]
+      theCurrentEntityContainer = EdmEntityContainerImpl(anEdm: theEdm, aName: myName!)
+    }
+    if (ENTITY_SET_ELEMENT_NAME == elementName) {
+      theCurrentEntitySetName = attributeDict["Name"]
+      theCurrentEntitySetType = attributeDict["EntityType"]
+    }
+    if (NAVIGATION_PROPERTY_BINDING_ELEMENT_NAME == elementName) {
+      let myPath = attributeDict["Path"]
+      let myTarget = attributeDict["Target"]
+      let myNavPropBinding = CsdlNavigationPropertyBinding(aPath: myPath!, aTarget: myTarget!)
+      theCurrentNavPropertyBindings.append(myNavPropBinding)
+    }
   }
   
-  /// Callback method for NSXMLParser
+  // Callback method for NSXMLParser.
   public func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
     if (ROOT_ELEMENT_NAME == elementName) {
       log.info("Updating the Edm object with the schemas found")
@@ -108,21 +130,21 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
     }
     if (SCHEMA_ELEMENT_NAME == elementName) {
       log.info("Finished processing schema")
-      ///Add list of entities to current schema
+      // Add list of entities to current schema
       theCurrentSchema?.theEntityTypes = theEntityTypes
       theEntityTypes.removeAll()
-      ///Add current schema to the list
+      // Add current schema to the list
       theSchemas[theCurrentSchema!.getNamespace()] = theCurrentSchema!
-      ///Add the navigation properties to the schema
+      // Add the navigation properties to the schema
       theCurrentSchema?.theNavigationProperties = theNavigationProperties
     }
     if (ENTITY_TYPE_NAME == elementName) {
-      ///Add any property refs to the current entity
+      // Add any property refs to the current entity
       theCurrentEntityType?.theKeyPropertyRefs = thePropertyRefs
       thePropertyRefs.removeAll()
-      ///Add the current entity type to the list
+      // Add the current entity type to the list
       theEntityTypes.append(theCurrentEntityType!)
-      ///Add the navigation properties to the dict and to the entity
+      // Add the navigation properties to the dict and to the entity
       if (theCurrentNavigationProperties.count > 0) {
         theNavigationProperties[(theCurrentEntityType?.name)!] = theCurrentNavigationProperties
         theCurrentEntityType?.theNavigationProperties = theCurrentNavigationProperties
@@ -134,13 +156,30 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
       theCurrentReferentialConstraints.removeAll()
       theCurrentNavigationProperties.append(theCurrentNavigationProperty!)
     }
+    if (ENTITY_SET_ELEMENT_NAME == elementName) {
+      do {
+        let myCsdlEntitySet = try CsdlEntitySet(aName: theCurrentEntitySetName!, aTitle: theCurrentEntitySetType!, aType: FullQualifiedName(namespaceAndName: theCurrentEntitySetType!)!)
+        myCsdlEntitySet.navigationPropertyBindings = theCurrentNavPropertyBindings
+        let myCurrentEntitySet = EdmEntitySetImpl(anEdm: theEdm, aContainer: theCurrentEntityContainer!, anEntitySet: myCsdlEntitySet)
+        theCurrentEntitySets.append(myCurrentEntitySet)
+        // Reset values
+        theCurrentNavPropertyBindings.removeAll()
+      }
+      catch {
+        log.error("Could not parse metadata")
+      }
+    }
+    if (ENTITY_CONTAINER_ELEMENT_NAME == elementName) {
+      theCurrentEntityContainer?.entitySets = theCurrentEntitySets
+      theCurrentSchema?.theEntityContainer = theCurrentEntityContainer
+    }
   }
   
-  /// Callback method for NSXMLParser
+  // Callback method for NSXMLParser.
   public func parser(parser: NSXMLParser, foundCharacters string: String) {
   }
   
-  /// Callback method for NSXMLParser
+  // Callback method for NSXMLParser.
   public func parser(parser: NSXMLParser, parseErrorOccurred parseError: NSError) {
   }
   
@@ -157,7 +196,7 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
       }
     }
     
-    ///Create the CsdlProperty
+    // Create the CsdlProperty
     let myCsdlProperty = CsdlProperty()
     myCsdlProperty.setName(String: myName!)
     myCsdlProperty.setType(myType!)
@@ -171,10 +210,10 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
       myCsdlProperty.setMaxLength(myMaxLength)
     }
     
-    ///Create the EdmProperty
+    // Create the EdmProperty
     let myEdmProperty = EdmPropertyImpl(edm: theEdm, property: myCsdlProperty)
     
-    ///Create the EdmKeyPropertyRef
+    // Create the EdmKeyPropertyRef
     let myEdmKeyPropertyRef = EdmKeyPropertyRefImpl(aName: myName!, anAlias: myName!, anEdmProperty: myEdmProperty)
     return myEdmKeyPropertyRef
   }

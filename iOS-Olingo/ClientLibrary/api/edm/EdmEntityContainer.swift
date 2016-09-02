@@ -17,94 +17,41 @@
   under the License.
  */
 
-
-//
 //  EdmEntityContainer.swift
 //  iOS-Olingo
-//
 //  Created by Greg Napier on 14/07/2016.
 //  Copyright © 2016 EnergySys. All rights reserved.
-//
 
 import Foundation
 
- /// A CSDL EntityContainer element.
- ///
- /// EdmEntityContainer hold the information of EntitySets, Singletons, ActionImports and FunctionImports contained
+// A CSDL EntityContainer element.
+// EdmEntityContainer hold the information of EntitySets, Singletons, ActionImports and FunctionImports contained
 public protocol EdmEntityContainer: EdmNamed{ //TODO: , EdmAnnotatable
+
+  // MARK: - Properties
+  // Return namespace of this entity container.
+  var namespace: String? {get}
   
-  /**
-   * @return namespace of this entity container
-   */
-  var namespace: String {get}
+  // Return full qualified name of this entity container.
+  var fullQualifiedName: FullQualifiedName? {get}
   
-  /**
-   * @return full qualified name of this entity container
-   */
-  var fullQualifiedName: FullQualifiedName {get}
+  var entitySets: [EdmEntitySet]? {get}
+  var functionImports: [EdmFunctionImport]? {get}
+  var singletons: [EdmSingleton]? {get}
+  var actionImports: [EdmActionImport]? {get}
+  var parentContainerName: FullQualifiedName? {get}
   
-  /**
-   * Get contained Singleton by name.
-   *
-   * @param name name of contained Singleton
-   * @return {@link EdmSingleton}
-   */
+  // MARK: - Methods
+  // Get contained Singleton by name.
   func singleton(name:String) -> EdmSingleton
   
-  /**
-   * Get contained EntitySet by name.
-   *
-   * @param name name of contained EntitySet
-   * @return {@link EdmEntitySet}
-   */
+  // Get contained EntitySet by name.
   func entitySet(name:String) -> EdmEntitySet
   
-  /**
-   * Get contained ActionImport by name.
-   *
-   * @param name name of contained ActionImport
-   * @return {@link EdmActionImport}
-   */
+  // Get contained ActionImport by name.
   func actionImport(name:String) -> EdmActionImport
   
-  /**
-   * Get contained FunctionImport by name.
-   *
-   * @param name name of contained FunctionImport
-   * @return {@link EdmFunctionImport}
-   */
-   func functionImport(name:String) -> EdmFunctionImport
+  // Get contained FunctionImport by name.
+  func functionImport(name:String) -> EdmFunctionImport
   
-  /**
-   * This method <b>DOES NOT</b> support lazy loading
-   *
-   * @return returns all entity sets for this container.
-   */
-  var entitySets: [EdmEntitySet] {get}
-  
-  /**
-   * This method <b>DOES NOT</b> support lazy loading
-   *
-   * @return returns all function imports for this container.
-   */
-  var functionImports: [EdmFunctionImport] {get}
-  
-  /**
-   * This method <b>DOES NOT</b> support lazy loading
-   *
-   * @return returns all singletons for this container.
-   */
-  var singletons: [EdmSingleton] {get}
-  
-  /**
-   * This method <b>DOES NOT</b> support lazy loading
-   *
-   * @return returns all action imports for this container.
-   */
-  var actionImports: [EdmActionImport] {get}
-  
-  /**
-   * @return the {@link FullQualifiedName} of the parentContainer or null if no parent is specified
-   */
-  var parentContainerName: FullQualifiedName {get}
 }

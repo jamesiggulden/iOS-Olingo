@@ -17,41 +17,27 @@
   under the License.
  */
 
-
-//
 //  AbstractEdmAnnotatable.swift
 //  iOS-Olingo
-//
 //  Created by Greg Napier on 14/07/2016.
 //  Copyright © 2016 EnergySys. All rights reserved.
-//
 
 import Foundation
 
-
-
-
 public class AbstractEdmAnnotatable: EdmAnnotatable {
   
-  // MARK: - Stored Properties
-
-  // TODO: Annotations
-  private final let  annotatable:CsdlAnnotatable
+  // MARK: - Properties
+  private final let annotatable: CsdlAnnotatable?
   //private  let annotations:[EdmAnnotation]
   final let edm:Edm
   
-  // MARK: - Computed Properties
-
-  
   // MARK: - Init
-
-  init(edm:Edm, annotatable:CsdlAnnotatable ) {
+  init(edm: Edm, annotatable: CsdlAnnotatable?) {
     self.edm = edm
     self.annotatable = annotatable
   }
   
   // MARK: - Methods
-  
   // TODO: Annotations
   /*
   public func getAnnotation(term:EdmTerm , qualifier:String) -> EdmAnnotation {

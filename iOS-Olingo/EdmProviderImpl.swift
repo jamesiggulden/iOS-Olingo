@@ -83,7 +83,8 @@ public class EdmProviderImpl: Edm {
    * @return {@link EdmEnumType}
    */
   public func getEnumType(name:FullQualifiedName ) -> EdmEnumType? {
-    fatalError("Unsupported Operation")
+    //fatalError("Unsupported Operation")
+    return nil
   }
   
   /**
@@ -94,8 +95,9 @@ public class EdmProviderImpl: Edm {
    * @param name full qualified name of type definition
    * @return {@link EdmTypeDefinition}
    */
-  public func getTypeDefinition(name:FullQualifiedName ) -> EdmTypeDefinition {
-    fatalError("Unsupported Operation")
+  public func getTypeDefinition(name:FullQualifiedName ) -> EdmTypeDefinition? {
+    //fatalError("Unsupported Operation")
+    return nil
   }
   
   /**
@@ -109,9 +111,11 @@ public class EdmProviderImpl: Edm {
   public func getEntityType(name:FullQualifiedName ) -> EdmEntityType? {
     let myEntityName = name.name
     let myEntityTypes = theSchemas[name.namespace]?.getEntityTypes()
-    for myEntityType in myEntityTypes! {
-      if (myEntityName == myEntityType.name) {
-        return myEntityType
+    if (myEntityTypes != nil) {
+      for myEntityType in myEntityTypes! {
+        if (myEntityName == myEntityType.name) {
+          return myEntityType
+        }
       }
     }
     return nil
@@ -125,8 +129,9 @@ public class EdmProviderImpl: Edm {
    * @param name full qualified name of complex type
    * @return {@link EdmComplexType}
    */
-  public func getComplexType(name:FullQualifiedName ) -> EdmComplexType {
-    fatalError("Unsupported Operation")
+  public func getComplexType(name:FullQualifiedName ) -> EdmComplexType? {
+    //fatalError("Unsupported Operation")
+    return nil
   }
   
   /**

@@ -28,6 +28,19 @@
 		109C22D01D5B91060096E356 /* EdmNavigationPropertyImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109C22CF1D5B91060096E356 /* EdmNavigationPropertyImpl.swift */; };
 		109C22D11D5B91060096E356 /* EdmNavigationPropertyImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109C22CF1D5B91060096E356 /* EdmNavigationPropertyImpl.swift */; };
 		109C22D41D5CA1BF0096E356 /* EdmNavigationPropertyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109C22D21D5CA1BF0096E356 /* EdmNavigationPropertyTest.swift */; };
+		109E815E1D6CAA0C00DDCBF2 /* AbstractEdmBindingTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109E815D1D6CAA0C00DDCBF2 /* AbstractEdmBindingTarget.swift */; };
+		109E81601D6CB11E00DDCBF2 /* CsdlBindingTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109E815F1D6CB11E00DDCBF2 /* CsdlBindingTarget.swift */; };
+		109E81621D6DEB3700DDCBF2 /* EdmEntitySetImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109E81611D6DEB3700DDCBF2 /* EdmEntitySetImpl.swift */; };
+		109E81641D6DECE300DDCBF2 /* CsdlEntitySet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109E81631D6DECE300DDCBF2 /* CsdlEntitySet.swift */; };
+		109E81661D6DF39500DDCBF2 /* CsdlNavigationPropertyBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109E81651D6DF39500DDCBF2 /* CsdlNavigationPropertyBinding.swift */; };
+		109E81671D6DFAAC00DDCBF2 /* EdmNavigationPropertyBindingImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C6EFEC1D6773EC006DA690 /* EdmNavigationPropertyBindingImpl.swift */; };
+		109E81681D6DFB6000DDCBF2 /* EdmEntitySetImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109E81611D6DEB3700DDCBF2 /* EdmEntitySetImpl.swift */; };
+		109E81691D6DFECF00DDCBF2 /* CsdlNavigationPropertyBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109E81651D6DF39500DDCBF2 /* CsdlNavigationPropertyBinding.swift */; };
+		109E816A1D6E001500DDCBF2 /* CsdlEntitySet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109E81631D6DECE300DDCBF2 /* CsdlEntitySet.swift */; };
+		109E816B1D6E04D000DDCBF2 /* EdmEntityContainerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C6EFEA1D676649006DA690 /* EdmEntityContainerImpl.swift */; };
+		109E816C1D6E07C000DDCBF2 /* CsdlBindingTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109E815F1D6CB11E00DDCBF2 /* CsdlBindingTarget.swift */; };
+		109E816D1D6E099300DDCBF2 /* AbstractEdmBindingTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109E815D1D6CAA0C00DDCBF2 /* AbstractEdmBindingTarget.swift */; };
+		109E81711D75D98F00DDCBF2 /* EdmContainerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109E81701D75D98F00DDCBF2 /* EdmContainerTest.swift */; };
 		10A7B80E1D58D65E0087D6F8 /* EdmProviderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10357E991D50D52800B6D5BE /* EdmProviderImpl.swift */; };
 		10A7B80F1D58D6A20087D6F8 /* Edm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025F51D37DE6600D4A4E1 /* Edm.swift */; };
 		10A7B8101D58D6C30087D6F8 /* EdmTypeDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026391D3CECE000D4A4E1 /* EdmTypeDefinition.swift */; };
@@ -167,6 +180,8 @@
 		10A7B8961D58E2530087D6F8 /* EdmTypeImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025ED1D37D4D800D4A4E1 /* EdmTypeImpl.swift */; };
 		10A7B8971D58E26A0087D6F8 /* EdmNavigationProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260260F1D37ECE500D4A4E1 /* EdmNavigationProperty.swift */; };
 		10A7B8981D58E27B0087D6F8 /* EdmReferentialConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026111D37EE2000D4A4E1 /* EdmReferentialConstraint.swift */; };
+		10C6EFEB1D676649006DA690 /* EdmEntityContainerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C6EFEA1D676649006DA690 /* EdmEntityContainerImpl.swift */; };
+		10C6EFED1D6773EC006DA690 /* EdmNavigationPropertyBindingImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C6EFEC1D6773EC006DA690 /* EdmNavigationPropertyBindingImpl.swift */; };
 		424307381D198AA700880BDB /* ResponseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424307371D198AA700880BDB /* ResponseViewController.swift */; };
 		4243073A1D198EAF00880BDB /* olingo120.png in Resources */ = {isa = PBXBuildFile; fileRef = 424307391D198EAF00880BDB /* olingo120.png */; };
 		4243073D1D19A14B00880BDB /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243073C1D19A14B00880BDB /* Customer.swift */; };
@@ -418,6 +433,14 @@
 		109C22CC1D5B8D470096E356 /* EdmReferentialConstraintImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmReferentialConstraintImpl.swift; sourceTree = "<group>"; };
 		109C22CF1D5B91060096E356 /* EdmNavigationPropertyImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmNavigationPropertyImpl.swift; sourceTree = "<group>"; };
 		109C22D21D5CA1BF0096E356 /* EdmNavigationPropertyTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmNavigationPropertyTest.swift; sourceTree = "<group>"; };
+		109E815D1D6CAA0C00DDCBF2 /* AbstractEdmBindingTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractEdmBindingTarget.swift; sourceTree = "<group>"; };
+		109E815F1D6CB11E00DDCBF2 /* CsdlBindingTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CsdlBindingTarget.swift; sourceTree = "<group>"; };
+		109E81611D6DEB3700DDCBF2 /* EdmEntitySetImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmEntitySetImpl.swift; sourceTree = "<group>"; };
+		109E81631D6DECE300DDCBF2 /* CsdlEntitySet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CsdlEntitySet.swift; sourceTree = "<group>"; };
+		109E81651D6DF39500DDCBF2 /* CsdlNavigationPropertyBinding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CsdlNavigationPropertyBinding.swift; sourceTree = "<group>"; };
+		109E81701D75D98F00DDCBF2 /* EdmContainerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmContainerTest.swift; sourceTree = "<group>"; };
+		10C6EFEA1D676649006DA690 /* EdmEntityContainerImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmEntityContainerImpl.swift; sourceTree = "<group>"; };
+		10C6EFEC1D6773EC006DA690 /* EdmNavigationPropertyBindingImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmNavigationPropertyBindingImpl.swift; sourceTree = "<group>"; };
 		424307371D198AA700880BDB /* ResponseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseViewController.swift; sourceTree = "<group>"; };
 		424307391D198EAF00880BDB /* olingo120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = olingo120.png; sourceTree = "<group>"; };
 		4243073C1D19A14B00880BDB /* Customer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
@@ -667,6 +690,10 @@
 				10357EA71D522DDB00B6D5BE /* EdmKeyPropertyRefImpl.swift */,
 				109C22CC1D5B8D470096E356 /* EdmReferentialConstraintImpl.swift */,
 				109C22CF1D5B91060096E356 /* EdmNavigationPropertyImpl.swift */,
+				10C6EFEA1D676649006DA690 /* EdmEntityContainerImpl.swift */,
+				10C6EFEC1D6773EC006DA690 /* EdmNavigationPropertyBindingImpl.swift */,
+				109E815D1D6CAA0C00DDCBF2 /* AbstractEdmBindingTarget.swift */,
+				109E81611D6DEB3700DDCBF2 /* EdmEntitySetImpl.swift */,
 			);
 			name = edm;
 			sourceTree = "<group>";
@@ -691,6 +718,9 @@
 			isa = PBXGroup;
 			children = (
 				10357EA51D52018500B6D5BE /* CsdlEntityType.swift */,
+				109E815F1D6CB11E00DDCBF2 /* CsdlBindingTarget.swift */,
+				109E81631D6DECE300DDCBF2 /* CsdlEntitySet.swift */,
+				109E81651D6DF39500DDCBF2 /* CsdlNavigationPropertyBinding.swift */,
 			);
 			name = provider;
 			sourceTree = "<group>";
@@ -740,6 +770,7 @@
 			children = (
 				10357EB11D5354AA00B6D5BE /* EdmTest.swift */,
 				109C22D21D5CA1BF0096E356 /* EdmNavigationPropertyTest.swift */,
+				109E81701D75D98F00DDCBF2 /* EdmContainerTest.swift */,
 			);
 			name = edm;
 			sourceTree = "<group>";
@@ -1563,6 +1594,7 @@
 				109C22D01D5B91060096E356 /* EdmNavigationPropertyImpl.swift in Sources */,
 				426026281D37F81B00D4A4E1 /* EdmFunctionImport.swift in Sources */,
 				4243078D1D1C3DD700880BDB /* ODataClientFactory.swift in Sources */,
+				109E81601D6CB11E00DDCBF2 /* CsdlBindingTarget.swift in Sources */,
 				426026221D37F6A600D4A4E1 /* EdmActionImport.swift in Sources */,
 				426025C61D36421A00D4A4E1 /* AbstractClientPayload.swift in Sources */,
 				4260254B1D2D6AF800D4A4E1 /* ResWrap.swift in Sources */,
@@ -1616,6 +1648,7 @@
 				426026161D37F06400D4A4E1 /* EdmParameter.swift in Sources */,
 				4260260C1D37EAC700D4A4E1 /* EdmMappable.swift in Sources */,
 				4260254D1D2D6CD000D4A4E1 /* ResWrapper.swift in Sources */,
+				109E81661D6DF39500DDCBF2 /* CsdlNavigationPropertyBinding.swift in Sources */,
 				426025391D2CF56000D4A4E1 /* Extensions.swift in Sources */,
 				426025C01D358F4700D4A4E1 /* ClientComplexValueImpl.swift in Sources */,
 				4252B93C1D5247040025E72C /* URIBuilder.swift in Sources */,
@@ -1629,6 +1662,7 @@
 				4260264B1D3ED0BF00D4A4E1 /* SingletonPrimitiveType.swift in Sources */,
 				426025151D26B12C00D4A4E1 /* Configuration.swift in Sources */,
 				4243078B1D1C2EF600880BDB /* RetrieveRequestFactoryImp.swift in Sources */,
+				10C6EFED1D6773EC006DA690 /* EdmNavigationPropertyBindingImpl.swift in Sources */,
 				10357E961D50CE4D00B6D5BE /* ODataReader.swift in Sources */,
 				426025D41D36824200D4A4E1 /* ClientEntitySetImpl.swift in Sources */,
 				4260256F1D2E85EE00D4A4E1 /* DeletedEntity.swift in Sources */,
@@ -1659,6 +1693,7 @@
 				426025981D34F38E00D4A4E1 /* ClientEntityImpl.swift in Sources */,
 				4260261A1D37F1FD00D4A4E1 /* EdmBindingTarget.swift in Sources */,
 				424307BE1D23223E00880BDB /* ContentType.swift in Sources */,
+				109E815E1D6CAA0C00DDCBF2 /* AbstractEdmBindingTarget.swift in Sources */,
 				426025941D33BE5D00D4A4E1 /* ODataEntitySetResponse.swift in Sources */,
 				4260262A1D37FC8800D4A4E1 /* EdmReturnType.swift in Sources */,
 				424307AD1D2288C600880BDB /* ODataHeadersImpl.swift in Sources */,
@@ -1668,6 +1703,7 @@
 				10357EA61D52018500B6D5BE /* CsdlEntityType.swift in Sources */,
 				426025DC1D369E4400D4A4E1 /* ClientObjectFactoryImpl.swift in Sources */,
 				4260261E1D37F45300D4A4E1 /* EdmEntityContainer.swift in Sources */,
+				109E81641D6DECE300DDCBF2 /* CsdlEntitySet.swift in Sources */,
 				426025AE1D35555700D4A4E1 /* ODataBinder.swift in Sources */,
 				426025B61D35614000D4A4E1 /* ClientPrimitiveValueBuilderImpl.swift in Sources */,
 				426025A81D351CCE00D4A4E1 /* ClientPrimitiveValueImpl.swift in Sources */,
@@ -1676,6 +1712,7 @@
 				426026261D37F7CE00D4A4E1 /* EdmAction.swift in Sources */,
 				4260256B1D2E827000D4A4E1 /* Delta.swift in Sources */,
 				424307801D1C2B0600880BDB /* ODataClient.swift in Sources */,
+				109E81621D6DEB3700DDCBF2 /* EdmEntitySetImpl.swift in Sources */,
 				424307B41D22C3B400880BDB /* HttpClient.swift in Sources */,
 				424307BC1D22E4B100880BDB /* ODataServiceVersion.swift in Sources */,
 				426025631D2E631300D4A4E1 /* ServiceDocumentImpl.swift in Sources */,
@@ -1700,6 +1737,7 @@
 				426025831D2FCC5900D4A4E1 /* JsonEntityDeserializer.swift in Sources */,
 				4243073D1D19A14B00880BDB /* Customer.swift in Sources */,
 				426025CE1D3655C200D4A4E1 /* ClientComplexValue.swift in Sources */,
+				10C6EFEB1D676649006DA690 /* EdmEntityContainerImpl.swift in Sources */,
 				424307821D1C2B3900880BDB /* ODataClientImp.swift in Sources */,
 				10656A761D4F808500206B7B /* EdmMetadataResponseImpl.swift in Sources */,
 				10357EA81D522DDB00B6D5BE /* EdmKeyPropertyRefImpl.swift in Sources */,
@@ -1741,6 +1779,7 @@
 				10A7B8531D58DF940087D6F8 /* ODataEntityRetrieveResponse.swift in Sources */,
 				10A7B8471D58DF0D0087D6F8 /* ClientPrimitiveValueBuilder.swift in Sources */,
 				10A7B8351D58DE790087D6F8 /* HttpUriRequest.swift in Sources */,
+				109E816C1D6E07C000DDCBF2 /* CsdlBindingTarget.swift in Sources */,
 				10A7B8451D58DEFF0087D6F8 /* ODataEntitySetRequest.swift in Sources */,
 				424307B01D229BE300880BDB /* ODataHeadersTest.swift in Sources */,
 				4252B9461D538B5B0025E72C /* URIBuilder.swift in Sources */,
@@ -1762,9 +1801,11 @@
 				10A7B8911D58E20A0087D6F8 /* CsdlAnnotatable.swift in Sources */,
 				10A7B8981D58E27B0087D6F8 /* EdmReferentialConstraint.swift in Sources */,
 				10A7B8151D58D7040087D6F8 /* EdmAction.swift in Sources */,
+				109E816D1D6E099300DDCBF2 /* AbstractEdmBindingTarget.swift in Sources */,
 				4252B9441D538A2F0025E72C /* URIBuilderTest.swift in Sources */,
 				10A7B8181D58D7170087D6F8 /* EdmEntityContainer.swift in Sources */,
 				10A7B8401D58DECD0087D6F8 /* ODataHeaders.swift in Sources */,
+				109E81671D6DFAAC00DDCBF2 /* EdmNavigationPropertyBindingImpl.swift in Sources */,
 				10A7B81D1D58D75A0087D6F8 /* EdmElement.swift in Sources */,
 				10A7B8561D58DFAA0087D6F8 /* ResWrap.swift in Sources */,
 				10A7B82C1D58DD7F0087D6F8 /* EdmOperationImport.swift in Sources */,
@@ -1838,6 +1879,7 @@
 				10A7B8381D58DE900087D6F8 /* HttpHeader.swift in Sources */,
 				4252B94F1D538FB00025E72C /* EdmTypeKind.swift in Sources */,
 				10A7B81C1D58D7520087D6F8 /* EdmProperty.swift in Sources */,
+				109E81711D75D98F00DDCBF2 /* EdmContainerTest.swift in Sources */,
 				109C22CA1D5B4E3B0096E356 /* EdmDouble.swift in Sources */,
 				10A7B82D1D58DD860087D6F8 /* EdmPrimitiveTypeKind.swift in Sources */,
 				10A7B83C1D58DEB50087D6F8 /* ODataBinder.swift in Sources */,
@@ -1845,6 +1887,7 @@
 				10A7B86C1D58E0B40087D6F8 /* EdmMetadataResponseImpl.swift in Sources */,
 				10A7B84B1D58DF2F0087D6F8 /* ClientProperty.swift in Sources */,
 				10A7B8341D58DE720087D6F8 /* ODataHeadersImpl.swift in Sources */,
+				109E816A1D6E001500DDCBF2 /* CsdlEntitySet.swift in Sources */,
 				10A7B8501D58DF700087D6F8 /* ODataEntityRequest.swift in Sources */,
 				109C22D41D5CA1BF0096E356 /* EdmNavigationPropertyTest.swift in Sources */,
 				10A7B82E1D58DD950087D6F8 /* Constants.swift in Sources */,
@@ -1856,6 +1899,7 @@
 				10A7B82F1D58DE2A0087D6F8 /* EdmMetadataRequest.swift in Sources */,
 				10A7B8371D58DE880087D6F8 /* HttpMethod.swift in Sources */,
 				4252B9581D5898620025E72C /* EdmTypesTest.swift in Sources */,
+				109E81681D6DFB6000DDCBF2 /* EdmEntitySetImpl.swift in Sources */,
 				4252B94B1D538EBD0025E72C /* EdmMember.swift in Sources */,
 				4252B9521D54E6A70025E72C /* RequestEntitySetTest.swift in Sources */,
 				4260251D1D26B67500D4A4E1 /* AbstractHttpClientFactory.swift in Sources */,
@@ -1877,6 +1921,7 @@
 				10A7B86F1D58E0C70087D6F8 /* EdmInt64.swift in Sources */,
 				10A7B8301D58DE340087D6F8 /* EdmMetadataRequestImpl.swift in Sources */,
 				10A7B8281D58DD510087D6F8 /* Geospatial.swift in Sources */,
+				109E81691D6DFECF00DDCBF2 /* CsdlNavigationPropertyBinding.swift in Sources */,
 				10A7B8681D58E0890087D6F8 /* JsonEntitySetDeserializer.swift in Sources */,
 				10A7B80E1D58D65E0087D6F8 /* EdmProviderImpl.swift in Sources */,
 				109C22CB1D5B6D810096E356 /* EdmBoolean.swift in Sources */,
@@ -1887,6 +1932,7 @@
 				4252B94A1D538EB10025E72C /* EdmPrimitiveType.swift in Sources */,
 				4252B94C1D538F870025E72C /* EdmType.swift in Sources */,
 				10A7B85B1D58DFE60087D6F8 /* EdmPrimitiveTypeFactory.swift in Sources */,
+				109E816B1D6E04D000DDCBF2 /* EdmEntityContainerImpl.swift in Sources */,
 				10A7B8261D58DD390087D6F8 /* EdmMapping.swift in Sources */,
 				10A7B88D1D58E1EA0087D6F8 /* EdmPropertyImpl.swift in Sources */,
 				10A7B88B1D58E1E00087D6F8 /* CsdlEntityType.swift in Sources */,

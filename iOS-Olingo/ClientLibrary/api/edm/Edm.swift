@@ -89,7 +89,7 @@ public protocol Edm {
    * @param name full qualified name of type definition
    * @return {@link EdmTypeDefinition}
    */
-   func getTypeDefinition(name:FullQualifiedName ) -> EdmTypeDefinition
+   func getTypeDefinition(name:FullQualifiedName ) -> EdmTypeDefinition?
   
   /**
    * Get entity type by full qualified name.
@@ -109,7 +109,7 @@ public protocol Edm {
    * @param name full qualified name of complex type
    * @return {@link EdmComplexType}
    */
-  func getComplexType(name:FullQualifiedName ) -> EdmComplexType
+  func getComplexType(name:FullQualifiedName ) -> EdmComplexType?
   
   /**
    * Get unbound Action by full qualified name.

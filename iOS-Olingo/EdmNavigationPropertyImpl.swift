@@ -79,10 +79,12 @@ public class EdmNavigationPropertyImpl: EdmNavigationProperty { // TODO: EdmAnno
       let myName = type?.name
       let myNavigationProperties = theSchema.getNavigationProperties()
       let myTypeBasedNavProperties = myNavigationProperties[myName!]
-      for myNavigationProperty in myTypeBasedNavProperties! {
-        if (myNavigationProperty.name == thePartnerName)
-        {
-          return myNavigationProperty
+      if (myTypeBasedNavProperties != nil) {
+        for myNavigationProperty in myTypeBasedNavProperties! {
+          if (myNavigationProperty.name == thePartnerName)
+          {
+            return myNavigationProperty
+          }
         }
       }
       return nil

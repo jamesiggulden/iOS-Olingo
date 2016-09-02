@@ -16,84 +16,56 @@
   specific language governing permissions and limitations
   under the License.
  */
- 
 
-
-//
-//  File.swift
+//  EdmSchema.swift
 //  iOS-Olingo
-//
 //  Created by Greg Napier on 14/07/2016.
 //  Copyright © 2016 EnergySys. All rights reserved.
-//
 
 import Foundation
 
-
- /// A csdl schema element
- 
+// A csdl schema element
 public protocol EdmSchema { // TODO ->  extends EdmAnnotatable {
-  
-  
-   /// get the namespace for this schema
-   
+ 
+  // Get the namespace for this schema.
   func getNamespace() -> String
   
-  
-   /// get the alias for this schema. May be null.
-   
+  // Get the alias for this schema. May be null.
   func getAlias() -> String
   
-  
-   /// get all enum types for this schema
-   
+  // Get all enum types for this schema.
   func getEnumTypes() -> [EdmEnumType]
   
-  
-   /// get all entity types for this schema
-   
+  // Get all entity types for this schema
   func getEntityTypes() -> [EdmEntityType]
   
-  
-   /// get all complex types for this schema
-   
+  // Get all complex types for this schema
   func getComplexTypes() -> [EdmComplexType]
   
-  
-   /// get all actions for this schema
-   
+  // Get all actions for this schema
   func getActions() -> [EdmAction]
   
-  
-   /// get all functions for this schema
-   
+  // Get all functions for this schema
   func getFunctions() -> [EdmFunction]
   
-  
-   /// get all {@link EdmTypeDefinition} for this schema.
-   
+  // Get all {@link EdmTypeDefinition} for this schema.
   func getTypeDefinitions() -> [EdmTypeDefinition]
   
-  
-   /// get all {@link EdmTerm} for this schema.
-   
+  // Get all {@link EdmTerm} for this schema.
   func getTerms() -> [EdmTerm]
   
-  
-   /// get all {@link EdmAnnotations} for this schema.
+  // Get all {@link EdmAnnotations} for this schema.
   // TODO: Annotations
-  //func getAnnotationGroups() -> [EdmAnnotations]
+  // func getAnnotationGroups() -> [EdmAnnotations]
   
+  // Get the entity container for this schema. May be null.
+  func getEntityContainer() -> EdmEntityContainer?
   
-   /// get the entity container for this schema. May be null.
-   
-  func getEntityContainer() -> EdmEntityContainer
-  
-  /// Get the navigation properties for this schema
-  /// - parameters:
-  ///   - none
-  /// - returns: Dict of key: entity type name and value: list of navigation properties
-  /// - throws: No error conditions are expected
+  // Get the navigation properties for this schema
+  // - parameters:
+  //   - none
+  // - returns: Dict of key: entity type name and value: list of navigation properties
+  // - throws: No error conditions are expected
   func getNavigationProperties() -> [String: [EdmNavigationProperty]]
   
 }

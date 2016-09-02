@@ -15,96 +15,85 @@
  * any nature in relation to the software and documentation.
  */
 
-//
 //  EdmSchemaImpl.
-//
 //  Created by EnergySys on 28/07/2016.
 //  Copyright © 2016 EnergySys. All rights reserved.
-//
 
 import Foundation
 
-/// A csdl schema element
+// A csdl schema element
 public class EdmSchemaImpl: EdmSchema {
   
+  // MARK: - Properties
   let theNamespace: String
   var theEntityTypes = [EdmEntityType]()
+  public var theEntityContainer: EdmEntityContainer?
   public var theNavigationProperties = [String: [EdmNavigationProperty]]()
   
-  ///Initializer
+  // MARK: - Init
   public init(aNamespace: String){
     theNamespace = aNamespace
   }
   
-  /// get the namespace for this schema
+  // MARK: - Functions
+  // Get the namespace for this schema.
   public func getNamespace() -> String {
     return theNamespace
   }
   
-  
-  /// get the alias for this schema. May be null.
+  // Get the alias for this schema. May be null.
   public func getAlias() -> String {
     fatalError("Unsupported Operation")
   }
   
-  
-  /// get all enum types for this schema
+  // Get all enum types for this schema.
   public func getEnumTypes() -> [EdmEnumType] {
     fatalError("Unsupported Operation")
   }
   
-  
-  /// get all entity types for this schema
+  // Get all entity types for this schema.
   public func getEntityTypes() -> [EdmEntityType] {
     return theEntityTypes
   }
   
-  
-  /// get all complex types for this schema
+  // Get all complex types for this schema.
   public func getComplexTypes() -> [EdmComplexType] {
     fatalError("Unsupported Operation")
   }
   
-  
-  /// get all actions for this schema
+  // Get all actions for this schema.
   public func getActions() -> [EdmAction] {
     fatalError("Unsupported Operation")
   }
   
-  
-  /// get all functions for this schema
+  // Get all functions for this schema.
   public func getFunctions() -> [EdmFunction] {
     fatalError("Unsupported Operation")
   }
   
-  
-  /// get all {@link EdmTypeDefinition} for this schema.
+  // Get all {@link EdmTypeDefinition} for this schema.
   public func getTypeDefinitions() -> [EdmTypeDefinition] {
     fatalError("Unsupported Operation")
   }
   
-  
-  /// get all {@link EdmTerm} for this schema.
+  // Get all {@link EdmTerm} for this schema.
   public func getTerms() -> [EdmTerm] {
     fatalError("Unsupported Operation")
   }
   
+  // Get all {@link EdmAnnotations} for this schema.
+  // func getAnnotationGroups() -> [EdmAnnotations]
   
-  /// get all {@link EdmAnnotations} for this schema.
-  // TODO: Annotations
-  //func getAnnotationGroups() -> [EdmAnnotations]
-  
-  
-  /// get the entity container for this schema. May be null.
-  public func getEntityContainer() -> EdmEntityContainer {
-    fatalError("Unsupported Operation")
+  // Get the entity container for this schema. May be null.
+  public func getEntityContainer() -> EdmEntityContainer? {
+    return theEntityContainer
   }
   
-  /// Get the navigation properties for this schema
-  /// - parameters:
-  ///   - none
-  /// - returns: Dict of key: entity type name and value: list of navigation properties
-  /// - throws: No error conditions are expected
+  // Get the navigation properties for this schema
+  // - parameters:
+  //   - none
+  // - returns: Dict of key: entity type name and value: list of navigation properties
+  // - throws: No error conditions are expected
   public func getNavigationProperties() -> [String: [EdmNavigationProperty]] {
     return theNavigationProperties
   }
