@@ -116,9 +116,8 @@ public class AbstractEdmStructuredType: EdmTypeImpl, EdmStructuredType {
   
   public func getProperty(name:String) -> EdmElement? {
     let property = getStructuralProperty(name)
-    if property != nil {
-      // TODO : Navigation
-      //property = getNavigationProperty(name)
+    if property == nil {
+      log.error("Could not retrieve proper");
     }
     return property
   }
@@ -130,7 +129,7 @@ public class AbstractEdmStructuredType: EdmTypeImpl, EdmStructuredType {
     if let baseType = baseType {
       property = baseType.getStructuralProperty(name)
     }
-    if property != nil {
+    if property == nil {
       property = getProperties()[name]
     }
     return property
@@ -175,7 +174,7 @@ public class AbstractEdmStructuredType: EdmTypeImpl, EdmStructuredType {
     guard properties != nil else {
       var localProperties = [String: EdmProperty]()
       let structureTypeProperties = providerStructuredType.properties
-      for prop in structureTypeProperties {
+      for prop in structureTypeProperties! {
         localProperties[prop.name] = EdmPropertyImpl(edm: edm,property: prop) as EdmProperty
       }
       //properties = localPorperties

@@ -17,88 +17,56 @@
   under the License.
  */
 
-
-//
-//  File.swift
+//  CsdlStructuralType.swift
 //  iOS-Olingo
-//
 //  Created by Greg Napier on 14/07/2016.
 //  Copyright © 2016 EnergySys. All rights reserved.
-//
 
 import Foundation
 
-/**
- * The type Csdl structural type.
- */
-
-// TODO: class CsdlStructuralType
+// The type Csdl structural type.
+// // MARK: - Class
 public class CsdlStructuralType : CsdlAbstractEdmItem, CsdlAnnotatable { // TODO : ext  imps CsdlNamed,
   
   // MARK: - Stored Properties
+  // The Navigation properties
+  // public var navigationProperties:[CsdlNavigationProperty] = []
   
-  //TODO: Navigation
-  /// The Navigation properties
-  //public var navigationProperties:[CsdlNavigationProperty] = [] //G
+  // The name.
+  public var name: String?
   
-
-  /// The Base type
-  let  baseType:FullQualifiedName? = nil  //G
+  // The Base type
+  public var baseType: FullQualifiedName?
   
-  /// The Properties
-  public var properties: [CsdlProperty] = []  //G
+  // The Properties
+  public var properties: [CsdlProperty]?
   
-  /// The Is abstract
-  public var isAbstract:Bool = false //GS
+  // The Is abstract
+  public var isAbstract: Bool = false
   
-  /// The Is open type
-  public var isOpenType:Bool = false
-
+  // The Is open type
+  public var isOpenType: Bool = false
   
   // MARK: - Computed Properties
-  
   /// Gets base type fQN
-  public var  baseTypeFQN:FullQualifiedName? {
+  public var baseTypeFQN:FullQualifiedName? {
     get {
       return baseType
     }
   }
   
-  // MARK: - Init
- 
-  
   // MARK: - Methods
-  
-  
-  
-  /**
-   * Gets property.
-   *
-   * @param name the name
-   * @return the property
-   */
+  // Gets property.
   public func getProperty(name:String) -> CsdlProperty? {
-    return getOneByName(name, items: properties)
+    return getOneByName(name, items: properties!)
   }
   
-  /**
-   * Sets properties.
-   *
-   * @param properties the properties
-   * @return the properties
-   */
+  // Sets properties.
   public func setProperties(properties:[CsdlProperty]) -> CsdlStructuralType {
     self.properties = properties
     return self
   }
   
-  /**
-   * Gets navigation properties.
-   *
-   * @return the navigation properties
-   */
-  
-  // TODO: Navigation
   /*
   /**
    * Gets navigation property.
@@ -122,42 +90,27 @@ public class CsdlStructuralType : CsdlAbstractEdmItem, CsdlAnnotatable { // TODO
   }
  */
 
-
-  /// Sets abstract
-  /// - parameters:
-  ///   - isAbstract: the is abstract
-  /// - returns: self
-  /// - throws: No error conditions are expected
+  // Sets abstract
+  // - parameters:
+  //   - isAbstract: the is abstract
+  // - returns: self
+  // - throws: No error conditions are expected
   public func setAbstract(isAbstract:Bool) -> CsdlStructuralType {
     self.isAbstract = isAbstract
     return self
   }
   
-  
-  /// Sets open type
-  /// - parameters:
-  ///   - isOpenType: the is open type
-  /// - returns: self
-  /// - throws: No error conditions are expected
+  // Sets open type
+  // - parameters:
+  //   - isOpenType: the is open type
+  // - returns: self
+  // - throws: No error conditions are expected
   public func setOpenType(isOpenType:Bool) -> CsdlStructuralType {
     self.isOpenType = isOpenType
     return self
   }
   
   /*
-  /**
-   * The Name.
-   */
-  protected String name;
-  
-
-  
-
-  
-  
-
-  
-  
   /**
    * The Annotations.
    */
@@ -179,22 +132,6 @@ public class CsdlStructuralType : CsdlAbstractEdmItem, CsdlAnnotatable { // TODO
   public String getName() {
     return name;
   }
-  
-  /**
-   * Sets name.
-   *
-   * @param name the name
-   * @return the name
-   */
-  public CsdlStructuralType setName(final String name) {
-    this.name = name;
-    return this;
-  }
-  
-   
-
-  
-  
   
   /**
    * Gets base type fQN.
@@ -226,13 +163,7 @@ public class CsdlStructuralType : CsdlAbstractEdmItem, CsdlAnnotatable { // TODO
     this.baseType = baseType;
     return this;
   }
-  
-  
-  
-  
-  
-
-  
+   
   /**
    * Gets navigation properties.
    *

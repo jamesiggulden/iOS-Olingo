@@ -51,6 +51,20 @@ public final class EdmSummarizer {
     let mySchemas = theEdm.getSchemas()
     for mySchema in mySchemas {
       mySummary += "Schema namespace: " + mySchema.getNamespace() + NEW_LINE
+      //Complex Types
+      let myEdmComplexTypes = mySchema.getComplexTypes()
+      mySummary += BREADCRUMB + "Complex Types:" + NEW_LINE
+      for myEdmComplexType in myEdmComplexTypes {
+        mySummary += BREADCRUMB + BREADCRUMB + "name: " + myEdmComplexType.name + NEW_LINE
+        mySummary += BREADCRUMB + BREADCRUMB + "Properties: " + NEW_LINE
+        let myPropertyNames = myEdmComplexType.propertyNames
+        for myPropertyName in myPropertyNames {
+          let myProperty = myEdmComplexType.getProperty(myPropertyName)
+          mySummary += BREADCRUMB + BREADCRUMB + BREADCRUMB + "name: " + myPropertyName
+          mySummary += ", type: " + myProperty!.type.debugDescription
+          mySummary += NEW_LINE
+        }
+      }
       //Entity Sets
       let myEntityContainer = mySchema.getEntityContainer()
       mySummary += BREADCRUMB + "Entity Container:" + NEW_LINE

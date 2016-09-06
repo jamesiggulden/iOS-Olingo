@@ -41,6 +41,9 @@
 		109E816C1D6E07C000DDCBF2 /* CsdlBindingTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109E815F1D6CB11E00DDCBF2 /* CsdlBindingTarget.swift */; };
 		109E816D1D6E099300DDCBF2 /* AbstractEdmBindingTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109E815D1D6CAA0C00DDCBF2 /* AbstractEdmBindingTarget.swift */; };
 		109E81711D75D98F00DDCBF2 /* EdmContainerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109E81701D75D98F00DDCBF2 /* EdmContainerTest.swift */; };
+		10A7696A1D79E2AF00DADA58 /* CsdlComplexType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4260263D1D3CF8C400D4A4E1 /* CsdlComplexType.swift */; };
+		10A7696B1D79E74600DADA58 /* EdmComplexTypeImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025E71D37C6B300D4A4E1 /* EdmComplexTypeImpl.swift */; };
+		10A7696D1D7EDDB200DADA58 /* EdmComplexTypeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A7696C1D7EDDB200DADA58 /* EdmComplexTypeTest.swift */; };
 		10A7B80E1D58D65E0087D6F8 /* EdmProviderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10357E991D50D52800B6D5BE /* EdmProviderImpl.swift */; };
 		10A7B80F1D58D6A20087D6F8 /* Edm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426025F51D37DE6600D4A4E1 /* Edm.swift */; };
 		10A7B8101D58D6C30087D6F8 /* EdmTypeDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426026391D3CECE000D4A4E1 /* EdmTypeDefinition.swift */; };
@@ -439,6 +442,7 @@
 		109E81631D6DECE300DDCBF2 /* CsdlEntitySet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CsdlEntitySet.swift; sourceTree = "<group>"; };
 		109E81651D6DF39500DDCBF2 /* CsdlNavigationPropertyBinding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CsdlNavigationPropertyBinding.swift; sourceTree = "<group>"; };
 		109E81701D75D98F00DDCBF2 /* EdmContainerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmContainerTest.swift; sourceTree = "<group>"; };
+		10A7696C1D7EDDB200DADA58 /* EdmComplexTypeTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmComplexTypeTest.swift; sourceTree = "<group>"; };
 		10C6EFEA1D676649006DA690 /* EdmEntityContainerImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmEntityContainerImpl.swift; sourceTree = "<group>"; };
 		10C6EFEC1D6773EC006DA690 /* EdmNavigationPropertyBindingImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmNavigationPropertyBindingImpl.swift; sourceTree = "<group>"; };
 		424307371D198AA700880BDB /* ResponseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseViewController.swift; sourceTree = "<group>"; };
@@ -771,6 +775,7 @@
 				10357EB11D5354AA00B6D5BE /* EdmTest.swift */,
 				109C22D21D5CA1BF0096E356 /* EdmNavigationPropertyTest.swift */,
 				109E81701D75D98F00DDCBF2 /* EdmContainerTest.swift */,
+				10A7696C1D7EDDB200DADA58 /* EdmComplexTypeTest.swift */,
 			);
 			name = edm;
 			sourceTree = "<group>";
@@ -1808,6 +1813,7 @@
 				109E81671D6DFAAC00DDCBF2 /* EdmNavigationPropertyBindingImpl.swift in Sources */,
 				10A7B81D1D58D75A0087D6F8 /* EdmElement.swift in Sources */,
 				10A7B8561D58DFAA0087D6F8 /* ResWrap.swift in Sources */,
+				10A7696D1D7EDDB200DADA58 /* EdmComplexTypeTest.swift in Sources */,
 				10A7B82C1D58DD7F0087D6F8 /* EdmOperationImport.swift in Sources */,
 				10A7B8901D58E2040087D6F8 /* csdlNamed.swift in Sources */,
 				10A7B8121D58D6E20087D6F8 /* EdmSchemaImpl.swift in Sources */,
@@ -1838,6 +1844,7 @@
 				10A7B87D1D58E1610087D6F8 /* ClientEnumValueImpl.swift in Sources */,
 				10A7B8231D58D78E0087D6F8 /* EdmMappable.swift in Sources */,
 				10A7B8321D58DE4A0087D6F8 /* Request.swift in Sources */,
+				10A7696A1D79E2AF00DADA58 /* CsdlComplexType.swift in Sources */,
 				10A7B88C1D58E1E60087D6F8 /* CsdlProperty.swift in Sources */,
 				10A7B8391D58DE970087D6F8 /* Logger.swift in Sources */,
 				10A7B8311D58DE450087D6F8 /* AbstractODataRequest.swift in Sources */,
@@ -1881,6 +1888,7 @@
 				10A7B81C1D58D7520087D6F8 /* EdmProperty.swift in Sources */,
 				109E81711D75D98F00DDCBF2 /* EdmContainerTest.swift in Sources */,
 				109C22CA1D5B4E3B0096E356 /* EdmDouble.swift in Sources */,
+				10A7696B1D79E74600DADA58 /* EdmComplexTypeImpl.swift in Sources */,
 				10A7B82D1D58DD860087D6F8 /* EdmPrimitiveTypeKind.swift in Sources */,
 				10A7B83C1D58DEB50087D6F8 /* ODataBinder.swift in Sources */,
 				10A7B8171D58D7110087D6F8 /* EdmTerm.swift in Sources */,

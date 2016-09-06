@@ -130,7 +130,15 @@ public class EdmProviderImpl: Edm {
    * @return {@link EdmComplexType}
    */
   public func getComplexType(name:FullQualifiedName ) -> EdmComplexType? {
-    //fatalError("Unsupported Operation")
+    let myComplexTypeName = name.name
+    let myComplexTypes = theSchemas[name.namespace]?.getComplexTypes()
+    if (myComplexTypes != nil) {
+      for myComplextType in myComplexTypes! {
+        if (myComplextType.name == myComplexTypeName) {
+          return myComplextType
+        }
+      }
+    }
     return nil
   }
   

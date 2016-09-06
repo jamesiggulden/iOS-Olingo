@@ -17,22 +17,17 @@
   under the License.
  */
 
-
-//
 //  EdmComplexType.swift
 //  iOS-Olingo
-//
 //  Created by Greg Napier on 14/07/2016.
 //  Copyright © 2016 EnergySys. All rights reserved.
-//
 
 import Foundation
 
- /// A CSDL ComplexType element.
- ///
- /// EdmComplexType holds a set of related information like {@link EdmPrimitiveType} properties and EdmComplexType properties
+// A CSDL ComplexType element.
+// EdmComplexType holds a set of related information like {@link EdmPrimitiveType} properties and EdmComplexType properties
 public protocol EdmComplexType: EdmStructuredType {
-  
 
+  //MARK: - Methods
   func getBaseType() -> EdmComplexType
 }

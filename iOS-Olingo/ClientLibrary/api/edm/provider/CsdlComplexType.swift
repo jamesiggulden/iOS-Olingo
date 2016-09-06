@@ -18,83 +18,17 @@
   under the License.
  */
 
-//
 //  CsdlComplexType.swift
 //  iOS-Olingo
-//
 //  Created by Greg Napier on 18/07/2016.
 //  Copyright © 2016 EnergySys. All rights reserved.
-//
 
 import Foundation
 
-// TODO:
-/// The type Csdl complex type
+// The type Csdl complex type
+// MARK: - Class
 public class CsdlComplexType: CsdlStructuralType {
-  /*
-  
-  
-  // MARK: - Stored Properties
-  
-  
-  // MARK: - Computed Properties
-
-  // MARK: - Init
-  
-  // MARK: - Methods
-  
-  public func setName(name:String) -> CsdlComplexType {
-    lazy self.name = name
-    return self
-  }
-  
-  
-  public func setOpenType(isOpenType:Bool) -> CsdlComplexType {
-    self.isOpenType = isOpenType
-    return self
-  }
-  
-  
-  public func setBaseType(baseType:String) -> CsdlComplexType {
-    self.baseType = new FullQualifiedName(baseType)
-    return self
-  }
-  
-  
-  public func setBaseType(baseType:FullQualifiedName ) -> CsdlComplexType {
-    self.baseType = baseType
-    return self
-  }
-  
-  
-  public func setAbstract(isAbstract:Bool) -> CsdlComplexType {
-    self.isAbstract = isAbstract
-    return self
-  }
-  
-  
-  public func setProperties(properties:[CsdlProperty]) -> CsdlComplexType {
-    self.properties = properties
-    return self
-  }
-  
-  
-  public func setNavigationProperties(navigationProperties:[CsdlNavigationProperty]) -> CsdlComplexType {
-    self.navigationProperties = navigationProperties
-    return self
-  }
-  
-  
-  public func setAnnotations( annotations:[CsdlAnnotation]) -> CsdlComplexType {
-    self.annotations = annotations
-    return self
-  }
-  
-*/
-
-
-
-
+  //Placeholder since in the Java OLingo code CsdlStructuralType is marked as abstract.
 }
 
 

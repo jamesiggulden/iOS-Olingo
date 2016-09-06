@@ -27,6 +27,7 @@ public class EdmSchemaImpl: EdmSchema {
   // MARK: - Properties
   let theNamespace: String
   var theEntityTypes = [EdmEntityType]()
+  var theComplexTypes = [EdmComplexType]()
   public var theEntityContainer: EdmEntityContainer?
   public var theNavigationProperties = [String: [EdmNavigationProperty]]()
   
@@ -58,7 +59,7 @@ public class EdmSchemaImpl: EdmSchema {
   
   // Get all complex types for this schema.
   public func getComplexTypes() -> [EdmComplexType] {
-    fatalError("Unsupported Operation")
+    return theComplexTypes
   }
   
   // Get all actions for this schema.

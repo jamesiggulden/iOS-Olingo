@@ -17,53 +17,36 @@
   under the License.
  */
 
-
-//
 //  EdmComplexTypeImpl.swift
 //  iOS-Olingo
-//
 //  Created by Greg Napier on 14/07/2016.
 //  Copyright © 2016 EnergySys. All rights reserved.
-//
 
 import Foundation
 
 public class EdmComplexTypeImpl: AbstractEdmStructuredType, EdmComplexType {
   
-  // MARK: - Stored Properties
-
-  
-  // MARK: - Computed Properties
-
-  
   // MARK: - Init
-
-  init (edm:Edm, name:FullQualifiedName ,complexType: CsdlComplexType ) {
+  public init (edm:Edm, name:FullQualifiedName ,complexType: CsdlComplexType ) {
     super.init(edm: edm, typeName: name, kind: EdmTypeKind.COMPLEX, structuredType: complexType)
   }
   
   // MARK: - Methods
-
-  
   func buildBaseType(baseTypeName: FullQualifiedName?)  -> EdmStructuredType? {
-    var baseType: EdmComplexType? = nil
-    if let baseTypeName = baseTypeName {
-      baseType = edm.getComplexType(baseTypeName)
-      guard let baseType = baseType else {
-        //TODO:
-        //throw EdmException.BaseTypeNotFound("Can't find base type with name: \(getName()) for complex type: ")
-        return nil
+    var myBaseType: EdmComplexType?
+    if (baseTypeName != nil) {
+      myBaseType = edm.getComplexType(baseTypeName!)
+      if (myBaseType == nil) {
+        log.error("No base type found for: " + baseTypeName!.toString())
       }
     }
-    return baseType!
+    return myBaseType
   }
-  
   
   public func getBaseType() ->  EdmComplexType  {
     checkBaseType()
-    return  baseType as! EdmComplexType
+    return baseType as! EdmComplexType
   }
-  
   
   override func checkBaseType() {
     if (baseTypeName != nil && baseType == nil) {

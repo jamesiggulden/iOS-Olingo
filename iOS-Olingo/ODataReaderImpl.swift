@@ -34,6 +34,7 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
   let ENTITY_CONTAINER_ELEMENT_NAME = "EntityContainer"
   let ENTITY_SET_ELEMENT_NAME = "EntitySet"
   let NAVIGATION_PROPERTY_BINDING_ELEMENT_NAME = "NavigationPropertyBinding"
+  let COMPLEX_TYPE_NAME = "ComplexType"
   
   var theParser: NSXMLParser?
   var theCurrentSchema: EdmSchemaImpl?
@@ -52,6 +53,10 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
   var theCurrentEntitySets = [EdmEntitySet]()
   var theCurrentNavPropertyBindings = [CsdlNavigationPropertyBinding]()
   var theCurrentEntityContainer: EdmEntityContainerImpl?
+  // Vars to support complex types
+  var theCurrentCsdlProperties = [CsdlProperty]()
+  var theCurrentCsdlComplexType = CsdlComplexType()
+  var theCurrentComplexTypes = [EdmComplexType]()
   
   // MARK: - Methods
   // Read the XML metadata into an Edm
@@ -83,11 +88,17 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
       theCurrentEntityType = EdmEntityTypeImpl(edm: theEdm, typeName: FullQualifiedName(namespace: (theCurrentSchema?.getNamespace())!, name: myEntityName!), kind: EdmTypeKind.ENTITY, structuredType: CsdlEntityType())
     }
     if (PROPERTY_ELEMENT_NAME == elementName) {
-      // Create EdmKeyPropertyRef and add to the list
-      let myEdmKeyPropertyRef = createEdmKeyPropertyRef(attributeDict)
-      let myName = attributeDict["Name"]
-      log.info("Adding property to array: " + myName!)
-      thePropertyRefs[myName!] = myEdmKeyPropertyRef
+      // Create EdmKeyPropertyRef and add to the list if we are handling an entity type, otherwise assume complex type
+      if (theCurrentCsdlComplexType.name == nil) {
+        let myEdmKeyPropertyRef = createEdmKeyPropertyRef(attributeDict)
+        let myName = attributeDict["Name"]
+        log.info("Adding property to array: " + myName!)
+        thePropertyRefs[myName!] = myEdmKeyPropertyRef
+      }
+      else {
+        let myCsdlProperty = createCsdlProperty(attributeDict)
+        theCurrentCsdlProperties.append(myCsdlProperty)
+      }
     }
     if (NAVIGATION_PROPERTY_ELEMENT_NAME == elementName) {
       let myName = attributeDict["Name"]
@@ -120,6 +131,20 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
       let myNavPropBinding = CsdlNavigationPropertyBinding(aPath: myPath!, aTarget: myTarget!)
       theCurrentNavPropertyBindings.append(myNavPropBinding)
     }
+    if (COMPLEX_TYPE_NAME == elementName) {
+      let myName = attributeDict["Name"]
+      let myBaseType = attributeDict["BaseType"]
+      theCurrentCsdlComplexType = CsdlComplexType()
+      theCurrentCsdlComplexType.name = myName
+      do {
+        if (myBaseType != nil) {
+          theCurrentCsdlComplexType.baseType = try FullQualifiedName(namespaceAndName: myBaseType!)
+        }
+      }
+      catch {
+        log.error("Error creating CsdlComplexType with BaseType value: " + myBaseType!)
+      }
+    }
   }
   
   // Callback method for NSXMLParser.
@@ -137,6 +162,9 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
       theSchemas[theCurrentSchema!.getNamespace()] = theCurrentSchema!
       // Add the navigation properties to the schema
       theCurrentSchema?.theNavigationProperties = theNavigationProperties
+      // Add the complex types
+      theCurrentSchema?.theComplexTypes = theCurrentComplexTypes
+      theCurrentComplexTypes.removeAll()
     }
     if (ENTITY_TYPE_NAME == elementName) {
       // Add any property refs to the current entity
@@ -173,6 +201,14 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
       theCurrentEntityContainer?.entitySets = theCurrentEntitySets
       theCurrentSchema?.theEntityContainer = theCurrentEntityContainer
     }
+    if (COMPLEX_TYPE_NAME == elementName) {
+      theCurrentCsdlComplexType.properties = theCurrentCsdlProperties
+      theCurrentCsdlProperties.removeAll()
+      let myFQName = FullQualifiedName(namespace: (theCurrentSchema?.theNamespace)!, name: theCurrentCsdlComplexType.name!)
+      let myEdmComplexType = EdmComplexTypeImpl(edm: theEdm, name: myFQName, complexType: theCurrentCsdlComplexType)
+      theCurrentCsdlComplexType = CsdlComplexType()
+      theCurrentComplexTypes.append(myEdmComplexType)
+    }
   }
   
   // Callback method for NSXMLParser.
@@ -184,6 +220,19 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
   }
   
   private func createEdmKeyPropertyRef(anAttributeDict: [String: String]) -> EdmKeyPropertyRef {
+    // Create the CsdlProperty
+    let myCsdlProperty = createCsdlProperty(anAttributeDict)
+    
+    // Create the EdmProperty
+    let myEdmProperty = EdmPropertyImpl(edm: theEdm, property: myCsdlProperty)
+    
+    // Create the EdmKeyPropertyRef
+    let myName = anAttributeDict["Name"]
+    let myEdmKeyPropertyRef = EdmKeyPropertyRefImpl(aName: myName!, anAlias: myName!, anEdmProperty: myEdmProperty)
+    return myEdmKeyPropertyRef
+  }
+
+  private func createCsdlProperty(anAttributeDict: [String: String]) -> CsdlProperty {
     let myName = anAttributeDict["Name"]
     let myType = anAttributeDict["Type"]
     let myNullableString = anAttributeDict["Nullable"]
@@ -209,13 +258,7 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
     if (myMaxLengthExists && (Int(anAttributeDict["MaxLength"]!) != nil)) {
       myCsdlProperty.setMaxLength(myMaxLength)
     }
-    
-    // Create the EdmProperty
-    let myEdmProperty = EdmPropertyImpl(edm: theEdm, property: myCsdlProperty)
-    
-    // Create the EdmKeyPropertyRef
-    let myEdmKeyPropertyRef = EdmKeyPropertyRefImpl(aName: myName!, anAlias: myName!, anEdmProperty: myEdmProperty)
-    return myEdmKeyPropertyRef
+    return myCsdlProperty
   }
 
 }
