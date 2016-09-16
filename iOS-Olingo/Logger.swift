@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  Logger.swift
@@ -26,11 +27,13 @@
 //  Copyright © 2016 EnergySys. All rights reserved.
 //
 
-// Simple logging mechanism to wrap NSLog
+
 import Foundation
 
-
+// Simple logging mechanism to wrap NSLog
 public struct Log {
+  // MARK: - Stored Properties
+
   public enum LogMode : Int {
     case DEBUG = 1
     case INFO = 2
@@ -39,14 +42,23 @@ public struct Log {
     case NONE = 5
   }
   
-  public var logMode = LogMode(rawValue: 2)
+  public var logMode = LogMode(rawValue: 4)
   
+  // MARK: - Computed Properties
+
   public var isDebug:Bool {
     get {
       return logMode == LogMode.DEBUG
     }
   }
   
+  // MARK: - Methods
+   
+  /// write message to log if logging mode is debug or info
+  /// - parameters:
+  ///   - logMsg: message to log
+  /// - returns: No return value (void)
+  /// - throws: No error conditions are expected
   func info (logMsg:String) {
     if logMode?.rawValue <= LogMode.INFO.rawValue {
       let msg = "INFO: \(logMsg)"
@@ -54,6 +66,11 @@ public struct Log {
     }
   }
   
+  /// write message to log if logging mode is debug,info or warning
+  /// - parameters:
+  ///   - logMsg: message to log
+  /// - returns: No return value (void)
+  /// - throws: No error conditions are expected
   func warn (logMsg:String) {
     if logMode?.rawValue <= LogMode.WARNING.rawValue {
       let msg = "WARNING: \(logMsg)"
@@ -61,6 +78,11 @@ public struct Log {
     }
   }
   
+  /// write message to log if logging mode is debug,info, warning or error
+  /// - parameters:
+  ///   - logMsg: message to log
+  /// - returns: No return value (void)
+  /// - throws: No error conditions are expected
   func error (logMsg:String) {
     if logMode?.rawValue <= LogMode.ERROR.rawValue {
       let msg = "ERROR: \(logMsg)"
@@ -68,6 +90,11 @@ public struct Log {
     }
   }
   
+  /// write message to log if logging mode is debug
+  /// - parameters:
+  ///   - logMsg: message to log
+  /// - returns: No return value (void)
+  /// - throws: No error conditions are expected
   func debug (logMsg:String) {
     if logMode?.rawValue <= LogMode.DEBUG.rawValue {
       let msg = "DEBUG: \(logMsg)"

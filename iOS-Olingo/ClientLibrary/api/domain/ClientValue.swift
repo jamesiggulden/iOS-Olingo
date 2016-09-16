@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ClientValue.swift
@@ -31,42 +32,43 @@ import Foundation
 /// Protocol for an abstract representation of an OData entity property value
 public protocol ClientValue {
   
+  // MARK: - Protocol Properties
   
   /// Type name
   var typeName:String? {get}
-  
   /// Check is a primitive value
   var isPrimitive: Bool {get}
-  
   /// Casts to primitive value
   var asPrimitive: ClientPrimitiveValue? {get}
-  
   /// Check is a collection value
   var isCollection: Bool {get}
-  
   /// Casts to collection value
   var asCollection: ClientCollectionValue? {get}
   //<T extends ClientValue> ClientCollectionValue<T> asCollection()
-  
   /// Casts to complex value
-  var  asComplex: ClientComplexValue? {get}
-  
+  var asComplex: ClientComplexValue? {get}
   /// Check is a complex value
   var isComplex: Bool {get}
+  /// Check is is an enum value
+  var isEnum: Bool {get}
+  /// Casts to an enum value
+  var asEnum: ClientEnumValue? {get}
   
-  /**
-   * Check is is an enum value.
-   *
-   * @return 'TRUE' if enum 'FALSE' otherwise.
-   */
-  func isEnum() -> Bool
+  // MARK: - Protocol Methods
+  func isEqualTo(other:ClientValue) -> Bool
   
-  /**
-   * Casts to enum value.
-   *
-   * @return enum value.
-   */
-  func asEnum() -> ClientEnumValue
-  
+}
+
+extension ClientValue where Self:Equatable {
+
+  public func isEqualTo(other:ClientValue) -> Bool {
+    
+    // TODO: equality check
+    if let o = other as? Self {
+      return self == o
+    }
+    return true
+  }
+
 }
 

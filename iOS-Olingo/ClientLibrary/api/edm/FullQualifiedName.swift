@@ -17,7 +17,7 @@
   under the License.
  */
 
-
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  FullQualifiedName.swift
@@ -36,22 +36,18 @@ public final class FullQualifiedName { //implements Serializable {
   
   // MARK: - Stored Properties
 
-
   private static let serialVersionUID:Int = -4063629050858999076
   
   public final let namespace:String
   public final let name:String
   public final let fqn:String
   
-  
   // MARK: - Computed Properties
-  
   
 
   // MARK: - Init
    
   /// Create the FQN with given namespace and name
-
   /// - parameters:
   ///   - namespace: namespace of FQN
   ///   - name: name of FQN
@@ -86,35 +82,47 @@ public final class FullQualifiedName { //implements Serializable {
   }
 
   // MARK: - Methods
-
-  // TODO: func equals(Object o) -> Bool
-  public func equals(Object o:AnyObject) -> Bool {
-    if (self === o) {
-      return true
-    }
-    if self.dynamicType != o.dynamicType {
-      return false
-    }
-    
-    let that =  o as! FullQualifiedName
-    if self.name == that.name && self.namespace == that.namespace {
-      return true
-    }
-    else {
-      return false
-    }
-    //return (namespace == nil ? that.namespace == nil : namespace.equals(that.namespace)) && (name == nil ? that.name == nil : name.equals(that.name))
-  }
   
   // TODO: func hashCode() -> Int
 //  public func hashCode() -> Int {
 //    return fqn.isEmpty ? 0 : fqn.hashCode()
 //  }
   
-  
   public func toString() -> String {
     return fqn
   }
-  
 
 }
+
+// MARK: - Extension
+
+extension FullQualifiedName:Equatable {}
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:FullQualifiedName,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is FullQualifiedName) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? FullQualifiedName else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  if lhs.name == rhs.name && lhs.namespace == rhs.namespace {
+    return true
+  }
+  else {
+    return false
+  }
+}
+
+

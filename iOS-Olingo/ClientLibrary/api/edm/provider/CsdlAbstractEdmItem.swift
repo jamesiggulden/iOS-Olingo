@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  CsdlAbstractEdmItem.swift
@@ -38,10 +39,8 @@ public class CsdlAbstractEdmItem {
   /// - returns: the first item found
   /// - throws: No error conditions are expected
   func getOneByName <T:CsdlNamed> (name:String, items: [T]) -> T? {
-    
     let result = getAllByName(name, items: items)
     return result.isEmpty ? nil : result[0]
-  
   }
   
   /// Gets all csdl items with the specified name

@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ServiceDocumentItemImpl.swift
@@ -54,44 +55,60 @@ public final class ServiceDocumentItemImpl: ServiceDocumentItem {
 //    return result
 //  }
   
-  // TODO: func equals(Object obj) -> Bool
-//  public func equals(Object obj) -> Bool {
-//    if (this == obj) {
-//      return true
-//    }
-//    if (obj == null) {
-//      return false
-//    }
-//    if (!(obj instanceof ServiceDocumentItemImpl)) {
-//      return false
-//    }
-//    ServiceDocumentItemImpl other = (ServiceDocumentItemImpl) obj
-//    if (name == null) {
-//      if (other.name != null) {
-//        return false
-//      }
-//    } else if (!name.equals(other.name)) {
-//      return false
-//    }
-//    if (title == null) {
-//      if (other.title != null) {
-//        return false
-//      }
-//    } else if (!title.equals(other.title)) {
-//      return false
-//    }
-//    if (url == null) {
-//      if (other.url != null) {
-//        return false
-//      }
-//    } else if (!url.equals(other.url)) {
-//      return false
-//    }
-//    return true
-//  }
-  
 
   public func toString() -> String {
     return "ServiceDocumentItemImpl{name='\(name)', url='\(url)', title='\(title)'}"
   }
+
 }
+
+extension ServiceDocumentItemImpl:Equatable {}
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:ServiceDocumentItemImpl,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is ServiceDocumentItemImpl) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? ServiceDocumentItemImpl else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  if lhs.name.isEmpty {
+    if !rhs.name.isEmpty {
+      return false
+    }
+  }
+  else if lhs.name != rhs.name {
+    return false
+  }
+  if lhs.title.isEmpty {
+    if !rhs.title.isEmpty {
+      return false
+    }
+  }
+  else if lhs.title != rhs.title {
+    return false
+  }
+  if lhs.url.isEmpty {
+    if !rhs.url.isEmpty {
+      return false
+    }
+  }
+  else if lhs.url != rhs.url {
+    return false
+  }
+  return true
+  
+}
+
+

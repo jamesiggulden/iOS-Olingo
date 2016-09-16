@@ -30,7 +30,11 @@ import Foundation
 
  /// ODataHeaders wraps OData request/response headers
 public protocol ODataHeaders {
-
+  
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
+  
   var headers:[String:String] {get}
 
   /// Gets the value of the header identified by the given name
@@ -41,7 +45,6 @@ public protocol ODataHeaders {
   /// - throws: No error conditions are expected
   func getHeader(name:String) -> String!
   
-  
   /// Gets header names
   /// Please note that header name is case-insensitive
   /// - parameters:
@@ -50,7 +53,6 @@ public protocol ODataHeaders {
   /// - throws: No error conditions are expected
   func getHeaderNames()-> [String]
   
-  
   /// Add the specified (custom) header (header name is case-insensitive)
   /// - parameters:
   ///   - name: header key
@@ -58,7 +60,6 @@ public protocol ODataHeaders {
   /// - returns: the current updated header instance
   /// - throws: No error conditions are expected
   func setHeader(name:String,value:String) -> ODataHeadersImpl
-  
   
   /// Removes the header identified by the given name
   /// Please note that header name is case-insensitive.

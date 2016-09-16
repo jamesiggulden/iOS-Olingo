@@ -1,22 +1,23 @@
 /*
-  Licensed to the Apache Software Foundation (ASF) under one
-  or more contributor license agreements.  See the NOTICE file
-  distributed with this work for additional information
-  regarding copyright ownership.  The ASF licenses this file
-  to you under the Apache License, Version 2.0 (the
-  "License"); you may not use this file except in compliance
-  with the License.  You may obtain a copy of the License at
+ Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements.  See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership.  The ASF licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
  
-    http://www.apache.org/licenses/LICENSE-2.0
+ http://www.apache.org/licenses/LICENSE-2.0
  
-  Unless required by applicable law or agreed to in writing,
-  software distributed under the License is distributed on an
-  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-  KIND, either express or implied.  See the License for the
-  specific language governing permissions and limitations
-  under the License.
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  AbstractODataRequest.swift
@@ -31,7 +32,7 @@ import Foundation
 
 public class AbstractODataRequest: Request {
   
-// MARK: - Stored Properties
+  // MARK: - Stored Properties
   
   /// odata Client instance
   var odataClient: ODataClient
@@ -62,28 +63,19 @@ public class AbstractODataRequest: Request {
   
   public var httpResponseContent:HttpResponseContent!
   
-// MARK: - Computed Properties
+  // MARK: - Computed Properties
   
   var headerNames: [String] {
     return odataHeaders.getHeaderNames()
-
   }
   
   var header: ODataHeadersImpl {
     return odataHeaders
   }
   
-// MARK: - Methods
+  // MARK: - Methods
   
-  /**
-   * Constructor.
-   *
-   * @param odataClient client instance getting this request
-   * @param method HTTP request method. If configured X-HTTP-METHOD header will be used.
-   * @param uri OData request URI.
-   */
-  
-   init (odataClient: ODataClient, method: HttpMethod,uri:NSURL) {
+  init (odataClient: ODataClient, method: HttpMethod,uri:NSURL) {
     //super();
     
     self.odataClient = odataClient
@@ -94,12 +86,9 @@ public class AbstractODataRequest: Request {
     
     // target uri
     self.uri = uri
-  
+    
     // current httpsession
     self.httpSession = odataClient.httpSession
-    
-
-    
     
     // TODO: getURIRequest (Obsolete?)
     // self.request = odataClient.configuration.getHttpUriRequestFactory().create(self.method, uri);
@@ -107,7 +96,10 @@ public class AbstractODataRequest: Request {
   
   //public abstract ContentType getDefaultFormat();
   public func getDefaultFormat() -> ContentType {
-    fatalError("Must override")
+    // only implemented to test viability of enforcing the creation of the method in a concrete class.
+    // Swift does not provide an abstarct method capability.
+    // Alternative it is create a protocol for this abstract class
+    return odataClient.configuration.defaultPubFormat
   }
   
   public func setFormat(contentType:ContentType!) {
@@ -135,13 +127,13 @@ public class AbstractODataRequest: Request {
     return self
   }
   
- 
+  
   public func setIfNoneMatch(value: String) -> AbstractODataRequest {
     odataHeaders.setHeader(HttpHeader.IF_NONE_MATCH.rawValue, value: value)
     return self
   }
   
-
+  
   public func setPrefer(value:String) -> AbstractODataRequest {
     odataHeaders.setHeader(HttpHeader.PREFER.rawValue, value: value)
     return self
@@ -151,19 +143,19 @@ public class AbstractODataRequest: Request {
     odataHeaders.setHeader(HttpHeader.X_HTTP_METHOD.rawValue, value: value)
     return self
   }
-
+  
   public func setContentType(value: String) -> AbstractODataRequest {
     odataHeaders.setHeader(HttpHeader.CONTENT_TYPE.rawValue, value: value)
     return self
   }
   
- 
+  
   public func addCustomHeader(name: String,value: String) -> AbstractODataRequest {
     odataHeaders.setHeader(name, value: value)
     return self
   }
   
-
+  
   public func getAccept() -> String {
     let acceptHead:String? = odataHeaders.getHeader(HttpHeader.ACCEPT.rawValue)
     if let acceptHead = acceptHead{
@@ -188,7 +180,7 @@ public class AbstractODataRequest: Request {
     return odataHeaders.getHeader(HttpHeader.PREFER.rawValue)
   }
   
- 
+  
   public func getContentType()-> String  {
     let contentTypeHead:String? = odataHeaders.getHeader(HttpHeader.CONTENT_TYPE.rawValue)
     
@@ -198,23 +190,19 @@ public class AbstractODataRequest: Request {
     else{
       return getDefaultFormat().toContentTypeString()
     }
-
+    
   }
   
-   
-  /// Build the HHTP request, execute it and get response
+  /// Build the HTTP request, execute it and get response
   /// - parameters:
   ///   - none
   /// - returns: HTTP response struct
   /// - throws: HTTP error exception if error returned or if HTTP status code >= 200
-  func doExecute() throws -> HttpResponseContent? {
+  func doExecute() throws -> HttpResponseContent {
     
     //TODO:  Enable check request once we pass in the request object
-    // Always callaed but only required for EDM enabled clients so just stubbed for now
-     // checkRequest(odataClient, request)
-    
-    // TODO:  Enable the building of headers when we have confirmed how it works
-    // Set Content-Type and Accept headers with default values, if not yet set
+    // Always called but only required for EDM enabled clients so just stubbed for now
+    // checkRequest(odataClient, request)
     
     if odataHeaders.getHeader(HttpHeader.CONTENT_TYPE.rawValue)?.isEmpty ?? true {
       setContentType(getContentType())
@@ -234,7 +222,7 @@ public class AbstractODataRequest: Request {
     request.HTTPMethod = self.httpMethod
     request.cachePolicy = NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData
     request.HTTPBody = "".dataUsingEncoding(NSUTF8StringEncoding)
-
+    
     // Add all available headers to the request
     for (name,value) in odataHeaders.headers {
       request.addValue(value, forHTTPHeaderField: name)
@@ -251,14 +239,13 @@ public class AbstractODataRequest: Request {
         
       }
     }
-
     
     // build the closure to submit the request and handle response
     httpSession.sendSynchronousRequest(request) {
       (let data, let response, let error) in
       
       guard let _:NSData = data, let _:NSURLResponse = response where error == nil else {
-        print ("error")
+        log.error("Error occured in httpSession.sendSynchronousRequest")
         return
       }
       let dataString = NSString(data:data!,encoding: NSUTF8StringEncoding)
@@ -266,7 +253,6 @@ public class AbstractODataRequest: Request {
       
       log.debug(String(dataString))
       log.debug(String(httpResponse!.statusCode))
-      
       
       if log.logMode == Log.LogMode.DEBUG {
         if let dataDictionary = self.parseHttpData(data) {
@@ -284,27 +270,22 @@ public class AbstractODataRequest: Request {
         else {
           log.debug ("No data returned")
         }
-        
-        
-        
-
       }
       self.httpResponseContent = HttpResponseContent(data: data!,response: httpResponse!)
-
     }
-    
-    if (self.httpResponseContent != nil) {
-      log.debug("Status Code: \(self.httpResponseContent.response.statusCode)")
-      return httpResponseContent
+    if self.httpResponseContent == nil {
+      log.warn("No response returned")
+      throw HttpError.HttpRequestFailed
     }
-    else {
-      return nil
-    }
-    
+    log.debug("Status Code: \(self.httpResponseContent.response.statusCode)")
+    return httpResponseContent
   }
   
-  
-  // This helper method helps parse response JSON NSData into an array of customer objects.
+  /// parse response JSON NSData into a dictionary of customer objects
+  /// - parameters:
+  ///   - data: JSON data
+  /// - returns: dictionary of key value pairs of JSON data
+  /// - throws: No errors expected
   public func parseHttpData(data: NSData?) -> [String:AnyObject]! {
     do {
       if let data = data, response = try NSJSONSerialization.JSONObjectWithData(data, options:NSJSONReadingOptions(rawValue:0)) as? [String: AnyObject] {
@@ -320,81 +301,78 @@ public class AbstractODataRequest: Request {
             }
             else
             {
-              print("Not a dictionary")
+              log.error("Not a dictionary")
               return nil
             }
           }
         } else {
-          print("Value key not found in dictionary")
-          //self.responseStatusLabel.text = "Value key not found in dictionary"
+          log.warn("Value key not found in dictionary")
         }
       } else {
-        print("JSON Error")
-        //self.responseStatusLabel.text = "JSON Error"
+        log.error("JSON Error")
+        
       }
     } catch let error as NSError {
-      print("Error parsing results: \(error.localizedDescription)")
-      //self.responseStatusLabel.text = "Error parsing results: \(error.localizedDescription)"
+      log.error("Error parsing results: \(error.localizedDescription)")
     }
     return nil
-    }
   }
-  
-  // TODO:  func toByteArray()
-  // public func toByteArray() -> [UInt8] {  // translated java Byte to UInt8 ?
-  //    let baos = ByteArrayOutputStream()
-  //    try {
-  //      let requestBuilder = StringBuilder()
-  //      requestBuilder.append(getMethod().toString()).append(' ').append(uri.toString()).append(' ').append("HTTP/1.1");
-  //
-  //      baos.write(requestBuilder.toString().getBytes());
-  //
-  //      baos.write(ODataStreamer.CRLF);
-  //
-  //      // Set Content-Type and Accept headers with default values, if not yet set
-  //      if (StringUtils.isBlank(odataHeaders.getHeader(HttpHeader.CONTENT_TYPE))) {
-  //        setContentType(getContentType());
-  //      }
-  //      if (StringUtils.isBlank(odataHeaders.getHeader(HttpHeader.ACCEPT))) {
-  //        setAccept(getAccept());
-  //      }
-  //
-  //      for (String name : getHeaderNames()) {
-  //        final String value = getHeader(name);
-  //
-  //        if (StringUtils.isNotBlank(value)) {
-  //          baos.write((name + ": " + value).getBytes());
-  //          baos.write(ODataStreamer.CRLF);
-  //        }
-  //      }
-  //
-  //      return baos.toByteArray();
-  //    } catch (IOException e) {
-  //      throw new IllegalStateException(e);
-  //    } finally {
-  //      IOUtils.closeQuietly(baos);
-  //    }
-  // }
-  
-  // TODO: func rawExecute()
-  
-  //  public func rawExecute() -> InputStream {
-  //    try {
-  //      final HttpEntity httpEntity = doExecute().getEntity();
-  //      return httpEntity == null ? null : httpEntity.getContent();
-  //    } catch (IOException e) {
-  //      throw new HttpClientException(e);
-  //    } catch (RuntimeException e) {
-  //      self.request.abort();
-  //      throw new HttpClientException(e);
-  //    }
-  //  }
+}
 
-  
-  // TODO: func getResponseTemplate()
+// TODO:  func toByteArray()
+// public func toByteArray() -> [UInt8] {  // translated java Byte to UInt8 ?
+//    let baos = ByteArrayOutputStream()
+//    try {
+//      let requestBuilder = StringBuilder()
+//      requestBuilder.append(getMethod().toString()).append(' ').append(uri.toString()).append(' ').append("HTTP/1.1");
+//
+//      baos.write(requestBuilder.toString().getBytes());
+//
+//      baos.write(ODataStreamer.CRLF);
+//
+//      // Set Content-Type and Accept headers with default values, if not yet set
+//      if (StringUtils.isBlank(odataHeaders.getHeader(HttpHeader.CONTENT_TYPE))) {
+//        setContentType(getContentType());
+//      }
+//      if (StringUtils.isBlank(odataHeaders.getHeader(HttpHeader.ACCEPT))) {
+//        setAccept(getAccept());
+//      }
+//
+//      for (String name : getHeaderNames()) {
+//        final String value = getHeader(name);
+//
+//        if (StringUtils.isNotBlank(value)) {
+//          baos.write((name + ": " + value).getBytes());
+//          baos.write(ODataStreamer.CRLF);
+//        }
+//      }
+//
+//      return baos.toByteArray();
+//    } catch (IOException e) {
+//      throw new IllegalStateException(e);
+//    } finally {
+//      IOUtils.closeQuietly(baos);
+//    }
+// }
+
+// TODO: func rawExecute()
+
+//  public func rawExecute() -> InputStream {
+//    try {
+//      final HttpEntity httpEntity = doExecute().getEntity();
+//      return httpEntity == null ? null : httpEntity.getContent();
+//    } catch (IOException e) {
+//      throw new HttpClientException(e);
+//    } catch (RuntimeException e) {
+//      self.request.abort();
+//      throw new HttpClientException(e);
+//    }
+//  }
+
+
+// TODO: func getResponseTemplate()
 //  /**
 //   * Gets an empty response that can be initialized by a stream.
-//   * <br/>
 //   * This method has to be used to build response items about a batch request.
 //   *
 //   * @param <V> ODataResponse type.
@@ -414,10 +392,10 @@ public class AbstractODataRequest: Request {
 //        }
 //      }
 //    }
-//    
+//
 //    throw new IllegalStateException("No response class template has been found");
 //  }
-  
+
 //  TODO: func getHttpClient
 //  private func getHttpClient(method:HttpMethod, uri:NSURL) -> HttpClient {
 //
@@ -428,5 +406,4 @@ public class AbstractODataRequest: Request {
 //    }
 //  return client;
 //  }
-  
 

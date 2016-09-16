@@ -18,6 +18,8 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
+
 //
 //  IEntityCollection.swift
 //  iOS-Olingo
@@ -29,7 +31,13 @@
 import Foundation
 
 public protocol IEntityCollection {
+  
+  // MARK: - Protocol Properties
+  
   var count:Int  {get set}
   var next: NSURL? {get set}
   var deltaLink: NSURL?  {get set}
+  
+  // MARK: - Protocol Methods
+  
 }

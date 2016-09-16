@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmElement.swift
@@ -31,5 +32,10 @@ import Foundation
 
 /// An EdmElement can either be an EdmNavigationProperty, an EdmProperty or an EdmParameter
 public protocol EdmElement : EdmNamed, EdmTyped {
+  
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
+  
   // No additional methods needed for now.
 }

@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmActionImport.swift
@@ -31,6 +32,10 @@ import Foundation
 /// An EdmActionImport element
 public protocol EdmActionImport: EdmOperationImport {
   
+  // MARK: - Protocol Properties
+  
   /// Gets unbound action
   var unboundAction: EdmAction {get}
+  
+  // MARK: - Protocol Methods
 }

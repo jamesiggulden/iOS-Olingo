@@ -54,33 +54,7 @@ public class ODataEntitySetResponse : AbstractODataResponse, ODataRetrieveRespon
     return "Unsupported operation"
   }
   
-  /*
-  public func getBody2(entityCollection :EntityCollection? = nil) throws -> EntityCollection? {
-    var _entityCollection = entityCollection
-    if (_entityCollection == nil) {
-    do {
-      let contentType = ContentType.parse(self.contentType)!
-      let  x = odataClient.getDeserializer(contentType)
-      let resource = try x.toEntitySet(self.res.data)
-      // let resource = try x.toEntitySet(self.getRawResponse())
-          
-      let binder = odataClient.binder
-      if let resource = resource {
-        _entityCollection = binder.getODataEntitySet(resource)
-        // let entityCollection = odataClient.getBinder().getODataEntitySet(resource)
-      }
-    }
-    catch  {
-      throw IllegalArgumentException.InvalidFormat
-    }
-      defer {
-        self.close()
-  }
-        }
-        return entityCollection
-      }
- */
-
+  
 }
 
 

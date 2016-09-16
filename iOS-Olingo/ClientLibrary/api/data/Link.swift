@@ -17,7 +17,7 @@
   under the License.
  */
 
-
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  Link.swift
@@ -42,10 +42,8 @@ public class Link {  //extends Annotatable {
   public var mediaETag:String = "" //GS
   public lazy var entity:Entity = Entity()  //GS
   public lazy var entitySet:EntityCollection = EntityCollection() //GS
-  
   /// If this is a "toOne" relationship this method delivers the binding link or ""(isEmpty) if not set
   public var bindingLink:String = ""
-  
   /// If this is a "toMany" relationship this method delivers the binding links or `emptyList` if not set
   public var bindingLinks:[String] = [String]()
   
@@ -68,39 +66,11 @@ public class Link {  //extends Annotatable {
       self.entitySet = entitySet
     }
   }
-
   
   // MARK: - Init
   
-  init() {
-    //self.entity = Entity()
-  //  self.entitySet = EntityCollection()
-  }
 
   // MARK: - Methods
-  
-
-  // TODO: func  equals(o:Object) -> Bool
-//  public func equals(o:Object) -> Bool{
-//    if (this === o) {
-//      return true
-//    }
-//    if (o == null || getClass() != o.getClass()) {
-//      return false
-//    }
-//    
-//    final Link other = (Link) o
-//    return getAnnotations().equals(other.getAnnotations())
-//      && (title == null ? other.title == null : title.equals(other.title))
-//      && (rel == null ? other.rel == null : rel.equals(other.rel))
-//      && (href == null ? other.href == null : href.equals(other.href))
-//      && (type == null ? other.type == null : type.equals(other.type))
-//      && (mediaETag == null ? other.mediaETag == null : mediaETag.equals(other.mediaETag))
-//      && (entity == null ? other.entity == null : entity.equals(other.entity))
-//      && (entitySet == null ? other.entitySet == null : entitySet.equals(other.entitySet))
-//      && (bindingLink == null ? other.bindingLink == null : bindingLink.equals(other.bindingLink))
-//      && bindingLinks.equals(other.bindingLinks)
-//  }
   
   // TODO: func hashCode() -> Int
 //  public func hashCode() -> Int {
@@ -116,4 +86,67 @@ public class Link {  //extends Annotatable {
 //    result = 31 * result + bindingLinks.hashCode()
 //    return result
 //  }
+  
 }
+
+// MARK: - Extension
+
+extension Link:Equatable {}
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:Link,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is Link) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? Link else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  
+  if lhs.title.isEmpty ? lhs.title != rhs.title : !rhs.title.isEmpty {
+    return false
+  }
+  if lhs.rel.isEmpty ? lhs.rel != lhs.rel : !rhs.rel.isEmpty {
+    return false
+  }
+  if lhs.href.isEmpty ? lhs.href != rhs.href : !rhs.href.isEmpty {
+    return false
+  }
+  if lhs.type.isEmpty ? lhs.type != lhs.type : !rhs.type.isEmpty {
+    return false
+  }
+  if lhs.mediaETag.isEmpty ? lhs.mediaETag != rhs.mediaETag : !rhs.mediaETag.isEmpty {
+    return false
+  }
+  if lhs.entity != rhs.entity {
+    return false
+  }
+  if lhs.entitySet != rhs.entitySet {
+    return false
+  }
+  if lhs.bindingLink.isEmpty ? lhs.bindingLink != lhs.bindingLink : !rhs.bindingLink.isEmpty {
+    return false
+  }
+  if lhs.bindingLinks.isEmpty ? lhs.bindingLinks != rhs.bindingLinks : !rhs.bindingLinks.isEmpty {
+    return false
+  }
+  // TO: Annotations
+  /*
+  if lhs.annotations != rhs.getAnnotations
+    return false
+  }
+ */
+  return true
+
+}
+

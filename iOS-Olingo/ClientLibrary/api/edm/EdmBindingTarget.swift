@@ -17,6 +17,8 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
+
 //  EdmBindingTarget.swift
 //  iOS-Olingo
 //  Created by Greg Napier on 14/07/2016.
@@ -26,6 +28,8 @@ import Foundation
 
 // Entity Sets or Singletons can be bound to each other using a navigation property binding so an EdmBindingTarget can either be an {@link EdmEntitySet} or an {@link EdmSingleton}
 public protocol EdmBindingTarget : EdmNamed, EdmMappable { // TODO: EdmAnnotatable,
+  
+  // MARK: - Protocol Methods
   
   // Returns a human readable title or null if not set.
   func getTitle() -> String

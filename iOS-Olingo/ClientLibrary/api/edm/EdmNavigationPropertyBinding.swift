@@ -18,6 +18,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmNavigationPropertyBinding.swift
@@ -32,10 +33,13 @@ import Foundation
 /// A navigation property binding which binds entity sets or singletons with each other
 public protocol EdmNavigationPropertyBinding {
   
-  /// A path contains the full qualified name of the type it is referring to as a first segment. If it is a type nested inside another type the path is separated by forward slashes
- var path:String {get}
+  // MARK: - Protocol Properties
   
+  /// A path contains the full qualified name of the type it is referring to as a first segment. If it is a type nested inside another type the path is separated by forward slashes
+  var path:String {get}
   /// return the entity set or singleton this binding refers to
   var target: String {get}
+  
+  // MARK: - Protocol Methods
   
 }

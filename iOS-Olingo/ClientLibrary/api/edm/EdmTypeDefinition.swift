@@ -18,6 +18,8 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
+
 //
 //  EdmTypeDefinition.swift
 //  iOS-Olingo
@@ -32,33 +34,20 @@ import Foundation
  
 public protocol EdmTypeDefinition:EdmPrimitiveType, EdmAnnotatable {
   
+  // MARK: - Protocol Properties
   
    /// return EdmPrimitiveTyp this type definition is based upon
-   
   var underlyingType: EdmPrimitiveType {get}
-  
-  
    /// return the maximum length as an Integer or null if not specified
-   
-  var getMaxLength:Int {get}
-  
-  
+  var maxLength:Int {get}
    /// return the precision as an Integer or null if not specified
-   
-  var getPrecision:Int {get}
-  
-  
+  var precision:Int {get}
    /// return the scale as an Integer or null if not specified
-   
-  var getScale:Int {get}
-  
-  
-   /// return a non-negative integer or the special value <tt>variable</tt>
-   
-  var getSrid:SRID {get}
-  
-  
+  var scale:Int {get}
+   /// return a non-negative integer or the special value `variable`
+  var srid:SRID {get}
    /// return true if unicode or null if not specified
-   
   var isUnicode:Bool {get}
+  
+  // MARK: - Protocol Methods
 }

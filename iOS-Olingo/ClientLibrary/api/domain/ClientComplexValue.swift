@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ClientComplexValue.swift
@@ -32,13 +33,18 @@ import Foundation
 
 public protocol ClientComplexValue: ClientValue { //TODO: ClientLinked, ClientAnnotatable {
   
+  // MARK: - Protocol Properties
+
+  var size: Int {get}
+  
+  // MARK: - Protocol Methods
+  
   /// Adds field to the complex type
   /// - parameters:
   ///   - field: field to be added
   /// - returns: self
   /// - throws: No error conditions are expected
   func add(field:ClientProperty) -> ClientComplexValue
-  
 
   /// Gets field by name
   /// - parameters:
@@ -47,22 +53,11 @@ public protocol ClientComplexValue: ClientValue { //TODO: ClientLinked, ClientAn
   /// - throws: No error conditions are expected
   func get(name:String) -> ClientProperty?
   
-
-  /// Gets number of fields
+  /// Gets dictionary of swift native types
   /// - parameters:
-  ///   - none
-  /// - returns: number of fields
+  ///   - none:
+  /// - returns: Dictionary of native types
   /// - throws: No error conditions are expected
-  func size() -> Int
-  
-  // TODO Convert to swift equivalent of POJO collection
-  func asSwiftMap() -> [String: Any]
-  /*
-  /**
-   * Converts this instance as POJO collection.
-   *
-   * @return this instance as POJO collection
-   */
-  Map<String, Object> asJavaMap()
- */
+  func asNativeTypeMap() -> [String: Any]
+
 }

@@ -27,7 +27,14 @@
 
 import Foundation
 
+// TODO: Redundent?
+/*
 public protocol HttpUriRequestFactory {
-  
+ 
+ // MARK: - Protocol Properties
+ 
+ // MARK: - Protocol Methods
+ 
   func create(method:HttpMethod, uri:NSURL) -> HttpUriRequest
 }
+*/

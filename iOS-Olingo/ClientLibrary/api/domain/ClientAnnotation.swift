@@ -18,6 +18,8 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
+
 //
 //  ClientAnnotation.swift
 //  iOS-Olingo
@@ -30,7 +32,11 @@ import Foundation
 
 public protocol ClientAnnotation: ClientValuable {
   
+  // MARK: - Protocol Properties
+  
   /// Returns annotation name
   var term:String {get}
+  
+  // MARK: - Protocol Methods
   
 }

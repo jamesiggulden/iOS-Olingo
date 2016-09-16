@@ -12,12 +12,6 @@ import Foundation
 public final class EdmDateTimeOffset:SingletonPrimitiveType {
   
   // MARK: - Stored Properties
-
-  //TODO: Pattern
-  
-  private static let DATE_TIME_PATTERN = "(-?\\p{Digit}{4,})-(\\p{Digit}{2})-(\\p{Digit}{2})T(\\p{Digit}{2}):(\\p{Digit}{2})(?::(\\p{Digit}{2})(\\.(\\p{Digit}{0,12}?)0*)?)?(Z|([-+]\\p{Digit}{2}:\\p{Digit}{2}))?"
- 
-  
   private static let INSTANCE:EdmDateTimeOffset = EdmDateTimeOffset()
   
   // MARK: - Computed Properties
@@ -35,12 +29,8 @@ public final class EdmDateTimeOffset:SingletonPrimitiveType {
   // MARK: - Init
 
   // MARK: - Methods
-  
-
-  
-  
  
-  /// Convert the value provided as a string into the actual value of the specified type
+  /// Convert the value provided as a string into the actual value of the type specified by returnType
   /// - parameters:
   ///   - value: value as string to be converted
   ///   - isnilable: is the value allowed to be nil
@@ -49,14 +39,13 @@ public final class EdmDateTimeOffset:SingletonPrimitiveType {
   ///   - scale: scale value
   ///   - isUnicode: is the value in unicode format
   ///   - returnType: returnType expected
-  
-  /// - returns: NSDate with values obtained from value string
+  /// - returns: value of string of type T
   /// - throws: EDMPrimtiveType Error
   override func internalValueOfString<T>(value:String,isnilable:Bool,maxLength:Int?,precision:Int,scale:Int,isUnicode:Bool,returnType:T) throws -> T {
     
     let dF = NSDateFormatter()
     var nanosecs:String = ""
-    let nanoSeconds:Int
+    var nanoSeconds:Int
     
     // if no defualt timezone provided set to UTC.
     var val = value
@@ -84,6 +73,8 @@ public final class EdmDateTimeOffset:SingletonPrimitiveType {
     guard let dateTimeVal = dF.dateFromString(val) else {
       throw EdmPrimitiveTypeException.LiteralHasIllegalContent
     }
+    // TODO: Manage namseconds values
+    
     if nanosecs.characters.count > 9 {
       throw EdmPrimitiveTypeException.LiteralHasIllegalContent
     }
@@ -103,70 +94,6 @@ public final class EdmDateTimeOffset:SingletonPrimitiveType {
     let dateTimeOffset = convertDateTime(dateTimeVal, nanoSeconds, returnType)
     return dateTimeOffset
      */
-    
-    
-    // TODO: Redundent?  remove code
-    /*
-    
-    final Matcher matcher = PATTERN.matcher(value)
-    if (!matcher.matches()) {
-      throw  EdmPrimitiveTypeException("The literal '" + value + "' has illegal content.")
-    }
-    
-    final String timeZoneOffset = matcher.group(9) == null || matcher.group(10) == null
-      || matcher.group(10).matches("[-+]0+:0+") ? "" : matcher.group(10)
-    
-    final Calendar dateTimeValue = Calendar.getInstance(TimeZone.getTimeZone("GMT" + timeZoneOffset))
-    
-    
-    if (dateTimeValue.get(Calendar.ZONE_OFFSET) == 0 && !timeZoneOffset.isEmpty()) {
-      throw EdmPrimitiveTypeException("The literal '" + value + "' has illegal content.")
-    }
-    dateTimeValue.clear()
-    
-    dateTimeValue.set(
-      Short.parseShort(matcher.group(1)),
-      Byte.parseByte(matcher.group(2)) - 1, // month is zero-based
-      Byte.parseByte(matcher.group(3)),
-      Byte.parseByte(matcher.group(4)),
-      Byte.parseByte(matcher.group(5)),
-      matcher.group(6) == null ? 0 : Byte.parseByte(matcher.group(6)))
-    
-    int nanoSeconds = 0
-    if (matcher.group(7) != null) {
-      if (matcher.group(7).length() == 1 || matcher.group(7).length() > 13) {
-        throw new EdmPrimitiveTypeException("The literal '" + value + "' has illegal content.")
-      }
-      final String decimals = matcher.group(8)
-      if (decimals.length() > (precision == null ? 0 : precision)) {
-        throw new EdmPrimitiveTypeException("The literal '" + value + "' does not match the facets' constraints.")
-      }
-      if (returnType.isAssignableFrom(Timestamp.class)) {
-        if (decimals.length() <= 9) {
-          nanoSeconds = Integer.parseInt(decimals + "000000000".substring(decimals.length()))
-        } else {
-          throw new EdmPrimitiveTypeException("The literal '" + value
-            + "' cannot be converted to value type " + returnType + ".")
-        }
-      } else {
-        if (decimals.length() <= 3) {
-          final String milliSeconds = decimals + "000".substring(decimals.length())
-          dateTimeValue.set(Calendar.MILLISECOND, Short.parseShort(milliSeconds))
-        } else {
-          throw new EdmPrimitiveTypeException("The literal '" + value
-            + "' cannot be converted to value type " + returnType + ".")
-        }
-      }
-    }
-    
-    try {
-      return convertDateTime(dateTimeValue, nanoSeconds, returnType)
-    } catch (final IllegalArgumentException e) {
-      throw new EdmPrimitiveTypeException("The literal '" + value + "' has illegal content.", e)
-    } catch (final ClassCastException e) {
-      throw new EdmPrimitiveTypeException("The value type " + returnType + " is not supported.", e)
-    }
- */
   }
  
   

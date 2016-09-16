@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmReferentialConstraint.swift
@@ -31,10 +32,14 @@ import Foundation
 /// A referential constraint of a navigation property
 public protocol EdmReferentialConstraint  { //TODO:  EdmAnnotatable {
   
+  // MARK: - Protocol Properties
+  
   /// return property name of the property inside this entity type or complex type
   var propertyName:String { get set }
   
   /// return property name of the referenced entity type or complex type
   var referencedPropertyName:String { get set }
+  
+  // MARK: - Protocol Methods
   
 }

@@ -33,12 +33,13 @@ import Foundation
 
 public protocol RetrieveRequestFactory {
   
+  // MARK: - Protocol Properties
+  
   /// Gets a uri request returning a set of one or more sets of OData entities
   /// - parameters:
   ///   - uri: NSURL object containing a URI
   /// - returns: No return value (void) TODO
   /// - throws: No error conditions are expected
-  
   func entitySetIteratorRequest(uri:NSURL)
   
   /// Gets a uri request returning a set of one or more OData entities

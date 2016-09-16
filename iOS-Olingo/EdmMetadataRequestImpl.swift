@@ -73,10 +73,7 @@ public class EdmMetadataRequestImpl:AbstractODataRequest, EdmMetadataRequest {
     var myResponse: EdmMetadataResponseImpl
     do {
       let myResult = try doExecute()
-      if (myResult == nil) {
-        throw ODataException.DataProviderException
-      }
-      myResponse = EdmMetadataResponseImpl(odataClient: odataClient,res: myResult!)
+      myResponse = EdmMetadataResponseImpl(odataClient: odataClient,res: myResult)
     }
     catch {
       throw ODataException.DataProviderException

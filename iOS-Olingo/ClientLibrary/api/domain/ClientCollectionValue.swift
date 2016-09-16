@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ClientCollectionValue.swift
@@ -28,39 +29,29 @@
 
 import Foundation
 
-/**
- * OData collection property value.
- *
- * @param <T> The actual ODataValue interface.
- */
+/// OData collection property value.
 public protocol ClientCollectionValue: ClientValue {
   
-  //associatedtype T:ClientValue
-  /**
-   * Adds a value to the collection.
-   *
-   * @param value value to be added.
-   */
+  // MARK: - Protocol Properties
+  
+  /// Checks if collection is empty
+  var isEmpty:Bool {get}
+  /// Gets number of items in collection
+  var size:Int {get}
+  
+  // MARK: - Protocol Methods
+  
+  /// Adds a value to the collection
+  /// - parameters:
+  ///   - value: new value to add
+  /// - returns: self
+  /// - throws: No error conditions are expected
   func add(value:ClientValue) -> ClientCollectionValue
   
-  /**
-   * Checks if collection is empty.
-   *
-   * @return 'TRUE' if empty; 'FALSE' otherwise.
-   */
-  func isEmpty() -> Bool
-  
-  /**
-   * Gets collection size.
-   *
-   * @return collection size.
-   */
-  func size() -> Int
-  
-  /**
-   * Converts this instance as POJO collection.
-   *
-   * @return this instance as POJO collection
-   */
-  func asSwiftCollection() -> [Any]
+  /// Build array of native swift types
+  /// - parameters:
+  ///   - none
+  /// - returns: array of native types
+  /// - throws: No error conditions are expected
+  func asNativeTypeCollection() -> [Any]
 }

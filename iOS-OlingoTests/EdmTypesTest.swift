@@ -24,7 +24,7 @@ class EdmTypes: XCTestCase {
     
     let edmDec = EdmDecimal()
     let flt:Float = 0.0
-    let val = NSDecimalNumber.init(string: "123.456")
+    let val = NSDecimalNumber.init(float: 123.456)
     do {
       let answer = try edmDec.convertDecimal(val, returnType: flt)
       XCTAssert(answer == 123.456)
@@ -57,7 +57,8 @@ class EdmTypes: XCTestCase {
     let val = NSDecimalNumber.init(string: "123.456")
     do {
       let answer = try edmDec.convertDecimal(val, returnType: dbl)
-      XCTAssert(answer == 123.456)
+      
+      XCTAssert(answer == val)
     }
     catch {
       XCTFail()
@@ -80,8 +81,6 @@ class EdmTypes: XCTestCase {
   }
 
     func testEdmDoubleToDouble() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
       let edmDbl = EdmDouble()
       let dbl:Double = 0.0
       
@@ -97,8 +96,6 @@ class EdmTypes: XCTestCase {
   
   
   func testEdmDoubleToFloat() {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
     let edmDbl = EdmDouble()
     let flt:Float = 0.0
     
@@ -106,6 +103,7 @@ class EdmTypes: XCTestCase {
       let newVal = try edmDbl.internalValueOfString("123.456", isnilable: true, maxLength: 40, precision: 40, scale: 0, isUnicode: true, returnType: flt)
       XCTAssert(newVal.dynamicType == Float.self)
       XCTAssert(newVal == 123.456)
+      
     }
     catch {
       XCTFail()

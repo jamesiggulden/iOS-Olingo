@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  AtomDeserializer.swift
@@ -28,7 +29,7 @@
 
 import Foundation
 
-// Stub this out till we ned to handle Atom deserialization
+// Stub this out till we need to handle Atom deserialization
 public class AtomDeserializer {
 
 }

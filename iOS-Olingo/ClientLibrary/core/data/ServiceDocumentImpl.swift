@@ -17,7 +17,7 @@
   under the License.
  */
 
-
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ServiceDocumentImpl.swift
@@ -83,40 +83,6 @@ public final class ServiceDocumentImpl :ServiceDocument {
     return result
   }
   
-  
-
-  
-  //TODO: func equals(Object o)-> Bool
-//  public func equals(Object o)-> Bool {
-//    if (this == o) {
-//      return true
-//    }
-//    if (o == null || getClass() != o.getClass()) {
-//      return false
-//    }
-//    
-//    ServiceDocumentImpl that = (ServiceDocumentImpl) o
-//    
-//    if (title != null ? !title.equals(that.title) : that.title != null) {
-//      return false
-//    }
-//    if (entitySets != null ? !entitySets.equals(that.entitySets) : that.entitySets != null) {
-//      return false
-//    }
-//    if (functionImports != null ? !functionImports.equals(that.functionImports) : that.functionImports != null) {
-//      return false
-//    }
-//    if (singletons != null ? !singletons.equals(that.singletons) : that.singletons != null) {
-//      return false
-//    }
-//    if (relatedServiceDocuments != null ?
-//      !relatedServiceDocuments.equals(that.relatedServiceDocuments) : that.relatedServiceDocuments != null) {
-//      return false
-//    }
-//    return !(metadata != null ? !metadata.equals(that.metadata) : that.metadata != null)
-//    
-//  }
-  
   // TODO: func hashCode() -> Int
 //  public func hashCode() -> Int {
 //    int result = title != null ? title.hashCode() : 0
@@ -134,3 +100,88 @@ public final class ServiceDocumentImpl :ServiceDocument {
     return output
   }
 }
+
+// MARK: - Extension
+
+extension ServiceDocumentImpl:Equatable {}
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:ServiceDocumentImpl,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is ServiceDocumentImpl) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? ServiceDocumentImpl else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  
+  if lhs.title.isEmpty ? lhs.title != rhs.title : !rhs.title.isEmpty {
+    return false
+  }
+  // Array checks
+  var i = 0
+  if lhs.entitySets.count != rhs.entitySets.count {
+    return false
+  }
+  else {
+    for entitySet in lhs.entitySets {
+      if !(entitySet.isEqualTo(rhs.entitySets[i])) {
+        return false
+      }
+      i += 1
+    }
+  }
+  if lhs.functionImports.count != rhs.functionImports.count {
+    return false
+  }
+  else {
+    i = 0
+    for functionImport in lhs.functionImports {
+      if !(functionImport.isEqualTo(rhs.functionImports[i])) {
+        return false
+      }
+      i += 1
+    }
+  }
+  if lhs.singletons.count != rhs.singletons.count {
+    return false
+  }
+  else {
+    i = 0
+    for singleton in lhs.singletons {
+      if !(singleton.isEqualTo(rhs.singletons[i])) {
+        return false
+      }
+      i += 1
+    }
+  }
+  if lhs.relatedServiceDocuments.count != rhs.relatedServiceDocuments.count {
+    return false
+  }
+  else {
+    i = 0
+    for relatedServiceDocuments in lhs.relatedServiceDocuments {
+      if !(relatedServiceDocuments.isEqualTo(rhs.relatedServiceDocuments[i])) {
+        return false
+      }
+      i += 1
+    }
+  }
+  if lhs.metadata != rhs.metadata {
+    return false
+  }
+  return true
+}
+
+
+

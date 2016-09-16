@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ODataEntitySetRequest.swift
@@ -32,13 +33,13 @@ import Foundation
  // Protocol to describe an OData EntitySet query request.
 
 public protocol ODataEntitySetRequest: ODataRetrieveRequest {
-  //No additional methods needed for now
+  
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
   
   func execute() -> ODataEntitySetRetrieveResponse?
   
 }
 
-//public interface ODataEntitySetRequest<ES extends ClientEntitySet> extends ODataRetrieveRequest<ES> {
-//  //No additional methods needed for now.
-//}
 

@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ClientPrimitiveValueImpl.swift
@@ -44,6 +45,18 @@ public class ClientPrimitiveValueImpl: AbstractClientValue, ClientPrimitiveValue
   
   // MARK: - Computed Properties
   
+  override public var isComplex: Bool {
+    return false
+  }
+  
+  override public var isEnum: Bool {
+    return false
+  }
+  
+  override public var asEnum: ClientEnumValue? {
+    return nil
+  }
+  
   //TODO: typename exist in superclass but we are getting it from typekind??
 //  public var typeName {
 //    get{
@@ -59,105 +72,109 @@ public class ClientPrimitiveValueImpl: AbstractClientValue, ClientPrimitiveValue
   }
   
   // MARK: - Methods
-
+  
   // TODO: func getTypeName() -> String
   /*
-  public func getTypeName() -> String {
-    return typeKind.getFullQualifiedName().toString()
-  }
- */
+   public func getTypeName() -> String {
+   return typeKind.getFullQualifiedName().toString()
+   }
+   */
   
   // TODO: func toCastValue<T>(reference:T ) throws -> T
-//  public func toCastValue<T>(reference:T ) throws -> T {
-//  //public <T> T toCastValue(final Class<T> reference) throws EdmPrimitiveTypeException {
-//    if (typeKind.isGeospatial()) {
-//      return reference.cast(value)
-//    } else {
-//      // TODO: set facets
-//      return type.valueOfString(type.valueToString(value,nil, nil,DEFAULT_PRECISION, DEFAULT_SCALE, nil),nil, nil, DEFAULT_PRECISION, DEFAULT_SCALE, nil, reference)
-//    }
-//  }
+  /*
+    public func toCastValue<T>(reference:T ) throws -> T {
+    //public <T> T toCastValue(final Class<T> reference) throws EdmPrimitiveTypeException {
+      if (typeKind.isGeospatial()) {
+        return reference.cast(value)
+      } else {
+        // TODO: set facets
+        return type.valueOfString(type.valueToString(value,nil, nil,DEFAULT_PRECISION, DEFAULT_SCALE, nil),nil, nil, DEFAULT_PRECISION, DEFAULT_SCALE, nil, reference)
+      }
+    }
+ */
   
   // TODO: func toString() -> String
-//  public func toString() -> String {
-//    if (value == nil) {
-//      return ""
-//    } else if (typeKind.isGeospatial()) {
-//      return value.toString()
-//    } else {
-//      try {
-//        // TODO: set facets
-//        return type.valueToString(value, nil, nil, Constants.DEFAULT_PRECISION, Constants.DEFAULT_SCALE, nil)
-//      }
-//      catch (EdmPrimitiveTypeException e) {
-//        throw new IllegalArgumentException(e)
-//      }
-//    }
-//  }
-  
-  
-  public override func isEnum() -> Bool {
-    return false
-  }
-  
-  //TODO: func asEnum() -> ClientEnumValue!
-//  public func asEnum() -> ClientEnumValue! {
-//    return nil
-//  }
-  
-  
-  public func isComplex() -> Bool {
-    return false
-  }
-  
+  /*
+    public func toString() -> String {
+      if (value == nil) {
+        return ""
+      } else if (typeKind.isGeospatial()) {
+        return value.toString()
+      } else {
+        try {
+          // TODO: set facets
+          return type.valueToString(value, nil, nil, Constants.DEFAULT_PRECISION, Constants.DEFAULT_SCALE, nil)
+        }
+        catch (EdmPrimitiveTypeException e) {
+          throw new IllegalArgumentException(e)
+        }
+      }
+    }
+ */
+
   //TODO: func hashCode() -> Int
-//  public func hashCode() -> Int {
-//    final int prime = 31
-//    int result = super.hashCode()
-//    result = prime * result + ((type == nil) ? 0 : type.hashCode())
-//    result = prime * result + ((typeKind == nil) ? 0 : typeKind.hashCode())
-//    result = prime * result + ((value == nil) ? 0 : value.hashCode())
-//    return result
-//  }
-  
-  
-  public override func equals(obj: AnyObject) -> Bool {
-    if self  === obj {
-      return true
+  /*
+  public func hashCode() -> Int {
+    final int prime = 31
+    int result = super.hashCode()
+    result = prime * result + ((type == nil) ? 0 : type.hashCode())
+    result = prime * result + ((typeKind == nil) ? 0 : typeKind.hashCode())
+    result = prime * result + ((value == nil) ? 0 : value.hashCode())
+    return result
+  }
+ */
+
+}
+
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:ClientPrimitiveValueImpl,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is ClientPrimitiveValueImpl) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? ClientPrimitiveValueImpl else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  if let lhsType = lhs.type {
+    if let rhsType = rhs.type {
+      if !(lhsType.isEqualTo(rhsType)){
+        return false
+      }
     }
     else {
       return false
-      // TODO: additional comparisons between objects
-      /*
-      if (!super.equals(obj)) {
-        return false
-      }
-      if (!(obj instanceof ClientPrimitiveValueImpl)) {
-        return false
-      }
-      ClientPrimitiveValueImpl other = (ClientPrimitiveValueImpl) obj
-      if (type == nil) {
-        if (other.type != nil) {
-          return false
-        }
-      } else if (!type.equals(other.type)) {
-        return false
-      }
-      if (typeKind != other.typeKind) {
-        return false
-      }
-      if (value == nil) {
-        if (other.value != nil) {
-          return false
-        }
-      } else if (!value.equals(other.value)) {
-        return false
-      }
-      return true
-       */
     }
   }
-  
-  
-    
+  else {
+    if rhs.type != nil {
+      return false
+    }
+  }
+  if lhs.typeKind != rhs.typeKind {
+    return false
+  }
+  if lhs.value == nil {
+    if rhs.value != nil {
+      return false
+    }
+  }
+  // TODO: equality check
+  // There is no way is swift to compare 2 any types without casting them to a specific type
+  // therefore will cast to string to compare
+  if String(lhs.value) != String(rhs.value) {
+    return false
+  }
+  return true
 }
+

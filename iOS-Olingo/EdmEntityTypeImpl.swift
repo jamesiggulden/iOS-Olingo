@@ -33,43 +33,28 @@ import Foundation
  */
 public class EdmEntityTypeImpl: AbstractEdmStructuredType, EdmEntityType {
   
-  var theKeyPropertyRefs = [String: EdmKeyPropertyRef]()
-    
-  /**
-   * Get a key property ref by its name.
-   *
-   * @param keyPredicateName name of key property
-   * @return {@link EdmKeyPropertyRef} for given name
-   */
-  public func getKeyPropertyRef(keyPredicateName:String) -> EdmKeyPropertyRef {
-    fatalError("Unsupported Operation")
-  }
+  // MARK: - Properties
   
-  /**
-   * Gets all key predicate names. In case an alias is defined for a key predicate this will be returned.
-   *
-   * @return collection of key property names of type List&lt;String&gt;
-   */
+  var theKeyPropertyRefs = [String: EdmKeyPropertyRef]()
+  
+  // Gets all key predicate names. In case an alias is defined for a key predicate this will be returned.
   public var keyPredicateNames:[String] {
     fatalError("Unsupported Operation")
   }
   
-  /**
-   * Get all key properties references as list of {@link EdmKeyPropertyRef}.
-   *
-   * @return collection of key properties of type List&lt;EdmKeyPropertyRef&gt;
-   */
-  public func getKeyPropertyRefs() -> [EdmKeyPropertyRef] {
-    return Array(theKeyPropertyRefs.values)
-  }
-  
-  /**
-   * Indicates if the entity type is treated as Media Link Entry with associated Media Resource.
-   *
-   * @return <code>true</code> if the entity type is a Media Link Entry
-   */
+  // Indicates if the entity type is treated as Media Link Entry with associated Media Resource.
   public var hasStream:Bool {
     fatalError("Unsupported Operation")
+  }
+    
+  //Get a key property ref by its name.
+  public func getKeyPropertyRef(keyPredicateName:String) -> EdmKeyPropertyRef {
+    fatalError("Unsupported Operation")
+  }
+  
+  // Get all key properties references as list of {@link EdmKeyPropertyRef}.
+  public func getKeyPropertyRefs() -> [EdmKeyPropertyRef] {
+    return Array(theKeyPropertyRefs.values)
   }
   
 }

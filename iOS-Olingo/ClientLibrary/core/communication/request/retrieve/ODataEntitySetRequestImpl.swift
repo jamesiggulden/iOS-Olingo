@@ -18,6 +18,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //  ODataEntitySetRequestImpl.swift
 //  iOS-Olingo
@@ -29,14 +30,9 @@
 import Foundation
 
 
-/**
- * This class implements an OData EntitySet query request.
- *
- * @param <ES> concrete ODataEntitySet implementation
- */
+/// This class implements an OData EntitySet query request.
 
 public class ODataEntitySetRequestImpl: AbstractODataRequest,ODataRetrieveRequest,ODataBasicRequest, ODataEntitySetRequest{
-
 // public class ODataEntitySetRequestImpl<ES extends ClientEntitySet> extends AbstractODataRetrieveRequest<ES> implements ODataEntitySetRequest<ES> {
   
   // MARK: - Stored Properties
@@ -79,18 +75,14 @@ public class ODataEntitySetRequestImpl: AbstractODataRequest,ODataRetrieveReques
   /// - returns: response
   /// - throws: No error conditions are expected
   public func execute() -> ODataEntitySetRetrieveResponse? {
-    //public func execute() -> ODataRetrieveResponse! {
     
     do {
-      let result = try doExecute()
-      let response = ODataEntitySetResponse(odataClient: odataClient,res: result!)
-      return response
-      //return ODataEntityResponse(odataClient, httpClient, doExecute())
+      if let result = try? doExecute() {
+        let response = ODataEntitySetResponse(odataClient: odataClient,res: result)
+        return response
+      }
+      return nil
     }
-    catch {
-      // need to do something with a thrown error
-    }
-    return nil
     
   }
   
@@ -125,13 +117,16 @@ public class ODataEntitySetRequestImpl: AbstractODataRequest,ODataRetrieveReques
         do {
           
           log.debug("Parse Client entity Set")
-          let contentType = ContentType.parse(self.contentType)!
+          guard let contentType = ContentType.parse(self.contentType) else {
+            throw IllegalArgumentException.InvalidFormat
+          }
           log.debug("To entity set")
-          let  oDataDeserializer = odataClient.getDeserializer(contentType)
+          let oDataDeserializer = odataClient.getDeserializer(contentType)
           let resource:ResWrap<EntityCollection> = try oDataDeserializer.toEntitySet(payload)!
           log.debug("Bind entity Set")
           entitySet = odataClient.binder.getODataEntitySet(resource) as ClientEntitySet
-        } catch  {
+        }
+        catch  {
           throw IllegalArgumentException.InvalidFormat
         }
         defer {

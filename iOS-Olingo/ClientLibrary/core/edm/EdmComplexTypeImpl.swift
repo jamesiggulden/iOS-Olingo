@@ -17,6 +17,8 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
+
 //  EdmComplexTypeImpl.swift
 //  iOS-Olingo
 //  Created by Greg Napier on 14/07/2016.
@@ -32,6 +34,12 @@ public class EdmComplexTypeImpl: AbstractEdmStructuredType, EdmComplexType {
   }
   
   // MARK: - Methods
+  
+  /// build base type
+  /// - parameters:
+  ///   - baseTypeName: FullQualifiedName?
+  /// - returns: EdmStructuredType
+  /// - throws: No error conditions are expected
   func buildBaseType(baseTypeName: FullQualifiedName?)  -> EdmStructuredType? {
     var myBaseType: EdmComplexType?
     if (baseTypeName != nil) {
@@ -42,12 +50,23 @@ public class EdmComplexTypeImpl: AbstractEdmStructuredType, EdmComplexType {
     }
     return myBaseType
   }
-  
+   
+  /// get base type
+  /// - parameters:
+  ///   - none
+  /// - returns: base type
+  /// - throws: No error conditions are expected
   public func getBaseType() ->  EdmComplexType  {
     checkBaseType()
     return baseType as! EdmComplexType
   }
   
+
+  /// validate basetype name and type have values and create new basetype instance
+  /// - parameters:
+  ///   - none
+  /// - returns: No return value (void)
+  /// - throws: No error conditions are expected
   override func checkBaseType() {
     if (baseTypeName != nil && baseType == nil) {
       baseType = buildBaseType(baseTypeName)

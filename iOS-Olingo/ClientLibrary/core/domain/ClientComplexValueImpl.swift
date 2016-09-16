@@ -18,6 +18,8 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
+
 //
 //  ClientComplexValueImpl.swift
 //  iOS-Olingo
@@ -30,48 +32,41 @@ import Foundation
 
 public class ClientComplexValueImpl: AbstractClientValue, ClientComplexValue {
   // MARK: - Stored Properties
+  
+  private var fields:[String : ClientProperty] = [:]
 
   // TODO: Navigation and annotations
-  
-  /**
-   * Navigation links (might contain in-line entities or entity sets).
-   */
   /*
+  ///Navigation links (might contain in-line entities or entity sets).
   public let navigationLinks:[ClientLink] = []  //G
-  
-  /**
-   * Association links.
-   */
+  /// Association links
   public let associationLinks:[ClientLink] = [] //G
-  
+  /// annotations
   public let annotations:[ClientAnnotation] = [] //G
   */
   
-  /**
-   * Complex type fields.
-   */
-  private var fields:[String : ClientProperty] = [:]
-  
   // MARK: - Computed Properties
   
-  public var isEnum:Bool {
+  override public var isEnum:Bool {
     get {
       return false
     }
   }
   
-  
-  public var asEnum:ClientEnumValue?{
+  override public var asEnum:ClientEnumValue?{
     get {
       return nil
     }
   }
   
-  
   public override var isComplex:Bool {
     get {
       return true
     }
+  }
+  
+  public var size:Int {
+    return fields.count
   }
 
 
@@ -84,223 +79,181 @@ public class ClientComplexValueImpl: AbstractClientValue, ClientComplexValue {
   // MARK: - Methods
 
   
-  
-  // TODO: func addLink( ink: ClientLink) -> Bool
-  /*
-  public func addLink( ink: ClientLink) -> Bool {
-    var result:Bool = false
-    
-    switch (link.getType()) {
-    case ASSOCIATION:
-      result = associationLinks.contains(link) ? false : associationLinks.add(link)
-      break
-      
-    case ENTITY_NAVIGATION:
-    case ENTITY_SET_NAVIGATION:
-      result = navigationLinks.contains(link) ? false : navigationLinks.add(link)
-      break
-      
-    case MEDIA_EDIT:
-      throw  IllegalArgumentException("Complex values cannot have media links!")
-      
-    default:
-    }
-    
-    return result
-  }
- */
-  
-  // TODO: func removeLink(link:ClientLink )->Bool
-  /*
-  public func removeLink(link:ClientLink )->Bool {
-    return associationLinks.remove(link) || navigationLinks.remove(link)
-  }
- */
-  // TODO: func getLink(links:[ClientLink], name:String) -> ClientLink
-  /*
-  private func getLink(links:[ClientLink], name:String) -> ClientLink {
-    ClientLink result = Nil
-    for (ClientLink link : links) {
-      if (name.equals(link.getName())) {
-        result = link
-        break
-      }
-    }
-    
-    return result
-  }
- */
-  
-  //TODO: func getNavigationLink(name:String ) -> ClientLink
-  /*
-  public func getNavigationLink(name:String ) -> ClientLink {
-    return getLink(navigationLinks, name)
-  }
-  */
-  
-  // TODO: func getAssociationLink(name:String) -> ClientLink
-  /*
-  public func getAssociationLink(name:String) -> ClientLink {
-    return getLink(associationLinks, name)
-  }
- */
-  
  
   /// Builds a dictionary of fields and the swift types asscoiated with each field
   /// - parameters:
   ///   - none
   /// - returns: Dictionary of types
   /// - throws: No error conditions are expected
-  public func asSwiftMap() -> [String: Any]  {
-    var result:[String:AnyObject] = [:]
+  public func asNativeTypeMap() -> [String: Any]  {
+    var result:[String:Any] = [:]
     for (name, property) in fields {
-      var value:Any
       if property.hasPrimitiveValue {
-        value = property.primitiveValue!.value
+        result[name] = property.primitiveValue!.value
       }
       else if property.hasComplexValue {
-        value = property.complexValue!.asSwiftMap()
+        result[name] = property.complexValue!.asNativeTypeMap()
       }
       else if property.hasCollectionValue {
-        value = property.collectionValue!.asSwiftCollection()
+        result[name] = property.collectionValue!.asNativeTypeCollection()
       }
       else if property.hasEnumValue {
-        value = property.enumValue!.toString()
+        result[name] = property.enumValue!.toString()
       }
-      result[name] = property as! AnyObject
     }
     return result
   }
-  // Replaces:
-  /*
-  public Map<String, Object> asJavaMap() {
-    final Map<String, Object> result = new LinkedHashMap<String, Object>()
-    for (Map.Entry<String, ClientProperty> entry : fields.entrySet()) {
-      Object value = Nil
-      if (entry.getValue().hasPrimitiveValue()) {
-        value = entry.getValue().getPrimitiveValue().toValue()
-      } else if (entry.getValue().hasComplexValue()) {
-        value = entry.getValue().getComplexValue().asJavaMap()
-      } else if (entry.getValue().hasCollectionValue()) {
-        value = entry.getValue().getCollectionValue().asJavaCollection()
-      } else if (entry.getValue().hasEnumValue()) {
-        value = entry.getValue().getEnumValue().toString()
-      }
-      
-      result.put(entry.getKey(), value)
-    }
-    
-    return result
-  }
- */
   
-  
-  /**
-   * Adds field to the complex type.
-   *
-   * @param field field to be added.
-   */
-  
+   
+  /// Adds field to the complex type.
+  /// - parameters:
+  ///   - field: field to be added
+  /// - returns: self
+  /// - throws: No error conditions are expected
   public func add(field: ClientProperty) -> ClientComplexValue {
     fields[field.name] = field
     return self
   }
-  
-  /**
-   * Gets field.
-   *
-   * @param name name of the field to be retrieved.
-   * @return requested field.
-   */
-  
+   
+  /// Gets field
+  /// - parameters:
+  ///   - name name of the field to be retrieved
+  /// - returns: requested field
+  /// - throws: No error conditions are expected
   public func get(name:String) -> ClientProperty? {
     return fields[name]
   }
-  
-  /**
-   * Complex property fields iterator.
-   *
-   * @return fields iterator.
-   */
-  
-  
-  /**
-   * Gets number of fields.
-   *
-   * @return number of fields.
-   */
-  
-  public func size() -> Int {
-    return fields.count
-  }
-  
-  // TODO: func hashCode() -> Int
-  /*
-  public func hashCode() -> Int {
-    final int prime = 31
-    int result = super.hashCode()
-    result = prime * result + ((annotations == Nil) ? 0 : annotations.hashCode())
-    result = prime * result + ((associationLinks == Nil) ? 0 : associationLinks.hashCode())
-    result = prime * result + ((fields == Nil) ? 0 : fields.hashCode())
-    result = prime * result + ((navigationLinks == Nil) ? 0 : navigationLinks.hashCode())
-    return result
-  }
- */
-  
-  
-  public override func equals(obj:AnyObject) -> Bool {
-    if (self === obj) {
-      return true
-    }
-    else{
-      return false
-      // TODO: checks to see if objects are the same
-      /*
-      if (!super.equals(obj)) {
-        return false
-      }
-      if (!(obj instanceof ClientComplexValueImpl)) {
-        return false
-      }
-      ClientComplexValueImpl other = (ClientComplexValueImpl) obj
-      if (annotations == Nil) {
-        if (other.annotations != Nil) {
-          return false
-        }
-      } else if (!annotations.equals(other.annotations)) {
-        return false
-      }
-      if (associationLinks == Nil) {
-        if (other.associationLinks != Nil) {
-          return false
-        }
-      } else if (!associationLinks.equals(other.associationLinks)) {
-        return false
-      }
-      if (fields == Nil) {
-        if (other.fields != Nil) {
-          return false
-        }
-      } else if (!fields.equals(other.fields)) {
-        return false
-      }
-      if (navigationLinks == Nil) {
-        if (other.navigationLinks != Nil) {
-          return false
-        }
-      } else if (!navigationLinks.equals(other.navigationLinks)) {
-        return false
-      }
-      return true
-       */
-    }
-    
-  }
-  
   
   public override func toString() -> String {
     //TODO : Expand to include links and annotations when implmented
     return "ClientComplexValueImpl [navigationLinks='', associationLinks='', annotations='', fields=\(fields) super[\(super.toString())]]"
     //return "ClientComplexValueImpl [navigationLinks=\(navigationLinks), associationLinks=\(associationLinks), annotations=\(annotations), fields=\(fields) super[\(super.toString())]]"
   }
+  
+  // TODO: func hashCode() -> Int
+  /*
+   public func hashCode() -> Int {
+   final int prime = 31
+   int result = super.hashCode()
+   result = prime * result + ((annotations == Nil) ? 0 : annotations.hashCode())
+   result = prime * result + ((associationLinks == Nil) ? 0 : associationLinks.hashCode())
+   result = prime * result + ((fields == Nil) ? 0 : fields.hashCode())
+   result = prime * result + ((navigationLinks == Nil) ? 0 : navigationLinks.hashCode())
+   return result
+   }
+   */
+  
+  // TODO: func addLink( ink: ClientLink) -> Bool
+  /*
+   public func addLink( ink: ClientLink) -> Bool {
+   var result:Bool = false
+   
+   switch (link.getType()) {
+   case ASSOCIATION:
+   result = associationLinks.contains(link) ? false : associationLinks.add(link)
+   break
+   
+   case ENTITY_NAVIGATION:
+   case ENTITY_SET_NAVIGATION:
+   result = navigationLinks.contains(link) ? false : navigationLinks.add(link)
+   break
+   
+   case MEDIA_EDIT:
+   throw  IllegalArgumentException("Complex values cannot have media links!")
+   
+   default:
+   }
+   
+   return result
+   }
+   */
+  
+  // TODO: func removeLink(link:ClientLink )->Bool
+  /*
+   public func removeLink(link:ClientLink )->Bool {
+   return associationLinks.remove(link) || navigationLinks.remove(link)
+   }
+   */
+  // TODO: func getLink(links:[ClientLink], name:String) -> ClientLink
+  /*
+   private func getLink(links:[ClientLink], name:String) -> ClientLink {
+   ClientLink result = Nil
+   for (ClientLink link : links) {
+   if (name.equals(link.getName())) {
+   result = link
+   break
+   }
+   }
+   
+   return result
+   }
+   */
+  
+  //TODO: func getNavigationLink(name:String ) -> ClientLink
+  /*
+   public func getNavigationLink(name:String ) -> ClientLink {
+   return getLink(navigationLinks, name)
+   }
+   */
+  
+  // TODO: func getAssociationLink(name:String) -> ClientLink
+  /*
+   public func getAssociationLink(name:String) -> ClientLink {
+   return getLink(associationLinks, name)
+   }
+   */
+
+}
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:ClientComplexValueImpl,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is ClientComplexValueImpl) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? ClientComplexValueImpl else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  if lhs.fields.count != rhs.fields.count {
+    return false
+  }
+  else {
+    for (key,lhsValue) in lhs.fields {
+      if let rhsValue = rhs.fields[key] {
+        if !(lhsValue.isEqualTo(rhsValue)) {
+          return false
+        }
+      }
+      else {
+        return false
+      }
+    }
+  }
+  // TODO: Annotations and links
+  /*
+  if lhs.annotations != rhs.annotations {
+    return false
+  }
+  if lhs.associationLinks != rhs.associationLinks {
+    return false
+  }
+
+  if lhs.navigationLinks != rhs.navigationLinks {
+    return false
+  }
+  */
+  return true
+
+  
+
 }

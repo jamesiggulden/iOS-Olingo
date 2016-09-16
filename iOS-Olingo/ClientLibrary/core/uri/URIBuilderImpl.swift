@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  URIBuilderImpl.swift
@@ -35,13 +36,25 @@ public class URIBuilderImpl: URIBuilder {
   
   private final let configuration:Configuration
   
+  public class Segment {
+    
+    let type:SegmentType
+    let value:String?
+    
+    internal  init(type:SegmentType,value:String?) {
+      self.type = type
+      self.value = value
+    }
+  }
+  
   final var segments:[Segment] = []
   
   /// Insertion-order map of query options.
-  final var queryOptions:[String:String] = [:]  // final Map<String, String> queryOptions = new LinkedHashMap<String, String>()
+  final var queryOptions:[String:String] = [:]
   
   /// Insertion-order map of parameter aliases.
-  final var parameters:[String:String] = [:] // final Map<String, String> parameters = new LinkedHashMap<String, String>()
+  final var parameters:[String:String] = [:]
+  
 
   // MARK: - Computed Properties
 
@@ -58,18 +71,6 @@ public class URIBuilderImpl: URIBuilder {
     segments.append(Segment(type: SegmentType.SERVICEROOT, value: serviceRoot))
   }
   // MARK: - Methods
-
-  public class Segment {
-    
-    let type:SegmentType
-    let value:String?
-    
-    internal  init(type:SegmentType,value:String?) {
-      self.type = type
-      self.value = value
-    }
-  }
-  
   
   /// Adds the specified query option to the URI. Concatenates value if the specified query option already exists.
   /// - parameters:
@@ -91,7 +92,6 @@ public class URIBuilderImpl: URIBuilder {
     return addQueryOption(option.toString(), value: value, replace: true)
   }
   
-  
   /// Adds/Replaces the specified (custom) query option to the URI.
   /// - parameters:
   ///   - option: query option
@@ -105,7 +105,6 @@ public class URIBuilderImpl: URIBuilder {
     if value.isEmpty {
       return self
     }
-    
     if let keyValue = queryOptions[option] {
       if !replace {
         builder += (keyValue + ",")
@@ -114,9 +113,7 @@ public class URIBuilderImpl: URIBuilder {
     builder += value
     queryOptions[option] = builder
     return self
-
   }
-  
   
   /// Adds the specified (custom) parameter alias to the URI.
   /// - parameters:
@@ -169,7 +166,6 @@ public class URIBuilderImpl: URIBuilder {
     return self
   }
   
-  
   /// Appends key segment to the URI, for multiple keys.
   /// - parameters:
   ///  - segmentValues: segment values.
@@ -184,7 +180,6 @@ public class URIBuilderImpl: URIBuilder {
         segments.append(Segment(type: SegmentType.KEY, value: key))
       }
     }
-    
     return self
   }
   
@@ -210,9 +205,7 @@ public class URIBuilderImpl: URIBuilder {
       segments.append(Segment(type: SegmentType.NAVIGATION, value: segmentValue))
     }
     return self
-      
   }
-  
   
   /// Appends derived entity type segment to the URI.
   /// - parameters:
@@ -225,7 +218,6 @@ public class URIBuilderImpl: URIBuilder {
     }
     return self
   }
-  
   
   /// Appends value segment to the URI.
   /// - parameters:
@@ -471,11 +463,6 @@ public class URIBuilderImpl: URIBuilder {
         for (key,value) in parameters {
           list1["@" + key] =  value
         }
-        
-        // don't use UriBuilder.build():
-        // it will try to call URLEncodedUtils.format(Iterable<>,Charset) method,
-        // which works in desktop java application, however, throws NoSuchMethodError in android OS,
-        // so here manually construct the URL by its overload URLEncodedUtils.format(List<>,String).
         let queryStr = encodeQueryParameter(list1)
         segmentsBuilder += queryStr
       }
@@ -487,9 +474,7 @@ public class URIBuilderImpl: URIBuilder {
       guard let url = NSURL(string:escapedUrl) else {
         throw IllegalArgumentException.CouldNotBuildValidURI
       }
-      
-      
-      //let url = NSURL(string: segmentsBuilder)!
+
       return url
     } catch  {
       throw IllegalArgumentException.CouldNotBuildValidURI //("Could not build valid URI", e)
@@ -657,34 +642,33 @@ public class URIBuilderImpl: URIBuilder {
   ///  - options: System query options. Allowed query options are: $filter, $select, $orderby, $skip, $top, $count, $search, $expand, and $levels.
   /// - returns: current URIBuilder instance.
   /// - throws: No error conditions are expected
-    public func expandWithOptions(expandItem:String, pathRef:Bool,pathCount:Bool, options:[QueryOption: AnyObject]) -> URIBuilder {
-      if expandItem.isEmpty {
-        return self
-      }
-      var _options:[String:AnyObject] = [:]
-      for (key,value) in options {
-        let optionKey = "$" + key.rawValue
-        _options[optionKey] = value
-      }
-      var path:String = ""
-      if pathRef {
-        path = "/$ref"
+  public func expandWithOptions(expandItem:String, pathRef:Bool,pathCount:Bool, options:[QueryOption: AnyObject]) -> URIBuilder {
+    if expandItem.isEmpty {
+      return self
+    }
+    var _options:[String:AnyObject] = [:]
+    for (key,value) in options {
+      let optionKey = "$" + key.rawValue
+      _options[optionKey] = value
+    }
+    var path:String = ""
+    if pathRef {
+      path = "/$ref"
+    }
+    else {
+      if pathCount {
+        path = "/$count"
       }
       else {
-        if pathCount {
-          path = "/$count"
-        }
-        else {
-          path = ""
-        }
+        path = ""
       }
-      return expand(expandItem + buildMultiKeySegment(_options, escape: false, seperator: "") + path)
     }
+    return expand(expandItem + buildMultiKeySegment(_options, escape: false, seperator: "") + path)
+  }
   
   
   /// Properties of related entities can be specified by including the $select query option within the $expand.
-  /// <br />
-  /// <tt>http://host/service/Products?$expand=Category($select=Name)</tt>
+  /// `http://host/service/Products?$expand=Category($select=Name)`
   /// - parameters:
   ///  - expandItem: related entity name.
   ///  - selectItems: properties to be selected.
@@ -717,7 +701,12 @@ public class URIBuilderImpl: URIBuilder {
   }
 
 
-  
+   
+  /// build query parameters into correct olingo query syntax
+  /// - parameters:
+  ///   - list: dictionary of query key value pairs
+  /// - returns: build query string
+  /// - throws: No error conditions are expected
   private func encodeQueryParameter(list:[String:String]) -> String {
     var builder:String = ""
     
@@ -728,27 +717,32 @@ public class URIBuilderImpl: URIBuilder {
       builder += name
       builder += "="
       builder += value
-      // we dont need to handle encoding till we have built a full URL string
-      /*
-      builder += Encoder.encode(name)
-      builder += "="
-      builder += Encoder.encode(value)
- */
     }
     return builder
   }
 
-  
+  /// get string representations of URI
+  /// - parameters:
+  ///   - none
+  /// - returns: query string
+  /// - throws: No error conditions are expected
   public func toString() -> String {
     do {
       let url = try build()
-      return url.absoluteString  //.toASCIIString()
+      return url.absoluteString
     }
     catch {
       return ""
     }
   }
   
+  /// build segemnts into correct olingo query syntax
+  /// - parameters:
+  ///   - segmentValues: dictionary of query key value pairs
+  ///   - escape: boolean to handle escapre chars
+  ///   - seperator: seperator value to use between segements
+  /// - returns: build segment string
+  /// - throws: No error conditions are expected
   func buildMultiKeySegment(segmentValues:[String:AnyObject],escape:Bool, seperator:String) -> String {
     if segmentValues.count == 0 {
       return ""
@@ -759,8 +753,6 @@ public class URIBuilderImpl: URIBuilder {
         keyBuilder += (key + "=")
         if escape {
           keyBuilder += String(value)
-          // we dont need to handle esac[e values till we have built a full URL string
-          //keyBuilder += URIUtils.escape(value)
         }
         else {
           keyBuilder += String(value)
@@ -774,18 +766,33 @@ public class URIBuilderImpl: URIBuilder {
     }
   }
   
+   
+  /// get empty keys wrapper string
+  /// - parameters:
+  ///   - none
+  /// - returns: "()"
+  /// - throws: No error conditions are expected
+  func noKeysWrapper()-> String {
+    return "()"
+  }
   
-    func noKeysWrapper()-> String {
-      return "()"
-    }
+  /// get operation separator
+  /// - parameters:
+  ///   - none
+  /// - returns: "/"
+  /// - throws: No error conditions are expected
+  func getBoundOperationSeparator()-> String {
+    return "/"
+  }
   
-    func getBoundOperationSeparator()-> String {
-      return "/"
-    }
-  
-    func getOperationInvokeMarker() -> String {
-      return "()"
-    }
+  /// get operation invoke marker
+  /// - parameters:
+  ///   - none
+  /// - returns: "()"
+  /// - throws: No error conditions are expected
+  func getOperationInvokeMarker() -> String {
+    return "()"
+  }
 
 
 

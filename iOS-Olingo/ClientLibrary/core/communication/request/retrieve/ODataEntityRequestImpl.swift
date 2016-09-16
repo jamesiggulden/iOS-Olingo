@@ -17,7 +17,7 @@
   under the License.
  */
 
-
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ODataEntityRequestImpl.swift
@@ -31,7 +31,7 @@ import Foundation
 
 
  /// This class implements an OData retrieve query request returning a single entity.
- /// Currently inherits from AbstractODataRequest with protocoal+extensions for 
+ /// Currently inherits from AbstractODataRequest with protocol+extensions for
  /// AbstractODataRetrieveRequest,AbstractODataBasicRequest
 
 public class ODataEntityRequestImpl:AbstractODataRequest,ODataRetrieveRequest,ODataBasicRequest,ODataEntityRequest { //extends AbstractODataRetrieveRequest<E> implements ODataEntityRequest<E> {
@@ -88,7 +88,7 @@ public class ODataEntityRequestImpl:AbstractODataRequest,ODataRetrieveRequest,OD
   private func executeRequest() throws -> Any? {
     do {
       let result = try doExecute()
-      let response = ODataEntityResponse(odataClient: odataClient,res: result!)
+      let response = ODataEntityResponse(odataClient: odataClient,res: result)
       return response
     }
     catch {
@@ -110,9 +110,7 @@ public class ODataEntityRequestImpl:AbstractODataRequest,ODataRetrieveRequest,OD
     // MARK: - Init
 
     override init (odataClient:ODataClient,res: HttpResponseContent) {
-    // MARK:  REDUNDANT:? init (odataClient:ODataClient, httpClient:HttpClient,res: HttpResponseContent) {
       super.init(odataClient: odataClient,res: res)
-      // MARK: REDUNDANT:? super.init(odataClient: odataClient, httpclient: httpClient, res: res)
     }
     
     // MARK: - Methods
@@ -153,24 +151,6 @@ public class ODataEntityRequestImpl:AbstractODataRequest,ODataRetrieveRequest,OD
       }
       return entity
     }
-    
-    //TODO: Come back to this once we are happy we are getting something through to here
-
-//    public func getBody<E>() -> E {
-//      if (entity == nil) {
-//        do {
-//          let resource = try odataClient.getDeserializer(ContentType.parse(getContentType())).toEntity(getRawResponse())
-//          entity = odataClient.getBinder().getODataEntity(resource)
-//        }
-//        catch (ODataDeserializerException.InvalidFormat) {
-//          //throw new IllegalArgumentException(e)
-//        }
-//        defer {
-//          self.close()
-//        }
-//      }
-//    return entity
-//    }
   }
   
   

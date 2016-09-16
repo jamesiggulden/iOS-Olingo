@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ODataBinder.swift
@@ -30,6 +31,9 @@ import Foundation
 
 public protocol ODataBinder {
   
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
 
   /// Gets an `EntitySet` from the given OData entity set
   /// - parameters:

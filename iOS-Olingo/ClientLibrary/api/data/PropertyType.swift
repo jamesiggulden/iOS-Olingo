@@ -29,9 +29,7 @@
 
 import Foundation
 
-/**
- * Enumeration for all OData property types.
- */
+/// Enumeration for all OData property types
 public enum PropertyType {
   
   /// Primitive (including geospatial).

@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmAnnotatable.swift
@@ -31,7 +32,11 @@ import Foundation
 /// Can be applied to CSDL elements as described in the Conceptual Schema Definition Language
 public protocol EdmAnnotatable {
   
-  // TO: Annotations
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
+  
+  // TODO: Annotations
   /*
   /**
    * @param term term used for the annotation. MUST NOT be null.

@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmNavigationProperty.swift
@@ -28,34 +29,29 @@
 
 import Foundation
 
-/**
- * A CSDL NavigationProperty element
- * <br/>
- * EdmNavigationProperty allows navigation from one entity type to another via a relationship.
- */
+/// A CSDL NavigationProperty element
+/// EdmNavigationProperty allows navigation from one entity type to another via a relationship.
 public protocol EdmNavigationProperty:EdmElement { // TODO: EdmAnnotatable {
   
-  ///
-  ///var type: EdmEntityType {get}
+  // MARK: - Protocol Properties
   
+  //var type: EdmEntityType? {get}
   /// return true if nullable or not specified
   var isNullable:Bool {get}
-  
   /// return true if containsTarget
   var containsTarget: Bool {get}
-  
   /// return the partner navigation property
-   var partner: EdmNavigationProperty? {get}
-
+  var partner: EdmNavigationProperty? {get}
+  /// return all referential constraints for this navigation property
+  var referentialConstraints:[EdmReferentialConstraint] {set get}
+  
+  // MARK: - Protocol Methods
   
   /// Get property name for referenced property
   /// - parameters:
   ///   - referencedPropertyName: name of referenced property
   /// - returns: propertyName for this referenced property
   /// - throws: No error conditions are expected
-  func getReferencingPropertyName(referencedPropertyName:String) -> String
-  
-  /// return all referential constraints for this navigation property
-  var referentialConstraints:[EdmReferentialConstraint] { get set }
+  func getReferencingPropertyName(referencedPropertyName:String) -> String  
   
 }

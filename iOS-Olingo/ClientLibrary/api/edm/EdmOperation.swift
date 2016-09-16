@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmOperation.swift
@@ -33,53 +34,64 @@ import Foundation
  */
 public protocol EdmOperation : EdmType  {  // TODO: EdmAnnotatable {
   
-  /**
-   * func get parameter for given name
-   * @param name name of parameter
-   * @return {@link EdmParameter} for this name
-   */
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
+  
+  /// get parameter for given name
+  /// - parameters:
+  ///   - name: name of parameter
+  /// - returns: EdmParameter for this name
+  /// - throws: No error conditions are expected
   func getParameter(name:String) -> EdmParameter
   
-  /**
-   * A list of all parameter names. If this is a bound action or function the first parameter name in the list is the
-   * binding parameter
-   * @return a list of all parameter names
-   */
+  /// Get the list of all parameter names. If this is a bound action or function the first parameter name in the list is the binding parameter
+  /// - parameters:
+  ///   - none:
+  /// - returns: list of all parameter names
+  /// - throws: No error conditions are expected
   func getParameterNames() -> [String]
   
-  /**
-   * func get EdmEntitySet for the given binding parameters EntitySet
-   *
-   * @param bindingParameterEntitySet EntitySet of binding parameter
-   * @return {@link EdmEntitySet} for this binding
-   */
+  /// get EdmEntitySet for the given binding parameters EntitySet
+  /// - parameters:
+  ///   - bindingParameterEntitySet: EntitySet of binding parameter
+  /// - returns: EEdmEntitySet for this binding
+  /// - throws: No error conditions are expected
   func getReturnedEntitySet(bindingParameterEntitySet:EdmEntitySet ) ->  EdmEntitySet
   
-  /**
-   * @return {@link EdmReturnType} of this operation
-   */
+  /// get EdmReturnType of this operation
+  /// - parameters:
+  ///   - none:
+  /// - returns: EdmReturnType of this operation
+  /// - throws: No error conditions are expected
   func getReturnType() -> EdmReturnType
   
-  /**
-   * For more information on bound operations please refer to the OData V4 specification.
-   *
-   * @return true if bound
-   */
+  /// return true if bound. For more information on bound operations please refer to the OData V4 specification.
+  /// - parameters:
+  ///   - none:
+  /// - returns: true if bound
+  /// - throws: No error conditions are expected
   func isBound() -> Bool
   
-  /**
-   * @return the fullqualified type name of the binding parameter
-   */
+  /// get the fullqualified type name of the binding parameter
+  /// - parameters:
+  ///   - none:
+  /// - returns: the fullqualified type name of the binding parameter
+  /// - throws: No error conditions are expected
   func getBindingParameterTypeFqn() -> FullQualifiedName
-  
-  /**
-   * @return true if binding parameter is of type collection.
-   */
+
+  /// check if binding parameter is of type collection
+  /// - parameters:
+  ///   - none:
+  /// - returns: true if binding parameter is of type collection
+  /// - throws: No error conditions are expected
   func isBindingParameterTypeCollection() -> Bool
   
-  /**
-   * @return the entity set path as a String or null if not present
-   */
+  /// get the entity set path as a String or null if not present
+  /// - parameters:
+  ///   - none:
+  /// - returns: the entity set path as a String or null if not present
+  /// - throws: No error conditions are expected
   func getEntitySetPath() -> String
   
 }

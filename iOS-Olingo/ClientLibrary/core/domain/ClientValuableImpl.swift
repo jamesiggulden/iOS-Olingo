@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ClientValuableImpl.swift
@@ -32,11 +33,9 @@ public class ClientValuableImpl : ClientValuable {
   
   // MARK: - Stored Properties
 
-
   public let value: ClientValue //G
   
   // MARK: - Computed Properties
-  
   
   public var hasNilValue:Bool {
     get {
@@ -45,8 +44,6 @@ public class ClientValuableImpl : ClientValuable {
       return false
     }
   }
-  
-  
   
   public var hasPrimitiveValue: Bool {
     get {
@@ -85,11 +82,11 @@ public class ClientValuableImpl : ClientValuable {
   
   
   public var hasEnumValue: Bool {
-    return !hasNilValue && value.isEnum()
+    return !hasNilValue && value.isEnum
   }
   
   public var enumValue: ClientEnumValue?{
-    return hasEnumValue ? value.asEnum() : nil
+    return hasEnumValue ? value.asEnum! : nil
   }
   
   public var collectionValue:ClientCollectionValue? {
@@ -107,35 +104,6 @@ public class ClientValuableImpl : ClientValuable {
   
   // MARK: - Methods
   
-  // TODO: getCollectionValue() -> ClientCollectionValue<ClientValue>
-  // replaced with compurted property
-  /*
-  public func getCollectionValue() -> ClientCollectionValue? {
-    return hasCollectionValue ? value.asCollection : nil
-  }
- */
-
- 
-  
-  public func equals(o: AnyObject) -> Bool {
-    if (self === o) {
-      return true
-    }
-    else {
-      return false
-      //TODO: Additional checks for equals
-      /*
-      if object_getClassName(self) != object_getClassName(o) {
-        return false
-      }
-      
-      let that =  o as! ClientValuableImpl
-      return !(self.value != nil ? !self.value == that.value : that.value != nil)
-        */
-    }
-    
-  }
-  
   // TODO: func hashCode() -> Int
 //  public func hashCode() -> Int {
 //    return self.value != nil ? self.value.hashCode() : 0
@@ -146,3 +114,40 @@ public class ClientValuableImpl : ClientValuable {
     return "ClientValuableImpl{value=\(self.value)}"
   }
 }
+
+
+// MARK: - Extension
+
+extension ClientValuableImpl: Equatable {}
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:ClientValuableImpl,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is ClientValuableImpl) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? ClientValuableImpl else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  // cant use equality (==) on protocol types so use specific isEqualsTo method defined
+  
+  if !lhs.value.isEqualTo(rhs.value) {
+    return false
+  }
+ 
+  return true
+}
+
+
+
+

@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  DeletedEntity.swift
@@ -45,7 +46,6 @@ public class DeletedEntity {
   public var id:NSURL?  //GS
   public var reason:Reason?  //GS
   
-  
   // MARK: - Computed Properties
 
   
@@ -54,5 +54,35 @@ public class DeletedEntity {
   
   // MARK: - Methods
 
-  
   }
+
+extension DeletedEntity:Equatable {}
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:DeletedEntity,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is DeletedEntity) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? DeletedEntity else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  if lhs.id != rhs.id {
+    return false
+  }
+  if lhs.reason != rhs.reason {
+    return false
+  }
+  return true
+}
+

@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  Geospatial.swift
@@ -29,7 +30,7 @@
 import Foundation
 
 /// Base class for all geospatial info
-public  class Geospatial {  // Abstract Class
+public class Geospatial {  // Abstract Class
   
   // MARK: - Stored Properties
 
@@ -80,11 +81,16 @@ public  class Geospatial {  // Abstract Class
   
   
   // MARK: - Methods
-  
-   /// Returns the {@link EdmPrimitiveTypeKind}
-   /// @return EDM primitive type kind
-   
+    
+  /// Returns the EdmPrimitiveTypeKind
+  /// - parameters:
+  ///   - none:
+  /// - returns: EdmPrimitiveTypeKind
+  /// - throws: No error conditions are expected
   public func getEdmPrimitiveTypeKind() -> EdmPrimitiveTypeKind {
+    // only implemented to test viability of enforcing the creation of the method in a concrete class.
+    // Swift does not provide an abstarct method capability.
+    // Alternative it is create a protocol for this abstract class
     fatalError("Must Implement")
   }
 }

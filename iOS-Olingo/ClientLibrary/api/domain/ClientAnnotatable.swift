@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ClientAnnotatable.swift
@@ -30,6 +31,11 @@ import Foundation
 
 public protocol ClientAnnotatable {
   
+  // MARK: - Protocol Properties
+  
   var getAnnotations: [ClientAnnotation] {get}
+  
+  // MARK: - Protocol Methods
+
 }
 

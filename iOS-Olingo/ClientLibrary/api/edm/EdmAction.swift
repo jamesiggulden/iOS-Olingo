@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmAction.swift
@@ -30,5 +31,10 @@ import Foundation
 
 /// A CSDL action
 public protocol EdmAction : EdmOperation {
+  
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
+  
   // No additional methods needed for now.
 }

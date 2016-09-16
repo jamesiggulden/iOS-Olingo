@@ -247,7 +247,7 @@ public class ODataReaderImpl: NSObject, ODataReader, NSXMLParserDelegate {
     
     // Create the CsdlProperty
     let myCsdlProperty = CsdlProperty()
-    myCsdlProperty.setName(String: myName!)
+    myCsdlProperty.setName(myName!)
     myCsdlProperty.setType(myType!)
     if ("false" == myNullableString) {
       myCsdlProperty.setNilable(Bool: false)

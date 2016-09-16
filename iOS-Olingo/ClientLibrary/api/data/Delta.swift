@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  Delta.swift
@@ -46,14 +47,6 @@ public class Delta : EntityCollection {
   // MARK: - Init
 
   // MARK: - Methods
-
-  // TODO: func equals(final Object o) -> Bool
-//  public func equals(final Object o) -> Bool {
-//    return super.equals(o)
-//      && deletedEntities.equals(((Delta) o).deletedEntities)
-//      && addedLinks.equals(((Delta) o).addedLinks)
-//      && deletedLinks.equals(((Delta) o).deletedLinks);
-//  }
   
   // TODO: func hashCode() ->Int
 //  public func hashCode() ->Int {
@@ -64,4 +57,38 @@ public class Delta : EntityCollection {
 //    return result;
 //  }
 }
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:Delta,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is Delta) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? Delta else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  
+  if lhs.deletedEntities != rhs.deletedEntities {
+    return false
+  }
+  if lhs.addedLinks != rhs.addedLinks {
+    return false
+  }
+  if lhs.deletedLinks != rhs.deletedLinks {
+    return false
+  }
+
+  return true
+}
+
 

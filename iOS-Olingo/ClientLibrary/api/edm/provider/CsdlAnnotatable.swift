@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  CsdlAnnotatable.swift
@@ -31,8 +32,12 @@ import Foundation
 /// Super type of all annotatable CSDL items
 public protocol CsdlAnnotatable {
   
+  // MARK: - Protocol Properties
+  
   // TODO: Annotations
   /// Returns a list of annotations
   //var getAnnotations:[CsdlAnnotation] {get}
+  
+  // MARK: - Protocol Methods
 }
 

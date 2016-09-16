@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  AbstractClientValue.swift
@@ -32,7 +33,6 @@ public class AbstractClientValue: ClientValue {
   
   // MARK: - Stored Properties
 
-
   /// Type name
   public let typeName:String? // G
   
@@ -44,7 +44,6 @@ public class AbstractClientValue: ClientValue {
     }
   }
   
-  
   /// Casts to primitive value
   public var asPrimitive: ClientPrimitiveValue? {
     get {
@@ -55,10 +54,8 @@ public class AbstractClientValue: ClientValue {
       else {
         return nil
       }
-      //return isPrimitive ?  self as? ClientPrimitiveValue : nil
     }
   }
-  
   
   /// Check is a complex value
   public var isComplex: Bool {
@@ -71,10 +68,14 @@ public class AbstractClientValue: ClientValue {
   /// Casts to complex value
   public var asComplex: ClientComplexValue?  {
     get {
-      return isComplex ?  self as! ClientComplexValue : nil
+      if isComplex {
+        return self as? ClientComplexValue
+      }
+      else {
+        return nil
+      }
     }
   }
-  
   
   /// Check is a collection value
   public var isCollection: Bool {
@@ -83,21 +84,21 @@ public class AbstractClientValue: ClientValue {
     }
   }
   
-  // TODO: func asCollection<OV:ClientValue>() -> ClientCollectionValue <OV>
-  /*
-   /// Casts to collection value
-   /// - parameters:
-   ///   - none:
-   /// - returns: collection value
-   /// - throws: No error conditions are expected
-   //TODO: func asCollection() -> ClientCollectionValue <OV:ClientValue>
-   
-   public  func asCollection<OV:ClientValue>() -> ClientCollectionValue <OV> {
-   return isCollection() ?  self as ClientCollectionValue<OV>  : nil
-   }
-   */
+  // Cast as collection Value
   public  var  asCollection: ClientCollectionValue? {
     return isCollection ?  self as? ClientCollectionValue : nil
+  }
+  
+  /// Check is a collection value
+  public var isEnum: Bool {
+    get {
+      return (self is ClientEnumValue)
+    }
+  }
+  
+  // Cast as collection Value
+  public  var  asEnum: ClientEnumValue? {
+    return isEnum ?  self as? ClientEnumValue : nil
   }
 
 
@@ -108,52 +109,6 @@ public class AbstractClientValue: ClientValue {
   }
   
   // MARK: - Methods
-   
-  
-  
-  
-  
-  
-  
-  public func isEnum() -> Bool {
-    fatalError("Must implement")
-  }
-  
-  public func asEnum() -> ClientEnumValue{
-    fatalError("Must implement")
-  }
-  
-  
-  /// Check if objects are identical
-  /// - parameters:
-  ///   - obj:  Any object
-  /// - returns: `TRUE` if identical `FALSE` otherwise
-  /// - throws: No error conditions are expected
-  public func equals(obj: AnyObject) -> Bool {
-    if (self === obj) {
-      return true
-    }
-    else{
-      return false
-      // TODO: Complete checks when objects are not identical
-//      if (obj == nil) {
-//        return false
-//      }
-//      if (!(obj instanceof AbstractClientValue)) {
-//        return false
-//      }
-//      AbstractClientValue other = (AbstractClientValue) obj
-//      if (typeName == nil) {
-//        if (other.typeName != nil) {
-//          return false
-//        }
-//      } else if (!typeName.equals(other.typeName)) {
-//        return false
-//      }
-//      return true
-    }
-    
-  }
   
   // TODO: func hashCode() -> Int
 //  public func hashCode() -> Int {
@@ -173,3 +128,37 @@ public class AbstractClientValue: ClientValue {
     return "AbstractClientValue [typeName=\(typeName)]"
   }
 }
+
+// MARK: - Extension
+
+extension AbstractClientValue: Equatable {}
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:AbstractClientValue,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is AbstractClientValue) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? AbstractClientValue else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  if (lhs.typeName == nil) {
+    if (rhs.typeName != nil) {
+      return false
+    }
+  } else if lhs.typeName != rhs.typeName {
+    return false
+  }
+  return true
+}
+

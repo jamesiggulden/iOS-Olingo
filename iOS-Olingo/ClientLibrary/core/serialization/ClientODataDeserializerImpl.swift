@@ -17,7 +17,7 @@
   under the License.
  */
 
-
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ClientODataDeserializerImpl.swift
@@ -39,10 +39,10 @@ public class ClientODataDeserializerImpl: ClientODataDeserializer {
   // MARK: - Computed Properties
 
   // MARK: - Init
-
+ 
   init (boolean serverMode:Bool,contentType:ContentType) {
     self.contentType = contentType
-    // only working with xml to start with
+    // only working with JSON to start with
     deserializer = JsonDeserializer(serverMode: serverMode)
     
     // TODO: add in capacity to switch to ATOM
@@ -67,7 +67,7 @@ public class ClientODataDeserializerImpl: ClientODataDeserializer {
   /// - throws: GetODataException
   public func toEntitySet(input:NSData) throws -> ResWrap<EntityCollection>? {
     do {
-      return try deserializer.toEntitySet(input)!
+      return try deserializer.toEntitySet(input)
     }
     catch {
       throw GetODataException.ODataEntitySetFailed

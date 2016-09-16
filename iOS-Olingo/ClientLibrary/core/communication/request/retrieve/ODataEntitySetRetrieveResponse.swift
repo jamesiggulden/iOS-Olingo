@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ODataEntitySetRetrieveResponse.swift
@@ -32,8 +33,6 @@ import Foundation
 
 /// Response abstract class about an ODataRetrieveRequest.
 public protocol ODataEntitySetRetrieveResponse : ODataResponse {
-  
-
   
   // MARK: - Protocol Properties
   

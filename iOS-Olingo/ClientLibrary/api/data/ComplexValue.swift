@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ComplexValue.swift
@@ -29,7 +30,7 @@
 import Foundation
 
 /// Represents the value of a complex property
-public class ComplexValue { //TODO: extends Linked {
+public class ComplexValue:Linked {
   
   // MARK: - Stored Properties
  
@@ -42,12 +43,6 @@ public class ComplexValue { //TODO: extends Linked {
 
   
   // MARK: - Methods
-
-  public func equals( o:AnyObject) -> Bool {
-    return true
-    // TODO: Add checks
-    //return super.equals(o) && value.equals(((ComplexValue) o).value)
-  }
   
   // TODO: func hashCode() -> Int 
   /*
@@ -62,3 +57,34 @@ public class ComplexValue { //TODO: extends Linked {
     return "\(value)"
   }
 }
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:ComplexValue,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is ComplexValue) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? ComplexValue else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  if lhs.value != rhs.value {
+    return false
+  }
+  let lhsSuper = lhs as Linked
+  let rhsSuper = rhs as Linked
+  if lhsSuper != rhsSuper {
+    return false
+  }
+  return true
+}
+

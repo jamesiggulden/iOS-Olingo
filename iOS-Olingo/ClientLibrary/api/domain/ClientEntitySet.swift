@@ -18,6 +18,8 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
+
 //
 //  ClientEntitySet.swift
 //  iOS-Olingo
@@ -31,6 +33,8 @@ import Foundation
 /// OData entity collection. If pagination was used to get this instance, forward page navigation URI will be available
 public protocol ClientEntitySet{ // extends  ClientAnnotatable {
   
+  // MARK: - Protocol Properties
+  
   /// Link to the next page
   var next:NSURL?  {get}
   
@@ -43,5 +47,7 @@ public protocol ClientEntitySet{ // extends  ClientAnnotatable {
   
   /// array of contained entities
   var entities: [ClientEntity]  {get set}
+  
+  // MARK: - Protocol Methods
   
 }

@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmTypeKind.swift
@@ -34,35 +35,20 @@ import Foundation
 public enum EdmTypeKind {
   
    /// Primitive type
-   
   case PRIMITIVE
-  
    /// Enum type
-   
   case ENUM
-  
    /// Type definition
-   
   case DEFINITION
-  
    /// Complex type
-   
   case COMPLEX
-  
    /// Entity type
-   
   case ENTITY
-  
    /// Navigation property type
-   
   case NAVIGATION
-  
    /// Action type
-   
   case ACTION
-  
    /// Function type
-   
   case FUNCTION
   
 }

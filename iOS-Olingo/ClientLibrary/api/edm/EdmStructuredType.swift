@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmStructuredType.swift
@@ -28,84 +29,60 @@
 
 import Foundation
 
-/**
- * EdmStructuralType is the base for a complex type or an entity type.
- *
- * Complex types and entity types are described in the Conceptual Schema Definition of the OData protocol.
- */
+/// EdmStructuralType is the base for a complex type or an entity type.
+/// Complex types and entity types are described in the Conceptual Schema Definition of the OData protocol.
 public protocol EdmStructuredType: EdmType {  // TODO: EdmAnnotatable {
   
-  /**
-   * Base types are described in the OData protocol specification.
-   *
-   * @return {@link EdmStructuredType}
-   */
+  // MARK: - Protocol Properties
+  
+  // Base types are described in the OData protocol specification.
   var baseType: EdmStructuredType? {get}
   
-  /**
-   * Get all simple and complex property names.
-   *
-   * @return property names as type List&lt;String&gt;
-   */
+  // Get all simple and complex property names.
   var propertyNames:[String] {get}
   
-  /**
-   * Indicates if the structured type is an open type.
-   *
-   * @return <code>true</code> if the structured type is open
-   */
+  // Indicates if the structured type is an open type.
   var isOpenType: Bool {get}
   
-  /**
-   * Indicates if the structured type is abstract.
-   *
-   * @return <code>true</code> if the structured type is abstract
-   */
+  // Indicates if the structured type is abstract.
   var isAbstract: Bool {get}
   
-  /**
-   * Get property by name
-   *
-   * @param name name of property
-   * @return simple, complex or navigation property as {@link EdmTyped}
-   */
-  func getProperty(name:String) -> EdmElement?
+  // The Navigation Properties
+  var theNavigationProperties: [EdmNavigationProperty]? { get set }
   
-  /**
-   * Get structural property by name.
-   *
-   * @param name name of structural property
-   * @return simple or complex property as {@link EdmTyped}
-   */
-  func getStructuralProperty(name:String) ->  EdmProperty?
+  // MARK: - Protocol Methods
   
-  /**
-   * Get navigation property by name.
-   *
-   * @param name name of navigation property
-   * @return navigation property as {@link EdmTyped}
-   */
-  // TODO: getNavigationProperty(name:String) -> EdmNavigationProperty?
-  //func getNavigationProperty(name:String) -> EdmNavigationProperty?
-  
-  /**
-   * Get all navigation property names.
-   *
-   * @return navigation property names as type List&lt;String&gt;
-   */
+  /// Get all navigation property names.
   // TODO:  var navigationPropertyNames:[String] {get}
   //var navigationPropertyNames:[String] {get}
+ 
+  /// get property with the provided name
+  /// - parameters:
+  ///   - name: name of property to find and return
+  /// - returns: property if found nil otherwise
+  /// - throws: No error conditions are expected
+  func getProperty(name:String) -> EdmElement?
   
-  var theNavigationProperties: [EdmNavigationProperty]? { get set }
-
+  /// get  structural property with the provided name
+  /// - parameters:
+  ///   - name: name of  structural property to find and return
+  /// - returns: Edmproperty if found nil otherwise
+  /// - throws: No error conditions are expected
+  func getStructuralProperty(name:String) ->  EdmProperty?
   
-  /**
-   * Checks if this type is convertible to parameter {@code targetType}
-   *
-   * @param targetType target type for which compatibility is checked
-   * @return true if this type is compatible to the testType (i.e., this type is a subtype of targetType)
-   */
+  // TODO: getNavigationProperty(name:String) -> EdmNavigationProperty?
+  /// get navigation property with the provided name
+  /// - parameters:
+  ///   - name: name of navigation property to find and return
+  /// - returns: EDM navigation property if found nil otherwise
+  /// - throws: No error conditions are expected
+  //func getNavigationProperty(name:String) -> EdmNavigationProperty?
+  
+  /// Checks if this type is convertible to parameter targetType
+  /// - parameters:
+  ///   - targetType: target type for which compatibility is checked
+  /// - returns: true if this type is compatible to the testType (i.e., this type is a subtype of targetType)
+  /// - throws: No error conditions are expected
   func compatibleTo(targetType:EdmType?) throws -> Bool
-  
   
 }

@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmType.swift
@@ -30,16 +31,24 @@ import Foundation
 
 public protocol EdmType: EdmNamed {
   
-
+  // MARK: - Protocol Properties
+  
   /// returns the full qualified name
   var fullQualifiedName: FullQualifiedName {get}
-  
-
   /// return the namespace of this EdmType
   var namespace:String {get}
-
   /// returns the EdmTypeKind of this EdmType
   var kind: EdmTypeKind? {get}
   
+  // MARK: - Protocol Methods
+  //func isEqualTo(object:EdmType) -> Bool
 }
 
+extension EdmType where Self:Equatable {
+  public func isEqualTo(object:EdmType) -> Bool {
+    if let o = object as? Self {
+      return self == o
+    }
+    return false
+  }
+}

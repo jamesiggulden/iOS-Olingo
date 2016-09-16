@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ClientEntity.swift
@@ -31,45 +32,36 @@ import Foundation
 /// OData entity
 public protocol ClientEntity { // extends ClientLinked, ClientAnnotatable, ClientInvokeResult {
   
+  // MARK: - Protocol Properties
+  
   /// the type name of this entity
   var typeName:FullQualifiedName {get}
-  
   ///returns self link
-  // TODO: When implmnented in impl
-  //func getLink() -> NSURL
-  
+  // TODO: When implemented in impl
+  //var link: NSURL
   /// Entity ID
   var id:NSURL?  {get set}
-
+  /// List of properties
+  var properties:[ClientProperty] {get set}
   /// OData entity edit link
   var editLink: NSURL?  {get set}
- 
   /// ETag
   var eTag:String?  {get set}
-  
   /// Media entity flag
   var mediaEntity:Bool  {get set}
-  
   /// In case of media entity, media content type
   var mediaContentType:String?  {get set}
-  
   /// In case of media entity, media content source
   var mediaContentSource:NSURL?  {get set}
-  
   /// Media ETag
   var mediaETag:String?  {get set}
-  
-  //TODO: Client Operations
-  /// Searches for operation with given title
-  /// - parameters:
-  ///   - title: operation to look for
-  /// - returns: operation if found with given title, `nil` otherwise
-  /// - throws: No error conditions are expected
-  //func getOperation(title:String) -> ClientOperation
-  
-  /// Operations (legacy, functions, actions)
+  /// TODO: Operations (legacy, functions, actions)
   //var operations:[ClientOperation] {get}
-
+  /// TODO: Media edit links
+  //var mediaEditLinks:[ClientLink] {get}
+  
+  
+  // MARK: - Protocol Methods
 
   /// Searches for property with given name
   /// - parameters:
@@ -78,8 +70,20 @@ public protocol ClientEntity { // extends ClientLinked, ClientAnnotatable, Clien
   /// - throws: No error conditions are expected
   func getProperty(name:String) -> ClientProperty!
   
-  /// List of properties
-  var properties:[ClientProperty] {get set}
+  /// TRUE if read-only entity
+  /// - parameters:
+  ///   - none
+  /// - returns: TRUE if read-only FALSE otherwise
+  /// - throws: No error conditions are expected
+  func isReadOnly() -> Bool
+
+  //TODO: Client Operations
+  /// Searches for operation with given title
+  /// - parameters:
+  ///   - title: operation to look for
+  /// - returns: operation if found with given title, `nil` otherwise
+  /// - throws: No error conditions are expected
+  //func getOperation(title:String) -> ClientOperation
   
   //TODO: Links to be added
   
@@ -90,15 +94,17 @@ public protocol ClientEntity { // extends ClientLinked, ClientAnnotatable, Clien
   /// - throws: No error conditions are expected
   //func getMediaEditLink(name:String) -> ClientLink
   
-  /// Media edit links
-  //var mediaEditLinks:[ClientLink] {get}
+
   
-  //TODO: func isReadOnly() -> Bool
-  /// TRUE if read-only entity
-  /// - parameters:
-  ///   - none
-  /// - returns: TRUE if read-only FALSE otherwise
-  /// - throws: No error conditions are expected
-  func isReadOnly() -> Bool
+  func isEqualTo(other:ClientEntity) -> Bool
   
+}
+
+extension ClientEntity where Self:Equatable {
+  public func isEqualTo(other:ClientEntity) -> Bool {
+    if let o = other as? Self {
+      return self == o
+    }
+    return false
+  }
 }

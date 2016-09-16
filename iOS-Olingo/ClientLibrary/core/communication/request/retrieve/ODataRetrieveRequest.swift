@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  AbstractODataRetrieveRequest.swift
@@ -49,8 +50,6 @@ public protocol ODataRetrieveRequest {
 
 public extension ODataRetrieveRequest {
   
-
-  
   /// This kind of request doesn't have any payload: null will be returned
   /// - parameters:
   ///   - none
@@ -63,24 +62,6 @@ public extension ODataRetrieveRequest {
 }
 
 
-  // TODO: This should be obsolete when using protocol + extension, leave as is at present with intention to remove
-// orgiginal java code:
-
-
-//public abstract class obsAbstractODataRetrieveRequest<T>
-//extends AbstractODataBasicRequest<ODataRetrieveResponse<T>>
-//implements ODataRetrieveRequest<T> {
-//  
-//  /**
-//   * Private constructor.
-//   *
-//   * @param odataClient client instance getting this request
-//   * @param query query to be executed.
-//   */
-//  public AbstractODataRetrieveRequest(final ODataClient odataClient, final URI query) {
-//    super(odataClient, HttpMethod.GET, query);
-//  }
-//  
 
   
   

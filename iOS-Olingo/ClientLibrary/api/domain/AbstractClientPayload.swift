@@ -18,6 +18,8 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
+
 //
 //  AbstractClientPayload.swift
 //  iOS-Olingo
@@ -55,38 +57,40 @@ public class AbstractClientPayload : ClientItem {
     return result
   }
  */
-  
-  
-  public override func equals(obj:AnyObject) -> Bool {
-    if (self === obj) {
-      return true
-    }
-    else {
-      return false
-      //TODO: add additional checks
-      /*
-      if (!super.equals(obj)) {
-        return false
-      }
-      if (!(obj instanceof AbstractClientPayload)) {
-        return false
-      }
-      AbstractClientPayload other = (AbstractClientPayload) obj
-      if (contextURL == null) {
-        if (other.contextURL != null) {
-          return false
-        }
-      } else if (!contextURL.equals(other.contextURL)) {
-        return false
-      }
-      return true
-       */
-    }
-  }
- 
  
   public override func toString() -> String {
     return "AbstractClientPayload [contextURL=\(contextURL)super[\(super.toString())]]"
   }
+}
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:AbstractClientPayload,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is AbstractClientPayload) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? AbstractClientPayload else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  
+  if lhs.contextURL == nil {
+    if (rhs.contextURL != nil) {
+      return false
+    }
+  }
+  else if lhs.contextURL != rhs.contextURL {
+    return false
+  }
+  return true
 }
 

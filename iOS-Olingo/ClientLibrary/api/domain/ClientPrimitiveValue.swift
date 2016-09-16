@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  File.swift
@@ -30,6 +31,8 @@ import Foundation
 
 public protocol ClientPrimitiveValue :ClientValue {
   
+  // MARK: - Protocol Properties
+  
   /// Type kind
   var typeKind:EdmPrimitiveTypeKind? {get}
   
@@ -39,6 +42,8 @@ public protocol ClientPrimitiveValue :ClientValue {
   /// Actual value
   var value:Any?  {get}
   
+  
+  // MARK: - Protocol Methods
   
   // TODO: as per implmnentation
   /*

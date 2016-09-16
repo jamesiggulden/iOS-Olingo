@@ -17,7 +17,7 @@
   under the License.
  */
 
-
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmPrimitiveTypeKind.swift
@@ -76,13 +76,8 @@ public enum EdmPrimitiveTypeKind : String {
   /// - returns: FullQualifiedName
   /// - throws: No error conditions are expected
   public func  getFullQualifiedName() -> FullQualifiedName {
-
     return FullQualifiedName(namespace: EDM_NAMESPACE, name: self.rawValue)
-
   }
-
-  
-// TODO: public func toString() -> String
   
   /// Returns string representation of enum value
   /// - parameters:
@@ -92,7 +87,6 @@ public enum EdmPrimitiveTypeKind : String {
    public func toString() -> String{
     return self.rawValue
   }
- 
  
   /// Gets the EdmPrimitiveTypeKind from a full-qualified type name.
   /// - parameters:
@@ -107,7 +101,6 @@ public enum EdmPrimitiveTypeKind : String {
       throw IllegalArgumentException.InvalidFormat  //IllegalArgumentException(fqn + " does not look like an EDM primitive type.")
     }
   }
-
 
   /// Gets the EdmPrimitiveTypeKind from a full type expression (like `Edm.Int32`)
   /// - parameters:
@@ -124,7 +117,6 @@ public enum EdmPrimitiveTypeKind : String {
     return EdmPrimitiveTypeKind(rawValue:fqnSubString)
   }
   
-  
   /// Checks if is a geospatial type
   /// - parameters:
   ///   - none:
@@ -134,6 +126,5 @@ public enum EdmPrimitiveTypeKind : String {
     return rawValue.startsWith("Geo")
   }
  
-  
 }
 

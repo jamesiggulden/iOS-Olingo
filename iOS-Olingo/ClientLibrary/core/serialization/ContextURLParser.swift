@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ContextURLParser.swift
@@ -49,10 +50,7 @@ public struct ContextURLParser {
   public static func parse(contextURL:NSURL) -> ContextURL? {
     
     var contextUrl = ContextURL.with()
-  
-    //let contextURLasString = contextURL.toASCIIString()
     var contextURLasString = contextURL.absoluteString
-  
   
     var isEntity = false
     if (contextURLasString.hasSuffix("/$entity") || contextURLasString.hasSuffix("/@Element")) {
@@ -80,7 +78,7 @@ public struct ContextURLParser {
     }
   
     guard let metaDataIdx = contextURLasString.rangeOfString(METADATA) else {
-      // TODO: need to worry about how to handle
+      // TODO: handling metadata
       return nil
     }
       
@@ -90,7 +88,6 @@ public struct ContextURLParser {
     var entitySetOrSingletonOrType:String = ""
     if rest.hasSuffix("Collection(") {
       firstToken = "Collection(" + rest.substringBetweenStrings("Collection(", end: ")")! + ")"
-      //firstToken = rest.substring(0, rest.indexOf(')') + 1)
       entitySetOrSingletonOrType = firstToken
     }
     else {
@@ -112,9 +109,7 @@ public struct ContextURLParser {
           let endIdx = rest.rangeOfString(")", options: .BackwardsSearch)?.startIndex
           firstToken = rest.substringToIndex(endIdx!.advancedBy(1))
         }
-      
         var parts:[String] = []
-      
         for split in firstToken.componentsSeparatedByString("\\)/") {
           parts.append(split.stringByReplacingOccurrencesOfString("\\(.*", withString: ""))
         }

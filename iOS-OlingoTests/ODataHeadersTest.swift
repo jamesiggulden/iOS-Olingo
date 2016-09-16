@@ -10,11 +10,7 @@ import XCTest
 @testable import iOS_Olingo
 
 
-
 class ODataHeadersTest: XCTestCase {
-  
-
-
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -25,7 +21,6 @@ class ODataHeadersTest: XCTestCase {
         super.tearDown()
     }
 
-  
   
   func testODataHeaders() {
     var headers = ODataHeadersImpl()

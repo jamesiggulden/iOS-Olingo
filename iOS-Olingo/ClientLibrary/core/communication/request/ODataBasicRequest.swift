@@ -17,6 +17,8 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
+
 //
 //  AbstractODataBasicRequest.swift
 //  iOS-Olingo
@@ -33,7 +35,6 @@ import Foundation
 public protocol ODataBasicRequest {
 
   // MARK: - Protocol Properties
-  
   
   // MARK: - Protocol Methods
   
@@ -54,17 +55,20 @@ public extension ODataBasicRequest {
   /// - throws: No error conditions are expected
   public func asyncExecute<T>() -> T? {
     // TODO: Implement async functionality
-//    return odataClient.getConfiguration().getExecutor().submit(new Callable<T>() {
-//      
-//      public T call() throws Exception {
-//        return execute()
-//      }
-//    })
+    /*
+    return odataClient.getConfiguration().getExecutor().submit(new Callable<T>() {
+      
+      public T call() throws Exception {
+        return execute()
+      }
+    })
+    */
     return nil
   }
   
   
   // TODO: batch functionality [func batch(req:ODataBatchRequest)]
+  /*
   
   /// Serializes the full request into the given batch request
   /// - parameters:
@@ -72,12 +76,13 @@ public extension ODataBasicRequest {
   /// - returns: No return value (void)
   /// - throws: No error conditions are expected
   
-//  public func batch(req:ODataBatchRequest) {
-//    batch(req, nil)
-//  }
+  public func batch(req:ODataBatchRequest) {
+    batch(req, nil)
+  }
+ */
   
   // TODO: batch functionality [func batch(req: ODataBatchRequest,contentId:String)]
-  
+  /*
   /// Serializes the full request into the given batch request.
   ///
   /// This method have to be used to serialize a changeset item with the specified contentId.
@@ -87,20 +92,21 @@ public extension ODataBasicRequest {
   /// - returns: No return value (void)
   /// - throws: No error conditions are expected
   
-//  public func batch(req: ODataBatchRequest,contentId:String ) throws {
-//    do {
-//      try req.rawAppend(toByteArray());
-//      if !contentId.isEmpty {
-//        try req.rawAppend((ODataBatchConstants.CHANGESET_CONTENT_ID_NAME + ": " + contentId).getBytes());
-//        try req.rawAppend(ODataStreamer.CRLF);
-//      }
-//      try req.rawAppend(ODataStreamer.CRLF);
-//  
-//      if let payload = getPayload() {
-//        req.rawAppend(IOUtils.toByteArray(getPayload()));
-//      }
-//    }
-//  }
+  public func batch(req: ODataBatchRequest,contentId:String ) throws {
+    do {
+      try req.rawAppend(toByteArray());
+      if !contentId.isEmpty {
+        try req.rawAppend((ODataBatchConstants.CHANGESET_CONTENT_ID_NAME + ": " + contentId).getBytes());
+        try req.rawAppend(ODataStreamer.CRLF);
+      }
+      try req.rawAppend(ODataStreamer.CRLF);
+  
+      if let payload = getPayload() {
+        req.rawAppend(IOUtils.toByteArray(getPayload()));
+      }
+    }
+  }
+ */
 
   
 }

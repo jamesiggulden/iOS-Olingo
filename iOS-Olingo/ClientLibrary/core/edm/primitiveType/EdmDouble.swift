@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmDouble.swift
@@ -77,7 +78,17 @@ public final class EdmDouble: SingletonPrimitiveType {
     */
   }
   
-
+  /// Convert the value provided as a string into the actual value of the type specified by returnType
+  /// - parameters:
+  ///   - value: value as string to be converted
+  ///   - isnilable: is the value allowed to be nil
+  ///   - maxlength: max length of value string
+  ///   - precision: precision value
+  ///   - scale: scale value
+  ///   - isUnicode: is the value in unicode format
+  ///   - returnType: returnType expected
+  /// - returns: value of string of type T
+  /// - throws: EDMPrimtiveType Error
   override func internalValueOfString<T>(value:String,isnilable:Bool,maxLength:Int?,precision:Int,scale:Int,isUnicode:Bool,returnType:T) throws -> T {
     
     var result:Double = 0.0
@@ -98,10 +109,7 @@ public final class EdmDouble: SingletonPrimitiveType {
         throw new EdmPrimitiveTypeException("The literal '" + value + "' has illegal content.")
       }
        */
-      
       // The number format is checked above, so we don't have to catch NumberFormatException.
-      
-      
       bigDecimalValue = NSDecimalNumber.init(string: value)
       if let res = Double(value){
         if res.isNaN {
@@ -112,7 +120,6 @@ public final class EdmDouble: SingletonPrimitiveType {
       else {
         throw EdmPrimitiveTypeException.LiteralHasIllegalContent //("The literal '" + value + "' has illegal content.")
       }
-      
       // "Real" infinite values have been treated already above, so we can throw an exception
       // if the conversion to a double results in an infinite value.
       if result.isInfinite  {
@@ -125,16 +132,17 @@ public final class EdmDouble: SingletonPrimitiveType {
       throw EdmPrimitiveTypeException.LiteralHasIllegalContent  //("The literal '" + value + "' has illegal content.")
       }
        */
-
     }
     
     // do sepecifc check for NSDecimal first as dbl check picks up NSDecimal as a dbl
     if returnType is NSDecimalNumber {
       return try EdmDecimal().convertDecimal(bigDecimalValue,returnType: returnType)
     }
-    
     if returnType is Double {
       return  result as! T //Double //returnType.cast(result)
+    }
+    if returnType is Float {
+      return Float(result) as! T
     }
     else if result.isInfinite || result.isNaN {
       if returnType is Float {
@@ -142,7 +150,8 @@ public final class EdmDouble: SingletonPrimitiveType {
       } else {
         throw EdmPrimitiveTypeException.LiteralCannotBeConvertedToValueType //("The literal '" + value + "' cannot be converted to value type " + returnType + ".")
       }
-    } else {
+    }
+    else {
       do {
         return try EdmDecimal().convertDecimal(bigDecimalValue,returnType: returnType)
       }

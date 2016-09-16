@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ServiceDocumentItem.swift
@@ -39,5 +40,15 @@ public protocol ServiceDocumentItem {
   var title:String {get}
   
   // MARK: - Protocol Methods
+  func isEqualTo(other:ServiceDocumentItem) -> Bool
 
+}
+
+extension ServiceDocumentItem where Self:Equatable {
+  public func isEqualTo(other:ServiceDocumentItem) -> Bool {
+    if let o = other as? Self {
+      return self == o
+    }
+    return false
+  }
 }

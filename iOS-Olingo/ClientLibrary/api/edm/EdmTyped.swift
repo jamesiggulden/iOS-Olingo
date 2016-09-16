@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmTyped.swift
@@ -31,9 +32,12 @@ import Foundation
 /// EdmTyped indicates if an EDM element is of a special type and holds the multiplicity of that type
 public protocol EdmTyped {
   
+  // MARK: - Protocol Properties
+  
   /// See EdmType for more information about possible types.
   var type: EdmType? {get}
-  
-  /// @return true if this typed element is a collection
+  /// return true if this typed element is a collection
   var isCollection:Bool {get}
+  
+  // MARK: - Protocol Methods
 }

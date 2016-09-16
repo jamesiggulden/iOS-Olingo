@@ -44,7 +44,6 @@ public class RetrieveRequestFactoryImpl: RetrieveRequestFactory {
     self.client = client
   }
   
-  
   // MARK: - Methods
 
   /// Gets a uri request returning a set of one or more sets of OData entities

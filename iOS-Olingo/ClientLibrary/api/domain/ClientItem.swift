@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ClientItem.swift
@@ -35,13 +36,10 @@ public class ClientItem {
   
   // MARK: - Stored Properties
 
-
   /// OData entity name/type
   public let name:String //G
-  
   /// OData item self link
   public var link:NSURL? //GS
-  
   
   // MARK: - Computed Properties
 
@@ -52,40 +50,6 @@ public class ClientItem {
   }
   
   // MARK: - Methods
-  
-  public func equals(obj:AnyObject) -> Bool {
-    if (self === obj) {
-      return true
-    }
-    else {
-      return false
-      //TODO: Additional checks
-      /*
-      if (obj == null) {
-        return false
-      }
-      if (!(obj instanceof ClientItem)) {
-        return false
-      }
-      ClientItem other = (ClientItem) obj
-      if (link == null) {
-        if (other.link != null) {
-          return false
-        }
-      } else if (!link.equals(other.link)) {
-        return false
-      }
-      if (name == null) {
-        if (other.name != null) {
-          return false
-        }
-      } else if (!name.equals(other.name)) {
-        return false
-      }
-      return true
-       */
-    }
-  }
   
   // TODO: func hashCode() -> Int
     /*
@@ -103,3 +67,39 @@ public class ClientItem {
     return "ClientItem [name=\(name), link=\(link)]"
   }
 }
+
+extension ClientItem:Equatable {}
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:ClientItem,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is ClientItem) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? ClientItem else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  
+  if lhs.link == nil {
+    if rhs.link != nil {
+      return false
+    }
+  } else if lhs.link != rhs.link {
+    return false
+  }
+  if lhs.name != rhs.name {
+    return false
+  }
+  return true
+}
+

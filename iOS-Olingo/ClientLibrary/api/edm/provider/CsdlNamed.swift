@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  csdlNamed.swift
@@ -31,6 +32,10 @@ import Foundation
 /// The interface Csdl named
 public protocol CsdlNamed {
   
+  // MARK: - Protocol Properties
+  
   /// Gets name
   var name:String {get}
+  
+  // MARK: - Protocol Methods
 }

@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ContextURL.swift
@@ -105,9 +106,7 @@ public struct ContextURL {
     return Builder()
   }
   
-  
-   /// Builder for a ContextURL instance.
-   
+  /// Builder for a ContextURL instance
   public struct Builder {
     
     private var contextURL = ContextURL()
@@ -244,43 +243,20 @@ public struct ContextURL {
   }
   
   /// Suffix of the OData Context URL
-  
   public enum Suffix:String {
     
     /// Suffix for Entities
     case ENTITY = "$entity"
-    
     /// Suffix for References
     case REFERENCE = "$ref"
-    
     /// Suffix for deltas (changes)
     case DELTA = "$delta"
-    
     /// Suffix for deleted entities in deltas
     case DELTA_DELETED_ENTITY = "$deletedEntity"
-    
     /// New links in deltas
     case DELTA_LINK = "$link"
-    
     /// Deleted links in deltas
     case DELTA_DELETED_LINK = "$deletedLink"
-    
-    /*
-    private final String representation
-    
-    Suffix(final String representation) {
-    this.representation = representation
-    }
-    
-    
-    /// Returns OData representation of the suffix
-    ///
-    /// @return Representation of the suffix
-    
-    public String getRepresentation() {
-    return representation
-    }
- */
   }
 
 }

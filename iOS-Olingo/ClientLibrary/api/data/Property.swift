@@ -17,7 +17,7 @@
   under the License.
  */
 
-
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  Property.swift
@@ -29,19 +29,16 @@
 
 import Foundation
 
-/**
- * Data representation for a property.
- */
+/// Data representation for a property
 public class Property : Valuable {
   
   // MARK: - Stored Properties
-
 
   public var name:String = ""
   
   // MARK: - Computed Properties
 
-// MARK: - Init
+  // MARK: - Init
 
   override init() {
     super.init()
@@ -57,8 +54,6 @@ public class Property : Valuable {
     super.init()
     self.name = name
     super.type = type
-    
-
   }
    
   /// creates a new property
@@ -88,18 +83,15 @@ public class Property : Valuable {
     return self.value == nil || "Edm.Nil" == self.type
   }
   
-  // TODO: func equals(o:Object) -> Bool
-//  public func equals(o:Object) -> Bool {
-//    return super.equals(o)
-//      && (name == nil ? ((Property) o).name == null : name.equals(((Property) o).name))
-//  }
   
   // TODO: func hashCode() -> Int
-//  public func hashCode() -> Int {
-//    int result = super.hashCode()
-//    result = 31 * result + (name == null ? 0 : name.hashCode())
-//    return result
-//  }
+  /*
+  public func hashCode() -> Int {
+    int result = super.hashCode()
+    result = 31 * result + (name == null ? 0 : name.hashCode())
+    return result
+  }
+  */
   
  
   /// Generate string representation of name = value for property
@@ -119,4 +111,35 @@ public class Property : Valuable {
     
     return nam + "=" + val
   }
+}
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:Property,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is Property) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? Property else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  
+  let lhsSuper = lhs as Valuable
+  let rhsSuper = rhs as Valuable
+  
+  if lhsSuper == rhsSuper {
+    if  (lhs.name.isEmpty ? rhs.name.isEmpty : lhs.name == rhs.name){
+      return true
+    }
+  }
+  return false
 }

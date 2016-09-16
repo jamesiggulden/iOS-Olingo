@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ClientProperty.swift
@@ -31,7 +32,18 @@ import Foundation
 /// OData entity property
 public protocol ClientProperty : ClientValuable { //extends ClientInvokeResult, ClientAnnotatable {
   
+  // MARK: - Protocol Properties
+  
   /// property name
-  //func getName() -> String
   var name:String  {get}
+  
+  // MARK: - Protocol Methods
+  
+  func isEqualTo(object:ClientProperty) -> Bool
+}
+
+extension ClientProperty where Self:Equatable {
+  public func isEqualTo(object:ClientProperty) -> Bool {
+    return self == object
+  }
 }

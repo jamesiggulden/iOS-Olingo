@@ -18,6 +18,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  QueryOption.swift
@@ -46,7 +47,7 @@ public enum QueryOption:String {
   case EXPAND
   
   /// Cyclic navigation properties (whose target type is identical or can be cast to its source type) can be recursively
-  /// expanded using the special <tt>$levels</tt> option. The value of the $levels option is either a positive integer to
+  /// expanded using the special `$levels` option. The value of the $levels option is either a positive integer to
   /// specify the number of levels to expand, or the literal string max to specify the maximum expansion level supported
   /// by that service.
   case LEVELS

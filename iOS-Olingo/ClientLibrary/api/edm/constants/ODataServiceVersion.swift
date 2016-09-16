@@ -38,21 +38,16 @@ public enum ODataServiceVersion: String {
 
   /// OData Version 1.0
   case V10 = "1.0"
-  
   /// OData Version 2.0
   case V20 = "2.0"
-  
   /// OData Version 3.0
   case V30 = "3.0"
-  
   /// OData Version 4.0
   case V40 = "4.0"
   
   // TODO: Implmenent when required
   /*
-  
   private static final Pattern DATASERVICEVERSIONPATTERN = Pattern.compile("(\\p{Digit}+\\.\\p{Digit}+)(:?;.*)?");
-  
    
   /// Validates format and range of a data service version string
   /// - parameters:

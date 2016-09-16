@@ -13,6 +13,10 @@ import Foundation
 
 public protocol ODataEntityRequest :ODataRetrieveRequest {
   
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
+  
   func execute() -> ODataEntityRetrieveResponse?
   //No additional methods needed for now.
 }

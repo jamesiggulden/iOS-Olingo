@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmFunction.swift
@@ -30,6 +31,10 @@ import Foundation
 
  /// An EdmFunction as described in the OData specification
 public protocol EdmFunction :EdmOperation {
+  
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
   
   /// returns true if this function is composable
   func isComposable() -> Bool

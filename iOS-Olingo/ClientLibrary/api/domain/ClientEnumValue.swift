@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ClientEnumValue.swift
@@ -30,7 +31,11 @@ import Foundation
 
 public protocol ClientEnumValue : ClientValue {
   
+  // MARK: - Protocol Properties
+  
   var value:String?  {get}
+  
+  // MARK: - Protocol Methods
 
   func toString() -> String
 }

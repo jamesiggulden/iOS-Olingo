@@ -51,6 +51,5 @@ public enum ValueType:Int {
   case COLLECTION_COMPLEX = 14
   /// Collection of entities
   case COLLECTION_ENTITY = 15
-
 }
 

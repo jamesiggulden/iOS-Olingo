@@ -18,6 +18,8 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
+
 //  AbstractEdmNamed.swift
 //  iOS-Olingo
 //  Created by Greg Napier on 14/07/2016.
@@ -25,7 +27,7 @@
 
 import Foundation
 
-public class AbstractEdmNamed:AbstractEdmAnnotatable,EdmNamed {  //TODO:
+public class AbstractEdmNamed:AbstractEdmAnnotatable,EdmNamed {
   
   // MARK: - Properties
   public let name:String
@@ -33,7 +35,6 @@ public class AbstractEdmNamed:AbstractEdmAnnotatable,EdmNamed {  //TODO:
   // MARK: - Init
   init(edm: Edm, name: String, annotatable: CsdlAnnotatable?) {
     self.name = name
-    // TODO: Annotations
     super.init(edm: edm, annotatable: annotatable)
   }
 

@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  ClientCollectionValueImpl.swift
@@ -36,18 +37,33 @@ public class ClientCollectionValueImpl<OV:ClientValue> :AbstractClientValue , Cl
   var  values:[OV] = []
 
   // MARK: - Computed Properties
-  public var isEnum:Bool {
+  override public var isEnum:Bool {
     get {
       return false
     }
   }
   
+  /// Checks if is complex type
   public override var isComplex: Bool {
     get {
       return false
     }
   }
   
+  /// Return value as Enum type
+  override public var asEnum: ClientEnumValue? {
+    return nil
+  }
+  
+  /// Gets number of items in collection
+  public var size:Int {
+    return values.count
+  }
+  
+  /// Checks if collection is empty
+  public var isEmpty: Bool {
+    return values.isEmpty
+  }
 
   // MARK: - Init
 
@@ -62,28 +78,24 @@ public class ClientCollectionValueImpl<OV:ClientValue> :AbstractClientValue , Cl
   
   // MARK: - Methods
   
-  public func asEnum() -> ClientEnumValue? {
-    return nil
-  }
-  
-  
-  
-  
-  
-  public func asSwiftCollection() -> [Any]  {
+  /// Build array of native swift types
+  /// - parameters:
+  ///   - none
+  /// - returns: array of native types
+  /// - throws: No error conditions are expected
+  public func asNativeTypeCollection() -> [Any]  {
     var result:[Any] = []
     for value in values {
       if (value.isPrimitive) {
         result.append(value.asPrimitive!.value)
       } else if (value.isComplex) {
-        result.append(value.asComplex!.asSwiftMap())
+        result.append(value.asComplex!.asNativeTypeMap())
       } else if (value.isCollection) {
-        result.append(value.asCollection!.asSwiftCollection())
-      } else if (value.isEnum()) {
-        result.append(value.asEnum().toString())
+        result.append(value.asCollection!.asNativeTypeCollection())
+      } else if (value.isEnum) {
+        result.append(value.asEnum!.toString())
       }
     }
-    
     return result
   }
   
@@ -97,67 +109,57 @@ public class ClientCollectionValueImpl<OV:ClientValue> :AbstractClientValue , Cl
     return self
   }
   
-
-  /// Gets number of items in collection
-  /// - parameters:
-  ///   - none
-  /// - returns: number of items
-  /// - throws: No error conditions are expected
-  public func size() -> Int {
-    return values.count
-  }
-  
-   
-  /// Checks if collection is empty
-  /// - parameters:
-  ///   - none
-  /// - returns: `true` if empty `false` otherwise
-  /// - throws: No error conditions are expected
-  public func isEmpty() -> Bool {
-    return values.isEmpty
+  public override func toString() -> String {
+    return "ClientCollectionValueImpl [values=\(values)super[\(super.toString())]]"
   }
   
   //TODO: func hashCode() -> Int
   /*
-  public func hashCode() -> Int {
-    final int prime = 31
-    int result = super.hashCode()
-    result = prime * result + ((values == null) ? 0 : values.hashCode())
-    return result
+   public func hashCode() -> Int {
+   final int prime = 31
+   int result = super.hashCode()
+   result = prime * result + ((values == null) ? 0 : values.hashCode())
+   return result
+   }
+   */
+
+}
+
+// MARK: - Extension
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T,OV:ClientValue>(lhs:ClientCollectionValueImpl<OV>,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is ClientCollectionValueImpl<OV>) {
+    return false
   }
-  */
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? ClientCollectionValueImpl<OV> else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
   
-  
-  public override func equals( obj:AnyObject) -> Bool {
-    if (self === obj) {
-      return true
-    }
-    else {
+  let lhsSuper = lhs as AbstractClientValue
+  let rhsSuper = rhs as AbstractClientValue
+  if lhsSuper != rhsSuper {
+    return false
+  }
+  // TODO: equality check
+  var i = 0
+  for lhsValue in lhs.values {
+    if !(lhsValue.isEqualTo(rhs.values[i])){
       return false
-      //TODO: Add extra checks
-      /*
-      if (!super.equals(obj)) {
-        return false
-      }
-      if (!(obj instanceof ClientCollectionValueImpl)) {
-        return false
-      }
-      ClientCollectionValueImpl<?> other = (ClientCollectionValueImpl<?>) obj
-      if (values == null) {
-        if (other.values != null) {
-          return false
-        }
-      } else if (!values.equals(other.values)) {
-        return false
-      }
-      return true
-      */
     }
-        
+    i += 1
   }
-  
-  
-  public override func toString() -> String {
-    return "ClientCollectionValueImpl [values=\(values)super[\(super.toString())]]"
-  }
+
+  return true
 }

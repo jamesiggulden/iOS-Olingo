@@ -18,6 +18,8 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
+
 //
 //  EdmDecimal.swift
 //  iOS-Olingo
@@ -28,9 +30,7 @@
 
 import Foundation
 
-/**
- * Implementation of the EDM primitive type Decimal.
- */
+/// Implementation of the EDM primitive type Decimal.
 public final class EdmDecimal:SingletonPrimitiveType {
   
   // MARK: - Stored Properties
@@ -38,13 +38,13 @@ public final class EdmDecimal:SingletonPrimitiveType {
   // TODO: Pattern
   //private static final Pattern PATTERN = Pattern.compile("(?:\\+|-)?(?:0*(\\p{Digit}+?))(?:\\.(\\p{Digit}+?)0*)?")
   
-  private static let INSTANCE:EdmDecimal  = EdmDecimal()
+  private static let INSTANCE:EdmDecimal = EdmDecimal()
   
   
   // MARK: - Computed Properties
   
   // Get the static instance
-  public static var instance: EdmDecimal {
+  public  static var instance: EdmDecimal {
     return INSTANCE
   }
   
@@ -58,16 +58,17 @@ public final class EdmDecimal:SingletonPrimitiveType {
   // MARK: - Methods
   
    /// Convert the value provided as a string into the actual value of the specified type
-   /// - parameters:
-   ///   - value: value as string to be converted
-   ///   - isnilable: is the value allowed to be nil
-   ///   - maxlength: max length of value string
-   ///   - precision: precision value
-   ///   - scale: scale value
-   ///   - isUnicode: is the value in unicode format
-   ///   - returnType: returnType expected
-   /// - returns: NSDate with values obtained from value string
-   /// - throws: EDMPrimtiveType Error
+  /// Convert the value provided as a string into the actual value of the type specified by returnType
+  /// - parameters:
+  ///   - value: value as string to be converted
+  ///   - isnilable: is the value allowed to be nil
+  ///   - maxlength: max length of value string
+  ///   - precision: precision value
+  ///   - scale: scale value
+  ///   - isUnicode: is the value in unicode format
+  ///   - returnType: returnType expected
+  /// - returns: value of string of type T
+  /// - throws: EDMPrimtiveType Error
   override func internalValueOfString<T>(value:String,isnilable:Bool,maxLength:Int?,precision:Int,scale:Int,isUnicode:Bool,returnType:T) throws -> T {
 
     
@@ -79,27 +80,18 @@ public final class EdmDecimal:SingletonPrimitiveType {
     if !validatePrecisionAndScale(value, precision:precision, scale:scale) {
       throw EdmPrimitiveTypeException.DoesNotMatchFacetsConstraints // ("The literal '" + value + "' does not match the facets' constraints.")
     }
-    
     let convertedDecimal = try convertDecimal(dec,returnType: returnType)
     return convertedDecimal
-    //return dec as! T
-    /*
-
-   
-   
-   try {
-   return convertDecimal(new BigDecimal(value), returnType)
-    
-    
-   } catch (final IllegalArgumentException e) {
-   throw new EdmPrimitiveTypeException("The literal '" + value
-   + "' cannot be converted to value type " + returnType + ".", e)
-   } catch (final ClassCastException e) {
-   throw new EdmPrimitiveTypeException("The value type " + returnType + " is not supported.", e)
-   } */
   }
 
-  
+   
+  /// Validate value against the precision and scale values
+  /// - parameters:
+  ///   - value: value as string to validate
+  ///   - precision: precision value
+  ///   - scale: scale value
+  /// - returns: true if validation passed otherwise false
+  /// - throws: No error conditions are expected
   private func validatePrecisionAndScale(value:String, precision:Int, scale:Int) -> Bool {
     
     let wholeNumSize:Int
@@ -131,36 +123,24 @@ public final class EdmDecimal:SingletonPrimitiveType {
     else {
       return false
     }
-    
-    // Obsolete from java olingo
-    /*
-     final Matcher matcher = PATTERN.matcher(value)
-     matcher.matches()
-     final int significantIntegerDigits = matcher.group(1).equals("0") ? 0 : matcher.group(1).length()
-     final int decimals = matcher.group(2) == null ? 0 : matcher.group(2).length()
-     return (precision == null || precision >= significantIntegerDigits + decimals)
-     && (decimals <= (scale == null ? 0 : scale))
-     */
-
-
   }
  
 
-   /**
-   * Converts a {@link BigDecimal} value into the requested return type if possible.
-   *
-   * @param value the value
-   * @param returnType the class of the returned value it must be one of {@link BigDecimal}, {@link Double},
-   * {@link Float}, {@link BigInteger}, {@link Long}, {@link Integer}, {@link Short}, or {@link Byte}
-   * @return the converted value
-   * @throws IllegalArgumentException if the conversion is not possible or would lead to loss of data
-   * @throws ClassCastException if the return type is not allowed
-   */
+  /// Converts a Decimal value into the requested return type if possible
+  /// - parameters:
+  ///   - value: the value
+  ///   - returnType: the class of the returned value it must be one of NSDecimalNumber, Double,
+  ///      Float, Integer or Byte
+  /// - returns: the converted value
+  /// - throws: IllegalArgumentException if the conversion is not possible or would lead to loss of data or if the the return type is not allowed
   func convertDecimal<T>(value:NSDecimalNumber,returnType:T) throws -> T {
   
     log.debug("ConvertDecimal: \(returnType.dynamicType)")
     if returnType is NSDecimalNumber {
       return  value as! T //returnType.cast(value)
+    }
+    else if returnType is NSDecimalNumber.Type {
+      return value as! T
     }
     else if returnType is Double  {
       let doubleValue = value.doubleValue
@@ -185,17 +165,6 @@ public final class EdmDecimal:SingletonPrimitiveType {
       if returnType is Int {
         return value.integerValue as! T //.cast(value.toBigIntegerExact())
       }
-      /*
-      else if returnType.isAssignableFrom(Long.class)) {
-         return returnType.cast(value.longValueExact())
-      } else if (returnType.isAssignableFrom(Integer.class)) {
-         return returnType.cast(value.intValueExact())
-      } else if (returnType.isAssignableFrom(Short.class)) {
-         return returnType.cast(value.shortValueExact())
-      } else if (returnType.isAssignableFrom(Byte.class)) {
-         return returnType.cast(value.byteValueExact())
-      }
- */
       else {
         throw EdmPrimitiveTypeException.ValueTypeNotSupported   //("unsupported return type " + returnType.getSimpleName())
       }
@@ -203,10 +172,12 @@ public final class EdmDecimal:SingletonPrimitiveType {
   }
   
 
-  
-  
-  //TODO: isCompatible
-  
+   
+  /// Check if type conversion is valid
+  /// - parameters:
+  ///   - primitiveType: EDM prmitive type to be validated
+  /// - returns: true is conversion valid otherwise false
+  /// - throws: No error conditions are expected
   public override func isCompatible(primitiveType:EdmPrimitiveType)-> Bool {
     return primitiveType is EdmInt32
       || primitiveType is EdmInt64
@@ -248,12 +219,6 @@ public final class EdmDecimal:SingletonPrimitiveType {
     return PATTERN.matcher(value).matches()
   }
  */
-  
-  
-  
-  
-  
-  
   
   
   // TODO: internalValueToString

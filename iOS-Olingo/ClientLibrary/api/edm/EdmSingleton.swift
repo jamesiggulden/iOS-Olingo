@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmSingleton.swift
@@ -28,7 +29,12 @@
 
 import Foundation
 
-/// An {@link EdmSingleton} represents a single entity inside the entity model
+/// An EdmSingleton represents a single entity inside the entity model
 public protocol EdmSingleton : EdmBindingTarget {
+  
+  // MARK: - Protocol Properties
+  
+  // MARK: - Protocol Methods
+  
   // No additional methods needed for now.
 }

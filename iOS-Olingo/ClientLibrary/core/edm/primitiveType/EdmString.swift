@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmString.swift
@@ -51,9 +52,8 @@ public final class EdmString:SingletonPrimitiveType {
    return String.self
   }
  
-  
-  
   // MARK: - Init
+  
   override init() {
     super.init()
     self.uriPrefix = "'"
@@ -62,14 +62,18 @@ public final class EdmString:SingletonPrimitiveType {
 
 // MARK: - Methods
   
+  /// Convert the value provided as a string into the actual value of the type specified by returnType
+  /// - parameters:
+  ///   - value: value as string to be converted
+  ///   - isnilable: is the value allowed to be nil
+  ///   - maxlength: max length of value string
+  ///   - precision: precision value
+  ///   - scale: scale value
+  ///   - isUnicode: is the value in unicode format
+  ///   - returnType: returnType expected
+  /// - returns: value of string of type T
+  /// - throws: EDMPrimtiveType Error
   override func internalValueOfString<T>(value:String,isnilable:Bool,maxLength:Int?,precision:Int,scale:Int,isUnicode:Bool,returnType:T) -> T {
-  //func internalValueOfString<T>(value:String,isnilable:Bool,maxLength:Int,precision:Int,scale:Int,isUnicode:Bool,returnType:Class<T>) throws -> T {
-    
-    let val = value
-    let retType = returnType
-    
-    let valType = String(value.self)
-    let retTypeType = String(retType.self)
     /*
    // TODO: pattern matching
    
@@ -98,13 +102,23 @@ public final class EdmString:SingletonPrimitiveType {
    // let retVal = value as EdmString
     return value as! T
   }
-
   
-  //TODO:
-
-  
-  
-
+  /// Strip uri prefix and suffix values and remove quotesfrom literal string
+  /// - parameters:
+  ///   - literal: string to be stripped
+  /// - returns: string with prefix & suffix removed if found and invalid quotes
+  /// - throws: EdmPrimitiveTypeException.LiteralHasIllegalContent
+  public func fromUriLiteral(literal:String) throws -> String? {
+    if literal.isEmpty {
+      return ""
+    }
+    else {
+      do {
+        return try super.fromUriLiteral(literal)?.stringByReplacingOccurrencesOfString("''", withString: "'")
+      }
+    }
+    
+  }
   
   // TODO: internalValueToString
   /*
@@ -145,20 +159,5 @@ public final class EdmString:SingletonPrimitiveType {
     return uriLiteral
   }
  */
-  
-  
-  
-  public func fromUriLiteral(literal:String) throws -> String? {
-    if literal.isEmpty {
-      return ""
-    }
-    else {
-      do {
-        return try super.fromUriLiteral(literal)?.stringByReplacingOccurrencesOfString("''", withString: "'")
-      }
-    }
-    
-  }
- 
  
 }

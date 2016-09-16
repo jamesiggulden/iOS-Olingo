@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  AbstractODataObject.swift
@@ -35,12 +36,13 @@ public class AbstractODataObject  { // extends Annotatable {
   public var id:NSURL?  //GS
   public var title:String?  //G
   
-  
-  /**
-   * Sets property with given key to given value.
-   * @param key key of property
-   * @param value new value for property
-   */
+
+  /// Sets property with given key to given value.
+  /// - parameters:
+  ///   - key: key of property
+  ///   - value: new value for property
+  /// - returns: No return value (void)
+  /// - throws: No error conditions are expected
   public func setCommonProperty(key:String,value:String) {
     if "id" == key {
       id = NSURL(string: value)
@@ -50,27 +52,6 @@ public class AbstractODataObject  { // extends Annotatable {
     }
   }
   
-  public func equals( o:AnyObject) -> Bool {
-    if (self === o) {
-      return true
-    }
-    else {
-      return false
-      // TODO: Add checks
-      /*
-      if (o == nil || getClass() != o.getClass()) {
-        return false
-      }
-      
-      final AbstractODataObject other = (AbstractODataObject) o
-      return getAnnotations().equals(other.getAnnotations())
-        && (baseURI == nil ? other.baseURI == nil : baseURI.equals(other.baseURI))
-        && (id == nil ? other.id == nil : id.equals(other.id))
-        && (title == nil ? other.title == nil : title.equals(other.title))
-      */
-    }
-    
-  }
   
   //TODO: func hashCode()-> Int
   /*
@@ -83,3 +64,38 @@ public class AbstractODataObject  { // extends Annotatable {
   }
  */
 }
+
+extension AbstractODataObject:Equatable {}
+
+/// Equality check (equivalent of java isEquals)
+/// - parameters:
+///   - lhs: object on left of == to compare for equality
+///   - rhs: object on right of == to compare for equality
+/// - returns: True if objects are equal
+/// - throws: No error conditions are expected
+public func ==<T>(lhs:AbstractODataObject,rhs:T) -> Bool {
+  // check right hand side is same class type as lhs
+  // do this before casting as we dont want to downcast
+  if !(rhs is AbstractODataObject) {
+    return false
+  }
+  // cast to lhs type so we can do comparisons
+  guard let rhs = rhs as? AbstractODataObject else {
+    return false
+  }
+  if lhs === rhs {
+    return true
+  }
+  if lhs.baseURI != rhs.baseURI {
+    return false
+  }
+  if lhs.id != rhs.id {
+    return false
+  }
+  if lhs.title != rhs.title {
+    return false
+  }
+  return true
+}
+
+

@@ -17,6 +17,7 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
 
 //
 //  EdmPrimitiveTypeFactory.swift
@@ -43,11 +44,7 @@ public final class EdmPrimitiveTypeFactory {
   ///   - kind: EdmPrimitiveTypeKind
   /// - returns: EdmPrimitiveType instance
   /// - throws: No error conditions are expected
-  public static func getInstance(kind:EdmPrimitiveTypeKind ) throws ->  EdmPrimitiveType  {
-    
-    //return EdmString.getInstance()
-    
-    
+  public static func getInstance(kind:EdmPrimitiveTypeKind ) throws ->  EdmPrimitiveType  {  
     switch (kind) {
     case EdmPrimitiveTypeKind.STRING:
       return EdmString.instance
@@ -123,7 +120,6 @@ public final class EdmPrimitiveTypeFactory {
       return EdmGeometryCollection.getInstance()
     */
     default:
-      return EdmString.instance
       throw IllegalArgumentException.InvalidFormat //("Wrong type: " + kind)
     }
     

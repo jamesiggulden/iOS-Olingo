@@ -17,6 +17,8 @@
   under the License.
  */
 
+// Implementation based on Olingo's original java V4 implmentation.  Further details can be found at http://olingo.apache.org
+
 //  EdmComplexType.swift
 //  iOS-Olingo
 //  Created by Greg Napier on 14/07/2016.
@@ -24,10 +26,16 @@
 
 import Foundation
 
-// A CSDL ComplexType element.
-// EdmComplexType holds a set of related information like {@link EdmPrimitiveType} properties and EdmComplexType properties
+ /// A CSDL ComplexType element.
+ /// EdmComplexType holds a set of related information like {@link EdmPrimitiveType} properties and EdmComplexType properties
 public protocol EdmComplexType: EdmStructuredType {
+  
+  // MARK: - Protocol Methods
 
-  //MARK: - Methods
+  /// Get base type
+  /// - parameters:
+  ///   - none:
+  /// - returns: EdmComplexType
+  /// - throws: No error conditions are expected
   func getBaseType() -> EdmComplexType
 }
